@@ -1,0 +1,43 @@
+
+#pragma once
+
+struct Color
+{
+	float r, g, b, a;
+	
+	Color() : r(0.0f), g(0.0f), b(0.0f), a(1.0f)
+	{}
+
+	Color(float r, float g, float b, float a = 1.0f) : r(r), g(g), b(b), a(a)
+	{}
+
+	void Set(float r, float g, float b, float a = 1.0f)
+	{
+		this->r = r;
+		this->g = g;
+		this->b = b;
+		this->a = a;
+	}
+
+	bool IsWhite()
+	{
+		return r == 1.0f && g == 1.0f && b == 1.0f && a == 1.0f;
+	}
+
+	bool IsBlack()
+	{
+		return r == 0.0f && g == 0.0f && b == 0.0f && a == 1.0f;
+	}
+
+	float* operator & ()
+	{
+		return (float*)this;
+	}
+};
+
+extern Color Red;
+extern Color Green;
+extern Color Blue;
+extern Color Black;
+extern Color White;
+extern Color Orange;
