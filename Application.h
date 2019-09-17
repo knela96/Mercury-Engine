@@ -11,7 +11,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
-#include "ModulePlayer.h"
 
 class Application
 {
@@ -22,7 +21,6 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModuleCamera3D* camera2;
 	ModulePhysics3D* physics;
 
 private:
@@ -39,10 +37,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-	bool Draw();
 
 private:
-
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();

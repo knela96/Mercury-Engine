@@ -8,7 +8,6 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
-	camera2 = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
 
 	// The order of calls is very important!
@@ -18,14 +17,12 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(camera);
-	AddModule(camera2);
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);
 	
 	// Scenes
 	AddModule(scene_intro);
-	//AddModule(player);
 
 	// Renderer last!
 	AddModule(renderer3D);
@@ -123,20 +120,6 @@ bool Application::CleanUp()
 	while(item != NULL && ret == true)
 	{
 		ret = item->data->CleanUp();
-		item = item->prev;
-	}
-	return ret;
-}
-
-
-bool Application::Draw()
-{
-	bool ret = true;
-	p2List_item<Module*>* item = list_modules.getLast();
-
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->Draw();
 		item = item->prev;
 	}
 	return ret;
