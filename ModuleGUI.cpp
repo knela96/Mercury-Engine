@@ -4,13 +4,10 @@
 
 #include "SDL.h"
 
-#include "imgui.h"
-#include "imgui_impl_sdl.h"
-#include "imgui_impl_opengl3.h"
+//#include "imgui.h"
+//#include "imgui_impl_sdl.h"
+//#include "imgui_impl_opengl3.h"
 #include "ModuleGUI.h"
-
-#pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
-#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -32,13 +29,13 @@ bool ModuleGUI::Init()
 update_status ModuleGUI::PreUpdate(float dt)
 {
 	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL3_NewFrame();
+	/*ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
 
 	bool r = NULL;
-	ImGui::ShowDemoWindow(&r);
+	ImGui::ShowDemoWindow(&r);*/
 
 	return UPDATE_CONTINUE;
 }
