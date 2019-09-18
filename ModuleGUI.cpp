@@ -1,9 +1,12 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+
+#include "SDL.h"
+
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl3.h"
 #include "ModuleGUI.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -22,15 +25,20 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
-	bool r = NULL;
-	ImGui::ShowDemoWindow(r);
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	
+	// Start the Dear ImGui frame
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(App->window->window);
+	ImGui::NewFrame();
+
+
+	bool r = NULL;
+	ImGui::ShowDemoWindow(&r);
 
 	return UPDATE_CONTINUE;
 }
