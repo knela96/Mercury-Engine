@@ -5,12 +5,6 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-#include "imgui\imgui.h"
-#include "imgui\imgui_impl_sdl.h"
-#include "imgui\imgui_impl_opengl3.h"
-
-#include <SDL.h>
-
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -41,24 +35,6 @@ bool ModuleRenderer3D::Init()
 		//Use Vsync
 		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-
-		// Setup Dear ImGui context
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
-
-		// Setup Platform/Renderer bindings
-		ImGui_ImplSDL2_InitForOpenGL(App->window->window, context);
-		const char* glsl_version = "#version 130";
-		ImGui_ImplOpenGL3_Init(glsl_version);
-
-
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);

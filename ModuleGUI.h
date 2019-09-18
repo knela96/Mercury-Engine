@@ -6,6 +6,7 @@
 
 #include "Module.h"
 #include "Application.h"
+#include "imgui.h"
 
 class ModuleGUI : public Module {
 
