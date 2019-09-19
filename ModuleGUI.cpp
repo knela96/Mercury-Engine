@@ -16,6 +16,13 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
+	const char* glsl_version = "#version 130";
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+
+
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -29,26 +36,26 @@ bool ModuleGUI::Init()
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
 
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	///io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	///io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsClassic();
+	///ImGui::StyleColorsClassic();
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-	ImGui_ImplOpenGL2_Init();
+	ImGui_ImplOpenGL3_Init(glsl_version);
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	/*ImGui::NewFrame();
+	///ImGui::NewFrame();
 
-	bool r = NULL;
-	ImGui::ShowDemoWindow(&r);*/
+	///bool r = NULL;
+	///ImGui::ShowDemoWindow(&r);
 
 	return UPDATE_CONTINUE;
 }
@@ -68,13 +75,13 @@ update_status ModuleGUI::Update(float dt)
 	}
 
 	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 
-		ImGui::ShowDemoWindow((bool *)true);
+		///ImGui::ShowDemoWindow((bool *)true);
 
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 	{
@@ -122,10 +129,15 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGui::Render();
 	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	//glClear(GL_COLOR_BUFFER_BIT);	//DIDAC/CARLES: This line renders a plain color over the axis + grid plane of SceneIntro Module
-	//glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-	//SDL_GL_SwapWindow(App->window->window);
+
+
+	///glClear(GL_COLOR_BUFFER_BIT);	//DIDAC/CARLES: This line renders a plain color over the axis + grid plane of SceneIntro Module
+	///glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
+
+
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	///SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
 
