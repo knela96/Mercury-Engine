@@ -25,11 +25,11 @@ Application::Application()
 	// Scenes
 	AddModule(scene_intro);
 
+	//RECHECK
+	AddModule(gui);
 	// Renderer last!
 	AddModule(renderer3D);
 
-	//RECHECK
-	AddModule(gui);
 }
 
 Application::~Application()

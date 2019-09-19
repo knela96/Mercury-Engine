@@ -22,7 +22,7 @@
     <Filter Include="Sources\Containers\imgui">
       <UniqueIdentifier>{ec547579-f609-44c0-84fe-0baf10e93037}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Containers\gl3w">
+    <Filter Include="Sources\Containers\glew">
       <UniqueIdentifier>{eb2b9d6c-471f-4cdf-8d74-9d47b9e37a18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -114,11 +114,20 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="lib\gl3w\GL\gl3w.h">
-      <Filter>Sources\Containers\gl3w</Filter>
+    <ClInclude Include="lib\glew\include\GL\eglew.h">
+      <Filter>Sources\Containers\glew</Filter>
     </ClInclude>
-    <ClInclude Include="lib\gl3w\GL\glcorearb.h">
-      <Filter>Sources\Containers\gl3w</Filter>
+    <ClInclude Include="lib\glew\include\GL\glew.h">
+      <Filter>Sources\Containers\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\glew\include\GL\glxew.h">
+      <Filter>Sources\Containers\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\glew\include\GL\wglew.h">
+      <Filter>Sources\Containers\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\imgui_impl_opengl2.h">
+      <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,8 +203,11 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gl3w\GL\gl3w.c">
-      <Filter>Sources\Containers\gl3w</Filter>
+    <ClCompile Include="lib\imgui\imgui_impl_opengl2.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\glew\src\glew.c">
+      <Filter>Sources\Containers\glew</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
