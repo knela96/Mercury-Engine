@@ -16,6 +16,7 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
+
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -71,10 +72,10 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
-
+	
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
-		ImGui::ShowDemoWindow((bool *)true);
+		ImGui::ShowDemoWindow(&show_demo_window);
 
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 	
@@ -82,7 +83,7 @@ update_status ModuleGUI::Update(float dt)
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("Hi", &show_config_window);                          // Create a window called "Hello, world!" and append into it.
 
 		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
 		ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
@@ -123,18 +124,17 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGui::Render();
 	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	//glClear(GL_COLOR_BUFFER_BIT);	//DIDAC/CARLES: This line renders a plain color over the axis + grid plane of SceneIntro Module
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	//SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
 
 // Called before quitting
 bool ModuleGUI::CleanUp()
 {
-	
-
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
 	return true;
 }
 
