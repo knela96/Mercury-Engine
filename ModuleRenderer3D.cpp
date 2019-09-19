@@ -24,6 +24,8 @@ bool ModuleRenderer3D::Init()
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
+
+
 	if (context == NULL)
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -35,6 +37,9 @@ bool ModuleRenderer3D::Init()
 		//Use Vsync
 		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+
+		//Init OpenGL
+		glewInit();
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
