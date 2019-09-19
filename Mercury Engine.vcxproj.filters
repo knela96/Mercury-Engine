@@ -114,16 +114,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="lib\glew\include\GL\eglew.h">
-      <Filter>Sources\Containers\glew</Filter>
-    </ClInclude>
     <ClInclude Include="lib\glew\include\GL\glew.h">
-      <Filter>Sources\Containers\glew</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\glew\include\GL\glxew.h">
-      <Filter>Sources\Containers\glew</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\glew\include\GL\wglew.h">
       <Filter>Sources\Containers\glew</Filter>
     </ClInclude>
     <ClInclude Include="lib\imgui\imgui_impl_opengl2.h">

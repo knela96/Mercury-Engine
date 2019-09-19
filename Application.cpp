@@ -27,6 +27,7 @@ Application::Application()
 
 	//RECHECK
 	AddModule(gui);
+
 	// Renderer last!
 	AddModule(renderer3D);
 

@@ -82,10 +82,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="lib\glew\include\GL\eglew.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
-    <ClInclude Include="lib\glew\include\GL\glxew.h" />
-    <ClInclude Include="lib\glew\include\GL\wglew.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_opengl2.h" />
