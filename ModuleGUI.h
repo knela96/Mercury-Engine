@@ -28,6 +28,7 @@ public:
 	ImGuiIO* io = nullptr;
 	bool show_demo_window = true;
 	bool show_another_window = true;
+	bool show_config_window = true;
 
 };
 
