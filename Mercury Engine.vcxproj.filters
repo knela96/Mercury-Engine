@@ -25,6 +25,9 @@
     <Filter Include="Sources\Containers\glew">
       <UniqueIdentifier>{eb2b9d6c-471f-4cdf-8d74-9d47b9e37a18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\STL">
+      <UniqueIdentifier>{ff3a8cdc-0927-45c2-bc64-3a3d589413a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">

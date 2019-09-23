@@ -30,12 +30,12 @@ bool ModuleGUI::Init()
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
 
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	///io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	///io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsClassic();
+	///ImGui::StyleColorsClassic();
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
@@ -46,17 +46,17 @@ bool ModuleGUI::Init()
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	/*ImGui::NewFrame();
+	///ImGui::NewFrame();
 
-	bool r = NULL;
-	ImGui::ShowDemoWindow(&r);*/
+	///bool r = NULL;
+	///ImGui::ShowDemoWindow(&r);
 
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleGUI::Update(float dt)
 {
-	
+
 	// Poll and handle events (inputs, window resize, etc.)
 		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
 		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
@@ -72,13 +72,13 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
-	
+
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
 
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-	
+
 	{
 		static float f = 0.0f;
 		static int counter = 0;
@@ -112,7 +112,7 @@ update_status ModuleGUI::Update(float dt)
 	}
 
 	test_io = io;
-	
+
 
 	return UPDATE_CONTINUE;
 }
@@ -138,5 +138,3 @@ bool ModuleGUI::CleanUp()
 
 	return true;
 }
-
-
