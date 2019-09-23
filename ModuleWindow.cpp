@@ -55,6 +55,9 @@ bool ModuleWindow::Init()
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
+		if (WIN_DOUBLE_BUFFERING == true) {
+			flags |= GL_DOUBLEBUFFER;
+		}
 
 		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 

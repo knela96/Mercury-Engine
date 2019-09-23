@@ -122,7 +122,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 {
 	// Rendering
 	ImGui::Render();
-	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
+	glViewport(0,0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -135,6 +135,7 @@ bool ModuleGUI::CleanUp()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
+
 	return true;
 }
 
