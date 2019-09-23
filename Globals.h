@@ -36,5 +36,5 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define WIN_DOUBLE_BUFFERING true
+#define WIN_DOUBLE_BUFFERING false
 #define TITLE "3D Physics Playground"
