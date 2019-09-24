@@ -46,6 +46,8 @@ bool ModuleRenderer3D::Init()
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
+		glewInit();
+
 		//Check for error
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
