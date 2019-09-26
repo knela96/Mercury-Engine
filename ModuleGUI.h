@@ -24,6 +24,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CreateMenuBar();
+
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 0.00f);
 	ImGuiIO* test_io = nullptr;
 	ImGuiIO* io = nullptr;
