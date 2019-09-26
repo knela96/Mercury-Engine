@@ -45,6 +45,7 @@ private:
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_WIDTH;
+	bool p_open = true;
 };
 
 #endif
