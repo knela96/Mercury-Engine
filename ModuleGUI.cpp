@@ -63,9 +63,16 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
+	//Create Windows
 	CreateMenuBar();	//Create Menu Bar
 
+
+	//Show Windows
 	ImGui::ShowDemoWindow(&show_demo_window);
+	if (openConsole)
+		ShowConsole();
+	if (openWindowSettings)
+		ShowWindowSettings();
 
 	test_io = io;
 
@@ -101,7 +108,9 @@ void ModuleGUI::CreateMenuBar() {
 		{
 			if (ImGui::MenuItem("New")) {}
 			if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-			if (ImGui::BeginMenu("Open Recent")) {}
+			if (ImGui::BeginMenu("Open Recent")) {
+				ImGui::EndMenu();
+			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
 			if (ImGui::MenuItem("Save As..")) {}
 			ImGui::EndMenu();
@@ -118,10 +127,45 @@ void ModuleGUI::CreateMenuBar() {
 		}
 		if (ImGui::BeginMenu("Window"))
 		{
-			if (ImGui::MenuItem("Console", "º")) {}
+			if (ImGui::MenuItem("Console", "F1", openConsole)) {
+				openConsole = !openConsole;
+			}
+			if (ImGui::MenuItem("Settings")) {
+				openWindowSettings = true;
+			}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("About..")) {
+				ShellExecuteA(NULL,"open","www.google.com",NULL,NULL,SW_SHOWNORMAL);
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
 	}else
 		LOG("Cannot create Menu Bar");
+}
+
+void ModuleGUI::ShowConsole() {
+	//Console Code
+	ImGui::Begin("Console",&openConsole);
+
+	ImGui::End();
+
+}
+
+void ModuleGUI::ShowWindowSettings() {
+
+	ImGui::Begin("Settings",&openWindowSettings);
+
+	ImGui::Text("Width: ");
+	ImGui::SameLine();
+	ImGui::SliderInt("px", &screen_width, 800, 2160);
+	if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		App->window->SetFullscreen(fullscreen);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Borderless", &borderless))
+		App->window->SetBorderless(borderless);
+	ImGui::End();
 }
