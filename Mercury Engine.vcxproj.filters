@@ -81,6 +81,12 @@
     <ClInclude Include="ModuleGUI.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="lib\glew\include\GL\glew.h">
+      <Filter>Sources\Containers\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
     <ClInclude Include="lib\imgui\imconfig.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
@@ -104,15 +110,6 @@
     </ClInclude>
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Sources\Containers\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\glew\include\GL\glew.h">
-      <Filter>Sources\Containers\glew</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\imgui\imgui_impl_opengl2.h">
-      <Filter>Sources\Containers\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Sources\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +155,12 @@
     <ClCompile Include="ModuleGUI.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="lib\glew\src\glew.c">
+      <Filter>Sources\Containers\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
     <ClCompile Include="lib\imgui\imgui.cpp">
       <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
@@ -175,15 +178,6 @@
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>Sources\Containers\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\imgui\imgui_impl_opengl2.cpp">
-      <Filter>Sources\Containers\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\glew\src\glew.c">
-      <Filter>Sources\Containers\glew</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
