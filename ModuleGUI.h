@@ -16,7 +16,7 @@ struct MercuryEngineConsole
 	ImVector<char*>       Items;
 	ImVector<const char*> Commands;
 	ImVector<char*>       History;
-	int                   HistoryPos;    // -1: new line, 0..History.Size-1 browsing history.
+	int                   HistoryPos;    // -1: new line, 0..History.Size-1 browsing history --->???
 	ImGuiTextFilter       Filter;
 	bool                  AutoScroll;
 	bool                  ScrollToBottom;
@@ -29,7 +29,7 @@ struct MercuryEngineConsole
 		Commands.push_back("HELP");
 		Commands.push_back("HISTORY");
 		Commands.push_back("CLEAR");
-		Commands.push_back("CLASSIFY");  // "classify" is only here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
+		Commands.push_back("CLASSIFY");  
 		AutoScroll = true;
 		ScrollToBottom = false;
 		AddLog("Test message");
@@ -76,8 +76,7 @@ struct MercuryEngineConsole
 			return;
 		}
 
-		// As a specific feature guaranteed by the library, after calling Begin() the last Item represent the title bar. So e.g. IsItemHovered() will return true when hovering the title bar.
-		// Here we create a context menu only available from the title bar.
+	
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Close Console"))
@@ -87,11 +86,11 @@ struct MercuryEngineConsole
 
 		ImGui::TextWrapped("LOGS SHOWED HERE");
 
-		// TODO: display items starting from the bottom
+		
 
-		if (ImGui::SmallButton("Option 1")) { AddLog(" text not defined -size:%d", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
+		/*if (ImGui::SmallButton("Option 1")) { AddLog(" text not defined -size:%d", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
 		if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[error] something went wrong"); } ImGui::SameLine();
-		if (ImGui::SmallButton("Clear")) { ClearLog(); } ImGui::SameLine();
+		if (ImGui::SmallButton("Clear")) { ClearLog(); } ImGui::SameLine();*/
 
 		//static float t = 0.0f; if (ImGui::GetTime() - t > 0.02f) { t = ImGui::GetTime(); AddLog("Spam %f", t); }
 
@@ -104,7 +103,6 @@ struct MercuryEngineConsole
 			ImGui::EndPopup();
 		}
 
-		// Options, Filter
 
 		ImGui::Separator();
 
@@ -116,17 +114,6 @@ struct MercuryEngineConsole
 			ImGui::EndPopup();
 		}
 
-		// Display every line as a separate entry so we can change their color or add custom widgets. If you only want raw text you can use ImGui::TextUnformatted(log.begin(), log.end());
-		// NB- if you have thousands of entries this approach may be too inefficient and may require user-side clipping to only process visible items.
-		// You can seek and display only the lines that are visible using the ImGuiListClipper helper, if your elements are evenly spaced and you have cheap random access to the elements.
-		// To use the clipper we could replace the 'for (int i = 0; i < Items.Size; i++)' loop with:
-		//     ImGuiListClipper clipper(Items.Size);
-		//     while (clipper.Step())
-		//         for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
-		// However, note that you can not use this code as is if a filter is active because it breaks the 'cheap random-access' property. We would need random-access on the post-filtered list.
-		// A typical application wanting coarse clipping and filtering may want to pre-compute an array of indices that passed the filtering test, recomputing this array when user changes the filter,
-		// and appending newly elements as they are inserted. This is left as a task to the user until we can manage to improve this example code!
-		// If your items are of variable size you may want to implement code similar to what ImGuiListClipper does. Or split your data into fixed height items to allow random-seeking into your list.
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
 
 		//THIS SHIT DRAWS THE TEXT STORED IN LIST "Items"
@@ -136,7 +123,6 @@ struct MercuryEngineConsole
 			if (!Filter.PassFilter(item))
 				continue;
 
-			// Normally you would store more information in your item (e.g. make Items[] an array of structure, store color/type etc.)
 			bool pop_color = false;
 			if (strstr(item, "[error]")) { ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.4f, 0.4f, 1.0f)); pop_color = true; }
 			else if (strncmp(item, "# ", 2) == 0) { ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.8f, 0.6f, 1.0f)); pop_color = true; }
@@ -183,9 +169,9 @@ public:
 	bool show_another_window = false;
 
 
-
-	static MercuryEngineConsole console;
+	MercuryEngineConsole console;
 	bool draw_console = true;
+	
 };
 
 

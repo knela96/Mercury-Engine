@@ -43,4 +43,4 @@ enum update_status
 
 //Userfull defines
 
-//#define LOG ImGui::Text
+

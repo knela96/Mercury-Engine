@@ -16,7 +16,7 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
-
+	App->gui->console.AddLog("Starting GUI module");
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -46,7 +46,7 @@ bool ModuleGUI::Init()
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	console.AddLog("cocaina");
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -75,9 +75,10 @@ update_status ModuleGUI::Update(float dt)
 	
 	console.Draw("Console",&draw_console);
 	
+
 	
 	test_io = io;
-
+	
 
 	return UPDATE_CONTINUE;
 }

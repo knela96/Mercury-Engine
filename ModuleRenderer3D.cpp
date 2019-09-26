@@ -21,6 +21,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
+	App->gui->console.AddLog("Starting Render module");
 	bool ret = true;
 
 	//Create context
