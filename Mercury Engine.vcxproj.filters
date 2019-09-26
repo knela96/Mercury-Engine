@@ -111,6 +111,9 @@
     <ClInclude Include="lib\imgui\imgui_impl_opengl2.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -178,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="lib\glew\src\glew.c">
       <Filter>Sources\Containers\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
