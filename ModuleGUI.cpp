@@ -46,6 +46,7 @@ bool ModuleGUI::Init()
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
+	console.AddLog("cocaina");
 
 	return UPDATE_CONTINUE;
 }
@@ -70,15 +71,10 @@ update_status ModuleGUI::Update(float dt)
 	ImGui::NewFrame();
 
 
-	//CONSOLE
-
-
-	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+	//CONSOLE	
 	
-	ImGui::ShowDemoWindow(&show_demo_window);
-
-	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-
+	console.Draw("Console",&draw_console);
+	
 	
 	test_io = io;
 
