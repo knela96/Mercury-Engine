@@ -20,20 +20,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	float3 posv3_1 = (1, 1, 1);
-	float3 posv3_2 = (2, 2, 2);
-
-	Sphere sphere1 = Sphere(posv3_1,2.0);
-	Sphere sphere2 = Sphere(posv3_2, 7.0);
-
-	float distance = math::Distance(sphere1.pos, sphere2.pos);
-	float distancepow2 = pow(distance, 2);
-	float sumrads = sphere1.r + sphere2.r;
-	float radpow2 = pow(sumrads, 2);
-
-	if (distancepow2 < radpow2) {
-		LOG("SPHERES INTERSECT")
-	}
 	/*sphere1.r = 2;
 	sphere2.r = 3;
 

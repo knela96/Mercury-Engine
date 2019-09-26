@@ -38,3 +38,9 @@ enum update_status
 #define VSYNC true
 #define WIN_DOUBLE_BUFFERING false
 #define TITLE "Mercury Engine"
+
+
+
+//Userfull defines
+
+//#define LOG ImGui::Text
