@@ -1,8 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-#include "MathGeoLib/include/Geometry/Sphere.h"
-
+//#include "MathGeoLib/include/Geometry/Sphere.h"
+#include "Primitive.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,12 +20,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	/*sphere1.r = 2;
-	sphere2.r = 3;
-
-	sphere1.pos = posv3_1;
-	sphere2.pos = posv3_2;*/
-	
 	return ret;
 }
 
@@ -40,7 +34,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
 
 	return UPDATE_CONTINUE;
 }
-

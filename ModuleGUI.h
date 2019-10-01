@@ -29,7 +29,7 @@ struct MercuryEngineConsole
 		Commands.push_back("HELP");
 		Commands.push_back("HISTORY");
 		Commands.push_back("CLEAR");
-		Commands.push_back("CLASSIFY");  
+		Commands.push_back("CLASSIFY");
 		AutoScroll = true;
 		ScrollToBottom = false;
 		AddLog("Test message");
@@ -76,7 +76,7 @@ struct MercuryEngineConsole
 			return;
 		}
 
-	
+
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Close Console"))
@@ -86,7 +86,7 @@ struct MercuryEngineConsole
 
 		ImGui::TextWrapped("LOGS SHOWED HERE");
 
-		
+
 
 		/*if (ImGui::SmallButton("Option 1")) { AddLog(" text not defined -size:%d", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
 		if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[error] something went wrong"); } ImGui::SameLine();
@@ -162,6 +162,12 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CreateMenuBar();
+
+	void ShowConsole();
+
+	void ShowWindowSettings();
+
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 0.00f);
 	ImGuiIO* test_io = nullptr;
 	ImGuiIO* io = nullptr;
@@ -169,9 +175,21 @@ public:
 	bool show_another_window = false;
 
 
+
+private:
+
 	MercuryEngineConsole console;
-	bool draw_console = true;
-	
+	bool openConsole = false;
+	bool openWindowSettings = false;
+	bool fullscreen = false;
+	bool borderless = false;
+	bool resizable = false;
+	bool fulldesktop = false;
+
+	int screen_width = SCREEN_WIDTH;
+	int screen_height = SCREEN_WIDTH;
+	bool p_open = true;
+
 };
 
 

@@ -28,7 +28,7 @@ bool ModuleGUI::Init()
 	int width, height;
 	unsigned char* pixels = NULL;
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-
+	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -46,19 +46,12 @@ bool ModuleGUI::Init()
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	
-
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleGUI::Update(float dt)
 {
 
-	// Poll and handle events (inputs, window resize, etc.)
-		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-		// - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-		// Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -71,14 +64,27 @@ update_status ModuleGUI::Update(float dt)
 	ImGui::NewFrame();
 
 
-	//CONSOLE	
-	
-	console.Draw("Console",&draw_console);
-	
 
-	
+	//CONSOLE
+
+
+
+	//Create Windows
+	CreateMenuBar();	//Create Menu Bar
+
+
+	//Show Windows
+	ImGui::ShowDemoWindow(&show_demo_window);
+	if (openConsole)
+		ShowConsole();
+		console.Draw("Console",&draw_console);
+	if (openWindowSettings)
+		ShowWindowSettings();
+
+
+
 	test_io = io;
-	
+
 
 	return UPDATE_CONTINUE;
 }
@@ -108,4 +114,115 @@ bool ModuleGUI::CleanUp()
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
 	return true;
+}
+
+void ModuleGUI::CreateMenuBar() {
+
+	bool opt_fullscreen = true;
+	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+	// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
+	// because it would be confusing to have two docking targets within each others.
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(viewport->Pos);
+	ImGui::SetNextWindowSize(viewport->Size);
+	ImGui::SetNextWindowViewport(viewport->ID);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+	window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+	// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
+	dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+	window_flags |= ImGuiWindowFlags_NoBackground;
+
+	// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
+	// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
+	// all active windows docked into it will lose their parent and become undocked.
+	// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
+	// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("DockSpace Demo", &p_open, window_flags);
+	ImGui::PopStyleVar();
+
+	if (opt_fullscreen)
+		ImGui::PopStyleVar(2);
+
+	// DockSpace
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+	{
+		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+	}
+
+	ImGui::End();
+
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("New")) {}
+			if (ImGui::MenuItem("Open", "Ctrl+O")) {}
+			if (ImGui::BeginMenu("Open Recent")) {
+				ImGui::EndMenu();
+			}
+			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
+			if (ImGui::MenuItem("Save As..")) {}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Edit"))
+		{
+			if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+			if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+			ImGui::Separator();
+			if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+			if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+			if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Window"))
+		{
+			if (ImGui::MenuItem("Console", "F1", openConsole)) {
+				openConsole = !openConsole;
+			}
+			if (ImGui::MenuItem("Settings")) {
+				openWindowSettings = true;
+			}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("About..")) {
+				ShellExecuteA(NULL,"open","www.google.com",NULL,NULL,SW_SHOWNORMAL);
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndMainMenuBar();
+	}else
+		LOG("Cannot create Menu Bar");
+}
+
+void ModuleGUI::ShowConsole() {
+	//Console Code
+	ImGui::Begin("Console",&openConsole);
+
+	ImGui::End();
+
+}
+
+void ModuleGUI::ShowWindowSettings() {
+
+	ImGui::Begin("Settings",&openWindowSettings);
+
+	ImGui::Text("Width: ");
+	ImGui::SameLine();
+	ImGui::SliderInt("px", &screen_width, 800, 2160);
+	if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		App->window->SetFullscreen(fullscreen);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Borderless", &borderless))
+		App->window->SetBorderless(borderless);
+	ImGui::End();
 }
