@@ -65,7 +65,7 @@ update_status ModuleGUI::Update(float dt)
 
 
 
-	//CONSOLE
+	
 
 
 
@@ -77,7 +77,7 @@ update_status ModuleGUI::Update(float dt)
 	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
-		console.Draw("Console",&draw_console);
+		
 	if (openWindowSettings)
 		ShowWindowSettings();
 
@@ -206,9 +206,8 @@ void ModuleGUI::CreateMenuBar() {
 
 void ModuleGUI::ShowConsole() {
 	//Console Code
-	ImGui::Begin("Console",&openConsole);
-
-	ImGui::End();
+	
+	console.Draw("Console", &openConsole);
 
 }
 

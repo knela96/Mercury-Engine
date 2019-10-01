@@ -174,11 +174,11 @@ public:
 	bool show_demo_window = false;
 	bool show_another_window = false;
 
-
+	MercuryEngineConsole console;
 
 private:
 
-	MercuryEngineConsole console;
+	
 	bool openConsole = false;
 	bool openWindowSettings = false;
 	bool fullscreen = false;
