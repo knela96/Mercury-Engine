@@ -19,12 +19,17 @@ public:
 
 	Uint32 Read();
 
+	double ReadMs() const;
+	double ReadTicks() const;
+	float ReadSec() const;
+
 private:
 
 	bool	running;
 	Uint32	started_at;
 	Uint32	stopped_at;
 	Uint32  resume_at;
+	static double frequency;
 };
 
 #endif //__TIMER_H__

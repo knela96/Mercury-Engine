@@ -4,10 +4,14 @@
 // ----------------------------------------------------
 
 #include "Timer.h"
+double Timer::frequency = 0;
 
 // ---------------------------------------------
 Timer::Timer()
 {
+	if (frequency == 0)
+		frequency = SDL_GetPerformanceFrequency();
+
 	Start();
 }
 
@@ -16,7 +20,6 @@ void Timer::Start()
 {
 	running = true;
 	started_at = SDL_GetTicks();
-	resume_at = 0;
 }
 
 // ---------------------------------------------
@@ -51,6 +54,21 @@ Uint32 Timer::Read()
 	{
 		return stopped_at - started_at;
 	}
+}
+
+double Timer::ReadMs() const
+{
+	return 1000.0 * (double(SDL_GetTicks() - started_at) / double(frequency));
+}
+
+// ---------------------------------------------
+double Timer::ReadTicks() const
+{
+	return SDL_GetTicks() - started_at;
+}
+float Timer::ReadSec() const
+{
+	return float(SDL_GetTicks() - started_at) / 1000.0f;
 }
 
 

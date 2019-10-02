@@ -24,9 +24,23 @@ public:
 
 private:
 
-	Timer	ms_timer;
-	float	dt;
-	p2List<Module*> list_modules;
+	Timer   dt_timer;						//timer to calculate things related to delta time
+	float   dt;								//delta time
+
+	Timer frame_time;						//timer to calculate how match time does a frame take in miliseconds
+	Timer last_sec_frame_time;				//How much time did last frame cost
+	Timer ms_timer;							//timer to count miliseconds since App::Start()
+
+	double frame_count = 0;					//number of frames since App::Init();
+	float last_sec_frame_count = 0;			//frames in last sec
+	float prev_last_sec_frame_count = 0;	//frames the sec before last sec.
+
+	float last_frame_ms;					//last frame milisseconds
+
+	uint framerate_cap = 30;
+	bool framerate_cap_activated = true;
+
+	p2List<Module*> list_modules;			//All Application modules inside
 
 public:
 
