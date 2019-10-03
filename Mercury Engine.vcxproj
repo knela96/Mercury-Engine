@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
@@ -109,6 +110,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
     <ClCompile Include="lib\imgui\imgui.cpp" />

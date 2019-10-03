@@ -57,6 +57,10 @@ bool ModuleRenderer3D::Init()
 			ret = false;
 		}
 
+		//Init FrameBuffer
+		fbo = new FrameBuffer();
+		fbo->Start();
+
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -115,6 +119,9 @@ bool ModuleRenderer3D::Init()
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	fbo->PreUpdate();
+
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
@@ -125,14 +132,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	FrameBuffer();
-
 	return UPDATE_CONTINUE;
 }
 
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	fbo->PostUpdate();
+	App->gui->PostUpdate(dt);//RECHECK
 	SDL_GL_SwapWindow(App->window->window);
 	
 	return UPDATE_CONTINUE;
@@ -160,42 +167,4 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-}
-
-bool ModuleRenderer3D::FrameBuffer() {
-	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-	unsigned int fb_scene;
-	glGenFramebuffers(1, &fb_scene);
-	glBindFramebuffer(GL_FRAMEBUFFER, fb_scene);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
-	glEnable(GL_DEPTH_TEST);
-	// generate texture
-	unsigned int texColorBuffer;
-	glGenTextures(1, &texColorBuffer);
-	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	// attach it to currently bound framebuffer object
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer, 0);
-
-	unsigned int rbo;
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 800, 600);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		LOGC("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	
-	glDeleteFramebuffers(1, &fb_scene);
-	return true;
 }
