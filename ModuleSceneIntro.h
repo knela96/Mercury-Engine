@@ -13,5 +13,10 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	
+
+	float num_vertices;
+	uint my_id = 1;
+
 public:
 };

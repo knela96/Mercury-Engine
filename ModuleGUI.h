@@ -52,6 +52,7 @@ struct MercuryEngineConsole
 	{
 		for (int i = 0; i < Items.Size; i++)
 			free(Items[i]);
+
 		Items.clear();
 	}
 
