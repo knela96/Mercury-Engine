@@ -57,7 +57,7 @@ update_status ModuleGUI::Update(float dt)
 	{
 		ImGui_ImplSDL2_ProcessEvent(&event);
 	}
-		   
+
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
@@ -71,8 +71,11 @@ update_status ModuleGUI::Update(float dt)
 	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
+		
 	if (openWindowSettings)
 		ShowWindowSettings();
+
+
 
 	test_io = io;
 
@@ -83,12 +86,18 @@ update_status ModuleGUI::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleGUI::PostUpdate(float dt)
 {
-	// Rendering
+	// RENDERING
+
+
+	//renderig UI
 	ImGui::Render();
+
+	//view
 	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	return UPDATE_CONTINUE;
 }
 
@@ -120,7 +129,7 @@ void ModuleGUI::CreateMenuBar() {
 
 	// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background and handle the pass-thru hole, so we ask Begin() to not render a background.
 	dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
-	window_flags |= ImGuiWindowFlags_NoBackground; 
+	window_flags |= ImGuiWindowFlags_NoBackground;
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("DockSpace Demo", &p_open, window_flags);
@@ -185,6 +194,7 @@ void ModuleGUI::CreateMenuBar() {
 }
 
 void ModuleGUI::ShowConsole() {
+	//Console Code
 	console.Draw("Console", &openConsole);
 }
 
