@@ -22,6 +22,7 @@ FrameBuffer::~FrameBuffer()
 bool FrameBuffer::Start() {
 	glGenFramebuffers(1, &fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
 	// generate texture
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -45,7 +46,6 @@ bool FrameBuffer::Start() {
 }
 
 void FrameBuffer::PreUpdate() {
-	// first pass
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
@@ -55,7 +55,7 @@ void FrameBuffer::PreUpdate() {
 
 void FrameBuffer::PostUpdate(){
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 

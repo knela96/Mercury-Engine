@@ -139,7 +139,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	fbo->PostUpdate();
-	App->gui->PostUpdate(dt);//RECHECK
+	App->gui->Draw();//RECHECK
 	SDL_GL_SwapWindow(App->window->window);
 	
 	return UPDATE_CONTINUE;

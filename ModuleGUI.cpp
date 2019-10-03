@@ -84,7 +84,7 @@ update_status ModuleGUI::Update(float dt)
 }
 
 // PostUpdate present buffer to screen
-update_status ModuleGUI::PostUpdate(float dt)
+bool ModuleGUI::Draw()
 {
 	// RENDERING
 
