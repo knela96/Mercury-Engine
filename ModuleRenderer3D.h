@@ -19,6 +19,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	bool FrameBuffer();
+
 public:
 
 	Light lights[MAX_LIGHTS];

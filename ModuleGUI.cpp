@@ -16,7 +16,7 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
-
+	LOGC("Starting GUI module");
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -122,11 +122,6 @@ void ModuleGUI::CreateMenuBar() {
 	dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
 	window_flags |= ImGuiWindowFlags_NoBackground; 
 
-	// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-	// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-	// all active windows docked into it will lose their parent and become undocked.
-	// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-	// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("DockSpace Demo", &p_open, window_flags);
 	ImGui::PopStyleVar();
@@ -190,11 +185,7 @@ void ModuleGUI::CreateMenuBar() {
 }
 
 void ModuleGUI::ShowConsole() {
-	//Console Code
-	ImGui::Begin("Console",&openConsole);
-
-	ImGui::End();
-
+	console.Draw("Console", &openConsole);
 }
 
 void ModuleGUI::ShowWindowSettings() {
