@@ -195,13 +195,13 @@ void ModuleGUI::CreateMenuBar() {
 
 void ModuleGUI::ShowConsole() {
 	//Console Code
-	//console.Draw("Console", &openConsole);
-	ImGui::Begin("Game");
+	console.Draw("Console", &openConsole);
+	/*ImGui::Begin("Game");
 	ImVec2 position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 	ImVec2 size = ImVec2(ImGui::GetContentRegionAvail().y, ImGui::GetContentRegionAvail().x);
 
 	ImGui::Image((void*)App->renderer3D->fbo->GetTexture(), ImVec2(size.y, size.y), ImVec2(0, 1), ImVec2(1, 0));
-	ImGui::End();
+	ImGui::End();*/
 
 }
 

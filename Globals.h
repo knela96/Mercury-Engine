@@ -12,7 +12,7 @@
 void log(const char file[], int line, const char* format, ...);
 
 
-#define LOGC(message) App->gui->console.AddLog(message);
+#define LOGC(message, ...) App->gui->console.AddLog(message, __VA_ARGS__);
 
 
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
