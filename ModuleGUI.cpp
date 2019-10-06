@@ -34,11 +34,15 @@ bool ModuleGUI::Init()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
+	//INIT WINDOWS
+	win_game = new WindowGame(App);
+
+
 	return true;
 }
 
 bool ModuleGUI::Start() {
-	win_game = new WindowGame(App);
+	win_game->Start();
 	return true;
 }
 
