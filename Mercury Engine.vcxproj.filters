@@ -28,6 +28,9 @@
     <Filter Include="Sources\Containers\STL">
       <UniqueIdentifier>{ff3a8cdc-0927-45c2-bc64-3a3d589413a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\UI">
+      <UniqueIdentifier>{1e7b242f-54da-453a-8971-476bd1a97e16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -78,9 +81,6 @@
     <ClInclude Include="Timer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleGUI.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="lib\glew\include\GL\glew.h">
       <Filter>Sources\Containers\glew</Filter>
     </ClInclude>
@@ -111,7 +111,15 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="ModuleGUI.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowGame.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -153,9 +161,6 @@
     <ClCompile Include="ModuleSceneIntro.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleGUI.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="lib\glew\src\glew.c">
       <Filter>Sources\Containers\glew</Filter>
     </ClCompile>
@@ -180,6 +185,14 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="ModuleGUI.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowGame.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

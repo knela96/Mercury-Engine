@@ -7,7 +7,7 @@ class FrameBuffer
 public:
 	FrameBuffer();
 	~FrameBuffer();
-	bool Start();
+	bool Start(int width, int heigth);
 	void PreUpdate();
 	void PostUpdate();
 	uint GetTexture();

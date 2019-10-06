@@ -58,8 +58,6 @@ bool ModuleRenderer3D::Init()
 		}
 
 		//Init FrameBuffer
-		fbo = new FrameBuffer();
-		fbo->Start();
 
 		//Initialize Modelview Matrix
 		glMatrixMode(GL_MODELVIEW);
@@ -120,8 +118,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	fbo->PreUpdate();
-
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
@@ -138,7 +134,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	fbo->PostUpdate();
 	App->gui->Draw();//RECHECK
 	SDL_GL_SwapWindow(App->window->window);
 	

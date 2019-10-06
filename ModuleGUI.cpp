@@ -23,35 +23,42 @@ bool ModuleGUI::Init()
 	io = &ImGui::GetIO(); (void)io;
 	io->DisplaySize.x = SCREEN_WIDTH;             // set the current display width
 	io->DisplaySize.y = SCREEN_HEIGHT;             // set the current display height here
-	 // Build and load the texture atlas into a texture
-	 // (In the examples/ app this is usually done within the ImGui_ImplXXX_Init() function from one of the demo Renderer)
+
 	int width, height;
 	unsigned char* pixels = NULL;
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
-	///ImGui::StyleColorsClassic();
 
-	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
+
+	return true;
+}
+
+bool ModuleGUI::Start() {
+	win_game = new WindowGame(App);
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
+	if(win_game != nullptr)	win_game->PreUpdate();
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleGUI::Update(float dt)
+update_status ModuleGUI::PostUpdate(float dt)
 {
+	if (win_game != nullptr) win_game->PostUpdate();
+	return UPDATE_CONTINUE;
+}
 
+// PostUpdate present buffer to screen
+bool ModuleGUI::Draw()
+{
+	// RENDERING
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -67,33 +74,23 @@ update_status ModuleGUI::Update(float dt)
 	CreateMenuBar();	//Create Menu Bar
 
 
-	//Show Windows
+
+	//Show Windows FIRST BUFFERS
 	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
-		
 	if (openWindowSettings)
 		ShowWindowSettings();
+	if (openGame)
+		win_game->Draw();
 
-
-
-	test_io = io;
-
-
-	return UPDATE_CONTINUE;
-}
-
-// PostUpdate present buffer to screen
-bool ModuleGUI::Draw()
-{
-	// RENDERING
 
 
 	//renderig UI
 	ImGui::Render();
 
 	//view
-	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
+	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -196,12 +193,6 @@ void ModuleGUI::CreateMenuBar() {
 void ModuleGUI::ShowConsole() {
 	//Console Code
 	console.Draw("Console", &openConsole);
-	/*ImGui::Begin("Game");
-	ImVec2 position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
-	ImVec2 size = ImVec2(ImGui::GetContentRegionAvail().y, ImGui::GetContentRegionAvail().x);
-
-	ImGui::Image((void*)App->renderer3D->fbo->GetTexture(), ImVec2(size.y, size.y), ImVec2(0, 1), ImVec2(1, 0));
-	ImGui::End();*/
 
 }
 

@@ -10,6 +10,8 @@
 
 #include <GL/glew.h>
 
+#include "WindowGame.h"
+
 struct MercuryEngineConsole
 {
 	char                  InputBuf[256];
@@ -157,8 +159,9 @@ public:
 	~ModuleGUI();
 
 	bool Init();
+	bool Start();
 	update_status PreUpdate(float dt);
-	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool Draw();
 	bool CleanUp();
 
@@ -169,7 +172,6 @@ public:
 	void ShowWindowSettings();
 
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 0.00f);
-	ImGuiIO* test_io = nullptr;
 	ImGuiIO* io = nullptr;
 	bool show_demo_window = false;
 	bool show_another_window = false;
@@ -178,7 +180,7 @@ public:
 
 private:
 
-	
+	bool openGame = true;
 	bool openConsole = false;
 	bool openWindowSettings = false;
 	bool fullscreen = false;
@@ -188,7 +190,9 @@ private:
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_WIDTH;
-	bool p_open = true;
+	bool p_open = true; 
+
+	WindowGame* win_game;
 
 };
 
