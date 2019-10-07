@@ -10,7 +10,10 @@
 
 #include <GL/glew.h>
 
-#include "WindowGame.h"
+#include <iostream> 
+#include <list> 
+#include <iterator> 
+using namespace std;
 
 struct MercuryEngineConsole
 {
@@ -191,8 +194,8 @@ private:
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_WIDTH;
 	bool p_open = true; 
-
-	WindowGame* win_game;
+	
+	list<Module*> windows;
 
 };
 

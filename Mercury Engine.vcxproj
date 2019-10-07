@@ -107,6 +107,8 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowGame.h" />
+    <ClInclude Include="WindowHierarchy.h" />
+    <ClInclude Include="WindowInspector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -133,6 +135,8 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowGame.cpp" />
+    <ClCompile Include="WindowHierarchy.cpp" />
+    <ClCompile Include="WindowInspector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

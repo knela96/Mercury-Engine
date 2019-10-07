@@ -24,12 +24,12 @@ bool WindowGame::Start()
 	return true;
 }
 
-update_status WindowGame::PreUpdate() {
+update_status WindowGame::PreUpdate(float dt) {
 	fbo->PreUpdate();
 	return UPDATE_CONTINUE;
 }
 
-update_status WindowGame::PostUpdate() {
+update_status WindowGame::PostUpdate(float dt) {
 	fbo->PostUpdate();
 	return UPDATE_CONTINUE;
 }
@@ -55,7 +55,7 @@ bool WindowGame::Draw()
 bool WindowGame::Cleanup()
 {
 	enabled = false;
-	return false;
+	return true;
 }
 
 bool WindowGame::isEnabled()
