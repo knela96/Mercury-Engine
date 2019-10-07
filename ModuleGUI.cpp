@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGUI.h"
+#include "WindowGame.h"
+#include "WindowHierarchy.h"
+#include "WindowInspector.h"
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -34,24 +37,43 @@ bool ModuleGUI::Init()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
+	//INIT WINDOWS
+	windows.push_back(new WindowGame(App));
+	windows.push_back(new WindowHierarchy(App));
+	windows.push_back(new WindowInspector(App));
 	return true;
 }
 
 bool ModuleGUI::Start() {
-	win_game = new WindowGame(App);
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->Start();
+	}
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	if(win_game != nullptr)	win_game->PreUpdate();
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->PreUpdate(dt);
+	}
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleGUI::PostUpdate(float dt)
 {
-	if (win_game != nullptr) win_game->PostUpdate();
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->PostUpdate(dt);
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -81,10 +103,13 @@ bool ModuleGUI::Draw()
 		ShowConsole();
 	if (openWindowSettings)
 		ShowWindowSettings();
-	if (openGame)
-		win_game->Draw();
 
-
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr && m->isEnabled())
+			m->Draw();
+	}
 
 	//renderig UI
 	ImGui::Render();
