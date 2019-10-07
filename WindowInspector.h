@@ -25,5 +25,9 @@ public:
 private:
 	bool enabled;
 	bool open_transform = true;
+public:
+	vec3 pos;
+	vec3 rot;
+	vec3 scale;
 };
 #endif

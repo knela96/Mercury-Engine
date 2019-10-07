@@ -32,23 +32,20 @@ bool WindowInspector::Draw()
 	ImGui::SetNextTreeNodeOpen(open_transform);
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-		vec3 pos;
-		vec3 rot;
-		vec3 scale;
 		ImGui::Text("Position:"); 
-		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 240*/); ImGui::PushItemWidth(60); ImGui::DragFloat("X", &pos.x, 0.005f);
-		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 160*/); ImGui::PushItemWidth(60); ImGui::DragFloat("Y", &pos.y, 0.005f);
-		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 80*/); ImGui::PushItemWidth(60); ImGui::DragFloat("Z", &pos.z, 0.005f);
+		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 240*/); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("X", &pos.x, 0.005f); ImGui::PopID();
+		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 160*/); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Y", &pos.y, 0.005f); ImGui::PopID();
+		ImGui::SameLine(/*ImGui::GetWindowContentRegionWidth() - 80*/); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Z", &pos.z, 0.005f); ImGui::PopID();
 
 		ImGui::Text("Rotation:");
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("X", &rot.x, 0.005f);
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("Y", &rot.y, 0.005f);
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("Z", &rot.z, 0.005f);
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot"); ImGui::DragFloat("X", &rot.x, 0.005f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Y", &rot.y, 0.005f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Z", &rot.z, 0.005f); ImGui::PopID();
 
 		ImGui::Text("Scale:   ");
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("X", &scale.x, 0.005f);
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("Y", &scale.y, 0.005f);
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::DragFloat("Z", &scale.z, 0.005f);
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("X", &scale.x, 0.005f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Y", &scale.y, 0.005f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Z", &scale.z, 0.005f); ImGui::PopID();
 
 		//ImGui::DragFloat3("drag float3", vec4f, 0.01f, 0.0f, 1.0f);
 
