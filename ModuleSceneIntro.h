@@ -15,8 +15,12 @@ public:
 
 	
 
+	
+
 	float num_vertices;
-	uint my_id = 1;
+	uint iboId = 0;
+	uint vboId = 0;
+
 
 public:
 };
