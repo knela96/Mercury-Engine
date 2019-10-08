@@ -50,30 +50,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 
 
-	//glLineWidth(2.0f);
-
-	//glBegin(GL_TRIANGLES);
-	//glVertex3f(0, 0, 1.0);
-	//glVertex3f(1.0, 0, 1.0);
-	//glVertex3f(0, 1.0, 1.0);
-
-	//glVertex3f(0, 1.0, 1.0);
-	//glVertex3f(1.0,0, 1.0);
-	//glVertex3f(1.0, 1.0, 1.0);
-
-	//glVertex3f(0, 0, 1.0);
-	//glVertex3f(0, 1, 1.0);
-	//glVertex3f(0, 0, 0.0);
-
-	//glVertex3f(0, 0, 0);
-	//glVertex3f(0, 1.0, 1.0);
-	//glVertex3f(0, 1.0, 0);
-	//glEnd();
-
-	//glLineWidth(1.0f);
-
-	//
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
