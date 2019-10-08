@@ -20,8 +20,7 @@ ModuleInput::~ModuleInput()
 bool ModuleInput::Init()
 {
 	LOG("Init SDL input event system");
-	App->gui->console.AddLog("Starting I/O module");
-
+	LOGC("Starting I/O module");
 	bool ret = true;
 	SDL_Init(0);
 

@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGUI.h"
+#include "WindowGame.h"
+#include "WindowHierarchy.h"
+#include "WindowInspector.h"
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -16,42 +19,68 @@ ModuleGUI::~ModuleGUI()
 // Called before render is available
 bool ModuleGUI::Init()
 {
-	App->gui->console.AddLog("Starting GUI module");
+	LOGC("Starting GUI module");
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	io = &ImGui::GetIO(); (void)io;
 	io->DisplaySize.x = SCREEN_WIDTH;             // set the current display width
 	io->DisplaySize.y = SCREEN_HEIGHT;             // set the current display height here
-	 // Build and load the texture atlas into a texture
-	 // (In the examples/ app this is usually done within the ImGui_ImplXXX_Init() function from one of the demo Renderer)
+
 	int width, height;
 	unsigned char* pixels = NULL;
 	io->Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
-	///ImGui::StyleColorsClassic();
 
-	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
+
+	//INIT WINDOWS
+	windows.push_back(new WindowGame(App));
+	windows.push_back(new WindowHierarchy(App));
+	windows.push_back(new WindowInspector(App));
+	return true;
+}
+
+bool ModuleGUI::Start() {
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->Start();
+	}
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->PreUpdate(dt);
+	}
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleGUI::Update(float dt)
+update_status ModuleGUI::PostUpdate(float dt)
 {
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->PostUpdate(dt);
+	}
+	return UPDATE_CONTINUE;
+}
 
+// PostUpdate present buffer to screen
+bool ModuleGUI::Draw()
+{
+	// RENDERING
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -63,43 +92,30 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
-
-
-	
-
-
-
 	//Create Windows
 	CreateMenuBar();	//Create Menu Bar
 
 
-	//Show Windows
+
+	//Show Windows FIRST BUFFERS
 	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
-		
 	if (openWindowSettings)
 		ShowWindowSettings();
 
-
-
-	test_io = io;
-
-
-	return UPDATE_CONTINUE;
-}
-
-// PostUpdate present buffer to screen
-update_status ModuleGUI::PostUpdate(float dt)
-{
-	// RENDERING
-
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr && m->isEnabled())
+			m->Draw();
+	}
 
 	//renderig UI
 	ImGui::Render();
 
 	//view
-	glViewport(0, 0, (int)test_io->DisplaySize.x, (int)test_io->DisplaySize.y);
+	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -137,11 +153,6 @@ void ModuleGUI::CreateMenuBar() {
 	dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
 	window_flags |= ImGuiWindowFlags_NoBackground;
 
-	// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-	// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-	// all active windows docked into it will lose their parent and become undocked.
-	// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-	// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("DockSpace Demo", &p_open, window_flags);
 	ImGui::PopStyleVar();
@@ -206,7 +217,6 @@ void ModuleGUI::CreateMenuBar() {
 
 void ModuleGUI::ShowConsole() {
 	//Console Code
-	
 	console.Draw("Console", &openConsole);
 
 }

@@ -18,8 +18,7 @@ ModuleWindow::~ModuleWindow()
 bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
-	App->gui->console.AddLog("Starting Window module");
-
+	LOGC("Starting Window module");
 	bool ret = true;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

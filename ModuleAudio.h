@@ -6,19 +6,7 @@
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
 enum effects {
-	CAR1 = 1,
-	CAR2,
-	CAR_IDLE1,
-	CAR_IDLE2,
-	CAR_BACK1,
-	CAR_BACK2,
-	POWERUP,
-	JUMP,
-	BOOST,
-	TICK,
-	GO,
-	WHISTLE,
-	GOAL,
+
 };
 
 class ModuleAudio : public Module
