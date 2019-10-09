@@ -11,6 +11,8 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
+#include "ModuleImporter.h"
+
 class Application
 {
 public:

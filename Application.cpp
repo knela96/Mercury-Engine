@@ -161,7 +161,7 @@ update_status Application::Update()
 	last_frame_ms = frame_time.Read();
 	float frames_on_last_update = prev_last_sec_frame_count;
 
-	gui->console.AddLog(" Mercury Engine  ||  FPS: %f | Av.FPS: %f | Last Frame Ms: %f | FpsCap: %i | Vsync: off | DT %f", frames_on_last_update, avg_fps, last_frame_ms, framerate_cap, dt);
+	//gui->console.AddLog(" Mercury Engine  ||  FPS: %f | Av.FPS: %f | Last Frame Ms: %f | FpsCap: %i | Vsync: off | DT %f", frames_on_last_update, avg_fps, last_frame_ms, framerate_cap, dt);
 	
 	//framerate caop
 	float capped_ms = 1000 / framerate_cap;
