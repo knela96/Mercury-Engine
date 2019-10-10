@@ -70,7 +70,7 @@ bool ModuleImporter::Load(const char* path) {
 			if (new_mesh->HasFaces() && ret)
 			{
 				m.num_index = new_mesh->mNumFaces * 3;
-				m.id_index = new uint[m.num_index]; // assume each face is a triangle
+				m.index = new uint[m.num_index]; // assume each face is a triangle
 				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
 				{
 					if (new_mesh->mFaces[i].mNumIndices != 3) {
