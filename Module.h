@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __Module_H__
+#define __Module_H__
 
 class Application;
 struct PhysBody3D;
@@ -27,7 +28,8 @@ public:
 		return true;
 	}
 
-	virtual bool Draw() {
+	virtual bool Draw() 
+	{
 		return true;
 	}
 
@@ -58,3 +60,4 @@ public:
 		return true;
 	}
 };
+#endif __Module_H__

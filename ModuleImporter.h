@@ -1,7 +1,6 @@
-#ifndef __ModuleImporter_H__
-#define __ModuleImporter_H__
-#include "Module.h"
+#pragma once
 #include "Globals.h"
+#include "Module.h"
 
 struct Mesh {
 	uint* id_index = 0; // index in VRAM
@@ -18,9 +17,7 @@ class ModuleImporter : public Module
 public:
 	ModuleImporter(Application* app, bool start_enabled = true);
 	~ModuleImporter();
-
-	bool Init();
-
+	
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
@@ -33,6 +30,3 @@ public:
 private:
 	Mesh m;
 };
-
-#endif
-

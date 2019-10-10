@@ -5,7 +5,8 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
+
+#pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -17,34 +18,25 @@ ModuleImporter::~ModuleImporter()
 {
 }
 
-bool ModuleImporter::Init()
-{
+bool ModuleImporter::Start(){
 	// Stream log messages to Debug window
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	aiAttachLogStream(&stream);
+	aiAttachLogStream(&stream);
 	return true;
 }
 
-bool ModuleImporter::Start()
-{
-	return true;
-}
-
-update_status ModuleImporter::PreUpdate(float dt)
-{
+update_status ModuleImporter::PreUpdate(float dt){
 
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleImporter::PostUpdate(float dt)
-{
+update_status ModuleImporter::PostUpdate(float dt){
 
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleImporter::Draw()
-{
+bool ModuleImporter::Draw(){
 	return true;
 }
 
@@ -94,7 +86,7 @@ bool ModuleImporter::Load(const char* path) {
 		aiReleaseImport(scene);
 	}
 	else
-		LOGC("Error loading scene %s", path);
+		LOG("Error loading scene %s", path);
 
 
 	m;
