@@ -1,5 +1,7 @@
-#include "ModuleImporter.h"
 #include "Application.h"
+#include "ModuleImporter.h"
+#include "MeshObject.h"
+#include "Primitive.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -11,6 +13,7 @@
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	enabled = true;
 }
 
 
@@ -37,12 +40,7 @@ update_status ModuleImporter::PostUpdate(float dt){
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleImporter::Draw(){
-	return true;
-}
 
-
-// Called before quitting
 bool ModuleImporter::CleanUp()
 { 
 	// detach log stream
@@ -60,28 +58,9 @@ bool ModuleImporter::Load(const char* path) {
 		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
 			aiMesh* new_mesh = scene->mMeshes[j];
 
-			// copy vertices
-			m.num_vertex = new_mesh->mNumVertices;
-			m.vertex = new float[m.num_vertex * 3];
-			memcpy(m.vertex, new_mesh->mVertices, sizeof(float) * m.num_vertex * 3);
-			LOG("New mesh with %d vertices", m.num_vertex);
-
-			// copy faces
-			if (new_mesh->HasFaces() && ret)
-			{
-				m.num_index = new_mesh->mNumFaces * 3;
-				m.index = new uint[m.num_index]; // assume each face is a triangle
-				for (uint i = 0; i < new_mesh->mNumFaces; ++i)
-				{
-					if (new_mesh->mFaces[i].mNumIndices != 3) {
-						LOG("WARNING, geometry face with != 3 indices!");
-						ret = false;
-					}
-					else {
-						memcpy(&m.index[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
-					}
-				}
-			}
+			MeshObject* mObject = new MeshObject();
+			ret = mObject->Load(new_mesh);
+			meshes.push_back(mObject);
 		}
 
 		aiReleaseImport(scene);
@@ -89,8 +68,40 @@ bool ModuleImporter::Load(const char* path) {
 	else
 		LOG("Error loading scene %s", path);
 
-
-	m;
-
 	return ret;
+}
+
+bool ModuleImporter::Draw() {
+	
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
+
+	for (int i = 0; i < meshes.size(); ++i) {
+		MeshObject* mObject = meshes[i];
+
+		// enable vertex arrays
+		/*glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);*/
+		glEnableClientState(GL_VERTEX_ARRAY);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mObject->id_vertex);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mObject->id_index);
+
+		// before draw, specify vertex and index arrays with their offsets
+		/*glNormalPointer(GL_FLOAT, 0, (void*)sizeof(mObject->vertices));
+		glColorPointer(3, GL_FLOAT, 0, (void*)(sizeof(mObject->vertices) + sizeof(mObject->normals)));*/
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glDrawElements(GL_TRIANGLES, mObject->num_index, GL_UNSIGNED_INT, NULL); //Render objects
+
+		glPopMatrix();
+		glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind vertices buffer
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // Unbind indices buffer
+
+		glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
+		//glDisableClientState(GL_COLOR_ARRAY);
+		//glDisableClientState(GL_NORMAL_ARRAY);
+	}
+	return true;
 }

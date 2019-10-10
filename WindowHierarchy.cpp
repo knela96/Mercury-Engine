@@ -17,13 +17,6 @@ bool WindowHierarchy::Start()
 	return true;
 }
 
-update_status WindowHierarchy::PreUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
-
-update_status WindowHierarchy::PostUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
 
 bool WindowHierarchy::Draw()
 {

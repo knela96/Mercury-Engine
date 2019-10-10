@@ -185,7 +185,7 @@ public:
 private:
 
 	bool openGame = true;
-	bool openConsole = false;
+	bool openConsole = true;
 	bool openWindowSettings = false;
 	bool fullscreen = false;
 	bool borderless = false;

@@ -29,13 +29,10 @@ update_status WindowGame::PreUpdate(float dt) {
 	return UPDATE_CONTINUE;
 }
 
-update_status WindowGame::PostUpdate(float dt) {
-	fbo->PostUpdate();
-	return UPDATE_CONTINUE;
-}
-
 bool WindowGame::Draw()
 {
+	fbo->PostUpdate();
+
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Game");
 	ImVec2 position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);

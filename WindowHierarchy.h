@@ -1,4 +1,3 @@
-#pragma once
 #ifndef HIERARCHY_H
 #define HIERARCHY_H
 #include "Module.h"
@@ -16,8 +15,6 @@ public:
 	~WindowHierarchy();
 
 	bool Start();
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();

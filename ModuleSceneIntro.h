@@ -13,12 +13,6 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	
-	uint s_vertices;
-	uint s_normals;
-
-	float num_vertices;
-	uint iboId = 0;
-	uint vboId = 0;
 
 
 public:

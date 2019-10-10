@@ -17,14 +17,6 @@ bool WindowInspector::Start()
 	return true;
 }
 
-update_status WindowInspector::PreUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
-
-update_status WindowInspector::PostUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
-
 bool WindowInspector::Draw()
 {
 	ImGui::SetNextWindowSizeConstraints(ImVec2(400, -1), ImVec2(1000, -1));
