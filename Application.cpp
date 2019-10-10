@@ -22,7 +22,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	//AddModule(importer);
+	AddModule(importer);
 	
 	// Scenes
 	AddModule(scene_intro);
