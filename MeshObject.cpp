@@ -7,61 +7,64 @@
 
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
-
-MeshObject::MeshObject()
+MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
 {
-}
+	this->vertices = vertices;
+	this->indices = indices;
+	this->textures = textures;
 
+	SetupBuffers();
+}
 
 MeshObject::~MeshObject()
 {
 }
 
 
-bool MeshObject::Load(aiMesh* new_mesh) {
+bool MeshObject::SetupBuffers() {
 	bool ret = true;
 
-	// copy vertices
-	num_vertex = new_mesh->mNumVertices;
-	vertices = new float[num_vertex * 3];
+	// create buffers/arrays
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 
-	memcpy(vertices, new_mesh->mVertices, sizeof(float) * num_vertex * 3);
-	LOGC("New mesh with %d vertices", num_vertex);	
+	glBindVertexArray(VAO);
+	// load data into vertex buffers
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	// load data into indices buffers
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-	//VERTICES
-	glGenBuffers(1, &id_vertex);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex * 3, vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	// copy faces
-	if (new_mesh->HasFaces() && ret)
-	{
-		num_index = new_mesh->mNumFaces * 3;
-		indices = new uint[num_index]; // assume each face is a triangle
-
-		for (uint i = 0; i < new_mesh->mNumFaces; ++i)
-		{
-			if (new_mesh->mFaces[i].mNumIndices != 3) {
-				LOGC("WARNING, geometry face with != 3 indices!");
-				ret = false;
-			}
-			else {
-				memcpy(&indices[i * 3], new_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
-			}
-		}
-	}
-
-	//INDICES
-	glGenBuffers(1, &id_index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * num_index * sizeof(uint), indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);	
+	// set the vertex attribute pointers
+	// vertex Positions
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	// vertex normals
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	// vertex texture coords
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+	// vertex colours
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
+	
+	glBindVertexArray(0);
 
 	return ret;
+}
+
+void MeshObject::Draw() {
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 void MeshObject::CleanUp() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
+

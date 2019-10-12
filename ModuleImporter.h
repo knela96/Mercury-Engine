@@ -6,8 +6,11 @@
 #include "Module.h"
 #include <vector>
 
-class MeshObject;
+#define CHECKERS_HEIGHT 64
+#define CHECKERS_WIDTH 64
 
+class MeshObject;
+class aiMesh;
 
 class ModuleImporter : public Module
 {
@@ -25,8 +28,13 @@ public:
 
 	bool Load(const char * path);
 
+	MeshObject ProcessMesh(aiMesh * new_mesh);
+
+	void LoadTexture(uint Imageid);
+
 private:
-	std::vector<MeshObject*> meshes;
+	std::vector<MeshObject> meshes;	
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	bool enabled;
 };
 #endif IMPORTER_H

@@ -27,7 +27,17 @@ bool ModuleImporter::Start(){
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	//Load("warrior.fbx");
+	Load("warrior.fbx");
+
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
 	return true;
 }
 
@@ -63,9 +73,7 @@ bool ModuleImporter::Load(const char* path) {
 		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
 			aiMesh* new_mesh = scene->mMeshes[j];
 
-			MeshObject* mObject = new MeshObject();
-			ret = mObject->Load(new_mesh);
-			meshes.push_back(mObject);
+			meshes.push_back(ProcessMesh(new_mesh));
 		}
 
 		aiReleaseImport(scene);
@@ -76,6 +84,75 @@ bool ModuleImporter::Load(const char* path) {
 	return ret;
 }
 
+MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
+	
+	vector<Vertex> vertices;
+	vector<uint> indices;
+	vector<Texture> textures;
+
+	for (uint i = 0; i < new_mesh->mNumVertices; ++i)
+	{
+		Vertex vertex;
+		if (new_mesh->HasFaces())
+		{
+			vertex.Position = { 
+				new_mesh->mVertices[i].x, 
+				new_mesh->mVertices[i].y, 
+				new_mesh->mVertices[i].z 
+			};
+		}
+		if (new_mesh->HasNormals())
+		{
+			vertex.Normal = { 
+				new_mesh->mNormals[i].x,
+				new_mesh->mNormals[i].y, 
+				new_mesh->mNormals[i].z 
+			};
+		}
+		if (new_mesh->HasVertexColors(0)) {
+			vertex.Colors = { 
+				new_mesh->mColors[0][i].r,
+				new_mesh->mColors[0][i].g,
+				new_mesh->mColors[0][i].b,
+				new_mesh->mColors[0][i].a,
+			};
+		}
+		if (new_mesh->mTextureCoords[0])
+		{
+			vertex.TexCoords = { 
+				new_mesh->mTextureCoords[0][i].x, 
+				new_mesh->mTextureCoords[0][i].y };
+		}
+		else
+			vertex.TexCoords = { 0.0f, 0.0f };
+
+		vertices.push_back(vertex);
+	}
+
+	for (uint i = 0; i < new_mesh->mNumFaces; i++)
+	{
+		aiFace* face = &new_mesh->mFaces[i];
+
+		for (uint j = 0; j < face->mNumIndices; j++)
+			indices.push_back(face->mIndices[j]);
+	}
+
+	return MeshObject(vertices, indices, textures);
+}
+
+void ModuleImporter::LoadTexture(uint Imageid) {
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &Imageid);
+	glBindTexture(GL_TEXTURE_2D, Imageid);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+}
+
 bool ModuleImporter::Draw() {
 	
 	Plane p(0, 1, 0, 0);
@@ -83,30 +160,7 @@ bool ModuleImporter::Draw() {
 	p.Render();
 
 	for (int i = 0; i < meshes.size(); ++i) {
-		MeshObject* mObject = meshes[i];
-
-		// enable vertex arrays
-		/*glEnableClientState(GL_NORMAL_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);*/
-		glEnableClientState(GL_VERTEX_ARRAY);
-
-		glBindBuffer(GL_ARRAY_BUFFER, mObject->id_vertex);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mObject->id_index);
-
-		// before draw, specify vertex and index arrays with their offsets
-		/*glNormalPointer(GL_FLOAT, 0, (void*)sizeof(mObject->vertices));
-		glColorPointer(3, GL_FLOAT, 0, (void*)(sizeof(mObject->vertices) + sizeof(mObject->normals)));*/
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-		glDrawElements(GL_TRIANGLES, mObject->num_index, GL_UNSIGNED_INT, NULL); //Render objects
-
-		glPopMatrix();
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind vertices buffer
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // Unbind indices buffer
-
-		glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
-		//glDisableClientState(GL_COLOR_ARRAY);
-		//glDisableClientState(GL_NORMAL_ARRAY);
+		meshes[i].Draw();
 	}
 	return true;
 }
