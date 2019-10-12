@@ -2,6 +2,7 @@
 #include "ModuleImporter.h"
 #include "MeshObject.h"
 #include "Primitive.h"
+#include "SDL.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -26,7 +27,7 @@ bool ModuleImporter::Start(){
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	Load("warrior.fbx");
+	//Load("warrior.fbx");
 	return true;
 }
 
@@ -37,6 +38,10 @@ update_status ModuleImporter::PreUpdate(float dt){
 
 update_status ModuleImporter::PostUpdate(float dt){
 
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleImporter::Update(float dt) {
 	return UPDATE_CONTINUE;
 }
 
