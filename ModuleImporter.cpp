@@ -117,14 +117,17 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 				new_mesh->mColors[0][i].a,
 			};
 		}
+		else
+			vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
 		if (new_mesh->mTextureCoords[0])
 		{
 			vertex.TexCoords = { 
 				new_mesh->mTextureCoords[0][i].x, 
-				new_mesh->mTextureCoords[0][i].y };
+				new_mesh->mTextureCoords[0][i].y 
+			};
 		}
 		else
-			vertex.TexCoords = { 0.0f, 0.0f };
+			vertex.TexCoords = { 0.0f,0.0f };
 
 		vertices.push_back(vertex);
 	}
@@ -136,6 +139,8 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 		for (uint j = 0; j < face->mNumIndices; j++)
 			indices.push_back(face->mIndices[j]);
 	}
+
+	//LOAD TEXTURES
 
 	return MeshObject(vertices, indices, textures);
 }

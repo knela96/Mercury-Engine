@@ -7,8 +7,8 @@ class aiMesh;
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;
-	vec3 TexCoords;
 	vec4 Colors;
+	vec3 TexCoords;
 };
 
 struct Texture {
