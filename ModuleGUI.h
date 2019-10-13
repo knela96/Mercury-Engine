@@ -191,6 +191,7 @@ private:
 	bool borderless = false;
 	bool resizable = false;
 	bool fulldesktop = false;
+	bool openDebug = false;
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_WIDTH;

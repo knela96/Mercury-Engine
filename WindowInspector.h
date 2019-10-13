@@ -27,5 +27,7 @@ public:
 	vec3 pos;
 	vec3 rot;
 	vec3 scale;
+	Color face_color;
+	Color vertex_color;
 };
 #endif

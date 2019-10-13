@@ -21,7 +21,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	Primitive Cube;
-	Cube.DrawObj(Primitive_Cube);
+	Cube.DrawObj(Primitive_Cylinder);
 
 	return ret;
 }

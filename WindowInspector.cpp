@@ -42,6 +42,26 @@ bool WindowInspector::Draw()
 		//ImGui::DragFloat3("drag float3", vec4f, 0.01f, 0.0f, 1.0f);
 
 	}
+
+	ImGui::SetNextTreeNodeOpen(open_transform);
+	if (ImGui::CollapsingHeader("Draw Normals"))
+	{
+		static bool alpha_preview = true;
+		static bool alpha_half_preview = false;
+		static bool drag_and_drop = true;
+		static bool options_menu = true;
+		static bool hdr = false;
+
+		ImGuiColorEditFlags misc_flags = (hdr ? ImGuiColorEditFlags_HDR : 0) | (drag_and_drop ? 0 : ImGuiColorEditFlags_NoDragDrop) | (alpha_half_preview ? ImGuiColorEditFlags_AlphaPreviewHalf : (alpha_preview ? ImGuiColorEditFlags_AlphaPreview : 0)) | (options_menu ? 0 : ImGuiColorEditFlags_NoOptions);
+		ImGui::Text("Face Normals:");
+
+		ImGui::Text("Color:");
+		ImGui::SameLine(); ImGui::PushItemWidth(200);
+		ImGui::ColorEdit4("MyColor##3", (float*)&face_color, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | misc_flags);
+
+		ImGui::Text("Vertex Normals:");
+	}
+
 	ImGui::End();
 	return false;
 }
