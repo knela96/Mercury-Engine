@@ -135,7 +135,6 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	vector<Texture> textures;
 
 	Vertex vertex;
-	uint c = 0;
 	for (uint i = 0; i < new_mesh->npoints; i++)
 	{
 		if (new_mesh->triangles != nullptr)
@@ -168,8 +167,6 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 			vertex.TexCoords = { 0.0f,0.0f };
 
 		vertices.push_back(vertex);
-
-		c += 2;
 	}
 
 
