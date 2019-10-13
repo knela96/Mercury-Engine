@@ -26,6 +26,8 @@ public:
 
 	void Draw();
 
+	vec3 getNormal(vec3 p1, vec3 p2, vec3 p3);
+
 	void CleanUp();
 
 public:

@@ -27,7 +27,7 @@ bool ModuleImporter::Start(){
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	Load("warrior.fbx");
+	//Load("warrior.fbx");
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
