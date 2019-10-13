@@ -158,6 +158,11 @@ void ModuleImporter::LoadTexture(uint Imageid) {
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 }
 
+void ModuleImporter::PushObj(aiMesh * mesh)
+{
+	meshes.push_back(ProcessMesh(mesh));
+}
+
 bool ModuleImporter::Draw() {
 	
 	Plane p(0, 1, 0, 0);

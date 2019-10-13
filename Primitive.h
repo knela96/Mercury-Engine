@@ -10,7 +10,8 @@ enum PrimitiveTypes
 	Primitive_Plane,
 	Primitive_Cube,
 	Primitive_Sphere,
-	Primitive_Cylinder
+	Primitive_Cylinder,
+	Primitive_Cone
 };
 
 class Primitive
@@ -24,6 +25,7 @@ public:
 	void			SetPos(float x, float y, float z);
 	void			SetRotation(float angle, const vec3 &u);
 	void			Scale(float x, float y, float z);
+	void DrawObj(PrimitiveTypes type);
 	PrimitiveTypes	GetType() const;
 
 public:

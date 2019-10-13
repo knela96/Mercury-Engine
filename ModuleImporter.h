@@ -32,6 +32,7 @@ public:
 
 	void LoadTexture(uint Imageid);
 
+	void PushObj(aiMesh* mesh);
 private:
 	std::vector<MeshObject> meshes;	
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
