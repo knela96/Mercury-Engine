@@ -123,7 +123,6 @@ update_status ModuleCamera3D::Update(float dt)
 			vec3 nPos = { 0,0,0 };
 			if ((App->input->GetMouseZ() > 0 && length(distance) > 0.5) || App->input->GetMouseZ() < 0) {
 				nPos -= Z * App->input->GetMouseZ() * distance.z / 10;
-				LOGC("%i - %f", App->input->GetMouseZ(), length(distance));
 				Position += nPos;
 			}
 		}
