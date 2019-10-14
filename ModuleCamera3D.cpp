@@ -60,7 +60,15 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-			Position = vec3(0.5f, 1.0f, 2.5f);
+			X = vec3(1.0f, 0.0f, 0.0f);
+			Y = vec3(0.0f, 1.0f, 0.0f);
+			Z = vec3(0.0f, 0.0f, 1.0f);
+
+			Position = vec3(0.0f, 0.0f, 5.0f);
+			Reference = vec3(0.0f, 0.0f, 0.0f);
+
+			Move(vec3(1.0f, 1.0f, 0.0f));
+			LookAt(vec3(0, 0, 0));
 		}
 
 		// Mouse motion ----------------
@@ -107,10 +115,17 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
+
+
 		//Mouse Wheel
 		if (App->gui->game->mouseHover() && App->input->GetMouseZ() != 0) {
-			newPos -= Z * App->input->GetMouseZ();
-			Position += newPos;
+			vec3 distance = (Position - Reference);
+			vec3 nPos = { 0,0,0 };
+			if ((App->input->GetMouseZ() > 0 && length(distance) > 0.5) || App->input->GetMouseZ() < 0) {
+				nPos -= Z * App->input->GetMouseZ() * distance.z / 10;
+				LOGC("%i - %f", App->input->GetMouseZ(), length(distance));
+				Position += nPos;
+			}
 		}
 
 		// Recalculate matrix -------------
