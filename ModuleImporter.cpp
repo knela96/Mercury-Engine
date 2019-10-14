@@ -8,7 +8,7 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
-
+#include "DevIL/DevIL/include/IL/ilut.h"
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
 
@@ -29,15 +29,6 @@ bool ModuleImporter::Start(){
 	aiAttachLogStream(&stream);
 	//Load("warrior.fbx");
 
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
 	return true;
 }
 
@@ -145,17 +136,57 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 	return MeshObject(vertices, indices, textures);
 }
 
-void ModuleImporter::LoadTexture(uint Imageid) {
+void ModuleImporter::LoadTexture(uint Imageid,const char*path) {
+
+	ILubyte *Lump;
+	ILuint Size;
+	FILE *File;
+
+	File = fopen("TextText.png", "rb");
+	fseek(File, 0, SEEK_END);
+	Size = ftell(File);
+
+	Lump = (ILubyte*)malloc(Size);
+	fseek(File, 0, SEEK_SET);
+	fread(Lump, 1, Size, File);
+	fclose(File);
+
+	ilLoadL(IL_TGA, Lump, Size);
+	free(Lump);
+
+	ilLoadImage(path);
+
+
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &Imageid);
-	glBindTexture(GL_TEXTURE_2D, Imageid);
+	glGenTextures(1, &Texture_id);
+	glBindTexture(GL_TEXTURE_2D, Texture_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+}
+
+ILboolean ModuleImporter::ilLoadImage(const char * FileName)
+{
+
+
+	return ILboolean();
 }
 
 void ModuleImporter::PushObj(aiMesh * mesh)
@@ -172,5 +203,30 @@ bool ModuleImporter::Draw() {
 	for (int i = 0; i < meshes.size(); ++i) {
 		meshes[i].Draw();
 	}
+
+
+	//_____________________
+
+	
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, Texture_id);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0); glVertex3f(-2.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 1.0); glVertex3f(-2.0, 1.0, 0.0);
+	glTexCoord2f(1.0, 1.0); glVertex3f(0.0, 1.0, 0.0);
+	glTexCoord2f(1.0, 0.0); glVertex3f(0.0, -1.0, 0.0);
+
+	glTexCoord2f(0.0, 0.0); glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.0, 1.0); glVertex3f(1.0, 1.0, 0.0);
+	glTexCoord2f(1.0, 1.0); glVertex3f(2.41421, 1.0, -1.41421);
+	glTexCoord2f(1.0, 0.0); glVertex3f(2.41421, -1.0, -1.41421);
+	glEnd();
+	glFlush();
+	glDisable(GL_TEXTURE_2D);
+
+
+
+
 	return true;
 }

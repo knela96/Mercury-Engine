@@ -30,12 +30,15 @@ public:
 
 	MeshObject ProcessMesh(aiMesh * new_mesh);
 
-	void LoadTexture(uint Imageid);
-
 	void PushObj(aiMesh* mesh);
+
 	std::vector<MeshObject> meshes;
+
+	void LoadTexture(uint Imageid,const char* path);
+	ILboolean ilLoadImage(const char *FileName);
 private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	bool enabled;
+	uint Texture_id = 0;
 };
 #endif IMPORTER_H
