@@ -15,6 +15,7 @@
 #include <iterator> 
 
 #include "WindowInspector.h"
+#include "WindowGame.h"
 using namespace std;
 
 struct MercuryEngineConsole
@@ -185,6 +186,7 @@ public:
 
 	MercuryEngineConsole console;
 	WindowInspector* inspector;
+	WindowGame* game;
 
 private:
 	bool openWindowSettings = false;

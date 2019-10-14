@@ -38,7 +38,8 @@ bool ModuleGUI::Init()
 	ImGui_ImplOpenGL3_Init();
 
 	//INIT WINDOWS
-	windows.push_back(new WindowGame(App));
+	game = new WindowGame(App);
+	windows.push_back(game);
 	windows.push_back(new WindowHierarchy(App));
 	inspector = new WindowInspector(App);
 	windows.push_back(inspector);
@@ -94,7 +95,7 @@ bool ModuleGUI::Draw()
 	ImGui::NewFrame();
 
 	//Create Windows
-	App->input->quit = CreateMenuBar();	//Create Menu Bar
+	App->input->quit = !CreateMenuBar();	//Create Menu Bar
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		openConsole = !openConsole;
@@ -186,7 +187,7 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
 			if (ImGui::MenuItem("Save As..")) {}
 			if (ImGui::MenuItem("Exit")) {
-				return false;
+				ret = false;
 			}
 			ImGui::EndMenu();
 		}
@@ -226,6 +227,7 @@ bool ModuleGUI::CreateMenuBar() {
 		ImGui::EndMainMenuBar();
 	}else
 		LOG("Cannot create Menu Bar");
+	return ret;
 }
 
 void ModuleGUI::ShowConsole() {

@@ -17,12 +17,15 @@ public:
 	bool Cleanup();
 	bool isEnabled();
 
+	bool mouseHover();
+
 private:
 	bool enabled;
 	FrameBuffer* fbo = nullptr;
 
 public:
 	ImVec2 size_Game;
+	ImVec2 position;
 	ImVec2 newsize_Game;
 };
 
