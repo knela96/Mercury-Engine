@@ -108,7 +108,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		//Mouse Wheel
-		if (App->gui->game->mouseHover()) {
+		if (App->gui->game->mouseHover() && App->input->GetMouseZ() != 0) {
 			newPos -= Z * App->input->GetMouseZ();
 			Position += newPos;
 		}
