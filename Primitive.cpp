@@ -60,11 +60,6 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
-	if (wire)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	InnerRender();
 
 	glPopMatrix();
@@ -114,18 +109,23 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	{
 	case PrimitiveTypes::Primitive_Sphere:
 		new_mesh = par_shapes_create_subdivided_sphere(2);
+		LOGC("Sphere Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Plane:
 		new_mesh = par_shapes_create_plane(1, 1);
+		LOGC("Plane Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cube:
 		new_mesh = par_shapes_create_cube();
+		LOGC("Cube Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cone:
 		new_mesh = par_shapes_create_cone(20, 5);
+		LOGC("Cone Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cylinder:
 		new_mesh = par_shapes_create_cylinder(20, 4);
+		LOGC("Cylinder Primitive created");
 		break;
 	}
 
@@ -176,6 +176,11 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		indices.push_back(new_mesh->triangles[i]);
 
 	}
+
+	LOGC("Loaded Vertices: %u", vertices.size());
+	LOGC("Loaded Indices: %u", indices.size());
+	LOGC("Loaded Textures: %u", textures.size());
+
 	App->importer->meshes.push_back(MeshObject(vertices, indices, textures));
 }
 

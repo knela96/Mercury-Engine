@@ -20,13 +20,15 @@ bool WindowHierarchy::Start()
 
 bool WindowHierarchy::Draw()
 {
-	ImGui::Begin("Hierarchy");
-	if (ImGui::TreeNode("Tree"))
-	{
-		ImGui::Text("Node");
-		ImGui::TreePop();
+	if (App->gui->openHirearchy) {
+		ImGui::Begin("Hierarchy",&App->gui->openHirearchy);
+		if (ImGui::TreeNode("Tree"))
+		{
+			ImGui::Text("Node");
+			ImGui::TreePop();
+		}
+		ImGui::End();
 	}
-	ImGui::End();
 	return false;
 }
 

@@ -27,7 +27,7 @@ bool ModuleImporter::Start(){
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	//Load("warrior.fbx");
+	Load("warrior.fbx");
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
@@ -65,7 +65,7 @@ bool ModuleImporter::CleanUp()
 
 bool ModuleImporter::Load(const char* path) {
 	bool ret = true;
-
+	LOGC("Loading Mesh File: %s", path);
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -141,6 +141,11 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 	}
 
 	//LOAD TEXTURES
+
+
+	LOGC("Loaded Vertices: %u", vertices.size());
+	LOGC("Loaded Indices: %u", indices.size());
+	LOGC("Loaded Textures: %u", textures.size());
 
 	return MeshObject(vertices, indices, textures);
 }

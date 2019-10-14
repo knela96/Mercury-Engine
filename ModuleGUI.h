@@ -13,6 +13,8 @@
 #include <iostream> 
 #include <list> 
 #include <iterator> 
+
+#include "WindowInspector.h"
 using namespace std;
 
 struct MercuryEngineConsole
@@ -37,7 +39,7 @@ struct MercuryEngineConsole
 		Commands.push_back("CLASSIFY");
 		AutoScroll = true;
 		ScrollToBottom = false;
-		AddLog("Test message");
+		//AddLog("");
 	}
 
 	~MercuryEngineConsole()
@@ -76,7 +78,7 @@ struct MercuryEngineConsole
 	void    Draw(const char* title, bool* p_open)
 	{
 		ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-		if (!ImGui::Begin(title, p_open))
+		if (!ImGui::Begin(title, p_open, ImGuiWindowFlags_MenuBar))
 		{
 			ImGui::End();
 			return;
@@ -89,14 +91,16 @@ struct MercuryEngineConsole
 				*p_open = false;
 			ImGui::EndPopup();
 		}
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::MenuItem("Clear"))
+			{
+				ClearLog();
+			}
+			ImGui::EndMenuBar();
+		}
+		 ImGui::TextWrapped("Messages:");
 
-		ImGui::TextWrapped("LOGS SHOWED HERE");
-
-
-
-		/*if (ImGui::SmallButton("Option 1")) { AddLog(" text not defined -size:%d", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
-		if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[error] something went wrong"); } ImGui::SameLine();
-		if (ImGui::SmallButton("Clear")) { ClearLog(); } ImGui::SameLine();*/
 
 		//static float t = 0.0f; if (ImGui::GetTime() - t > 0.02f) { t = ImGui::GetTime(); AddLog("Spam %f", t); }
 
@@ -153,7 +157,6 @@ struct MercuryEngineConsole
 
 };
 
-
 class ModuleGUI : public Module {
 
 public:
@@ -169,7 +172,7 @@ public:
 	bool Draw();
 	bool CleanUp();
 
-	void CreateMenuBar();
+	bool CreateMenuBar();
 
 	void ShowConsole();
 
@@ -181,11 +184,9 @@ public:
 	bool show_another_window = false;
 
 	MercuryEngineConsole console;
+	WindowInspector* inspector;
 
 private:
-
-	bool openGame = true;
-	bool openConsole = true;
 	bool openWindowSettings = false;
 	bool fullscreen = false;
 	bool borderless = false;
@@ -194,11 +195,15 @@ private:
 	bool openDebug = false;
 
 	int screen_width = SCREEN_WIDTH;
-	int screen_height = SCREEN_WIDTH;
+	int screen_height = SCREEN_HEIGHT;
 	bool p_open = true; 
-	
+	bool quit = false;
 	list<Module*> windows;
-
+public:
+	bool openGame = true;
+	bool openConsole = true;
+	bool openInspector = true;
+	bool openHirearchy = true;
 };
 
 

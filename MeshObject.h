@@ -30,6 +30,8 @@ public:
 
 	void CleanUp();
 
+	void DebugNormals();
+
 public:
 	vector<Vertex> vertices;
 	vector<uint> indices;

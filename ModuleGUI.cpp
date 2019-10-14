@@ -4,7 +4,7 @@
 #include "ModuleGUI.h"
 #include "WindowGame.h"
 #include "WindowHierarchy.h"
-#include "WindowInspector.h"
+#include "ModuleInput.h"
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -40,7 +40,8 @@ bool ModuleGUI::Init()
 	//INIT WINDOWS
 	windows.push_back(new WindowGame(App));
 	windows.push_back(new WindowHierarchy(App));
-	windows.push_back(new WindowInspector(App));
+	inspector = new WindowInspector(App);
+	windows.push_back(inspector);
 	return true;
 }
 
@@ -93,12 +94,15 @@ bool ModuleGUI::Draw()
 	ImGui::NewFrame();
 
 	//Create Windows
-	CreateMenuBar();	//Create Menu Bar
+	App->input->quit = CreateMenuBar();	//Create Menu Bar
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		openConsole = !openConsole;
+	}
 
 
 	//Show Windows FIRST BUFFERS
-	ImGui::ShowDemoWindow(&show_demo_window);
+	//ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
 	if (openWindowSettings)
@@ -132,8 +136,8 @@ bool ModuleGUI::CleanUp()
 	return true;
 }
 
-void ModuleGUI::CreateMenuBar() {
-
+bool ModuleGUI::CreateMenuBar() {
+	bool ret = true;
 	bool opt_fullscreen = true;
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
@@ -181,6 +185,9 @@ void ModuleGUI::CreateMenuBar() {
 			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
 			if (ImGui::MenuItem("Save As..")) {}
+			if (ImGui::MenuItem("Exit")) {
+				return false;
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Edit"))
@@ -197,6 +204,12 @@ void ModuleGUI::CreateMenuBar() {
 		{
 			if (ImGui::MenuItem("Console", "F1", openConsole)) {
 				openConsole = !openConsole;
+			}
+			if (ImGui::MenuItem("Hirearchy", "", openHirearchy)) {
+				openHirearchy = !openHirearchy;
+			}
+			if (ImGui::MenuItem("Inspector", "", openInspector)) {
+				openInspector = !openInspector;
 			}
 			if (ImGui::MenuItem("Settings")) {
 				openWindowSettings = true;
@@ -218,19 +231,26 @@ void ModuleGUI::CreateMenuBar() {
 void ModuleGUI::ShowConsole() {
 	//Console Code
 	console.Draw("Console", &openConsole);
-
 }
 
 void ModuleGUI::ShowWindowSettings() {
 
 	ImGui::Begin("Settings",&openWindowSettings);
 
+
 	ImGui::Text("Width: ");
-	ImGui::SameLine();
-	ImGui::SliderInt("px", &screen_width, 800, 2160);
+	ImGui::SameLine(); ImGui::PushID("screen_width");
+	ImGui::SliderInt("px", &screen_width, 800, 3840); ImGui::PopID();
+
+	ImGui::Text("Height: ");
+	ImGui::SameLine(); ImGui::PushID("screen_height");
+	ImGui::SliderInt("px", &screen_height, 600, 2160); ImGui::PopID();
+
 	if (ImGui::Checkbox("Fullscreen", &fullscreen))
 		App->window->SetFullscreen(fullscreen);
 	ImGui::SameLine();
+	if (ImGui::Checkbox("Borderless", &borderless))
+		App->window->SetBorderless(borderless);
 	if (ImGui::Checkbox("Borderless", &borderless))
 		App->window->SetBorderless(borderless);
 	ImGui::End();
