@@ -115,6 +115,13 @@ void ModuleWindow::SetBorderless(bool active) {
 		SDL_SetWindowBordered(window, SDL_TRUE);
 }
 
+void ModuleWindow::SetResizable(bool active) {
+	if (active)
+		SDL_SetWindowResizable(window, SDL_TRUE);
+	else
+		SDL_SetWindowResizable(window, SDL_FALSE);
+}
+
 void ModuleWindow::SetWindowSize(int width, int height) {
 	SDL_SetWindowSize(window, width, height);
 }

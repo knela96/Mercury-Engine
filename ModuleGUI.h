@@ -192,7 +192,7 @@ private:
 	bool openWindowSettings = false;
 	bool fullscreen = false;
 	bool borderless = false;
-	bool resizable = false;
+	bool resizable = true;
 	bool fulldesktop = false;
 	bool openDebug = false;
 

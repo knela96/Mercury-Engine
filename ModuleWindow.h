@@ -24,6 +24,8 @@ public:
 
 	void SetBorderless(bool active);
 
+	void SetResizable(bool active);
+
 	void SetWindowSize(int width, int height);
 
 public:

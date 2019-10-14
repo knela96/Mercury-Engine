@@ -21,6 +21,7 @@ public:
 private:
 
 	void CalculateViewMatrix();
+	bool moving = false;
 
 public:
 	

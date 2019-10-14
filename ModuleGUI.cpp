@@ -219,8 +219,14 @@ bool ModuleGUI::CreateMenuBar() {
 		}
 		if (ImGui::BeginMenu("Help"))
 		{
+			if (ImGui::MenuItem("Mercury Engine Repository")) {
+				ShellExecuteA(NULL, "open", "https://github.com/knela96/Mercury-Engine", NULL, NULL, SW_SHOWNORMAL);
+			}
+			if (ImGui::MenuItem("Found any bug?")) {
+				ShellExecuteA(NULL, "open", "https://github.com/knela96/Mercury-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+			}
 			if (ImGui::MenuItem("About..")) {
-				ShellExecuteA(NULL,"open","www.google.com",NULL,NULL,SW_SHOWNORMAL);
+				ShellExecuteA(NULL,"open","https://github.com/knela96/Mercury-Engine/wiki",NULL,NULL,SW_SHOWNORMAL);
 			}
 			ImGui::EndMenu();
 		}
@@ -253,7 +259,7 @@ void ModuleGUI::ShowWindowSettings() {
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Borderless", &borderless))
 		App->window->SetBorderless(borderless);
-	if (ImGui::Checkbox("Borderless", &borderless))
-		App->window->SetBorderless(borderless);
+	if (ImGui::Checkbox("Resizable", &resizable))
+		App->window->SetResizable(resizable);
 	ImGui::End();
 }
