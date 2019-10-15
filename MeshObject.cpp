@@ -33,6 +33,7 @@ bool MeshObject::SetupBuffers() {
 	// load data into vertex buffers
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+
 	// load data into indices buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
@@ -87,20 +88,12 @@ void MeshObject::Draw() {
 		//glUniform1i(glGetUniformLocation(shader.ID, (getType(type) + number).c_str()), i);
 		// and finally bind the texture
 
-		
 		//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-		
-	}
-
-	
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);		
+	}	
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-
 	glBindTexture(GL_TEXTURE_2D,0);
-	
-
 	glActiveTexture(GL_TEXTURE0);
 
 	//if (App->gui->vertex_normals) {

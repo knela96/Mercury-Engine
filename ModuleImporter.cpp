@@ -233,11 +233,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, h, v,0, f, GL_UNSIGNED_BYTE, texdata);
-		//glGenerateMipmap(GL_TEXTURE_2D);
-
-		
-
-		
+		//glGenerateMipmap(GL_TEXTURE_2D);		
 		//gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
 		//glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -250,7 +246,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 
 bool ModuleImporter::CreateTexture() {
 
-	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
@@ -271,7 +267,7 @@ bool ModuleImporter::CreateTexture() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);*/
 
 	return true;
 }
