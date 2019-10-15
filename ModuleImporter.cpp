@@ -137,8 +137,6 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 }
 
 bool ModuleImporter::LoadTexture(uint Imageid,const char*path) {
-
-
 	
 	uint texture;
 
@@ -179,8 +177,11 @@ bool ModuleImporter::LoadTexture(uint Imageid,const char*path) {
 
 		return texture;
 	}
-	
-	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+}
+
+bool ModuleImporter::CreateTexture() {
+
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
@@ -202,15 +203,9 @@ bool ModuleImporter::LoadTexture(uint Imageid,const char*path) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 	glBindTexture(GL_TEXTURE_2D, 0);
-*/
+
 }
 
-ILboolean ModuleImporter::ilLoadImage(const char * FileName)
-{
-
-
-	return ILboolean();
-}
 
 void ModuleImporter::PushObj(aiMesh * mesh)
 {

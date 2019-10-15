@@ -34,8 +34,10 @@ public:
 
 	std::vector<MeshObject> meshes;
 
-	void LoadTexture(uint Imageid,const char* path);
-	ILboolean ilLoadImage(const char *FileName);
+	bool LoadTexture(uint Imageid,const char* path);
+	bool CreateTexture();
+
+	
 private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	bool enabled;
