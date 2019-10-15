@@ -29,6 +29,8 @@ bool MeshObject::SetupBuffers() {
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
+	
+
 	glBindVertexArray(VAO);
 	// load data into vertex buffers
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -49,11 +51,13 @@ bool MeshObject::SetupBuffers() {
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 	// vertex colours
-	glEnableVertexAttribArray(3);
+	/*glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
-
-
+*/
+	
 	glBindVertexArray(0);
+
+	glUseProgram(App->importer->shaderProgram);
 
 	return ret;
 }
@@ -67,7 +71,7 @@ void MeshObject::Draw() {
 	unsigned int heightNr = 1;
 	LOGC("Loaded Textures:");
 
-	glBindVertexArray(VAO);
+	
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -85,12 +89,14 @@ void MeshObject::Draw() {
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
 												 // now set the sampler to the correct texture unit
-		//glUniform1i(glGetUniformLocation(shader.ID, (getType(type) + number).c_str()), i);
+		glUniform1i(glGetUniformLocation(App->importer->shaderProgram, (getType(type) + number).c_str()), i);
 		// and finally bind the texture
 
 		//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);		
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}	
+	//glUseProgram(App->importer->shaderProgram);
+	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D,0);
