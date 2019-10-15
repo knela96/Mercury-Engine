@@ -1,10 +1,10 @@
 #include "MeshObject.h"
 #include "Application.h"
+#include "glmath.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
-#include "glmath.h"
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
@@ -58,6 +58,36 @@ bool MeshObject::SetupBuffers() {
 }
 
 void MeshObject::Draw() {
+
+	// bind appropriate textures
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	unsigned int normalNr = 1;
+	unsigned int heightNr = 1;
+	LOGC("Loaded Textures:");
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+		// retrieve texture number (the N in diffuse_textureN)
+		string number;
+		aiTextureType type = textures[i].type;
+		if (type == aiTextureType_DIFFUSE)
+			number = std::to_string(diffuseNr++);
+		else if (type == aiTextureType_SPECULAR)
+			number = std::to_string(specularNr++); // transfer unsigned int to stream
+		else if (type == aiTextureType_NORMALS)
+			number = std::to_string(normalNr++); // transfer unsigned int to stream
+		else if (type == aiTextureType_HEIGHT)
+			number = std::to_string(heightNr++); // transfer unsigned int to stream
+
+												 // now set the sampler to the correct texture unit
+		//glUniform1i(glGetUniformLocation(shader.ID, (getType(type) + number).c_str()), i);
+		// and finally bind the texture
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
+
+
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
@@ -100,6 +130,23 @@ void MeshObject::Draw() {
 	//		glEnd();
 	//	}
 	//}
+}
+
+char* MeshObject::getType(aiTextureType type) {
+	switch (type) {
+	case aiTextureType_DIFFUSE:
+		return "Diffuse Map";
+		break;
+	case aiTextureType_SPECULAR:
+		return "Specular Map";
+		break;
+	case aiTextureType_NORMALS:
+		return "Normal Map";
+		break;
+	case aiTextureType_HEIGHT:
+		return "Height Map";
+		break;
+	}
 }
 
 vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {

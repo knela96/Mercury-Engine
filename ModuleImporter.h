@@ -3,14 +3,18 @@
 #include "Application.h"
 #include "Module.h"
 
-#include "Module.h"
 #include <vector>
 
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
 
+enum aiTextureType;
+
 class MeshObject;
+struct Texture;
 class aiMesh;
+class aiScene;
+class aiMaterial;
 
 class ModuleImporter : public Module
 {
@@ -28,15 +32,19 @@ public:
 
 	bool Load(const char * path);
 
-	MeshObject ProcessMesh(aiMesh * new_mesh);
+	MeshObject ProcessMesh(aiMesh * new_mesh,const aiScene * scene = NULL);
 
 	void PushObj(aiMesh* mesh);
 
-	std::vector<MeshObject> meshes;
+	uint LoadTexture(const char * path, uint & texture);
 
-	bool LoadTexture(uint Imageid,const char* path);
+	vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type);
+	
 	bool CreateTexture();
 
+public:
+	std::vector<MeshObject> meshes;
+	std::vector<Texture> stored_textures;
 	
 private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];

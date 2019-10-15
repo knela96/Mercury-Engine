@@ -3,6 +3,7 @@
 #include "Application.h"
 
 class aiMesh;
+enum aiTextureType;
 
 struct Vertex {
 	vec3 Position;
@@ -12,8 +13,9 @@ struct Vertex {
 };
 
 struct Texture {
-	uint id;
-	string type;
+	uint id; 
+	string path;
+	aiTextureType type;
 };
 
 class MeshObject
@@ -25,6 +27,8 @@ public:
 	bool SetupBuffers();
 
 	void Draw();
+
+	char* getType(aiTextureType type);
 
 	vec3 getNormal(vec3 p1, vec3 p2, vec3 p3);
 

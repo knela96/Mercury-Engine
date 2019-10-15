@@ -5,6 +5,10 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "DevIL/include/IL/ilut.h"
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/DevIL.lib")
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/ILU.lib")
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/ILUT.lib")
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -42,12 +46,19 @@ bool ModuleRenderer3D::Init()
 
 		//Init OpenGL
 		glewInit();
+		LOGC("GLEW Initialized");
+
+		// Initialize IL
+		ilInit();
+		// Initialize ILU
+		iluInit();
+		// Initialize ILUT with OpenGL support.
+		ilutRenderer(ILUT_OPENGL);
+		LOGC("DevIL Initialized");
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-
-		glewInit();
 
 		//Check for error
 		GLenum error = glGetError();
