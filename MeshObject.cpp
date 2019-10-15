@@ -83,7 +83,12 @@ void MeshObject::Draw() {
 												 // now set the sampler to the correct texture unit
 		//glUniform1i(glGetUniformLocation(shader.ID, (getType(type) + number).c_str()), i);
 		// and finally bind the texture
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+
 	}
 
 
@@ -92,6 +97,8 @@ void MeshObject::Draw() {
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
+	glBindTexture(GL_TEXTURE_2D,0);
+	glDisable(GL_TEXTURE_2D);
 	//if (App->gui->vertex_normals) {
 	//	//NORMAL VERTEX
 	//	for (int i = 0; i < indices.size(); i++)

@@ -34,7 +34,7 @@ bool ModuleImporter::Start(){
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-	//Load("warrior.fbx");
+	Load("BakerHouse.fbx");
 
 	return true;
 }
@@ -139,20 +139,27 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	}
 
 	//LOAD MATERIAL TEXTURES
-	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+	//aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-	// 1. diffuse maps
-	vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
-	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-	// 2. specular maps
-	vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
-	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	// 3. normal maps
-	std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
-	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-	// 4. height maps
-	std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
-	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+	//// 1. diffuse maps
+	//vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
+	//textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+	//// 2. specular maps
+	//vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
+	//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+	//// 3. normal maps
+	//std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
+	//textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	//// 4. height maps
+	//std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
+	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+
+	Texture texture;
+	LoadTexture("image.png", texture.id);
+	texture.type = aiTextureType_DIFFUSE;
+	texture.path = "image.png";
+	stored_textures.push_back(texture); //store to loaded textures
+	textures.push_back(texture);
 
 	return MeshObject(vertices, indices, textures);
 }
@@ -187,21 +194,21 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 	return texture;
 }
 
-uint ModuleImporter::LoadTexture(const char*path, uint &texture) {
-	ILuint image_id;
+uint ModuleImporter::LoadTexture(const char*path, uint &id) {
+	//ILuint image_id;
 
-	ilGenImages(1, &image_id);
-	ilBindImage(image_id);
+	CreateTexture();
 
 	if (!ilLoadImage(path)) {
-		ilDeleteImages(1, &image_id);
+		ilDeleteImages(1, &id);
 		LOG("texture not loaded, error ocurred")
 			return false;
 	}
 	else {
-		texture = ilutGLBindTexImage();
-		LOG("generating texture, path: %s", path)
-
+		uint texture = ilutGLBindTexImage();
+		LOG("generating texture, path: %s", path);
+		LOG("id %i", texture);
+		id = texture;
 		long h, v, bpp, f;
 		ILubyte *texdata = 0;
 
@@ -211,17 +218,22 @@ uint ModuleImporter::LoadTexture(const char*path, uint &texture) {
 		f = ilGetInteger(IL_IMAGE_FORMAT);
 		texdata = ilGetData();
 
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		glGenTextures(1, &id);
+		glBindTexture(GL_TEXTURE_2D, id);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, h, v,
+			0, f, GL_UNSIGNED_BYTE, texdata);*/
 		gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		ilBindImage(0);
-		ilDeleteImage(image_id);
+		//ilDeleteImage(image_id);
 	}
 
 	return true;
@@ -274,7 +286,7 @@ bool ModuleImporter::Draw() {
 
 	//_____________________
 
-	
+	/*
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, Texture_id);
@@ -290,7 +302,7 @@ bool ModuleImporter::Draw() {
 	glTexCoord2f(1.0, 0.0); glVertex3f(2.41421, -1.0, -1.41421);
 	glEnd();
 	glFlush();
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);*/
 
 
 
