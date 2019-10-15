@@ -65,6 +65,9 @@ void MeshObject::Draw() {
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 	LOGC("Loaded Textures:");
+
+	glBindVertexArray(VAO);
+
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -84,21 +87,22 @@ void MeshObject::Draw() {
 		//glUniform1i(glGetUniformLocation(shader.ID, (getType(type) + number).c_str()), i);
 		// and finally bind the texture
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		
+		//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-
+		
 	}
 
-
-
-	glBindVertexArray(VAO);
+	
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D,0);
-	glDisable(GL_TEXTURE_2D);
+	
+
+	glActiveTexture(GL_TEXTURE0);
+
 	//if (App->gui->vertex_normals) {
 	//	//NORMAL VERTEX
 	//	for (int i = 0; i < indices.size(); i++)

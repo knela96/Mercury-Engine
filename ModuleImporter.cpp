@@ -139,27 +139,27 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	}
 
 	//LOAD MATERIAL TEXTURES
-	//aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-	//// 1. diffuse maps
-	//vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
-	//textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-	//// 2. specular maps
-	//vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
-	//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	//// 3. normal maps
-	//std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
-	//textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-	//// 4. height maps
-	//std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
-	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+	// 1. diffuse maps
+	vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
+	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+	// 2. specular maps
+	vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
+	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+	// 3. normal maps
+	std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
+	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	// 4. height maps
+	std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
+	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-	Texture texture;
-	LoadTexture("image.png", texture.id);
-	texture.type = aiTextureType_DIFFUSE;
-	texture.path = "image.png";
-	stored_textures.push_back(texture); //store to loaded textures
-	textures.push_back(texture);
+	//Texture texture;
+	//LoadTexture("image.png", texture.id);
+	//texture.type = aiTextureType_DIFFUSE;
+	//texture.path = "image.png";
+	//stored_textures.push_back(texture); //store to loaded textures
+	//textures.push_back(texture);
 
 	return MeshObject(vertices, indices, textures);
 }
@@ -195,20 +195,22 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 }
 
 uint ModuleImporter::LoadTexture(const char*path, uint &id) {
-	//ILuint image_id;
+	
+	ILuint image;
 
-	CreateTexture();
+
+	ilGenImages(1,&image);
+	ilBindImage(image);
 
 	if (!ilLoadImage(path)) {
-		ilDeleteImages(1, &id);
+		ilDeleteImages(1, &image);
 		LOG("texture not loaded, error ocurred")
 			return false;
 	}
 	else {
-		uint texture = ilutGLBindTexImage();
+		id = ilutGLBindTexImage();
 		LOG("generating texture, path: %s", path);
-		LOG("id %i", texture);
-		id = texture;
+		
 		long h, v, bpp, f;
 		ILubyte *texdata = 0;
 
@@ -218,8 +220,8 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		f = ilGetInteger(IL_IMAGE_FORMAT);
 		texdata = ilGetData();
 
-		
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		/*ilBindImage(id);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);*/
 
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
@@ -227,13 +229,20 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, h, v,
-			0, f, GL_UNSIGNED_BYTE, texdata);*/
-		gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
+		gluBuild2DMipmaps(GL_TEXTURE_2D, f, v, h, GL_RGB, GL_UNSIGNED_BYTE, texdata);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, h, v,0, f, GL_UNSIGNED_BYTE, texdata);
+		//glGenerateMipmap(GL_TEXTURE_2D);
+
+		
+
+		
+		//gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
+		//glBindTexture(GL_TEXTURE_2D, 0);
+
 		ilBindImage(0);
-		//ilDeleteImage(image_id);
+		ilDeleteImage(image);
 	}
 
 	return true;
