@@ -136,28 +136,51 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* new_mesh) {
 	return MeshObject(vertices, indices, textures);
 }
 
-void ModuleImporter::LoadTexture(uint Imageid,const char*path) {
-
-	ILubyte *Lump;
-	ILuint Size;
-	FILE *File;
-
-	File = fopen("TextText.png", "rb");
-	fseek(File, 0, SEEK_END);
-	Size = ftell(File);
-
-	Lump = (ILubyte*)malloc(Size);
-	fseek(File, 0, SEEK_SET);
-	fread(Lump, 1, Size, File);
-	fclose(File);
-
-	ilLoadL(IL_TGA, Lump, Size);
-	free(Lump);
-
-	ilLoadImage(path);
+bool ModuleImporter::LoadTexture(uint Imageid,const char*path) {
 
 
-	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	
+	uint texture;
+
+	ILuint image_id;
+
+	ilGenImages(1, &image_id);
+	ilBindImage(image_id);
+
+	if (!ilLoadImage(path)) {
+		ilDeleteImages(1, &image_id);
+		LOG("texture not loaded, error ocurred")
+			return false;
+	}
+	else {
+		texture = ilutGLBindTexImage();
+		LOG("generating texture, path: %s", path)
+
+		long h, v, bpp, f;
+		ILubyte *texdata = 0;
+
+		h = ilGetInteger(IL_IMAGE_WIDTH);
+		v = ilGetInteger(IL_IMAGE_HEIGHT);
+		bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+		f = ilGetInteger(IL_IMAGE_FORMAT);
+		texdata = ilGetData();
+
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		ilBindImage(0);
+		ilDeleteImage(image_id);
+
+		return texture;
+	}
+	
+	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
@@ -179,7 +202,7 @@ void ModuleImporter::LoadTexture(uint Imageid,const char*path) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
+*/
 }
 
 ILboolean ModuleImporter::ilLoadImage(const char * FileName)
