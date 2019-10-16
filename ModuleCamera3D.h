@@ -18,6 +18,8 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 
+	mat4x4 GetViewMatrix4x4();
+
 private:
 
 	void CalculateViewMatrix();

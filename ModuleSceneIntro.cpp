@@ -42,6 +42,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+	
+
 	App->importer->Draw();
 
 
