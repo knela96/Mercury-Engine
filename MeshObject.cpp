@@ -51,7 +51,7 @@ bool MeshObject::SetupBuffers() {
 	// vertex colours
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
 	glEnableVertexAttribArray(3);
-	
+
 	glBindVertexArray(0);
 	App->importer->shader->stop();
 
@@ -59,7 +59,6 @@ bool MeshObject::SetupBuffers() {
 }
 
 void MeshObject::Draw() {
-	
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
@@ -67,11 +66,6 @@ void MeshObject::Draw() {
 	unsigned int heightNr = 1;
 
 	App->importer->shader->use();
-	mat4x4 model = mat4x4();
-	App->importer->shader->setMat4("model", model);
-	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
-
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -88,18 +82,24 @@ void MeshObject::Draw() {
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
 		// now set the sampler to the correct texture unit
-		App->importer->shader->setInt((getType(type) + number).c_str(),i);
+		App->importer->shader->setInt((getType(type) + number).c_str(), i);
 		// and finally bind the texture
 
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}	
-	
+	}
+
+	mat4x4 model = mat4x4();
+	App->importer->shader->setMat4("model", model);
+	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
 	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D,0);
+
+	App->importer->shader->stop();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//
 
 	//if (App->gui->vertex_normals) {
 	//	//NORMAL VERTEX

@@ -48,7 +48,6 @@ update_status ModuleImporter::PreUpdate(float dt){
 }
 
 update_status ModuleImporter::PostUpdate(float dt){
-
 	return UPDATE_CONTINUE;
 }
 
@@ -147,15 +146,15 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	// 1. diffuse maps
 	vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
 	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-	// 2. specular maps
-	vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
-	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	// 3. normal maps
-	std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
-	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-	// 4. height maps
-	std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
-	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+	//// 2. specular maps
+	//vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
+	//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+	//// 3. normal maps
+	//std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
+	//textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+	//// 4. height maps
+	//std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
+	//textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	//Texture texture;
 	//LoadTexture("image.png", texture.id);
@@ -187,11 +186,12 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 			}
 		}
 		if (!skip){
-			Texture texture;
-			LoadTexture(str.C_Str(), texture.id);
-			texture.type = type;
-			texture.path = str.C_Str();
-			stored_textures.push_back(texture); //store to loaded textures
+			Texture tex;
+			LoadTexture(str.C_Str(), tex.id);
+			tex.type = type;
+			tex.path = str.C_Str();
+			stored_textures.push_back(tex); //store to loaded textures
+			texture.push_back(tex);
 		}
 	}
 	return texture;
@@ -225,6 +225,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		f = ilGetInteger(IL_IMAGE_FORMAT);
 		texdata = ilGetData();
 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
 
@@ -235,7 +236,6 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 
 		glTexImage2D(GL_TEXTURE_2D,0, f, v, h,0,GL_RGBA, GL_UNSIGNED_BYTE, texdata);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		ilDeleteImages(1, &image);
 	}
@@ -245,18 +245,18 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 
 void ModuleImporter::PushObj(aiMesh * mesh)
 {
-	meshes.push_back(ProcessMesh(mesh));
+	//meshes.push_back(ProcessMesh(mesh));
 }
 
 bool ModuleImporter::Draw() {
-	
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
 
+	//glEnable(GL_TEXTURE_2D);
 	for (int i = 0; i < meshes.size(); ++i) {
 		meshes[i].Draw();
 	}
-
+	//glDisable(GL_TEXTURE_2D);
 	return true;
 }
