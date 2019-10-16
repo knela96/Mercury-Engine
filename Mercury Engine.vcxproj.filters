@@ -132,6 +132,9 @@
     <ClInclude Include="MeshObject.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -216,6 +219,9 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="MeshObject.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>

@@ -29,8 +29,6 @@ bool MeshObject::SetupBuffers() {
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
-	
-
 	glBindVertexArray(VAO);
 	// load data into vertex buffers
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -39,39 +37,40 @@ bool MeshObject::SetupBuffers() {
 	// load data into indices buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
+	
 	// set the vertex attribute pointers
 	// vertex Positions
-	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glEnableVertexAttribArray(0);
 	// vertex normals
-	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	glEnableVertexAttribArray(1);
 	// vertex texture coords
-	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+	glEnableVertexAttribArray(2);
 	// vertex colours
-	/*glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
-*/
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
+	glEnableVertexAttribArray(3);
 	
 	glBindVertexArray(0);
-
-	glUseProgram(App->importer->shaderProgram);
+	App->importer->shader->stop();
 
 	return ret;
 }
 
 void MeshObject::Draw() {
-
+	
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
-	LOGC("Loaded Textures:");
 
-	
+	App->importer->shader->use();
+	mat4x4 model = mat4x4();
+	App->importer->shader->setMat4("model", model);
+	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
 
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -88,19 +87,19 @@ void MeshObject::Draw() {
 		else if (type == aiTextureType_HEIGHT)
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
-												 // now set the sampler to the correct texture unit
-		glUniform1i(glGetUniformLocation(App->importer->shaderProgram, (getType(type) + number).c_str()), i);
+		// now set the sampler to the correct texture unit
+		App->importer->shader->setInt((getType(type) + number).c_str(),i);
 		// and finally bind the texture
 
-		//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}	
-	//glUseProgram(App->importer->shaderProgram);
+	
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D,0);
-	glActiveTexture(GL_TEXTURE0);
 
 	//if (App->gui->vertex_normals) {
 	//	//NORMAL VERTEX

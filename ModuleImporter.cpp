@@ -35,34 +35,7 @@ bool ModuleImporter::Start(){
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	// build and compile our shader program
-	// ------------------------------------
-	// vertex shader
-	int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// check for shader compile errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		LOGC("ERROR CREATING VERTEX SHADER\n %s", infoLog);
-	}
-
-	// link shaders
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glLinkProgram(shaderProgram);
-	// check for linking errors
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		LOGC("ERROR LINKING PROGRAM SHADERS\n %s",infoLog);
-	}
-	glDeleteShader(vertexShader);
-	
+	shader = new Shader();
 
 	Load("BakerHouse.fbx");
 
@@ -142,7 +115,7 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 				mesh->mColors[0][i].r,
 				mesh->mColors[0][i].g,
 				mesh->mColors[0][i].b,
-				mesh->mColors[0][i].a,
+				mesh->mColors[0][i].a
 			};
 		}
 		else
@@ -228,7 +201,6 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 	
 	ILuint image;
 
-
 	ilGenImages(1,&image);
 	ilBindImage(image);
 
@@ -238,7 +210,10 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 			return false;
 	}
 	else {
-		id = ilutGLBindTexImage();
+		ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+		if (!ilutGLBindTexImage())
+			LOGC("Cannot Bind Texture Image");
 		LOG("generating texture, path: %s", path);
 		
 		long h, v, bpp, f;
@@ -250,58 +225,23 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		f = ilGetInteger(IL_IMAGE_FORMAT);
 		texdata = ilGetData();
 
-		/*ilBindImage(id);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);*/
-
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
+
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		gluBuild2DMipmaps(GL_TEXTURE_2D, f, v, h, GL_RGB, GL_UNSIGNED_BYTE, texdata);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+		glTexImage2D(GL_TEXTURE_2D,0, f, v, h,0,GL_RGBA, GL_UNSIGNED_BYTE, texdata);
+		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, h, v,0, f, GL_UNSIGNED_BYTE, texdata);
-		//glGenerateMipmap(GL_TEXTURE_2D);		
-		//gluBuild2DMipmaps(GL_TEXTURE_2D, bpp, h, v, f, GL_UNSIGNED_BYTE, texdata);
-		//glBindTexture(GL_TEXTURE_2D, 0);
-
-		ilBindImage(0);
-		ilDeleteImage(image);
+		ilDeleteImages(1, &image);
 	}
 
 	return true;
 }
-
-bool ModuleImporter::CreateTexture() {
-
-	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &Texture_id);
-	glBindTexture(GL_TEXTURE_2D, Texture_id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	glBindTexture(GL_TEXTURE_2D, 0);*/
-
-	return true;
-}
-
 
 void ModuleImporter::PushObj(aiMesh * mesh)
 {
@@ -317,30 +257,6 @@ bool ModuleImporter::Draw() {
 	for (int i = 0; i < meshes.size(); ++i) {
 		meshes[i].Draw();
 	}
-
-
-	//_____________________
-
-	/*
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, Texture_id);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0, 0.0); glVertex3f(-2.0, -1.0, 0.0);
-	glTexCoord2f(0.0, 1.0); glVertex3f(-2.0, 1.0, 0.0);
-	glTexCoord2f(1.0, 1.0); glVertex3f(0.0, 1.0, 0.0);
-	glTexCoord2f(1.0, 0.0); glVertex3f(0.0, -1.0, 0.0);
-
-	glTexCoord2f(0.0, 0.0); glVertex3f(1.0, -1.0, 0.0);
-	glTexCoord2f(0.0, 1.0); glVertex3f(1.0, 1.0, 0.0);
-	glTexCoord2f(1.0, 1.0); glVertex3f(2.41421, 1.0, -1.41421);
-	glTexCoord2f(1.0, 0.0); glVertex3f(2.41421, -1.0, -1.41421);
-	glEnd();
-	glFlush();
-	glDisable(GL_TEXTURE_2D);*/
-
-
-
 
 	return true;
 }

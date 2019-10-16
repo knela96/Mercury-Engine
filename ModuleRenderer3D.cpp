@@ -118,7 +118,7 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL); 
 		glEnable(GL_TEXTURE_2D);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe
 	}
 
 	// Projection matrix for

@@ -2,6 +2,7 @@
 #define IMPORTER_H
 #include "Application.h"
 #include "Module.h"
+#include "Shader.h"
 
 #include <vector>
 
@@ -52,22 +53,8 @@ private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	bool enabled;
 	uint Texture_id = 0;
-
-	const char *vertexShaderSource = "#version 330 core\n"
-		"layout (location = 0) in vec3 vertices;\n"
-		"layout (location = 1) in vec3 Normal;\n"
-		"layout (location = 2) in vec3 TexCoords;\n"
-		/*"layout (location = 3) in vec4 Colors;\n"*/
-		/*"out vec3 ourColor;\n"*/
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(vertices, 1.0);\n"
-		/*"   ourColor = aColor;\n"*/
-		"}\0";
-
 public: 
-
-	int shaderProgram;
+	Shader* shader;
 
 };
 #endif IMPORTER_H

@@ -148,6 +148,10 @@ float* ModuleCamera3D::GetViewMatrix()
 	return &ViewMatrix;
 }
 
+mat4x4 ModuleCamera3D::GetViewMatrix4x4() {
+	return  ViewMatrix;
+}
+
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {

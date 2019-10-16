@@ -9,7 +9,7 @@ struct Vertex {
 	vec3 Position;
 	vec3 Normal;
 	vec4 Colors;
-	vec3 TexCoords;
+	vec2 TexCoords;
 };
 
 struct Texture {
