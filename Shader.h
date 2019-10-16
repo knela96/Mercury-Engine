@@ -39,7 +39,7 @@ private:
 		"uniform mat4x4 model;"
 		"void main()\n"
 		"{\n"
-		"   gl_Position = projection * view * model * vec4(vertices, 1.0);\n"
+		"   gl_Position = projection * view * vec4(vertices, 1.0);\n"
 		"   TexCoord = vec2(TexCoords.x, TexCoords.y);\n"
 		"   ourColor = Colors;\n"
 		"}\0";
