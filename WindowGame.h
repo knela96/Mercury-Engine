@@ -13,10 +13,11 @@ public:
 
 	bool Start();
 	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
+
+	bool mouseHover();
 
 private:
 	bool enabled;
@@ -24,6 +25,7 @@ private:
 
 public:
 	ImVec2 size_Game;
+	ImVec2 position;
 	ImVec2 newsize_Game;
 };
 

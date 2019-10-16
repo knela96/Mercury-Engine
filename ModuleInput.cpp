@@ -22,6 +22,7 @@ bool ModuleInput::Init()
 	LOG("Init SDL input event system");
 	LOGC("Starting I/O module");
 	bool ret = true;
+	quit = false;
 	SDL_Init(0);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
@@ -85,7 +86,6 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	mouse_x_motion = mouse_y_motion = 0;
 
-	bool quit = false;
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
@@ -111,8 +111,33 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 			if (e.window.event == SDL_WINDOWEVENT_RESIZED)
 				App->renderer3D->OnResize(e.window.data1, e.window.data2);
+			break;
+		}
+
+		case (SDL_DROPFILE): {      // In case if dropped file
+			if (App->gui->game->mouseHover()) {
+				char* dropped_filedir;
+
+				dropped_filedir = e.drop.file;
+				if (dropped_filedir != nullptr) {
+					// Shows directory of dropped file
+					SDL_ShowSimpleMessageBox(
+						SDL_MESSAGEBOX_INFORMATION,
+						"File dropped on window",
+						dropped_filedir,
+						App->window->window
+					);
+
+					App->importer->Load(dropped_filedir);
+
+					SDL_free(dropped_filedir);    // Free dropped_filedir memory
+				}
+			}
+			break;
 		}
 		}
+
+		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
@@ -128,3 +153,4 @@ bool ModuleInput::CleanUp()
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
+

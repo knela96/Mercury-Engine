@@ -12,14 +12,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-
 	
-
-	
-
-	float num_vertices;
-	uint iboId = 0;
-	uint vboId = 0;
 
 
 public:

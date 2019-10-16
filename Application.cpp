@@ -10,6 +10,8 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	gui = new ModuleGUI(this);
 	camera = new ModuleCamera3D(this);
+	importer = new ModuleImporter(this);
+
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -20,6 +22,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(importer);
 	
 	// Scenes
 	AddModule(scene_intro);
@@ -161,7 +164,7 @@ update_status Application::Update()
 	last_frame_ms = frame_time.Read();
 	float frames_on_last_update = prev_last_sec_frame_count;
 
-	gui->console.AddLog(" Mercury Engine  ||  FPS: %f | Av.FPS: %f | Last Frame Ms: %f | FpsCap: %i | Vsync: off | DT %f", frames_on_last_update, avg_fps, last_frame_ms, framerate_cap, dt);
+	//gui->console.AddLog(" Mercury Engine  ||  FPS: %f | Av.FPS: %f | Last Frame Ms: %f | FpsCap: %i | Vsync: off | DT %f", frames_on_last_update, avg_fps, last_frame_ms, framerate_cap, dt);
 	
 	//framerate caop
 	float capped_ms = 1000 / framerate_cap;

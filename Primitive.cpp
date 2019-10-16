@@ -1,7 +1,14 @@
 #include "Globals.h"
+#include "Application.h"
+#include "glew/include/GL/glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Primitive.h"
+#include "Assimp/include/mesh.h"
+#include "ModuleImporter.h"
+
+#include "par-master/par_shapes.h"
+#include "MeshObject.h"
 
 // ------------------------------------------------------------
 Primitive::Primitive() : transform(IdentityMatrix), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
@@ -53,11 +60,6 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
-	/*if (wire)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
-
 	InnerRender();
 
 	glPopMatrix();
@@ -95,122 +97,91 @@ void Primitive::Scale(float x, float y, float z)
 	transform.scale(x, y, z);
 }
 
-// CUBE ============================================
-Cube::Cube() : Primitive(), size(1.0f, 1.0f, 1.0f)
-{
-	type = PrimitiveTypes::Primitive_Cube;
-}
+// DRAW PAR SHAPES ============================================
 
-Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitive(), size(sizeX, sizeY, sizeZ)
-{
-	type = PrimitiveTypes::Primitive_Cube;
-}
+void Primitive::DrawObj(PrimitiveTypes type) {
 
-void Cube::InnerRender() const
-{
-	float sx = size.x * 0.5f;
-	float sy = size.y * 0.5f;
-	float sz = size.z * 0.5f;
+	par_shapes_mesh* new_mesh;
 
-	glBegin(GL_QUADS);
+	aiMesh* mesh;
 
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(-sx, -sy, sz);
-	glVertex3f(sx, -sy, sz);
-	glVertex3f(sx, sy, sz);
-	glVertex3f(-sx, sy, sz);
-
-	glNormal3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(sx, -sy, -sz);
-	glVertex3f(-sx, -sy, -sz);
-	glVertex3f(-sx, sy, -sz);
-	glVertex3f(sx, sy, -sz);
-
-	glNormal3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(sx, -sy, sz);
-	glVertex3f(sx, -sy, -sz);
-	glVertex3f(sx, sy, -sz);
-	glVertex3f(sx, sy, sz);
-
-	glNormal3f(-1.0f, 0.0f, 0.0f);
-	glVertex3f(-sx, -sy, -sz);
-	glVertex3f(-sx, -sy, sz);
-	glVertex3f(-sx, sy, sz);
-	glVertex3f(-sx, sy, -sz);
-
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-sx, sy, sz);
-	glVertex3f(sx, sy, sz);
-	glVertex3f(sx, sy, -sz);
-	glVertex3f(-sx, sy, -sz);
-
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(-sx, -sy, -sz);
-	glVertex3f(sx, -sy, -sz);
-	glVertex3f(sx, -sy, sz);
-	glVertex3f(-sx, -sy, sz);
-
-	glEnd();
-}
-
-// SPHERE ============================================
-Sphere::Sphere() : Primitive(), radius(1.0f)
-{
-	type = PrimitiveTypes::Primitive_Sphere;
-}
-
-Sphere::Sphere(float radius) : Primitive(), radius(radius)
-{
-	type = PrimitiveTypes::Primitive_Sphere;
-}
-
-
-
-// CYLINDER ============================================
-Cylinder::Cylinder() : Primitive(), radius(1.0f), height(1.0f)
-{
-	type = PrimitiveTypes::Primitive_Cylinder;
-}
-
-Cylinder::Cylinder(float radius, float height) : Primitive(), radius(radius), height(height)
-{
-	type = PrimitiveTypes::Primitive_Cylinder;
-}
-
-void Cylinder::InnerRender() const
-{
-	int n = 30;
-
-	// Cylinder Bottom
-	glBegin(GL_POLYGON);
-
-	for (int i = 360; i >= 0; i -= (360 / n))
+	switch (type)
 	{
-		float a = i * M_PI / 180; // degrees to radians
-		glVertex3f(-height * 0.5f, radius * cos(a), radius * sin(a));
+	case PrimitiveTypes::Primitive_Sphere:
+		new_mesh = par_shapes_create_subdivided_sphere(2);
+		LOGC("Sphere Primitive created");
+		break;
+	case PrimitiveTypes::Primitive_Plane:
+		new_mesh = par_shapes_create_plane(1, 1);
+		LOGC("Plane Primitive created");
+		break;
+	case PrimitiveTypes::Primitive_Cube:
+		new_mesh = par_shapes_create_cube();
+		LOGC("Cube Primitive created");
+		break;
+	case PrimitiveTypes::Primitive_Cone:
+		new_mesh = par_shapes_create_cone(20, 5);
+		LOGC("Cone Primitive created");
+		break;
+	case PrimitiveTypes::Primitive_Cylinder:
+		new_mesh = par_shapes_create_cylinder(20, 4);
+		LOGC("Cylinder Primitive created");
+		break;
 	}
-	glEnd();
 
-	// Cylinder Top
-	glBegin(GL_POLYGON);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	for (int i = 0; i <= 360; i += (360 / n))
+
+	vector<Vertex> vertices;
+	vector<uint> indices;
+	vector<Texture> textures;
+
+	Vertex vertex;
+	for (uint i = 0; i < new_mesh->npoints; i++)
 	{
-		float a = i * M_PI / 180; // degrees to radians
-		glVertex3f(height * 0.5f, radius * cos(a), radius * sin(a));
-	}
-	glEnd();
+		if (new_mesh->triangles != nullptr)
+		{
+			vertex.Position = {
+				new_mesh->points[3 * i],
+				new_mesh->points[(3 * i) + 1],
+				new_mesh->points[(3 * i) + 2]
+			};
+		}
+		if (new_mesh->normals != nullptr)
+		{
+			vertex.Normal = {
+				new_mesh->normals[i],
+				new_mesh->normals[(3 * i) + 1],
+				new_mesh->normals[(3 * i) + 2]
+			};
+		}
 
-	// Cylinder "Cover"
-	glBegin(GL_QUAD_STRIP);
-	for (int i = 0; i < 480; i += (360 / n))
+		vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
+
+		if (new_mesh->tcoords != nullptr)
+		{
+			vertex.TexCoords = {
+				new_mesh->tcoords[i],
+				new_mesh->tcoords[i + 1]
+			};
+		}
+		else
+			vertex.TexCoords = { 0.0f,0.0f };
+
+		vertices.push_back(vertex);
+	}
+
+
+	for (uint i = 0; i < new_mesh->ntriangles * 3; i++)
 	{
-		float a = i * M_PI / 180; // degrees to radians
 
-		glVertex3f(height*0.5f, radius * cos(a), radius * sin(a));
-		glVertex3f(-height * 0.5f, radius * cos(a), radius * sin(a));
+		indices.push_back(new_mesh->triangles[i]);
+
 	}
-	glEnd();
+
+	LOGC("Loaded Vertices: %u", vertices.size());
+	LOGC("Loaded Indices: %u", indices.size());
+	LOGC("Loaded Textures: %u", textures.size());
+
+	App->importer->meshes.push_back(MeshObject(vertices, indices, textures));
 }
 
 // LINE ==================================================

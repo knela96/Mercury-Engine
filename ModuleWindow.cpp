@@ -74,6 +74,8 @@ bool ModuleWindow::Init()
 		}
 	}
 
+	SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
+
 	return ret;
 }
 
@@ -111,6 +113,13 @@ void ModuleWindow::SetBorderless(bool active) {
 		SDL_SetWindowBordered(window, SDL_FALSE);
 	else
 		SDL_SetWindowBordered(window, SDL_TRUE);
+}
+
+void ModuleWindow::SetResizable(bool active) {
+	if (active)
+		SDL_SetWindowResizable(window, SDL_TRUE);
+	else
+		SDL_SetWindowResizable(window, SDL_FALSE);
 }
 
 void ModuleWindow::SetWindowSize(int width, int height) {

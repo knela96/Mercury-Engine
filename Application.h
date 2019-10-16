@@ -11,6 +11,8 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
+#include "ModuleImporter.h"
+
 class Application
 {
 public:
@@ -21,6 +23,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
+	ModuleImporter* importer;
 
 private:
 
@@ -56,4 +59,5 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-};
+};	
+extern Application* App;

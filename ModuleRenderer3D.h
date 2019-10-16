@@ -20,6 +20,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	void checkRenderFilters();
+
 
 
 public:
@@ -28,4 +30,12 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool depth_active = true;
+	bool cullface_active = true;
+	bool lighting_active = true;
+	bool color_active = true;
+	bool texture_active = true;
+	bool wireframe_active = false;
+
 };

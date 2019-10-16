@@ -16,18 +16,24 @@ public:
 	~WindowInspector();
 
 	bool Start();
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
 
 private:
-	bool enabled;
+	bool enabled = false;
+	bool unFold = false;
 	bool open_transform = true;
+	bool open_normals = true;
 public:
 	vec3 pos;
 	vec3 rot;
 	vec3 scale;
+	float face_lenght;
+	float vertex_lenght;
+	Color face_color;
+	Color vertex_color;
+	bool face_normals;
+	bool vertex_normals;
 };
 #endif

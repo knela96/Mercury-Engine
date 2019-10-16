@@ -5,6 +5,10 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "DevIL/include/IL/ilut.h"
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/DevIL.lib")
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/ILU.lib")
+#pragma comment (lib, "lib/DevIL/lib/x86/Release/ILUT.lib")
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -42,12 +46,19 @@ bool ModuleRenderer3D::Init()
 
 		//Init OpenGL
 		glewInit();
+		LOGC("GLEW Initialized");
+
+		// Initialize IL
+		ilInit();
+		// Initialize ILU
+		iluInit();
+		// Initialize ILUT with OpenGL support.
+		ilutRenderer(ILUT_OPENGL);
+		LOGC("DevIL Initialized");
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-
-		glewInit();
 
 		//Check for error
 		GLenum error = glGetError();
@@ -100,12 +111,7 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_COLOR_MATERIAL);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	// Projection matrix for
@@ -118,6 +124,8 @@ bool ModuleRenderer3D::Init()
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	checkRenderFilters();
 
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
@@ -137,7 +145,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	App->gui->Draw();//RECHECK
 	SDL_GL_SwapWindow(App->window->window);
-	
 	return UPDATE_CONTINUE;
 }
 
@@ -163,4 +170,37 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::checkRenderFilters() {
+	if(depth_active)
+		glEnable(GL_DEPTH_TEST);
+	else
+		glDisable(GL_DEPTH_TEST);
+
+	if(cullface_active)
+		glEnable(GL_CULL_FACE);
+	else
+		glDisable(GL_CULL_FACE);
+
+	if(lighting_active)
+		glEnable(GL_LIGHTING);
+	else
+		glDisable(GL_LIGHTING);
+
+	if(color_active)
+		glEnable(GL_COLOR_MATERIAL);
+	else
+		glDisable(GL_COLOR_MATERIAL);
+
+	if(texture_active)
+		glEnable(GL_TEXTURE_2D);
+	else
+		glDisable(GL_TEXTURE_2D);
+
+	if(wireframe_active)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	// //wireframe
 }

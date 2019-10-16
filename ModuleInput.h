@@ -58,6 +58,8 @@ public:
 		return mouse_y_motion;
 	}
 
+public:
+	bool quit = false;
 private:
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];

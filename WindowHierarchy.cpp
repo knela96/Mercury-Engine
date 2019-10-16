@@ -17,23 +17,18 @@ bool WindowHierarchy::Start()
 	return true;
 }
 
-update_status WindowHierarchy::PreUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
-
-update_status WindowHierarchy::PostUpdate(float dt) {
-	return UPDATE_CONTINUE;
-}
 
 bool WindowHierarchy::Draw()
 {
-	ImGui::Begin("Hierarchy");
-	if (ImGui::TreeNode("Tree"))
-	{
-		ImGui::Text("Node");
-		ImGui::TreePop();
+	if (App->gui->openHirearchy) {
+		ImGui::Begin("Hierarchy",&App->gui->openHirearchy);
+		if (ImGui::TreeNode("Tree"))
+		{
+			ImGui::Text("Node");
+			ImGui::TreePop();
+		}
+		ImGui::End();
 	}
-	ImGui::End();
 	return false;
 }
 

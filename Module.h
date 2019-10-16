@@ -1,7 +1,7 @@
-#pragma once
+#ifndef __Module_H__
+#define __Module_H__
 
 class Application;
-struct PhysBody3D;
 
 class Module
 {
@@ -27,7 +27,8 @@ public:
 		return true;
 	}
 
-	virtual bool Draw() {
+	virtual bool Draw() 
+	{
 		return true;
 	}
 
@@ -50,11 +51,9 @@ public:
 	{ 
 		return true; 
 	}
-
-	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-	{}
-
+	
 	virtual bool isEnabled() {
 		return true;
 	}
 };
+#endif __Module_H__

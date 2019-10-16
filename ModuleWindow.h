@@ -24,6 +24,8 @@ public:
 
 	void SetBorderless(bool active);
 
+	void SetResizable(bool active);
+
 	void SetWindowSize(int width, int height);
 
 public:
@@ -34,4 +36,4 @@ public:
 	SDL_Surface* screen_surface;
 };
 
-#endif // __ModuleW__
+#endif __ModuleWindow_H__
