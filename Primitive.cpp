@@ -100,8 +100,10 @@ void Primitive::Scale(float x, float y, float z)
 // DRAW PAR SHAPES ============================================
 
 void Primitive::DrawObj(PrimitiveTypes type) {
-
-	par_shapes_mesh* new_mesh;
+	par_shapes_mesh* new_mesh = nullptr; 
+	par_shapes_mesh* disk1 = nullptr;
+	par_shapes_mesh* disk2 = nullptr;
+	par_shapes_mesh* disk_aux = nullptr;
 
 	aiMesh* mesh;
 
@@ -121,20 +123,43 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		break;
 	case PrimitiveTypes::Primitive_Cone:
 		new_mesh = par_shapes_create_cone(20, 5);
+
+		disk1 = par_shapes_create_disk(1, 20, center, normal);
+		par_shapes_rotate(disk1, -M_PI, x_rotation);
+		par_shapes_merge(new_mesh, disk1);
+		par_shapes_free_mesh(disk1);
 		LOGC("Cone Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cylinder:
-		new_mesh = par_shapes_create_cylinder(20, 4);
+		new_mesh = par_shapes_create_cylinder(10, 3);
+
+		disk1 = par_shapes_create_disk(1, 10, center, normal);
+		par_shapes_rotate(disk1, 18 * DEGTORAD, z_rotation);
+		par_shapes_translate(disk1, 0, 0, 1);
+		par_shapes_merge(new_mesh, disk1);
+		par_shapes_free_mesh(disk1);
+
+		disk2 = par_shapes_create_empty(); //Created Empty to align disks to Cylinder
+		disk_aux = par_shapes_create_disk(1, 10, center, normal);
+		par_shapes_rotate(disk_aux, -M_PI, x_rotation);
+		par_shapes_merge(disk2, disk_aux);
+		par_shapes_free_mesh(disk_aux);
+		par_shapes_rotate(disk2, 18 * DEGTORAD, z_rotation);
+		par_shapes_merge(new_mesh, disk2);
+		par_shapes_free_mesh(disk2);
+
 		LOGC("Cylinder Primitive created");
 		break;
 	}
+
+	par_shapes_rotate(new_mesh, -M_PI/2, x_rotation);
 
 
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	vector<Texture> textures;
-
 	Vertex vertex;
+
 	for (uint i = 0; i < new_mesh->npoints; i++)
 	{
 		if (new_mesh->triangles != nullptr)
@@ -176,6 +201,9 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		indices.push_back(new_mesh->triangles[i]);
 
 	}
+
+	if (new_mesh != nullptr)
+		par_shapes_free_mesh(new_mesh);
 
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());

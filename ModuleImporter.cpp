@@ -242,7 +242,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 
 void ModuleImporter::PushObj(aiMesh * mesh)
 {
-	//meshes.push_back(ProcessMesh(mesh));
+	meshes.push_back(ProcessMesh(mesh));
 }
 
 bool ModuleImporter::Draw() {
@@ -250,10 +250,10 @@ bool ModuleImporter::Draw() {
 	p.axis = true;
 	p.Render();
 
-	//glEnable(GL_TEXTURE_2D);
+
 	for (int i = 0; i < meshes.size(); ++i) {
 		meshes[i].Draw();
 	}
-	//glDisable(GL_TEXTURE_2D);
+
 	return true;
 }

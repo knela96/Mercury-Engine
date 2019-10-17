@@ -34,6 +34,14 @@ public:
 	mat4x4 transform;
 	bool axis, wire;
 
+private:
+
+	float x_rotation[3] = { 1, 0, 0 };
+	float y_rotation[3] = { 0, 1, 0 };
+	float z_rotation[3] = { 0, 0, 1 };
+	float normal[3] = { 0, 0, 1 };
+	float center[3] = { 0, 0, 0 };
+
 protected:
 	PrimitiveTypes type;
 };

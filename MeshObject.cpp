@@ -77,11 +77,11 @@ void MeshObject::Draw() {
 		if (type == aiTextureType_DIFFUSE)
 			number = std::to_string(diffuseNr++);
 		else if (type == aiTextureType_SPECULAR)
-			number = std::to_string(specularNr++); // transfer unsigned int to stream
+			number = std::to_string(specularNr++);
 		else if (type == aiTextureType_NORMALS)
-			number = std::to_string(normalNr++); // transfer unsigned int to stream
+			number = std::to_string(normalNr++);
 		else if (type == aiTextureType_HEIGHT)
-			number = std::to_string(heightNr++); // transfer unsigned int to stream
+			number = std::to_string(heightNr++);
 
 		// now set the sampler to the correct texture unit
 		App->importer->shader->setInt((getType(type) + number).c_str(), i);
