@@ -116,13 +116,16 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 
+		vec3 distance = (Position - Reference);
+		LOGC("%f,%f,%f", X.x,X.y,X.z);
+		LOGC("%f,%f,%f", Z.x, Z.y, Z.z);
+		LOGC("||---------------------------||");
 
 		//Mouse Wheel
 		if (App->gui->game->mouseHover() && App->input->GetMouseZ() != 0) {
-			vec3 distance = (Position - Reference);
 			vec3 nPos = { 0,0,0 };
 			if ((App->input->GetMouseZ() > 0 && length(distance) > 0.5) || App->input->GetMouseZ() < 0) {
-				nPos -= Z * App->input->GetMouseZ() * abs(distance.z) / 10;
+					nPos -= Z * App->input->GetMouseZ() * length(distance) / 10;
 				Position += nPos;
 			}
 		}

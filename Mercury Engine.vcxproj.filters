@@ -135,6 +135,7 @@
     <ClInclude Include="Shader.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -224,5 +225,6 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
 </Project>
