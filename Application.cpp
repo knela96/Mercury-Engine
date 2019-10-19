@@ -1,5 +1,5 @@
 #include "Application.h"
-
+#include "managers/memory_manager.h"
 
 Application::Application()
 {

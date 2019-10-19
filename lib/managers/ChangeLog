@@ -1,0 +1,175 @@
+In dev (rev. 270)
+ - 
+
+Version 1.1.5 (svn rev. 270, 01.06.2008):
+ - Task: 1929292: "Write technical documentation"
+   Fully documented following files: type_manip.h, new.h,
+      pointer_convert.h, size_tracking.h, heap_segment.h,
+	  memory_segment.h, segment_traits.h, managed_base.h,
+	  singleton_manager.h, manager_traits.h,
+	  memory_manager.h and manager_category.h files
+   
+ - fixed code alignment in static_bitset
+ - updated Doxyfile configuration
+ - fixed identifiers names to match naming convention
+
+!!!!!
+ - fixed compiler errors on VC8 (VS2005)
+ - Fixed issue with size_tracking decorator that brings memory corruption
+ - Implemented unit test to catch memory corruptions made by size tracker decorator
+ - Implemented overload of mem_mgr() function for singleton manager (to make life easier)
+ - Added base_manager_type typedef to manager traits and decorator traits, this type represent manager type w/o decorator
+ - renamed do_delete into delete_ and do_delete_arr into delete_array
+ - improved unit tests for managed_base class, so now stored values are also checked
+!!!!!
+
+ - added build notes to README
+ - updated copyright statement, web-site link and dev's nickname in files headers
+ - updated configuration of VS2005 solution/projects
+ - moved sync classes out of details namespace
+ - all classes that were our of memory_mgr namespace were moved into
+ - moved sync classes headers to "sync" folder
+ - moved yes_type and no_type out of is_categoy_suppoted class
+ - updated unit tests to use new mem_mgr function
+ 
+  
+Version 1.0.0 (svn rev. 103, 03.03.2008):
+ - implemented offset_pointer unit tests 
+ - implemented size_tracking for offset and pointer managers
+ - implemented new[]/delete[] operators for managed_base
+ - implementation of offset_pointer finished
+	* all manager_types are supported
+	* destruction works correctly
+ - operator new[]/do_delete_arr works with non class types correctly now
+ - implemented new/do_delete and new[]/do_delete_arr operators
+   to allocate any data type variables
+ - implemented offset_pointer's polymorphic constructors
+ - implemented get_offset and get_poiner friend functions for offset_pointer
+ - fixed manager_traits to reflect real category tags
+ - moved offset_to_pointer and pointer_to_offset methods to ptr_helpers.h
+ - fixed memory_manager::free method
+ - implemented all offset_pointer operators
+ - moved size_cast to ptr_helpers.h
+ - implemented is_class type_manip
+ - fixed operators <= and >= in cmp_helper
+ - made offset_pointer constructor with single offset parameter "explicit"
+ - added TEST_OPERATOR_PRINT macro
+ - implemented shared memory segment allocators (win and posix)
+ - removed simple_ptr
+ - removed unnecessary includes from heap_segment.h
+ - added required includes to offset_pointer.h, test_class.h, 
+   manager_category.h and memory_segment.h
+ - implemented shared_segment unit tests
+ - fixed unit tests names
+ - removed constructor with parameter from memory_segment, 
+   segment_allocator constructor should be used for this purposes
+ - removed reset() call from static_bitset constructors
+ - fixed bit_manager manager initialization for shared memory_manager
+ - fixed misprint TEST_CHECH -> TEST_CHECK and 
+   TEST_CHECH_MSG -> TEST_CHECK_MSG
+ - added static_bitset initialization in static_bitset unit test
+ - perf_tests project was added to kdevelop solution
+ - implemented perf_timer for posix systems
+ - implemented perf_tests for memory_manager
+ - CPerfTimer methods were renamed according to naming conventions
+ - CPerfTimer was renamed to win_perf_timer
+ - perf_tests project was added to kdevelop solution
+ - implemented macroses for declaring and using shared_segment names
+ - moved do_nothing and throw_bad_alloc functions to helpers.h
+ - helpers namespace moved out from detail namespace
+ - implemented perf_test_manager to collect perf testing results
+ - implemented perf tests for all types of managers
+ - implemented performance tests for new/delete operators 
+   and managed_base class
+ - implemented is_null method for long double type to check is 
+   it equal to null
+ - added add_leading_slash/add_trailing_slash functions and 
+   get_root_directory to helpers.h
+ - reimplemented vector_as_allocator to use vector as member 
+   instead of base class
+ - implemented temp_buffer class and unit tests for it
+ - added get_executable_path and get_exe_dir OS independent functions
+
+ 
+Version 0.8.0 (svn rev. 64):
+ - change log file was added
+ - allocator class added
+ - added caching to bit_manager
+ - fixed assert check error in memory_manager
+ - namespace managers was renamed to memory_mgr
+ - pointers and cast helper function were moved to ptr_helpers.h file
+ - RTTI was disabled for VS projects
+ - added VS2008 projects
+ - singleton updated to have to separate parameters for instantiation type
+   and for return type
+ - implemented pointer traits class
+ - type definitions were standardized: 
+   suffix "_type" will be used in all typedefs
+ - memory_manager allocate methods were re-implemented to use 
+   invalid_offset as invalid result value instead of npos
+ - added unit test for "no throw" memory_manager allocate operator 
+ - fixed static_bitset::bit_mask(pos, count) method for case 
+   when count is grater then 64 bits (int bits number)
+ - fixed assertion expression on static_bitset::do_set method
+ - added cmp_helper class which implements != operator using ==,
+   <= using >, and >= using <
+ - added logic implementation comments 
+ - removed null_ptr from memory_manager class, it not used anymore
+ - implemented unit tests manager which collects results of testing and
+   prints those results
+ - test_case class was fixed. for case test is failed in won't show 
+   'Test succeeded.' message.
+ - got rid from pointers classes in memory_manager, for now it works only 
+   with offsets
+ - added kdevelop automake g++ project
+ - code made compatible with g++
+ - split unit tests to separate files for each class
+ - moved work with pointers from memory_manager to pointer_convert class
+ - updated unit tests to fit new architecture
+ - generalized static_bitset adn bit_manager output operators
+ - fixed output in test_bit_manager and test_static_bitset
+ - implemented offset_pointer which can be used as pointer for shared memory
+ - implemented manager_traits - traits class for memory managers
+ - categorized memory managers and memory segments
+   
+
+Version 0.6.3 beta (svn rev. 25)
+ - license agreement was added
+ - compiler dependent code was removed
+ - added support for linux platform
+ - added synchronization to managers
+ - heap_memory_manager was re-implemented as decorator heap_memory
+ - added deallocate method overload
+ - pointer type was made a template parameter of memory_manager
+ - fixed allocation sync issues
+ - added null_ptr - a null pointer of ptr_t type
+ - added type manipulation library
+ - added simple_ptr template class - a basic class for all smart pointers
+
+Version 0.6.0
+ - implemented generic singleton
+ - implemented singleton manager (heap_memory_manager)
+ - some design modifications made
+ - added separate template singleton_manager which allows to make singleton 
+   any manager 
+ - solution was renamed
+ - added base class for managed objects
+ - implemented memory limits checking (std::bad_alloc will be thrown 
+   if manager is out of memory)
+ - implemented deallocation checking (on second deallocation of the same 
+   pointer assertion will stop program execution)
+ - implemented nothrow version of operator new in managed_base class
+ - fixed issue in static_bitset test() method 
+ - unit tests updated
+ - added empty() and free() methods to memory managers
+ - fixed test case object name in tests macro
+ - files were restructured
+ - removed unused project's folders 
+
+Version 0.1.0a
+ - removed boost dependencies 
+ - unit tests implementation started
+ - comments were added
+ 
+Version 0.0.3 
+ - basic functionality implemented

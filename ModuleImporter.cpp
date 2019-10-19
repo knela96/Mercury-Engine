@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("BakerHouse.fbx");
+	//Load("BakerHouse.fbx");
 
 	return true;
 }
