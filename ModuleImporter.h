@@ -13,7 +13,7 @@
 
 enum aiTextureType;
 
-class MeshObject;
+class GameObject;
 struct Texture;
 class aiMesh;
 class aiScene;
@@ -35,18 +35,16 @@ public:
 
 	bool Load(const char * path);
 
-	MeshObject ProcessMesh(aiMesh * new_mesh,const aiScene * scene = NULL);
+	GameObject* ProcessMesh(aiMesh * new_mesh,const aiScene * scene = NULL);
 
 	void PushObj(aiMesh* mesh);
 
 	uint LoadTexture(const char * path, uint & texture);
 
 	vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type);
-	
-	bool CreateTexture();
 
 public:
-	std::vector<MeshObject> meshes;
+	std::vector<GameObject*> gameObjects;
 	std::vector<Texture> stored_textures;
 	
 private:

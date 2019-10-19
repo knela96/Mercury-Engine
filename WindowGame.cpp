@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "WindowGame.h"
 #include "ModuleRenderer3D.h"
+#include "Primitive.h"
 
 
 WindowGame::WindowGame(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -36,6 +37,7 @@ bool WindowGame::Draw()
 	if (App->gui->openGame) {
 		fbo->PostUpdate();
 		ImGuiWindowFlags window_flags = 0;
+		Primitive p;
 		window_flags |= ImGuiWindowFlags_MenuBar;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
@@ -52,6 +54,16 @@ bool WindowGame::Draw()
 				ImGui::MenuItem("Color", NULL, &App->renderer3D->color_active);
 				ImGui::MenuItem("Texture", NULL, &App->renderer3D->texture_active);
 				ImGui::MenuItem("Wireframe", NULL, &App->renderer3D->wireframe_active);
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("GameObject", true))
+			{
+				ImGui::PushItemWidth(300);
+				if (ImGui::MenuItem("Plane")) { p.DrawObj(Primitive_Plane); }
+				if(ImGui::MenuItem("Cube")){ p.DrawObj(Primitive_Cube); }
+				if(ImGui::MenuItem("Cone")){ p.DrawObj(Primitive_Cone); }
+				if(ImGui::MenuItem("Cylinder")){ p.DrawObj(Primitive_Cylinder); }
+				if(ImGui::MenuItem("Sphere")){ p.DrawObj(Primitive_Sphere); }
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenuBar();

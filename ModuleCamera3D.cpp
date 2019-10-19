@@ -41,34 +41,37 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 		vec3 newPos(0, 0, 0);
 		float speed = 20.0f * dt;
-		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed = 50.0f * dt;
 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+		if (!App->input->writting) {
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+				speed = 50.0f * dt;
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
 
-		Position += newPos;
-		Reference += newPos;
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
 
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-			X = vec3(1.0f, 0.0f, 0.0f);
-			Y = vec3(0.0f, 1.0f, 0.0f);
-			Z = vec3(0.0f, 0.0f, 1.0f);
+			Position += newPos;
+			Reference += newPos;
 
-			Position = vec3(0.0f, 0.0f, 5.0f);
-			Reference = vec3(0.0f, 0.0f, 0.0f);
 
-			Move(vec3(1.0f, 1.0f, 0.0f));
-			LookAt(vec3(0, 0, 0));
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
+				X = vec3(1.0f, 0.0f, 0.0f);
+				Y = vec3(0.0f, 1.0f, 0.0f);
+				Z = vec3(0.0f, 0.0f, 1.0f);
+
+				Position = vec3(0.0f, 0.0f, 5.0f);
+				Reference = vec3(0.0f, 0.0f, 0.0f);
+
+				Move(vec3(1.0f, 1.0f, 0.0f));
+				LookAt(vec3(0, 0, 0));
+			}
 		}
 
 		// Mouse motion ----------------
@@ -114,15 +117,11 @@ update_status ModuleCamera3D::Update(float dt)
 				Position = Reference + Z * length(Position);
 			}
 		}
-
-
-		vec3 distance = (Position - Reference);
-		LOGC("%f,%f,%f", X.x,X.y,X.z);
-		LOGC("%f,%f,%f", Z.x, Z.y, Z.z);
-		LOGC("||---------------------------||");
+			   
 
 		//Mouse Wheel
 		if (App->gui->game->mouseHover() && App->input->GetMouseZ() != 0) {
+			vec3 distance = (Position - Reference);
 			vec3 nPos = { 0,0,0 };
 			if ((App->input->GetMouseZ() > 0 && length(distance) > 0.5) || App->input->GetMouseZ() < 0) {
 					nPos -= Z * App->input->GetMouseZ() * length(distance) / 10;

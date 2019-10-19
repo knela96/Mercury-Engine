@@ -690,20 +690,7 @@ static void ShowDemoWindowWidgets()
                 const bool is_selected = (selection_mask & (1 << i)) != 0;
                 if (is_selected)
                     node_flags |= ImGuiTreeNodeFlags_Selected;
-                if (i < 3)
-                {
-                    // Items 0..2 are Tree Node
-                    bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "Selectable Node %d", i);
-                    if (ImGui::IsItemClicked())
-                        node_clicked = i;
-                    if (node_open)
-                    {
-                        ImGui::BulletText("Blah blah\nBlah Blah");
-                        ImGui::TreePop();
-                    }
-                }
-                else
-                {
+               
                     // Items 3..5 are Tree Leaves
                     // The only reason we use TreeNode at all is to allow selection of the leaf.
                     // Otherwise we can use BulletText() or advance the cursor by GetTreeNodeToLabelSpacing() and call Text().
@@ -711,7 +698,6 @@ static void ShowDemoWindowWidgets()
                     ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "Selectable Leaf %d", i);
                     if (ImGui::IsItemClicked())
                         node_clicked = i;
-                }
             }
             if (node_clicked != -1)
             {

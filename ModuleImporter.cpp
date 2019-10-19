@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("BakerHouse.fbx");
+	//Load("BakerHouse.fbx");
 
 	return true;
 }
@@ -73,7 +73,7 @@ bool ModuleImporter::Load(const char* path) {
 		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
 			aiMesh* new_mesh = scene->mMeshes[j];
 
-			meshes.push_back(ProcessMesh(new_mesh,scene));
+			gameObjects.push_back(ProcessMesh(new_mesh,scene));
 		}
 
 		aiReleaseImport(scene);
@@ -84,7 +84,7 @@ bool ModuleImporter::Load(const char* path) {
 	return ret;
 }
 
-MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
+GameObject* ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	
 	vector<Vertex> vertices;
 	vector<uint> indices;
@@ -159,8 +159,8 @@ MeshObject ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
-
-	return MeshObject(vertices, indices, textures);
+	
+	return (GameObject*)new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 }
 
 vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureType type)
@@ -242,7 +242,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 
 void ModuleImporter::PushObj(aiMesh * mesh)
 {
-	meshes.push_back(ProcessMesh(mesh));
+	gameObjects.push_back(ProcessMesh(mesh));
 }
 
 bool ModuleImporter::Draw() {
@@ -251,8 +251,9 @@ bool ModuleImporter::Draw() {
 	p.Render();
 
 
-	for (int i = 0; i < meshes.size(); ++i) {
-		meshes[i].Draw();
+	for (int i = 0; i < gameObjects.size(); ++i) {
+		if(gameObjects[i]->active)
+			gameObjects[i]->Draw();
 	}
 
 	return true;
