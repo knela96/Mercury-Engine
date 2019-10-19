@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	//Load("BakerHouse.fbx");
+	Load("BakerHouse.fbx");
 
 	return true;
 }
@@ -184,7 +184,7 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 		}
 		if (!skip){
 			Texture tex;
-			LoadTexture(str.C_Str(), tex.id);
+			LoadTexture(str.C_Str(), tex.id, tex.size);
 			tex.type = type;
 			tex.path = str.C_Str();
 			stored_textures.push_back(tex); //store to loaded textures
@@ -194,7 +194,7 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 	return texture;
 }
 
-uint ModuleImporter::LoadTexture(const char*path, uint &id) {
+uint ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 	
 	ILuint image;
 
@@ -216,11 +216,13 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id) {
 		long h, v, bpp, f;
 		ILubyte *texdata = 0;
 
-		h = ilGetInteger(IL_IMAGE_WIDTH);
-		v = ilGetInteger(IL_IMAGE_HEIGHT);
+		v = ilGetInteger(IL_IMAGE_WIDTH);
+		h = ilGetInteger(IL_IMAGE_HEIGHT);
 		bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
 		f = ilGetInteger(IL_IMAGE_FORMAT);
 		texdata = ilGetData();
+		size.x = v;
+		size.y = h;
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glGenTextures(1, &id);

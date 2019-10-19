@@ -39,7 +39,7 @@ public:
 
 	void PushObj(aiMesh* mesh);
 
-	uint LoadTexture(const char * path, uint & texture);
+	uint LoadTexture(const char * path, uint & texture, vec2 &size);
 
 	vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type);
 
