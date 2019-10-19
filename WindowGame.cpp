@@ -45,6 +45,19 @@ bool WindowGame::Draw()
 		ImGui::Begin("Game",NULL, window_flags);
 		if (ImGui::BeginMenuBar())
 		{
+			
+			if (ImGui::BeginMenu("GameObject", true))
+			{
+				ImGui::PushItemWidth(300);
+				if (ImGui::MenuItem("Plane")) { p.DrawObj(Primitive_Plane); }
+				if(ImGui::MenuItem("Cube")){ p.DrawObj(Primitive_Cube); }
+				if(ImGui::MenuItem("Cone")){ p.DrawObj(Primitive_Cone); }
+				if(ImGui::MenuItem("Cylinder")){ p.DrawObj(Primitive_Cylinder); }
+				if(ImGui::MenuItem("Sphere")){ p.DrawObj(Primitive_Sphere); }
+				ImGui::EndMenu();
+			}
+
+			ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 85);//Put the button on the right
 			if (ImGui::BeginMenu("Gizmos", true))
 			{
 				ImGui::PushItemWidth(300);
@@ -56,16 +69,7 @@ bool WindowGame::Draw()
 				ImGui::MenuItem("Wireframe", NULL, &App->renderer3D->wireframe_active);
 				ImGui::EndMenu();
 			}
-			if (ImGui::BeginMenu("GameObject", true))
-			{
-				ImGui::PushItemWidth(300);
-				if (ImGui::MenuItem("Plane")) { p.DrawObj(Primitive_Plane); }
-				if(ImGui::MenuItem("Cube")){ p.DrawObj(Primitive_Cube); }
-				if(ImGui::MenuItem("Cone")){ p.DrawObj(Primitive_Cone); }
-				if(ImGui::MenuItem("Cylinder")){ p.DrawObj(Primitive_Cylinder); }
-				if(ImGui::MenuItem("Sphere")){ p.DrawObj(Primitive_Sphere); }
-				ImGui::EndMenu();
-			}
+
 			ImGui::EndMenuBar();
 		}
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
