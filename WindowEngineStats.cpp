@@ -35,7 +35,7 @@ bool WindowEngineStats::Draw()
 		FPS_array[19] = lastFramefps;
 
 		sprintf(overlay, "fps %f", lastFramefps);
-		ImGui::PlotHistogram("Graph", FPS_array, IM_ARRAYSIZE(FPS_array), 0, overlay, -100.0f, 100.0f, ImVec2(0, 100));
+		ImGui::PlotLines("Graph", FPS_array, IM_ARRAYSIZE(FPS_array), 0, overlay, -100.0f, 100.0f, ImVec2(0, 100));
 
 
 		ImGui::End();
