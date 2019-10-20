@@ -111,6 +111,7 @@ void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
 
 		c_texformat = format;
 
+		CleanUp();//Do I need to destroy the buffers?
 		SetupBuffers();
 	}
 }
@@ -118,19 +119,18 @@ void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
 
 vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {
 
-	//Create normal vector we are going to output.
 	vec3 output;
 
-	//Calculate vectors used for creating normal (these are the edges of the triangle).
+	//Calculate vectors to create the normal
 	vec3 calU = vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
 	vec3 calV = vec3(p3.x - p1.x, p3.y - p1.y, p3.z - p1.z);
 
-	//The output vector is equal to the cross products of the two edges of the triangle
+	//Normal Vector
 	output.x = calU.y * calV.z - calU.z * calV.y;
 	output.y = calU.z * calV.x - calU.x * calV.z;
 	output.z = calU.x * calV.y - calU.y * calV.x;
 
-	//Return the resulting vector.
+	//Return normal normalized
 	return normalize(output);
 }
 
