@@ -56,7 +56,6 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-
 			Position += newPos;
 			Reference += newPos;
 
@@ -75,14 +74,14 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		// Mouse motion ----------------
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_UP)
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_UP || App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_UP)
 			moving = false;
+
+		if (!moving)
+			moving = App->gui->game->mouseHover();
 
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{
-			if (!moving)
-				moving = App->gui->game->mouseHover();
-
 			if (moving) {
 				int dx = -App->input->GetMouseXMotion();
 				int dy = -App->input->GetMouseYMotion();
@@ -118,6 +117,27 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 			   
+		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) {
+			if (moving) {
+				int dx = -App->input->GetMouseXMotion();
+				int dy = -App->input->GetMouseYMotion();
+
+				float Sensitivity = 0.25;
+
+				if (dx != 0)
+				{
+					newPos += X * speed * dx;
+				}
+
+				if (dy != 0)
+				{
+					newPos -= Y * speed * dy;
+				}
+
+				Position += newPos;
+				Reference += newPos;
+			}
+		}
 
 		//Mouse Wheel
 		if (App->gui->game->mouseHover() && App->input->GetMouseZ() != 0) {
