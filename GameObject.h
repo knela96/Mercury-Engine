@@ -54,5 +54,7 @@ public:
 
 	string name;
 
+	FileFormats c_texformat = PNG;
+
 	bool active = true;
 };

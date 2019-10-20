@@ -9,7 +9,9 @@
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
 
-
+#define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
+#define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
+#define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
 enum aiTextureType;
 
@@ -20,6 +22,7 @@ class aiScene;
 class aiMaterial;
 
 enum FileFormats {
+	NONE = -1,
 	FBX,
 	PNG,
 	DDS
@@ -55,7 +58,9 @@ public:
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
-	Texture* SaveTexture(const char * str, aiTextureType type);
+	bool loadDDS(const char * path, uint & id, vec2 & size);
+
+	Texture* SaveTexture(const char * str, aiTextureType type, FileFormats format);
 
 public:
 	std::vector<GameObject*> gameObjects;

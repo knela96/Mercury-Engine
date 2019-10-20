@@ -26,16 +26,16 @@ char* GameObject::getType(aiTextureType type)
 {
 	switch (type) {
 	case aiTextureType_DIFFUSE:
-		return "Diffuse Map";
+		return "Diffuse_Map";
 		break;
 	case aiTextureType_SPECULAR:
-		return "Specular Map";
+		return "Specular_Map";
 		break;
 	case aiTextureType_NORMALS:
-		return "Normal Map";
+		return "Normal_Map";
 		break;
 	case aiTextureType_HEIGHT:
-		return "Height Map";
+		return "Height_Map";
 		break;
 	}
 }

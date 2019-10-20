@@ -48,11 +48,13 @@ Shader::Shader()
 void Shader::use()
 {
 	glUseProgram(ID);
+	glEnable(GL_BLEND);
 }
 
 void Shader::stop()
 {
 	glUseProgram(0);
+	glDisable(GL_BLEND);
 }
 
 void Shader::setBool(const std::string &name, bool value) const

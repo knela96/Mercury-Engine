@@ -103,6 +103,18 @@ void MeshObject::Draw() {
 	DebugNormals();
 }
 
+void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
+	if (c_texformat != format) {
+		for (int i = 0; i < vertices.size(); ++i) {
+			vertices[i].TexCoords.y = 1 - vertices[i].TexCoords.y;
+		}
+
+		c_texformat = format;
+
+		SetupBuffers();
+	}
+}
+
 
 vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {
 

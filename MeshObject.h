@@ -22,6 +22,8 @@ public:
 
 	void Draw();
 
+	void TexCoordsDSS_PNG(FileFormats format);
+
 	vec3 getNormal(vec3 p1, vec3 p2, vec3 p3);
 
 	void CleanUp();
@@ -32,6 +34,9 @@ public:
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	uint VAO;
+
+
+
 
 private:
 	uint VBO, EBO;
