@@ -61,3 +61,7 @@ uint FrameBuffer::GetTexture() {
 	return texture;
 }
 
+void FrameBuffer::CleanUp() {
+	glDeleteBuffers(1, &fbo);
+}
+

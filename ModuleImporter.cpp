@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	//Load("BakerHouse.fbx");
+	Load("BakerHouse.fbx");
 
 	return true;
 }
@@ -60,6 +60,17 @@ bool ModuleImporter::CleanUp()
 { 
 	// detach log stream
 	aiDetachAllLogStreams();
+
+	for (GameObject* obj : gameObjects){
+		if (obj != nullptr) {
+			obj->CleanUp();
+			obj = nullptr;
+		}
+	}
+	gameObjects.clear();
+
+	delete shader;
+	shader = nullptr;
 	return true;
 }
 
@@ -73,8 +84,11 @@ bool ModuleImporter::LoadFile(const char* path) {
 	if (extension == "FBX")
 		Load(path);
 	else if (extension == "PNG") {
-		if(App->gui->inspector->active_gameObject != nullptr)
+		if (App->gui->inspector->active_gameObject != nullptr) {
+			if(App->gui->inspector->active_gameObject->textures.size() != 0)
+				App->gui->inspector->active_gameObject->textures.pop_back();
 			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
+		}
 	}
 	return true;
 }
@@ -281,5 +295,5 @@ string ModuleImporter::getFileExt(const string& s) {
 		return (char*)&(s.substr(i + 1, s.length() - i));
 	}
 
-	return("");
+	return(s);
 }

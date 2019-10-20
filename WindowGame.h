@@ -14,7 +14,7 @@ public:
 	bool Start();
 	update_status PreUpdate(float dt);
 	bool Draw();
-	bool Cleanup();
+	bool CleanUp();
 	bool isEnabled();
 
 	bool mouseHover();

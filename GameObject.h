@@ -34,6 +34,8 @@ public:
 
 	void drawChilds();
 
+	void CleanUp();
+
 	char* getType(aiTextureType type);
 
 

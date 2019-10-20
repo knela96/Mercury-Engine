@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Application.h"
+#include "MeshObject.h"
 
 GameObject::GameObject(MeshObject* mesh, vector<Texture> textures, string name) : mesh(mesh), textures(textures), position({ 0,0,0 }), rotation({ 0,0,0 }), scale({ 1,1,1 }), name(name) {
 	face_normals = false;
@@ -13,6 +14,12 @@ void GameObject::drawChilds() {
 		childs[i]->Draw();
 		childs[i]->drawChilds();
 	}
+}
+
+void GameObject::CleanUp() {
+	mesh->CleanUp();
+	delete mesh;
+	mesh = nullptr;
 }
 
 char* GameObject::getType(aiTextureType type)

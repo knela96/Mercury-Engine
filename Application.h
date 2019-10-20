@@ -40,8 +40,8 @@ private:
 
 	float last_frame_ms;					//last frame milisseconds
 
-	uint framerate_cap = 30;
-	bool framerate_cap_activated = true;
+	uint framerate_cap = 60;
+	bool framerate_cap_activated = false;
 
 	p2List<Module*> list_modules;			//All Application modules inside
 

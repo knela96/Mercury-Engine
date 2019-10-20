@@ -59,7 +59,6 @@ bool ModuleGUI::Start() {
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	
 	list <Module*> ::iterator it;
 	for (it = windows.begin(); it != windows.end(); ++it) {
 		Module* m = *it;
@@ -83,13 +82,6 @@ update_status ModuleGUI::PostUpdate(float dt)
 // PostUpdate present buffer to screen
 bool ModuleGUI::Draw()
 {
-	// RENDERING
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		ImGui_ImplSDL2_ProcessEvent(&event);
-	}
-
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
@@ -133,6 +125,16 @@ bool ModuleGUI::Draw()
 // Called before quitting
 bool ModuleGUI::CleanUp()
 {
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr) {
+			m->CleanUp();
+			delete m;
+			m = nullptr;
+		}
+	}
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();

@@ -11,6 +11,8 @@ public:
 	void PostUpdate();
 	uint GetTexture();
 
+	void CleanUp();
+
 private:
 	unsigned int fbo;
 	unsigned int texture;

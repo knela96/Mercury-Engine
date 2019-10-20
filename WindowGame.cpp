@@ -88,9 +88,12 @@ bool WindowGame::Draw()
 	return false;
 }
 
-bool WindowGame::Cleanup()
+bool WindowGame::CleanUp()
 {
-	enabled = false;
+	enabled = false; 
+	fbo->CleanUp();
+	delete fbo;
+	fbo = nullptr;
 	return true;
 }
 
