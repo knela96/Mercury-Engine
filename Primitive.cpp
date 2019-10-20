@@ -166,10 +166,9 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		LOGC("Cylinder Primitive created");
 		break;
 	}
-
 	
-		par_shapes_unweld(new_mesh, true);
-		par_shapes_compute_normals(new_mesh);
+	par_shapes_unweld(new_mesh, true);
+	par_shapes_compute_normals(new_mesh);
 
 	vector<Vertex> vertices;
 	vector<uint> indices;

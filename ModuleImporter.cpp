@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("BakerHouse.fbx");
+	//Load("BakerHouse.fbx");
 
 	return true;
 }
@@ -60,6 +60,22 @@ bool ModuleImporter::CleanUp()
 { 
 	// detach log stream
 	aiDetachAllLogStreams();
+	return true;
+}
+
+bool ModuleImporter::LoadFile(const char* path) {
+	string extension = getFileExt(path);
+
+	for (int i = 0; i < strlen(extension.c_str()); i++) {
+		extension[i] = toupper(extension[i]); //to Upper letters
+	}
+
+	if (extension == "FBX")
+		Load(path);
+	else if (extension == "PNG") {
+		if(App->gui->inspector->active_gameObject != nullptr)
+			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
+	}
 	return true;
 }
 
@@ -170,28 +186,25 @@ vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureT
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-
-		// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-		bool skip = false;
-		for (unsigned int j = 0; j < stored_textures.size(); j++)
-		{
-			if (std::strcmp(stored_textures[j].path.c_str(), str.C_Str()) == 0)
-			{
-				texture.push_back(stored_textures[j]);
-				skip = true;
-				break;
-			}
-		}
-		if (!skip){
-			Texture tex;
-			LoadTexture(str.C_Str(), tex.id, tex.size);
-			tex.type = type;
-			tex.path = str.C_Str();
-			stored_textures.push_back(tex); //store to loaded textures
-			texture.push_back(tex);
-		}
+		texture.push_back(SaveTexture(str.C_Str(), type));		
 	}
 	return texture;
+}
+
+Texture ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
+	for (unsigned int j = 0; j < stored_textures.size(); j++)
+	{
+		if (std::strcmp(stored_textures[j].path.c_str(), str) == 0)
+		{
+			return stored_textures[j];
+		}
+	}
+	Texture tex;
+	LoadTexture(str, tex.id, tex.size);
+	tex.type = type;
+	tex.path = str;
+	stored_textures.push_back(tex); //store to loaded textures
+	return tex;
 }
 
 uint ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
@@ -259,4 +272,14 @@ bool ModuleImporter::Draw() {
 	}
 
 	return true;
+}
+
+string ModuleImporter::getFileExt(const string& s) {
+
+	size_t i = s.rfind('.', s.length());
+	if (i != string::npos) {
+		return (char*)&(s.substr(i + 1, s.length() - i));
+	}
+
+	return("");
 }

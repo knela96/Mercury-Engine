@@ -42,7 +42,7 @@ bool WindowGame::Draw()
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
 
-		ImGui::Begin("Game",NULL, window_flags);
+		ImGui::Begin("Game", NULL, window_flags);
 		if (ImGui::BeginMenuBar())
 		{
 			

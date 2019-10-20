@@ -105,7 +105,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							App->window->window
 						);
 
-						App->importer->Load(dropped_filedir);
+						App->importer->LoadFile(dropped_filedir);
 
 						SDL_free(dropped_filedir);    // Free dropped_filedir memory
 					}

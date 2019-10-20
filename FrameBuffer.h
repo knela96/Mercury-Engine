@@ -14,5 +14,6 @@ public:
 private:
 	unsigned int fbo;
 	unsigned int texture;
+	unsigned int texture1;
 };
 #endif

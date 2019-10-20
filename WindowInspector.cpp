@@ -97,13 +97,14 @@ bool WindowInspector::Draw()
 
 			if (ImGui::CollapsingHeader("Material", open_material))
 			{
+				ImGui::Columns(2, "teas", false);
 				for (int i = 0; i < active_gameObject->textures.size(); ++i) {
-					ImGui::Columns(2, "teas", false);
 					ImGui::Text("%s", active_gameObject->getType(active_gameObject->textures[i].type));
 					ImGui::Text("%s", active_gameObject->textures[i].path.c_str()); ImGui::Text("");
 					ImGui::SameLine(ImGui::GetContentRegionAvailWidth() - 80); ImGui::Text("%ix%i px ", (uint)active_gameObject->textures[i].size.x, (uint)active_gameObject->textures[i].size.y);
 					ImGui::NextColumn();
-					ImGui::Image((ImTextureID*)active_gameObject->textures[i].id, ImVec2(60, 60), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1.0f, 1.0f, 1.0f, 1.0f), ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+					ImGui::Image((ImTextureID*)active_gameObject->textures[i].id, ImVec2(60, 60), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1.0f, 1.0f, 1.0f, 1.0f), ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+					ImGui::NextColumn();
 				}
 				ImGui::Columns(1);
 			}

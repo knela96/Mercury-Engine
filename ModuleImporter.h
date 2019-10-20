@@ -19,6 +19,12 @@ class aiMesh;
 class aiScene;
 class aiMaterial;
 
+enum FileFormats {
+	FBX,
+	PNG,
+	DDS
+};
+
 class ModuleImporter : public Module
 {
 public:
@@ -31,7 +37,11 @@ public:
 	update_status Update(float dt);
 	bool Draw();
 
+	string getFileExt(const string & s);
+
 	bool CleanUp();
+
+	bool LoadFile(const char * path);
 
 	bool Load(const char * path);
 
@@ -42,6 +52,8 @@ public:
 	uint LoadTexture(const char * path, uint & texture, vec2 &size);
 
 	vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type);
+
+	Texture SaveTexture(const char * str, aiTextureType type);
 
 public:
 	std::vector<GameObject*> gameObjects;
