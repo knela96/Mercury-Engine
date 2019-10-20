@@ -37,7 +37,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("BakerHouse.fbx");
+	Load("Models/Baker_House/BakerHouse.fbx");
 
 	return true;
 }
@@ -90,6 +90,9 @@ bool ModuleImporter::LoadFile(const char* path) {
 			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
 		}
 	}
+	else if (extension == "DDS") {
+		//Load DDS File
+	}
 	return true;
 }
 
@@ -102,8 +105,8 @@ bool ModuleImporter::Load(const char* path) {
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
 			aiMesh* new_mesh = scene->mMeshes[j];
-
-			gameObjects.push_back(ProcessMesh(new_mesh,scene));
+			string str(&path[0]);
+			gameObjects.push_back(ProcessMesh(new_mesh, &getRootPath(str), scene));
 		}
 
 		aiReleaseImport(scene);
@@ -114,11 +117,11 @@ bool ModuleImporter::Load(const char* path) {
 	return ret;
 }
 
-GameObject* ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
+GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiScene* scene) {
 	
 	vector<Vertex> vertices;
 	vector<uint> indices;
-	vector<Texture> textures;
+	vector<Texture*> textures;
 
 	for (uint i = 0; i < mesh->mNumVertices; ++i)
 	{
@@ -174,16 +177,16 @@ GameObject* ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
 	// 1. diffuse maps
-	vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
+	vector<Texture*> diffuseMaps = loadMaterialTextures(path, material, aiTextureType_DIFFUSE);
 	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 	// 2. specular maps
-	vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
+	vector<Texture*> specularMaps = loadMaterialTextures(path, material, aiTextureType_SPECULAR);
 	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	// 3. normal maps
-	std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT);
+	std::vector<Texture*> normalMaps = loadMaterialTextures(path, material, aiTextureType_HEIGHT);
 	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 	// 4. height maps
-	std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT);
+	std::vector<Texture*> heightMaps = loadMaterialTextures(path, material, aiTextureType_AMBIENT);
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	LOGC("Loaded Vertices: %u", vertices.size());
@@ -193,35 +196,43 @@ GameObject* ModuleImporter::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
 	return (GameObject*)new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 }
 
-vector<Texture> ModuleImporter::loadMaterialTextures(aiMaterial *mat, aiTextureType type)
+vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
 {
-	vector<Texture> texture;
+	vector<Texture*> texture;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		texture.push_back(SaveTexture(str.C_Str(), type));		
+		if(path->size() != 0)
+			path->append("/");
+		path->append(str.C_Str());
+		Texture* tex = SaveTexture(path->c_str(), type);
+		if(tex != nullptr)
+			texture.push_back(tex);		
 	}
 	return texture;
 }
 
-Texture ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
+Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
 	for (unsigned int j = 0; j < stored_textures.size(); j++)
 	{
-		if (std::strcmp(stored_textures[j].path.c_str(), str) == 0)
+		if (std::strcmp(stored_textures[j]->path.c_str(), str) == 0)
 		{
 			return stored_textures[j];
 		}
 	}
-	Texture tex;
-	LoadTexture(str, tex.id, tex.size);
-	tex.type = type;
-	tex.path = str;
-	stored_textures.push_back(tex); //store to loaded textures
-	return tex;
+	Texture* tex = new Texture();
+	bool ret = LoadTexture(str, tex->id, tex->size);
+	if (ret){
+		tex->type = type;
+		tex->path = str;
+		stored_textures.push_back(tex); //store to loaded textures
+		return tex;
+	}
+	return nullptr;
 }
 
-uint ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
+bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 	
 	ILuint image;
 
@@ -230,7 +241,7 @@ uint ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 
 	if (!ilLoadImage(path)) {
 		ilDeleteImages(1, &image);
-		LOG("texture not loaded, error ocurred")
+		LOGC("TEXTURE NOT FOUND");
 			return false;
 	}
 	else {
@@ -296,4 +307,16 @@ string ModuleImporter::getFileExt(const string& s) {
 	}
 
 	return(s);
+}
+
+string ModuleImporter::getRootPath(const string& s) {
+
+	string directory;
+	const size_t last_slash_idx = s.rfind('/');
+	if (std::string::npos != last_slash_idx)
+	{
+		directory = s.substr(0, last_slash_idx);
+	}
+
+	return(directory);
 }

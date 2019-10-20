@@ -111,7 +111,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	switch (type)
 	{
 	case PrimitiveTypes::Primitive_Sphere:
-		new_mesh = par_shapes_create_subdivided_sphere(2);
+		new_mesh = par_shapes_create_parametric_sphere(30,30);
 		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
 		name = "Sphere";
 		LOGC("Sphere Primitive created");
@@ -166,13 +166,10 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		LOGC("Cylinder Primitive created");
 		break;
 	}
-	
-	par_shapes_unweld(new_mesh, true);
-	par_shapes_compute_normals(new_mesh);
 
 	vector<Vertex> vertices;
 	vector<uint> indices;
-	vector<Texture> textures;
+	vector<Texture*> textures;
 	Vertex vertex;
 
 	for (uint i = 0; i < new_mesh->npoints; i++)
@@ -199,8 +196,8 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		if (new_mesh->tcoords != nullptr)
 		{
 			vertex.TexCoords = {
-				new_mesh->tcoords[i],
-				new_mesh->tcoords[i + 1]
+				new_mesh->tcoords[2 * i],
+				new_mesh->tcoords[(2 * i) + 1]
 			};
 		}
 		else

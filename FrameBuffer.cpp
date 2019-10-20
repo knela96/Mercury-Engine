@@ -53,8 +53,8 @@ void FrameBuffer::PreUpdate() {
 
 void FrameBuffer::PostUpdate(){
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
-	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
+	//glClear(GL_COLOR_BUFFER_BIT);
 }
 
 uint FrameBuffer::GetTexture() {

@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "MeshObject.h"
 
-GameObject::GameObject(MeshObject* mesh, vector<Texture> textures, string name) : mesh(mesh), textures(textures), position({ 0,0,0 }), rotation({ 0,0,0 }), scale({ 1,1,1 }), name(name) {
+GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), position({ 0,0,0 }), rotation({ 0,0,0 }), scale({ 1,1,1 }), name(name) {
 	face_normals = false;
 	vertex_normals = false;
 }

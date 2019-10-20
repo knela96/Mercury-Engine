@@ -15,7 +15,7 @@ class aiMesh;
 class MeshObject : public GameObject
 {
 public:
-	MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures, string name);
+	MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name);
 	~MeshObject();
 
 	bool SetupBuffers();

@@ -4,7 +4,7 @@
 #include "glmath.h"
 #include "ModuleGUI.h"
 
-MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures, string name) : GameObject(this,textures,name)
+MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -67,7 +67,7 @@ void MeshObject::Draw() {
 			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
 			// retrieve texture number (the N in diffuse_textureN)
 			string number;
-			aiTextureType type = textures[i].type;
+			aiTextureType type = textures[i]->type;
 			if (type == aiTextureType_DIFFUSE)
 				number = std::to_string(diffuseNr++);
 			else if (type == aiTextureType_SPECULAR)
@@ -80,7 +80,7 @@ void MeshObject::Draw() {
 			// now set the sampler to the correct texture unit
 			App->importer->shader->setInt((getType(type) + number).c_str(), i);
 
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			glBindTexture(GL_TEXTURE_2D, textures[i]->id);
 		}
 
 		//If mesh has no textures, don't draw any texture BLACK

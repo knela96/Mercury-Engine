@@ -99,11 +99,19 @@ bool WindowInspector::Draw()
 			{
 				ImGui::Columns(2, "teas", false);
 				for (int i = 0; i < active_gameObject->textures.size(); ++i) {
-					ImGui::Text("%s", active_gameObject->getType(active_gameObject->textures[i].type));
-					ImGui::Text("%s", active_gameObject->textures[i].path.c_str()); ImGui::Text("");
-					ImGui::SameLine(ImGui::GetContentRegionAvailWidth() - 80); ImGui::Text("%ix%i px ", (uint)active_gameObject->textures[i].size.x, (uint)active_gameObject->textures[i].size.y);
+					ImGui::Text("%s", active_gameObject->getType(active_gameObject->textures[i]->type));					
+					ImGui::Text("%s", active_gameObject->textures[i]->path.c_str()); 
+					if (ImGui::IsItemHovered())
+					{
+						ImGui::BeginTooltip();
+						ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+						ImGui::Text("%s", active_gameObject->textures[i]->path.c_str());
+						ImGui::EndTooltip();
+					}
+					ImGui::Text("");
+					ImGui::SameLine(ImGui::GetContentRegionAvailWidth() - 80); ImGui::Text("%ix%i px ", (uint)active_gameObject->textures[i]->size.x, (uint)active_gameObject->textures[i]->size.y);
 					ImGui::NextColumn();
-					ImGui::Image((ImTextureID*)active_gameObject->textures[i].id, ImVec2(60, 60), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1.0f, 1.0f, 1.0f, 1.0f), ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+					ImGui::Image((ImTextureID*)active_gameObject->textures[i]->id, ImVec2(60, 60), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1.0f, 1.0f, 1.0f, 1.0f), ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 					ImGui::NextColumn();
 				}
 				ImGui::Columns(1);

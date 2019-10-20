@@ -27,7 +27,7 @@ enum aiTextureType;
 class GameObject
 {
 public:
-	GameObject(MeshObject* mesh, vector<Texture> textures, string name);
+	GameObject(MeshObject* mesh, vector<Texture*> textures, string name);
 	~GameObject();
 
 	virtual void Draw() {}
@@ -42,7 +42,7 @@ public:
 
 public:
 	MeshObject* mesh;
-	vector<Texture> textures;
+	vector<Texture*> textures;
 	vector<GameObject*> childs;
 
 	vec3 position;

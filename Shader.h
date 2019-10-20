@@ -51,7 +51,7 @@ private:
 		"uniform sampler2D texture1;\n"
 		"void main()\n"
 		"{\n"
-		"   FragColor = texture(texture1, TexCoord) * ourColor;\n"
+		"   FragColor = texture(texture1, TexCoord) * vec4(1.0,1.0,1.0,1.0);\n"
 		"}\0";
 };
 

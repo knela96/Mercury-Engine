@@ -26,23 +26,21 @@ bool WindowGame::Start()
 }
 
 update_status WindowGame::PreUpdate(float dt) {
-	if (App->gui->openGame) {
-		fbo->PreUpdate();
-	}
+	fbo->PreUpdate();
 	return UPDATE_CONTINUE;
 }
 
 bool WindowGame::Draw()
 {
+	fbo->PostUpdate();
 	if (App->gui->openGame) {
-		fbo->PostUpdate();
 		ImGuiWindowFlags window_flags = 0;
 		Primitive p;
 		window_flags |= ImGuiWindowFlags_MenuBar;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
 
-		ImGui::Begin("Game", NULL, window_flags);
+		ImGui::Begin("Game", &App->gui->openGame, window_flags);
 		if (ImGui::BeginMenuBar())
 		{
 			
@@ -85,7 +83,7 @@ bool WindowGame::Draw()
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
-	return false;
+	return true;
 }
 
 bool WindowGame::CleanUp()

@@ -39,25 +39,27 @@ public:
 
 	string getFileExt(const string & s);
 
+	string getRootPath(const string & s);
+
 	bool CleanUp();
 
 	bool LoadFile(const char * path);
 
 	bool Load(const char * path);
 
-	GameObject* ProcessMesh(aiMesh * new_mesh,const aiScene * scene = NULL);
+	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const aiScene * scene = NULL);
+
+	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 
 	void PushObj(aiMesh* mesh);
 
-	uint LoadTexture(const char * path, uint & texture, vec2 &size);
+	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
-	vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type);
-
-	Texture SaveTexture(const char * str, aiTextureType type);
+	Texture* SaveTexture(const char * str, aiTextureType type);
 
 public:
 	std::vector<GameObject*> gameObjects;
-	std::vector<Texture> stored_textures;
+	std::vector<Texture*> stored_textures;
 	
 private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
