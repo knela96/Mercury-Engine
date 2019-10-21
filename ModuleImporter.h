@@ -68,10 +68,12 @@ public:
 	
 private:
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+
 	bool enabled;
 	uint Texture_id = 0;
 public: 
 	Shader* shader;
+	uint checkImage_id;
 
 };
 #endif IMPORTER_H

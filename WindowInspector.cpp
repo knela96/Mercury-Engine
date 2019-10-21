@@ -112,6 +112,10 @@ bool WindowInspector::Draw()
 					ImGui::SameLine(ImGui::GetContentRegionAvailWidth() - 80); ImGui::Text("%ix%i px ", (uint)active_gameObject->textures[i]->size.x, (uint)active_gameObject->textures[i]->size.y);
 					ImGui::NextColumn();
 					ImGui::Image((ImTextureID*)active_gameObject->textures[i]->id, ImVec2(60, 60), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1.0f, 1.0f, 1.0f, 1.0f), ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+					if (i == 0) {
+						ImGui::SameLine();
+						ImGui::Checkbox("Debug", &active_gameObject->debug_tex);
+					}
 					ImGui::NextColumn();
 				}
 				ImGui::Columns(1);

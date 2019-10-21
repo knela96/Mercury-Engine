@@ -56,5 +56,7 @@ public:
 
 	FileFormats c_texformat = PNG;
 
+	bool debug_tex = false;
+
 	bool active = true;
 };

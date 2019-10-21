@@ -62,25 +62,32 @@ void MeshObject::Draw() {
 	unsigned int heightNr = 1;
 
 	if (App->renderer3D->texture_active) {
-		for (unsigned int i = 0; i < textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-			// retrieve texture number (the N in diffuse_textureN)
-			string number;
-			aiTextureType type = textures[i]->type;
-			if (type == aiTextureType_DIFFUSE)
-				number = std::to_string(diffuseNr++);
-			else if (type == aiTextureType_SPECULAR)
-				number = std::to_string(specularNr++);
-			else if (type == aiTextureType_NORMALS)
-				number = std::to_string(normalNr++);
-			else if (type == aiTextureType_HEIGHT)
-				number = std::to_string(heightNr++);
+		if(!debug_tex){
+			for (unsigned int i = 0; i < textures.size(); i++)
+			{
+				glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+				// retrieve texture number (the N in diffuse_textureN)
+				string number;
+				aiTextureType type = textures[i]->type;
+				if (type == aiTextureType_DIFFUSE)
+					number = std::to_string(diffuseNr++);
+				else if (type == aiTextureType_SPECULAR)
+					number = std::to_string(specularNr++);
+				else if (type == aiTextureType_NORMALS)
+					number = std::to_string(normalNr++);
+				else if (type == aiTextureType_HEIGHT)
+					number = std::to_string(heightNr++);
 
-			// now set the sampler to the correct texture unit
-			App->importer->shader->setInt((getType(type) + number).c_str(), i);
+				// now set the sampler to the correct texture unit
+				App->importer->shader->setInt((getType(type) + number).c_str(), i);
 
-			glBindTexture(GL_TEXTURE_2D, textures[i]->id);
+				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
+			}
+		}
+		else {
+			glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
+			App->importer->shader->setInt("Diffuse_Map1", 1);
+			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
 		}
 
 		//If mesh has no textures, don't draw any texture BLACK
