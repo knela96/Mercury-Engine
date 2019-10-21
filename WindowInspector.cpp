@@ -120,7 +120,7 @@ bool WindowInspector::Draw()
 				}
 				if (active_gameObject->textures.size() == 0) {
 					ImGui::Columns(2,NULL,false); 
-					ImGui::Text("");
+					ImGui::NewLine();
 					ImGui::NextColumn(); 
 					ImGui::SameLine(78); ImGui::Checkbox("Debug", &active_gameObject->debug_tex);
 				}
