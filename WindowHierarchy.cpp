@@ -37,7 +37,14 @@ bool WindowHierarchy::Draw()
 
 				node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 				GameObject* gameObject = App->importer->gameObjects[i];
+				if (!gameObject->active)
+					ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+
 				ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, gameObject->name.c_str());
+
+				if (!gameObject->active)
+					ImGui::PopStyleVar();
+
 				if (ImGui::IsItemClicked())
 					node_clicked = i;
 			}
