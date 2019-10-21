@@ -83,15 +83,20 @@ void MeshObject::Draw() {
 
 				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
 			}
+			//If mesh has no textures, don't draw any texture BLACK
+			if (textures.size() > 0) {
+				mat4x4 model = mat4x4();
+				App->importer->shader->use();
+				App->importer->shader->setMat4("model", model);
+				App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+				App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+			}
 		}
 		else {
 			glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
 			App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
-		}
 
-		//If mesh has no textures, don't draw any texture BLACK
-		if (textures.size() > 0) {
 			mat4x4 model = mat4x4();
 			App->importer->shader->use();
 			App->importer->shader->setMat4("model", model);

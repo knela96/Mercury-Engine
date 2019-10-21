@@ -97,7 +97,7 @@ bool WindowInspector::Draw()
 
 			if (ImGui::CollapsingHeader("Material", open_material))
 			{
-				ImGui::Columns(2, "teas", false);
+				ImGui::Columns(2, NULL, false);
 				for (int i = 0; i < active_gameObject->textures.size(); ++i) {
 					ImGui::Text("%s", active_gameObject->getType(active_gameObject->textures[i]->type));					
 					ImGui::Text("%s", active_gameObject->textures[i]->path.c_str()); 
@@ -117,6 +117,12 @@ bool WindowInspector::Draw()
 						ImGui::Checkbox("Debug", &active_gameObject->debug_tex);
 					}
 					ImGui::NextColumn();
+				}
+				if (active_gameObject->textures.size() == 0) {
+					ImGui::Columns(2,NULL,false); 
+					ImGui::Text("");
+					ImGui::NextColumn(); 
+					ImGui::SameLine(78); ImGui::Checkbox("Debug", &active_gameObject->debug_tex);
 				}
 				ImGui::Columns(1);
 			}
