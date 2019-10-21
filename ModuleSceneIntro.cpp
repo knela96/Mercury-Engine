@@ -23,6 +23,7 @@ bool ModuleSceneIntro::Start()
 	Primitive obj;
 	obj.DrawObj(Primitive_Cone);
 
+
 	return ret;
 }
 
@@ -41,8 +42,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-
-	
+	std::string c = s_info.GetSoftwareInfo().GetCppCompilerVersion().c_str();
+	LOGC("&s", s_info.GetSoftwareInfo().GetCppCompilerVersion().c_str());
 
 	App->importer->Draw();
 	

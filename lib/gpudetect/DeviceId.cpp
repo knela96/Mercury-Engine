@@ -16,7 +16,7 @@
 // DeviceId.cpp : Implements the GPU Device detection and graphics settings
 //                configuration functions.
 //
-#include "Providers/cnpch.h"
+#include "mmgr/cnpch.h"
 #include <wrl.h>
 #include "DeviceId.h"
 #include <stdio.h>
@@ -52,7 +52,7 @@ bool getGraphicsDeviceInfo( unsigned int* VendorId,
 	// CreateDXGIFactory function. DXGIFactory1 is supported by Windows Store Apps so
 	// try that first.
 	//
-	HMODULE hDXGI = LoadLibrary(L"dxgi.dll");
+	HMODULE hDXGI = LoadLibrary("dxgi.dll");
 	if (hDXGI == NULL) {
 		return false;
 	}

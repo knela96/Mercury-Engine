@@ -159,6 +159,12 @@
     <ClInclude Include="SystemInfo.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="lib\gpudetect\DeviceId.h">
+      <Filter>Sources\Containers\SystemInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gpudetect\dxgi1_4.h">
+      <Filter>Sources\Containers\SystemInfo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\gpudetect\DeviceId.cpp">
+      <Filter>Sources\Containers\SystemInfo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
