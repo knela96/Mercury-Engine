@@ -78,12 +78,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Desktop\ARCHIVOS TEMPORALES\CronosEngine-Cronos_development\CronosEngine\Cronos\src\Providers\cnpch.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="lib\mmgr\cnpch.h" />
+    <ClInclude Include="lib\mmgr\Errors.h" />
     <ClInclude Include="lib\mmgr\mmgr.h" />
     <ClInclude Include="lib\mmgr\nommgr.h" />
-    <ClInclude Include="MemmoryManager.h" />
+    <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="WindowEngineStats.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="glmath.h" />
@@ -121,8 +122,9 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="lib\mmgr\cnpch.cpp" />
     <ClCompile Include="lib\mmgr\mmgr.cpp" />
-    <ClCompile Include="MemmoryManager.cpp" />
+    <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="WindowEngineStats.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="glmath.cpp" />

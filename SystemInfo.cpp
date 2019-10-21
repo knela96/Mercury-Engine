@@ -1,10 +1,4 @@
-
-
-
-
-#include"MemmoryManager.h"
-
-
+#include"SystemInfo.h"
 
 
 namespace Engine {

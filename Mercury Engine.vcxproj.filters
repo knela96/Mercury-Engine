@@ -34,6 +34,9 @@
     <Filter Include="Sources\Containers\mmgr">
       <UniqueIdentifier>{bd0835bc-b988-4780-af99-ed630cde1761}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\SystemInfo">
+      <UniqueIdentifier>{ba81760c-2990-4fd6-8be8-186bf909a3b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -141,17 +144,20 @@
     <ClInclude Include="WindowEngineStats.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="MemmoryManager.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="lib\mmgr\mmgr.h">
       <Filter>Sources\Containers\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="lib\mmgr\nommgr.h">
       <Filter>Sources\Containers\mmgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\ARCHIVOS TEMPORALES\CronosEngine-Cronos_development\CronosEngine\Cronos\src\Providers\cnpch.h">
+    <ClInclude Include="lib\mmgr\Errors.h">
       <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\mmgr\cnpch.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemInfo.h">
+      <Filter>Sources\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,11 +251,14 @@
     <ClCompile Include="WindowEngineStats.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="MemmoryManager.cpp">
-      <Filter>Sources\Helpers</Filter>
+    <ClCompile Include="lib\mmgr\cnpch.cpp">
+      <Filter>Sources\Containers\mmgr</Filter>
     </ClCompile>
     <ClCompile Include="lib\mmgr\mmgr.cpp">
       <Filter>Sources\Containers\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemInfo.cpp">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,11 +1,12 @@
 #ifndef MEMMORYMANAGER_H
 #define MEMMORYMANAGER_H
-#include "glew/include/GL/glew.h"
 #include "Globals.h"
+
+#include "glew/include/GL/glew.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 #include <codecvt> //To convert wstring to string (For GPU info)
-//#include "lib/glad/glad.h"
 #include "SDL_opengl.h"
-#include "lib/gpudetect/DeviceId.h"
 #include "SDL/include/SDL_version.h"
 #include "SDL/include/SDL_cpuinfo.h"
 #include "psapi.h"
