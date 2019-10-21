@@ -1,18 +1,22 @@
 #ifndef MEMMORYMANAGER_H
 #define MEMMORYMANAGER_H
+#include "glew/include/GL/glew.h"
 #include "Globals.h"
+#include <codecvt> //To convert wstring to string (For GPU info)
 //#include "lib/glad/glad.h"
+#include "SDL_opengl.h"
+#include "lib/gpudetect/DeviceId.h"
 #include "SDL/include/SDL_version.h"
 #include "SDL/include/SDL_cpuinfo.h"
 #include "psapi.h"
+#include "mmgr/mmgr.h"
+#include "lib/gpudetect/DeviceId.h"
 
 #define BTOGB (1073741824.0f)
 #define KBTOMB 1024.0f //To GB: (1048576.0f)
 #define BTOMB (1048576.0f)
 
 namespace Engine {
-
-	
 
 	class SoftwareInfo
 	{

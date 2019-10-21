@@ -1,10 +1,10 @@
-#include <codecvt> //To convert wstring to string (For GPU info)
 
-#include "mmgr/mmgr.h"
+
+
 
 #include"MemmoryManager.h"
 
-#include "lib/gpudetect/DeviceId.h"
+
 
 
 namespace Engine {
@@ -165,7 +165,7 @@ namespace Engine {
 	}
 
 
-	/*const int GPUHardware::GetGPUTotalVRAM()
+	const int GPUHardware::GetGPUTotalVRAM()
 	{
 		int tmp_GPUTotalVRAM = 0;
 		glGetIntegerv(0x9048, &tmp_GPUTotalVRAM);
@@ -174,7 +174,6 @@ namespace Engine {
 		return m_GPUTotalVRAM / KBTOMB;
 	}
 
-
 	const int GPUHardware::GetGPUCurrentVRAM()
 	{
 		int tmp_GPUCurrentVRAM = 0;
@@ -182,7 +181,7 @@ namespace Engine {
 
 		m_GPUCurrentVRAM = tmp_GPUCurrentVRAM;
 		return tmp_GPUCurrentVRAM / KBTOMB;
-	}*/
+	}
 
 	void GPUHardware::GPUDetect_ExtractGPUInfo() const
 	{

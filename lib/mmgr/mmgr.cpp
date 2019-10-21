@@ -78,13 +78,13 @@
 #pragma warning( disable : 4577 ) // Warning that exceptions are disabled
 #pragma warning( disable : 4530 ) // Warning that exceptions are disabled
 
-#include <Providers/cnpch.h>
+//#include <mmgr/cnpch.h>
 //#include "stdafx.h"
-//#include <iostream>
-//#include <stdio.h>
-//#include <stdlib.h>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
-//#include <string.h>
+#include <string.h>
 #include <time.h>
 #include <stdarg.h>
 #include <new>

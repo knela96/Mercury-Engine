@@ -31,6 +31,9 @@
     <Filter Include="Sources\Modules\UI">
       <UniqueIdentifier>{1e7b242f-54da-453a-8971-476bd1a97e16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\mmgr">
+      <UniqueIdentifier>{bd0835bc-b988-4780-af99-ed630cde1761}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -141,6 +144,15 @@
     <ClInclude Include="MemmoryManager.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="lib\mmgr\mmgr.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\mmgr\nommgr.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Desktop\ARCHIVOS TEMPORALES\CronosEngine-Cronos_development\CronosEngine\Cronos\src\Providers\cnpch.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -235,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="MemmoryManager.cpp">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\mmgr\mmgr.cpp">
+      <Filter>Sources\Containers\mmgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
