@@ -1136,6 +1136,7 @@ static void ShowDemoWindowWidgets()
             float average = 0.0f;
             for (int n = 0; n < IM_ARRAYSIZE(values); n++)
                 average += values[n];
+
             average /= (float)IM_ARRAYSIZE(values);
             char overlay[32];
             sprintf(overlay, "avg %f", average);

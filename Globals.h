@@ -23,6 +23,10 @@ void log(const char file[], int line, const char* format, ...);
 
 
 typedef unsigned int uint;
+typedef unsigned char uchar;
+typedef unsigned __int32 uint32;
+typedef unsigned __int64 uint64;
+
 
 enum update_status
 {
@@ -39,7 +43,7 @@ enum update_status
 #define WIN_RESIZABLE true
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
-#define VSYNC true
+#define VSYNC false
 #define WIN_DOUBLE_BUFFERING false
 #define TITLE "Mercury Engine"
 

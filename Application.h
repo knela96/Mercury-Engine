@@ -35,10 +35,11 @@ private:
 	Timer ms_timer;							//timer to count miliseconds since App::Start()
 
 	double frame_count = 0;					//number of frames since App::Init();
-	float last_sec_frame_count = 0;			//frames in last sec
-	float prev_last_sec_frame_count = 0;	//frames the sec before last sec.
 
-	float last_frame_ms;					//last frame milisseconds
+
+	float last_frame_ms;//last frame milisseconds
+	float last_sec_frame_count = 0;//frames in last sec
+
 
 	uint framerate_cap = 60;
 	bool framerate_cap_activated = false;
@@ -54,10 +55,11 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float prev_last_sec_frame_count = 0;	//frames the sec before last sec.
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-};	
+};
 extern Application* App;

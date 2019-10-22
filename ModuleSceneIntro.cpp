@@ -27,7 +27,7 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-		
+
 	return true;
 }
 
@@ -38,7 +38,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-
+	
 	App->importer->Draw();
 
 

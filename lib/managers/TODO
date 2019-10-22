@@ -1,0 +1,6 @@
+ - Add comments for:
+    * offset_pointer.h
+    * shared_segment.h
+    
+ - implement real pointer traits for T* and offset_pointer ver. >1.0
+ - reorganize implementation of shared_allocators  ver. >1.0

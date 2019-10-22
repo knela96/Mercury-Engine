@@ -4,6 +4,7 @@
 #include "ModuleGUI.h"
 #include "WindowGame.h"
 #include "WindowHierarchy.h"
+#include "WindowEngineStats.h"
 #include "ModuleInput.h"
 
 
@@ -42,6 +43,7 @@ bool ModuleGUI::Init()
 	windows.push_back(game);
 	windows.push_back(new WindowHierarchy(App));
 	inspector = new WindowInspector(App);
+	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
 	return true;
 }
@@ -65,6 +67,7 @@ update_status ModuleGUI::PreUpdate(float dt)
 		if (m != nullptr)
 			m->PreUpdate(dt);
 	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -169,6 +172,7 @@ bool ModuleGUI::CreateMenuBar() {
 	if (opt_fullscreen)
 		ImGui::PopStyleVar(2);
 
+
 	// DockSpace
 	ImGuiIO& io = ImGui::GetIO();
 	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
@@ -218,6 +222,9 @@ bool ModuleGUI::CreateMenuBar() {
 			}
 			if (ImGui::MenuItem("Inspector", "", openInspector)) {
 				openInspector = !openInspector;
+			}
+			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
+				ShowFPS = !ShowFPS;
 			}
 			if (ImGui::MenuItem("Settings")) {
 				openWindowSettings = true;

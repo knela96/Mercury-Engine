@@ -78,7 +78,7 @@ update_status ModuleImporter::Update(float dt) {
 
 
 bool ModuleImporter::CleanUp()
-{ 
+{
 	// detach log stream
 	aiDetachAllLogStreams();
 
@@ -144,7 +144,7 @@ bool ModuleImporter::Load(const char* path) {
 }
 
 GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiScene* scene) {
-	
+
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	vector<Texture*> textures;
@@ -154,7 +154,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 		Vertex vertex;
 		if (mesh->HasFaces())
 		{
-			vertex.Position = { 
+			vertex.Position = {
 				mesh->mVertices[i].x,
 				mesh->mVertices[i].y,
 				mesh->mVertices[i].z
@@ -162,14 +162,14 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 		}
 		if (mesh->HasNormals())
 		{
-			vertex.Normal = { 
+			vertex.Normal = {
 				mesh->mNormals[i].x,
 				mesh->mNormals[i].y,
 				mesh->mNormals[i].z
 			};
 		}
 		if (mesh->HasVertexColors(0)) {
-			vertex.Colors = { 
+			vertex.Colors = {
 				mesh->mColors[0][i].r,
 				mesh->mColors[0][i].g,
 				mesh->mColors[0][i].b,
@@ -180,7 +180,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 			vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
 		if (mesh->mTextureCoords[0])
 		{
-			vertex.TexCoords = { 
+			vertex.TexCoords = {
 				mesh->mTextureCoords[0][i].x,
 				mesh->mTextureCoords[0][i].y
 			};
@@ -218,7 +218,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
-	
+
 	return (GameObject*)new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 }
 
@@ -234,7 +234,7 @@ vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *
 		path->append(str.C_Str());
 		Texture* tex = SaveTexture(path->c_str(), type,PNG);
 		if(tex != nullptr)
-			texture.push_back(tex);		
+			texture.push_back(tex);
 	}
 	return texture;
 }
@@ -263,7 +263,7 @@ Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type, FileFo
 }
 
 bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
-	
+
 	ILuint image;
 
 	ilGenImages(1,&image);
@@ -280,7 +280,7 @@ bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 		if (!ilutGLBindTexImage())
 			LOGC("Cannot Bind Texture Image");
 		LOG("generating texture, path: %s", path);
-		
+
 		long h, v, bpp, f;
 		ILubyte *texdata = 0;
 
