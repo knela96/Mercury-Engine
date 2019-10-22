@@ -15,7 +15,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	
-	Engine::SystemInfo s_info;
+	//Engine::SystemInfo s_info;
 
 public:
 };

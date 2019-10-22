@@ -87,6 +87,7 @@
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
+    <ClInclude Include="lib\gpudetect\DeviceId.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\mmgr\mmgr.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="ModuleCamera3D.h" />
@@ -111,7 +113,9 @@
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowEngineStats.h" />
     <ClInclude Include="WindowGame.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowInspector.h" />
@@ -125,12 +129,14 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
+    <ClCompile Include="lib\gpudetect\DeviceId.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
     <ClCompile Include="lib\imgui\imgui_demo.cpp" />
     <ClCompile Include="lib\imgui\imgui_draw.cpp" />
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_impl_sdl.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\mmgr\mmgr.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -145,7 +151,9 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowEngineStats.cpp" />
     <ClCompile Include="WindowGame.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />

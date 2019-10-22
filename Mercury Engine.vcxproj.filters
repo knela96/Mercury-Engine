@@ -34,6 +34,9 @@
     <Filter Include="Sources\Helpers\Components">
       <UniqueIdentifier>{ac691c18-e31a-466a-a4f6-45242338bbdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\mmgr">
+      <UniqueIdentifier>{1435844e-8159-4037-b579-fc0192fdc3c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -145,6 +148,18 @@
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="C_Transform.h" />
+    <ClInclude Include="WindowEngineStats.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemInfo.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\mmgr\mmgr.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gpudetect\DeviceId.h">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -241,5 +256,17 @@
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="C_Transform.cpp" />
+    <ClCompile Include="WindowEngineStats.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemInfo.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\mmgr\mmgr.cpp">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\gpudetect\DeviceId.cpp">
+      <Filter>Sources\Containers\mmgr</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

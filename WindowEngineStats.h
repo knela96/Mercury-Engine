@@ -22,10 +22,32 @@ public:
 private:
 	bool enabled;
 
-
-
 	float FPS_array[20];
 	float beforeLastFramefps = 0;
 	float values_offset = 0;
+
+
+private:
+
+	Engine::SystemInfo SysInfo;
+
+	Engine::SoftwareInfo Softwareinfo_;
+	Engine::MemoryHardware MemoryHardware_;
+	Engine::GPUHardware GPUHardware_;
+
+	//Software
+	std::string CompilerVersion;
+	std::string CppVersion;
+	std::string SDLVersion;
+	std::string VSCompilerVersion;
+	std::string WindowsVersion;
+	
+
+	//HardWare
+	uint32 RamSize;
+	uint32 MemoryLoaded;
+	uint64 PhysicalMemory;
+	uint64 VirtualMemory;
+	float RamSizeSDL;
 };
 #endif
