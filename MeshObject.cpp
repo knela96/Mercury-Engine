@@ -3,6 +3,7 @@
 #include "glmath.h"
 #include "glmath.h"
 #include "ModuleGUI.h"
+#include "C_Normals.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -61,7 +62,7 @@ void MeshObject::Draw() {
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
-	if (App->renderer3D->texture_active) {
+	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
 			{
@@ -112,7 +113,8 @@ void MeshObject::Draw() {
 	App->importer->shader->stop();
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	DebugNormals();
+	if(getComponent(Normals)->isActive())
+		DebugNormals();
 }
 
 void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
@@ -160,15 +162,15 @@ void MeshObject::CleanUp() {
 void MeshObject::DebugNormals() {
 	if (vertex_normals) {
 		//NORMAL VERTEX
-		for (int i = 0; i < indices.size(); i++)
+		for (int i = 0; i < vertices.size(); i++)
 		{
-			vec3 vertex = vec3(vertices[indices[i]].Position.x, vertices[indices[i]].Position.y, vertices[indices[i]].Position.z);
-			vec3 normal = vec3(vertices[indices[i]].Normal.x, vertices[indices[i]].Normal.y, vertices[indices[i]].Normal.z);
+			vec3 vertex = vec3(vertices[i].Position.x, vertices[i].Position.y, vertices[i].Position.z);
+			vec3 normal = vec3(vertices[i].Normal.x, vertices[i].Normal.y, vertices[i].Normal.z);
 
 			glBegin(GL_LINES);
-			glColor3f(App->gui->inspector->vertex_color.r, App->gui->inspector->vertex_color.g, App->gui->inspector->vertex_color.b);
+			glColor3f(normals->vertex_color.r, normals->vertex_color.g, normals->vertex_color.b);
 			glVertex3f(vertex.x, vertex.y, vertex.z);
-			glVertex3f((vertex.x + normal.x * App->gui->inspector->vertex_lenght), (vertex.y + normal.y * App->gui->inspector->vertex_lenght), (vertex.z + normal.z * App->gui->inspector->vertex_lenght));
+			glVertex3f((vertex.x + normal.x * normals->vertex_lenght), (vertex.y + normal.y * normals->vertex_lenght), (vertex.z + normal.z * normals->vertex_lenght));
 			glEnd();
 		}
 	}
@@ -190,9 +192,9 @@ void MeshObject::DebugNormals() {
 			);
 
 			glBegin(GL_LINES);
-			glColor3f(App->gui->inspector->face_color.r, App->gui->inspector->face_color.g, App->gui->inspector->face_color.b);
+			glColor3f(normals->face_color.r, normals->face_color.g, normals->face_color.b);
 			glVertex3f(face_center.x, face_center.y, face_center.z);
-			glVertex3f((face_center.x + normal.x * App->gui->inspector->face_lenght), (face_center.y + normal.y * App->gui->inspector->face_lenght), (face_center.z + normal.z * App->gui->inspector->face_lenght));
+			glVertex3f((face_center.x + normal.x * normals->face_lenght), (face_center.y + normal.y * normals->face_lenght), (face_center.z + normal.z * normals->face_lenght));
 			glEnd();
 		}
 	}

@@ -35,9 +35,6 @@ public:
 	vector<uint> indices;
 	uint VAO;
 
-
-
-
 private:
 	uint VBO, EBO;
 };

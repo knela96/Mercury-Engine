@@ -23,8 +23,10 @@ struct Texture {
 
 class MeshObject;
 class Component;
+class C_Normals;
 
 enum aiTextureType;
+enum Component_Type;
 
 class GameObject
 {
@@ -40,7 +42,9 @@ public:
 
 	char* getType(aiTextureType type);
 
+	Component* AddComponent(Component_Type type);
 
+	Component* getComponent(Component_Type type);
 
 public:
 	MeshObject* mesh;
@@ -50,19 +54,13 @@ public:
 
 	GameObject* parent;
 
-	vec3 position;
-	vec3 rotation;
-	vec3 scale;
+	bool face_normals = false;
+	bool vertex_normals = false;
 
-	bool face_normals;
-	bool vertex_normals;
-
+	C_Normals* normals = nullptr;
 	string name;
-
 	FileFormats c_texformat = PNG;
-
 	bool debug_tex = false;
-
 	bool active = true;
 };
 

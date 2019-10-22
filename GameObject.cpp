@@ -1,10 +1,16 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "MeshObject.h"
+#include "C_Transform.h"
+#include "C_Normals.h"
+#include "C_MeshInfo.h"
+#include "C_Material.h"
 
-GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), position({ 0,0,0 }), rotation({ 0,0,0 }), scale({ 1,1,1 }), name(name) {
-	face_normals = false;
-	vertex_normals = false;
+GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
+	components.push_back(AddComponent(Transform));
+	components.push_back(AddComponent(Mesh_Info));
+	components.push_back(AddComponent(Normals));
+	components.push_back(AddComponent(Material));
 }
 
 GameObject::~GameObject() {}
@@ -38,4 +44,40 @@ char* GameObject::getType(aiTextureType type)
 		return "Height_Map";
 		break;
 	}
+}
+
+Component * GameObject::AddComponent(Component_Type type)
+{
+	Component* component;
+	switch (type) {
+	case Component_Type::Transform:
+		component = new C_Transform(this, type);
+		break;
+	case Component_Type::Mesh_Info:
+		component = new C_MeshInfo(this, type);
+		break;
+	case Component_Type::Normals:
+		component = new C_Normals(this, type);
+		normals = (C_Normals*) component;
+		break;
+	case Component_Type::Material:
+		component = new C_Material(this, type);
+		break;
+	case Component_Type::Script:
+		//component = new C_Script(this, type);
+		break;
+	}
+
+	component->Enable();
+
+	return component;
+}
+
+Component * GameObject::getComponent(Component_Type type)
+{
+	for (int i = 0; i < components.size(); ++i) {
+		if (components[i]->type == type)
+			return components[i];
+	}
+	return nullptr;
 }

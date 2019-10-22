@@ -185,7 +185,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		if (new_mesh->normals != nullptr)
 		{
 			vertex.Normal = {
-				new_mesh->normals[i],
+				new_mesh->normals[3 * i],
 				new_mesh->normals[(3 * i) + 1],
 				new_mesh->normals[(3 * i) + 2]
 			};

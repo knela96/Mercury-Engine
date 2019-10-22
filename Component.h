@@ -15,18 +15,23 @@ enum Component_Type {
 class Component
 {
 public:
-	Component(Component_Type type);
-	~Component();
+	Component(Component_Type type, GameObject* gameobject, bool active = true) : type(type), gameobject(gameobject) {}
+	~Component() {}
 
 	virtual bool Enable() { return true; }
 	virtual void Update(){}
 	virtual bool Disable() { return true; }
 
-private:
+	bool isActive() {
+		return active;
+	}
+
+	Component_Type type;
+protected:
 	GameObject* gameobject;
 	bool active;
+	bool unFold = false;
 	string name;
-	Component_Type type;
 };
 
 
