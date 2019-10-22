@@ -31,6 +31,8 @@ bool WindowInspector::Draw()
 		ImGui::Begin("Inspector",&App->gui->openInspector);
 		if (active_gameObject != nullptr) {
 
+			ImGui::Checkbox("Active", &active_gameObject->active); ImGui::SameLine();
+			ImGui::SetNextItemWidth(200);
 			ImGui::InputText("Name", (char*)&active_gameObject->name, 20); 
 
 			if (ImGui::IsItemActive()) {
@@ -39,8 +41,6 @@ bool WindowInspector::Draw()
 			else {
 				App->input->writting = false;
 			}
-
-			ImGui::SameLine(); ImGui::Checkbox("Show", &active_gameObject->active);
 
 			for (int i = 0; i < active_gameObject->components.size(); ++i) {
 				active_gameObject->components[i]->Update();
