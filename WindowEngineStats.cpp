@@ -15,7 +15,7 @@ WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Mod
 	SDLVersion = Softwareinfo_.GetSDLVersion();
 	VSCompilerVersion = Softwareinfo_.GetVSCompilerVersion();
 	WindowsVersion = Softwareinfo_.GetWindowsVersion();
-
+	CompilationTime = Softwareinfo_.GetCompilationTime();
 
 	MemoryHardware_ = SysInfo.GetMemoryHardwareInfo();
 
@@ -23,13 +23,20 @@ WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Mod
 	MemoryLoaded = MemoryHardware_.GetPercentageOfMemoryLoad();
 	PhysicalMemory = MemoryHardware_.GetPhysicalMemory();
 	VirtualMemory = MemoryHardware_.GetVirtualMemory();
+	
 
 	ProcessorHardware_ = SysInfo.GetCPUHardwareInfo();
 
 	GPUHardware_ = SysInfo.GetGPUHardwareInfo();
 
+	
+	
+	GPUTotalRam = GPUHardware_.GetGPUTotalVRAM();
+
+
 	CPUBrand = ProcessorHardware_.GetCPUBrand();
 	CPUCores = ProcessorHardware_.GetCPUCores();
+	CPUArchitecture = ProcessorHardware_.GetCPUArchitecture();
 	/*
 
 	LOGC("RamSize = %f", RamSizeSDL);
@@ -76,6 +83,7 @@ bool WindowEngineStats::Draw()
 		//-----------------------------------------------
 		//                SoftwareInfo 
 		//-----------------------------------------------
+
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
@@ -93,7 +101,9 @@ bool WindowEngineStats::Draw()
 
 		ImGui::Text("CppVersion                          %s", CppVersion.c_str());
 		ImGui::Spacing();
-		ImGui::Text("CompilerVersion                     %s", CompilerVersion.c_str());
+		ImGui::Text("CompilerVersion                     %s", CompilerVersion.c_str()); 
+		ImGui::Spacing();
+		ImGui::Text("Compiled at:                        %s", CompilationTime.c_str()); 
 		ImGui::Spacing();
 		ImGui::Text("SDLVersion                          %s", SDLVersion.c_str());
 		ImGui::Spacing();
@@ -106,9 +116,23 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing(); 
 		ImGui::Spacing();
 
-		ImGui::Text("CPU Brand                     %s", CPUBrand.c_str());
+
+		//-----------------------------------------------
+		//                HardWareInfo 
+		//-----------------------------------------------
+
+
+		GPUUsedRam = GPUHardware_.GetGPUCurrentVRAM();
+
+		ImGui::Text("CPU Brand                           %s", CPUBrand.c_str());
 		ImGui::Spacing();
-		ImGui::Text("CPU Cores                     %u", CPUCores);
+		ImGui::Text("CPU Cores                           %u", CPUCores);
+		ImGui::Spacing();
+		ImGui::Text("CPU Architechture                   %s", CPUArchitecture.c_str());
+		ImGui::Spacing();
+		ImGui::Text("GPU Used RAM                        %i", GPUUsedRam);//Create graphic TODO
+		ImGui::Spacing();
+		ImGui::Text("GPU Total RAM                       %i", GPUTotalRam);
 
 
 		ImGui::Spacing(); 

@@ -42,7 +42,7 @@ private:
 	std::string SDLVersion;
 	std::string VSCompilerVersion;
 	std::string WindowsVersion;
-	
+	std::string CompilationTime;
 
 	//HardWare
 	uint32 RamSize;
@@ -51,6 +51,9 @@ private:
 	uint64 VirtualMemory;
 	std::string CPUBrand;
 	uint CPUCores;
+	std::string CPUArchitecture;
 	float RamSizeSDL;
+	int GPUUsedRam;
+	int GPUTotalRam;
 };
 #endif
