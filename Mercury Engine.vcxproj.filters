@@ -147,7 +147,6 @@
     <ClInclude Include="Component.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="C_Transform.h" />
     <ClInclude Include="WindowEngineStats.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
@@ -159,6 +158,18 @@
     </ClInclude>
     <ClInclude Include="lib\gpudetect\DeviceId.h">
       <Filter>Sources\Containers\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Material.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_MeshInfo.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Normals.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Transform.h">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,10 +263,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="WindowEngineStats.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
@@ -267,6 +274,18 @@
     </ClCompile>
     <ClCompile Include="lib\gpudetect\DeviceId.cpp">
       <Filter>Sources\Containers\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Material.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_MeshInfo.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Normals.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Transform.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

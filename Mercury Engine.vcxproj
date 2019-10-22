@@ -81,6 +81,9 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="C_Material.h" />
+    <ClInclude Include="C_MeshInfo.h" />
+    <ClInclude Include="C_Normals.h" />
     <ClInclude Include="C_Transform.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
@@ -123,7 +126,9 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="C_Material.cpp" />
+    <ClCompile Include="C_MeshInfo.cpp" />
+    <ClCompile Include="C_Normals.cpp" />
     <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
