@@ -48,10 +48,10 @@ private:
 		"out vec4 FragColor;\n"
 		"in vec4 ourColor;\n"
 		"in vec2 TexCoord; \n"
-		"uniform sampler2D texture1;\n"
+		"uniform sampler2D Diffuse_Map1;\n"
 		"void main()\n"
 		"{\n"
-		"   FragColor = texture(texture1, TexCoord) * ourColor;\n"
+		"   FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0);\n"
 		"}\0";
 };
 

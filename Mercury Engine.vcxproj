@@ -80,15 +80,10 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="lib\gpudetect\DeviceId.h" />
-    <ClInclude Include="lib\gpudetect\dxgi1_4.h" />
-    <ClInclude Include="lib\mmgr\cnpch.h" />
-    <ClInclude Include="lib\mmgr\Errors.h" />
-    <ClInclude Include="lib\mmgr\mmgr.h" />
-    <ClInclude Include="lib\mmgr\nommgr.h" />
-    <ClInclude Include="SystemInfo.h" />
-    <ClInclude Include="WindowEngineStats.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="C_Transform.h" />
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
@@ -124,12 +119,10 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="lib\gpudetect\DeviceId.cpp" />
-    <ClCompile Include="lib\mmgr\cnpch.cpp" />
-    <ClCompile Include="lib\mmgr\mmgr.cpp" />
-    <ClCompile Include="SystemInfo.cpp" />
-    <ClCompile Include="WindowEngineStats.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
     <ClCompile Include="lib\imgui\imgui.cpp" />

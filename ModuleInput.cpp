@@ -91,56 +91,52 @@ update_status ModuleInput::PreUpdate(float dt)
 	{
 		switch (e.type)
 		{
-		case SDL_MOUSEWHEEL:
-			mouse_z = e.wheel.y;
-			break;
+			case SDL_QUIT:
+				quit = true;
+				break;
+			case SDL_DROPFILE:
+				if (App->gui->game->mouseHover()) {
+					char* dropped_filedir;
 
-		case SDL_MOUSEMOTION:
-			mouse_x = e.motion.x / SCREEN_SIZE;
-			mouse_y = e.motion.y / SCREEN_SIZE;
+					dropped_filedir = e.drop.file;
+					if (dropped_filedir != nullptr) {
+						// Shows directory of dropped file
+						SDL_ShowSimpleMessageBox(
+							SDL_MESSAGEBOX_INFORMATION,
+							"Loaded File",
+							dropped_filedir,
+							App->window->window
+						);
 
-			mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
-			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
-			break;
+						App->importer->LoadFile(dropped_filedir);
 
-		case SDL_QUIT:
-			quit = true;
-			break;
-
-		case SDL_WINDOWEVENT:
-		{
-			if (e.window.event == SDL_WINDOWEVENT_RESIZED)
-				App->renderer3D->OnResize(e.window.data1, e.window.data2);
-			break;
-		}
-
-		case (SDL_DROPFILE): {      // In case if dropped file
-			if (App->gui->game->mouseHover()) {
-				char* dropped_filedir;
-
-				dropped_filedir = e.drop.file;
-				if (dropped_filedir != nullptr) {
-					// Shows directory of dropped file
-					SDL_ShowSimpleMessageBox(
-						SDL_MESSAGEBOX_INFORMATION,
-						"File dropped on window",
-						dropped_filedir,
-						App->window->window
-					);
-
-					App->importer->Load(dropped_filedir);
-
-					SDL_free(dropped_filedir);    // Free dropped_filedir memory
+						SDL_free(dropped_filedir);    // Free dropped_filedir memory
+					}
 				}
-			}
-			break;
-		}
+				break;
+			case SDL_MOUSEWHEEL:
+				mouse_z = e.wheel.y;
+				break;
+
+			case SDL_MOUSEMOTION:
+				mouse_x = e.motion.x / SCREEN_SIZE;
+				mouse_y = e.motion.y / SCREEN_SIZE;
+
+				mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
+				mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
+				break;
+
+
+			case SDL_WINDOWEVENT:
+				if (e.window.event == SDL_WINDOWEVENT_RESIZED)
+					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				break;
 		}
 
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
-	if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
+	if (quit == true)
 		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;

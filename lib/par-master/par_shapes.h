@@ -1013,43 +1013,75 @@ par_shapes_mesh* par_shapes_create_tetrahedron()
 
 par_shapes_mesh* par_shapes_create_cube()
 {
-    static float verts[8 * 3] = {
-        0, 0, 0, // 0
-        0, 1, 0, // 1
-        1, 1, 0, // 2
-        1, 0, 0, // 3
-        0, 0, 1, // 4
-        0, 1, 1, // 5
-        1, 1, 1, // 6
-        1, 0, 1, // 7
-    };
-    static PAR_SHAPES_T quads[6 * 4] = {
-        7,6,5,4, // front
-        0,1,2,3, // back
-        6,7,3,2, // right
-        5,6,2,1, // top
-        4,5,1,0, // left
-        7,4,0,3, // bottom
-    };
-    int nquads = sizeof(quads) / sizeof(quads[0]) / 4;
-    par_shapes_mesh* mesh = PAR_CALLOC(par_shapes_mesh, 1);
-    int ncorners = sizeof(verts) / sizeof(verts[0]) / 3;
-    mesh->npoints = ncorners;
-    mesh->points = PAR_MALLOC(float, mesh->npoints * 3);
-    memcpy(mesh->points, verts, sizeof(verts));
-    PAR_SHAPES_T const* quad = quads;
-    mesh->ntriangles = nquads * 2;
-    mesh->triangles = PAR_MALLOC(PAR_SHAPES_T, mesh->ntriangles * 3);
-    PAR_SHAPES_T* tris = mesh->triangles;
-    for (int p = 0; p < nquads; p++, quad += 4) {
-        *tris++ = quad[0];
-        *tris++ = quad[1];
-        *tris++ = quad[2];
-        *tris++ = quad[2];
-        *tris++ = quad[3];
-        *tris++ = quad[0];
-    }
-    return mesh;
+    //static float verts[8 * 3] = {
+    //    0, 0, 0, // 0
+    //    0, 1, 0, // 1
+    //    1, 1, 0, // 2
+    //    1, 0, 0, // 3
+    //    0, 0, 1, // 4
+    //    0, 1, 1, // 5
+    //    1, 1, 1, // 6
+    //    1, 0, 1, // 7
+    //};
+    //static PAR_SHAPES_T quads[6 * 4] = {
+    //    7,6,5,4, // front
+    //    0,1,2,3, // back
+    //    6,7,3,2, // right
+    //    5,6,2,1, // top
+    //    4,5,1,0, // left
+    //    7,4,0,3, // bottom
+    //};
+    //int nquads = sizeof(quads) / sizeof(quads[0]) / 4;
+    //par_shapes_mesh* mesh = PAR_CALLOC(par_shapes_mesh, 1);
+    //int ncorners = sizeof(verts) / sizeof(verts[0]) / 3;
+    //mesh->npoints = ncorners;
+    //mesh->points = PAR_MALLOC(float, mesh->npoints * 3);
+    //memcpy(mesh->points, verts, sizeof(verts));
+    //PAR_SHAPES_T const* quad = quads;
+    //mesh->ntriangles = nquads * 2;
+    //mesh->triangles = PAR_MALLOC(PAR_SHAPES_T, mesh->ntriangles * 3);
+    //PAR_SHAPES_T* tris = mesh->triangles;
+    //for (int p = 0; p < nquads; p++, quad += 4) {
+    //    *tris++ = quad[0];
+    //    *tris++ = quad[1];
+    //    *tris++ = quad[2];
+    //    *tris++ = quad[2];
+    //    *tris++ = quad[3];
+    //    *tris++ = quad[0];
+    //}
+
+
+		par_shapes_mesh* faces[6];
+		for (int i = 0; i < 6; ++i)
+			faces[i] = par_shapes_create_plane(1, 1);
+
+		float x_axis[3] = { 1,0,0 }; 
+		float y_axis[3] = { 0,1,0 };
+
+		par_shapes_translate(faces[0], 0.f, 0.f, 1.f); //1st
+
+		par_shapes_rotate(faces[1], M_PI / 2, x_axis);  //2nd
+
+		par_shapes_rotate(faces[2], M_PI / 2, y_axis); //3rd
+		par_shapes_translate(faces[2], 1.f, 0.f, 1.f);
+
+		par_shapes_rotate(faces[3], -M_PI/2, y_axis);  //4th
+
+		par_shapes_rotate(faces[4], -M_PI / 2, x_axis); //5th 
+		par_shapes_translate(faces[4], 0.f, 1.f, 1.f);
+
+		par_shapes_rotate(faces[5], M_PI, y_axis);  //6th
+		par_shapes_translate(faces[5], 1.f, 0.f, 0.f);
+
+		for (int i = 0; i < 5; ++i)
+		{
+			par_shapes_merge(faces[0], faces[i + 1]);
+			par_shapes_free_mesh(faces[i + 1]);
+		}
+
+		par_shapes_weld(faces[0], 0, nullptr); // We weld the mesh to optimize
+
+    return faces[0];
 }
 
 typedef struct {

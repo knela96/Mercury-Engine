@@ -1,6 +1,10 @@
 #pragma once
-#include "Module.h"
 #include "Globals.h"
+#include "Application.h"
+#include "Module.h"
+#include "imgui.h"
+#include "imgui_impl_sdl.h"
+#include "imgui_impl_opengl3.h"
 
 #define MAX_MOUSE_BUTTONS 5
 
@@ -58,8 +62,20 @@ public:
 		return mouse_y_motion;
 	}
 
+
+	void* isWritting() {
+		if (ImGui::IsItemActive()) {
+			writting = true;
+		}
+		else {
+			writting = false;
+		}
+		return nullptr;
+	}
+
 public:
 	bool quit = false;
+	bool writting = false;
 private:
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];

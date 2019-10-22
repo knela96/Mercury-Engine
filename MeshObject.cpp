@@ -1,19 +1,13 @@
 #include "MeshObject.h"
 #include "Application.h"
 #include "glmath.h"
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
 #include "glmath.h"
 #include "ModuleGUI.h"
-#pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
-MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
+MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textures = textures;
 
 	SetupBuffers();
 }
@@ -26,7 +20,6 @@ MeshObject::~MeshObject()
 bool MeshObject::SetupBuffers() {
 	bool ret = true;
 
-	LOGC("Created MeshObject Buffer");
 	// create buffers/arrays
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -68,34 +61,48 @@ void MeshObject::Draw() {
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-		// retrieve texture number (the N in diffuse_textureN)
-		string number;
-		aiTextureType type = textures[i].type;
-		if (type == aiTextureType_DIFFUSE)
-			number = std::to_string(diffuseNr++);
-		else if (type == aiTextureType_SPECULAR)
-			number = std::to_string(specularNr++);
-		else if (type == aiTextureType_NORMALS)
-			number = std::to_string(normalNr++);
-		else if (type == aiTextureType_HEIGHT)
-			number = std::to_string(heightNr++);
+	if (App->renderer3D->texture_active) {
+		if(!debug_tex){
+			for (unsigned int i = 0; i < textures.size(); i++)
+			{
+				glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+				// retrieve texture number (the N in diffuse_textureN)
+				string number;
+				aiTextureType type = textures[i]->type;
+				if (type == aiTextureType_DIFFUSE)
+					number = std::to_string(diffuseNr++);
+				else if (type == aiTextureType_SPECULAR)
+					number = std::to_string(specularNr++);
+				else if (type == aiTextureType_NORMALS)
+					number = std::to_string(normalNr++);
+				else if (type == aiTextureType_HEIGHT)
+					number = std::to_string(heightNr++);
 
-		// now set the sampler to the correct texture unit
-		App->importer->shader->setInt((getType(type) + number).c_str(), i);
+				// now set the sampler to the correct texture unit
+				App->importer->shader->setInt((getType(type) + number).c_str(), i);
 
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}
-	
-	//If mesh has no textures, don't draw any texture BLACK
-	if (textures.size() > 0) {
-		mat4x4 model = mat4x4();
-		App->importer->shader->use();
-		App->importer->shader->setMat4("model", model);
-		App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-		App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
+			}
+			//If mesh has no textures, don't draw any texture BLACK
+			if (textures.size() > 0) {
+				mat4x4 model = mat4x4();
+				App->importer->shader->use();
+				App->importer->shader->setMat4("model", model);
+				App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+				App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+			}
+		}
+		else {
+			glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
+			App->importer->shader->setInt("Diffuse_Map1", 1);
+			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
+
+			mat4x4 model = mat4x4();
+			App->importer->shader->use();
+			App->importer->shader->setMat4("model", model);
+			App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+			App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+		}
 	}
 
 	glBindVertexArray(VAO);
@@ -108,38 +115,34 @@ void MeshObject::Draw() {
 	DebugNormals();
 }
 
-char* MeshObject::getType(aiTextureType type) {
-	switch (type) {
-	case aiTextureType_DIFFUSE:
-		return "Diffuse Map";
-		break;
-	case aiTextureType_SPECULAR:
-		return "Specular Map";
-		break;
-	case aiTextureType_NORMALS:
-		return "Normal Map";
-		break;
-	case aiTextureType_HEIGHT:
-		return "Height Map";
-		break;
+void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
+	if (c_texformat != format) {
+		for (int i = 0; i < vertices.size(); ++i) {
+			vertices[i].TexCoords.y = 1 - vertices[i].TexCoords.y;
+		}
+
+		c_texformat = format;
+
+		CleanUp();//Do I need to destroy the buffers?
+		SetupBuffers();
 	}
 }
 
+
 vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {
 
-	//Create normal vector we are going to output.
 	vec3 output;
 
-	//Calculate vectors used for creating normal (these are the edges of the triangle).
+	//Calculate vectors to create the normal
 	vec3 calU = vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
 	vec3 calV = vec3(p3.x - p1.x, p3.y - p1.y, p3.z - p1.z);
 
-	//The output vector is equal to the cross products of the two edges of the triangle
+	//Normal Vector
 	output.x = calU.y * calV.z - calU.z * calV.y;
 	output.y = calU.z * calV.x - calU.x * calV.z;
 	output.z = calU.x * calV.y - calU.y * calV.x;
 
-	//Return the resulting vector.
+	//Return normal normalized
 	return normalize(output);
 }
 
@@ -147,11 +150,15 @@ void MeshObject::CleanUp() {
 	LOGC("Cleaned MeshObject Buffer");
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glDeleteBuffers(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 	glBindVertexArray(0);
 }
 
 void MeshObject::DebugNormals() {
-	if (App->gui->inspector->vertex_normals) {
+	if (vertex_normals) {
 		//NORMAL VERTEX
 		for (int i = 0; i < indices.size(); i++)
 		{
@@ -166,7 +173,7 @@ void MeshObject::DebugNormals() {
 		}
 	}
 
-	if (App->gui->inspector->face_normals) {
+	if (face_normals) {
 		//NORMAL FACES
 		for (int i = 0; i < indices.size(); i += 3)
 		{

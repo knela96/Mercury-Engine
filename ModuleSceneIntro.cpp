@@ -20,10 +20,6 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	Primitive obj;
-	obj.DrawObj(Primitive_Cone);
-
-
 	return ret;
 }
 
@@ -31,7 +27,7 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-		
+
 	return true;
 }
 
@@ -46,7 +42,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	LOGC("&s", s_info.GetSoftwareInfo().GetCppCompilerVersion().c_str());
 
 	App->importer->Draw();
-	
+
 
 	return UPDATE_CONTINUE;
 }

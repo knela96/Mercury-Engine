@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "WindowGame.h"
 #include "ModuleRenderer3D.h"
+#include "Primitive.h"
 
 
 WindowGame::WindowGame(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -25,24 +26,36 @@ bool WindowGame::Start()
 }
 
 update_status WindowGame::PreUpdate(float dt) {
-	if (App->gui->openGame) {
-		fbo->PreUpdate();
-	}
+	fbo->PreUpdate();
 	return UPDATE_CONTINUE;
 }
 
 bool WindowGame::Draw()
 {
+	fbo->PostUpdate();
 	if (App->gui->openGame) {
-		fbo->PostUpdate();
 		ImGuiWindowFlags window_flags = 0;
+		Primitive p;
 		window_flags |= ImGuiWindowFlags_MenuBar;
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
 
-		ImGui::Begin("Game",NULL, window_flags);
+		ImGui::Begin("Game", &App->gui->openGame, window_flags);
 		if (ImGui::BeginMenuBar())
 		{
+			
+			if (ImGui::BeginMenu("GameObject", true))
+			{
+				ImGui::PushItemWidth(300);
+				if (ImGui::MenuItem("Plane")) { p.DrawObj(Primitive_Plane); }
+				if(ImGui::MenuItem("Cube")){ p.DrawObj(Primitive_Cube); }
+				if(ImGui::MenuItem("Cone")){ p.DrawObj(Primitive_Cone); }
+				if(ImGui::MenuItem("Cylinder")){ p.DrawObj(Primitive_Cylinder); }
+				if(ImGui::MenuItem("Sphere")){ p.DrawObj(Primitive_Sphere); }
+				ImGui::EndMenu();
+			}
+
+			ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 85);//Put the button on the right
 			if (ImGui::BeginMenu("Gizmos", true))
 			{
 				ImGui::PushItemWidth(300);
@@ -54,6 +67,7 @@ bool WindowGame::Draw()
 				ImGui::MenuItem("Wireframe", NULL, &App->renderer3D->wireframe_active);
 				ImGui::EndMenu();
 			}
+
 			ImGui::EndMenuBar();
 		}
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
@@ -69,12 +83,15 @@ bool WindowGame::Draw()
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
-	return false;
+	return true;
 }
 
-bool WindowGame::Cleanup()
+bool WindowGame::CleanUp()
 {
-	enabled = false;
+	enabled = false; 
+	fbo->CleanUp();
+	delete fbo;
+	fbo = nullptr;
 	return true;
 }
 

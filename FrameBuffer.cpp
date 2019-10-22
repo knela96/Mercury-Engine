@@ -49,17 +49,19 @@ void FrameBuffer::PreUpdate() {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // we're not using the stencil buffer now
-	glEnable(GL_DEPTH_TEST);
-
 }
 
 void FrameBuffer::PostUpdate(){
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
-	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
+	//glClear(GL_COLOR_BUFFER_BIT);
 }
 
 uint FrameBuffer::GetTexture() {
 	return texture;
+}
+
+void FrameBuffer::CleanUp() {
+	glDeleteBuffers(1, &fbo);
 }
 

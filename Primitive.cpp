@@ -106,19 +106,28 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	par_shapes_mesh* disk_aux = nullptr;
 
 	aiMesh* mesh;
+	char* name;
 
 	switch (type)
 	{
 	case PrimitiveTypes::Primitive_Sphere:
-		new_mesh = par_shapes_create_subdivided_sphere(2);
+		new_mesh = par_shapes_create_parametric_sphere(30,30);
+		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
+		name = "Sphere";
 		LOGC("Sphere Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Plane:
-		new_mesh = par_shapes_create_plane(1, 1);
+		new_mesh = par_shapes_create_plane(2, 2);
+		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
+		par_shapes_translate(new_mesh, -0.5, 0, 0.5);
+		name = "Plane";
 		LOGC("Plane Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cube:
 		new_mesh = par_shapes_create_cube();
+		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
+		par_shapes_translate(new_mesh, -0.5, -0.5, 0.5);
+		name = "Cube";
 		LOGC("Cube Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cone:
@@ -128,36 +137,39 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		par_shapes_rotate(disk1, -M_PI, x_rotation);
 		par_shapes_merge(new_mesh, disk1);
 		par_shapes_free_mesh(disk1);
+		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
+		name = "Cone";
 		LOGC("Cone Primitive created");
 		break;
 	case PrimitiveTypes::Primitive_Cylinder:
-		new_mesh = par_shapes_create_cylinder(10, 3);
+		new_mesh = par_shapes_create_cylinder(30, 3);
 
-		disk1 = par_shapes_create_disk(1, 10, center, normal);
+		disk1 = par_shapes_create_disk(1, 30, center, normal);
 		par_shapes_rotate(disk1, 18 * DEGTORAD, z_rotation);
 		par_shapes_translate(disk1, 0, 0, 1);
 		par_shapes_merge(new_mesh, disk1);
 		par_shapes_free_mesh(disk1);
 
 		disk2 = par_shapes_create_empty(); //Created Empty to align disks to Cylinder
-		disk_aux = par_shapes_create_disk(1, 10, center, normal);
+		disk_aux = par_shapes_create_disk(1, 30, center, normal);
 		par_shapes_rotate(disk_aux, -M_PI, x_rotation);
 		par_shapes_merge(disk2, disk_aux);
 		par_shapes_free_mesh(disk_aux);
 		par_shapes_rotate(disk2, 18 * DEGTORAD, z_rotation);
 		par_shapes_merge(new_mesh, disk2);
 		par_shapes_free_mesh(disk2);
+		par_shapes_rotate(new_mesh, -M_PI / 2, x_rotation);
+		par_shapes_translate(new_mesh, 0, -0.5, 0);
+
+		name = "Cylinder";
 
 		LOGC("Cylinder Primitive created");
 		break;
 	}
 
-	par_shapes_rotate(new_mesh, -M_PI/2, x_rotation);
-
-
 	vector<Vertex> vertices;
 	vector<uint> indices;
-	vector<Texture> textures;
+	vector<Texture*> textures;
 	Vertex vertex;
 
 	for (uint i = 0; i < new_mesh->npoints; i++)
@@ -184,8 +196,8 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 		if (new_mesh->tcoords != nullptr)
 		{
 			vertex.TexCoords = {
-				new_mesh->tcoords[i],
-				new_mesh->tcoords[i + 1]
+				new_mesh->tcoords[2 * i],
+				new_mesh->tcoords[(2 * i) + 1]
 			};
 		}
 		else
@@ -209,7 +221,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	App->importer->meshes.push_back(MeshObject(vertices, indices, textures));
+	App->importer->gameObjects.push_back((GameObject*) new MeshObject(vertices, indices, textures, name));
 }
 
 // LINE ==================================================

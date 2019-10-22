@@ -9,6 +9,8 @@
 
 #include <GL/glew.h>
 
+class GameObject;
+
 class WindowInspector : public Module
 {
 public:
@@ -25,15 +27,14 @@ private:
 	bool unFold = false;
 	bool open_transform = true;
 	bool open_normals = true;
+	bool open_mesh_info = true;
+	bool open_material = true;
 public:
-	vec3 pos;
-	vec3 rot;
-	vec3 scale;
 	float face_lenght;
 	float vertex_lenght;
 	Color face_color;
 	Color vertex_color;
-	bool face_normals;
-	bool vertex_normals;
+
+	GameObject* active_gameObject = nullptr;
 };
 #endif

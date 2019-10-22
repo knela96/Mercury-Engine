@@ -61,7 +61,6 @@ bool ModuleGUI::Start() {
 // PreUpdate: clear buffer
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	
 	list <Module*> ::iterator it;
 	for (it = windows.begin(); it != windows.end(); ++it) {
 		Module* m = *it;
@@ -86,13 +85,6 @@ update_status ModuleGUI::PostUpdate(float dt)
 // PostUpdate present buffer to screen
 bool ModuleGUI::Draw()
 {
-	// RENDERING
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		ImGui_ImplSDL2_ProcessEvent(&event);
-	}
-
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
@@ -125,7 +117,7 @@ bool ModuleGUI::Draw()
 
 	//view
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
-	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context where shaders may be bound
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -136,6 +128,16 @@ bool ModuleGUI::Draw()
 // Called before quitting
 bool ModuleGUI::CleanUp()
 {
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr) {
+			m->CleanUp();
+			delete m;
+			m = nullptr;
+		}
+	}
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
@@ -209,6 +211,9 @@ bool ModuleGUI::CreateMenuBar() {
 		}
 		if (ImGui::BeginMenu("Window"))
 		{
+			if (ImGui::MenuItem("Game", "", openGame)) {
+				openGame = !openGame;
+			}
 			if (ImGui::MenuItem("Console", "F1", openConsole)) {
 				openConsole = !openConsole;
 			}
