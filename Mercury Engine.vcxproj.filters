@@ -31,6 +31,9 @@
     <Filter Include="Sources\Modules\UI">
       <UniqueIdentifier>{1e7b242f-54da-453a-8971-476bd1a97e16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Helpers\Components">
+      <UniqueIdentifier>{ac691c18-e31a-466a-a4f6-45242338bbdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -138,6 +141,10 @@
     <ClInclude Include="GameObject.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -230,5 +237,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Transform.cpp" />
   </ItemGroup>
 </Project>

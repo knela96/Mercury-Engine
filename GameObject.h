@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEOBJECT_H_
+#define GAMEOBJECT_H_
 #include "Globals.h"
 #include "Application.h"
 
@@ -21,6 +22,7 @@ struct Texture {
 };
 
 class MeshObject;
+class Component;
 
 enum aiTextureType;
 
@@ -43,7 +45,10 @@ public:
 public:
 	MeshObject* mesh;
 	vector<Texture*> textures;
+	vector<Component*> components;
 	vector<GameObject*> childs;
+
+	GameObject* parent;
 
 	vec3 position;
 	vec3 rotation;
@@ -60,3 +65,5 @@ public:
 
 	bool active = true;
 };
+
+#endif GAMEOBJECT_H_
