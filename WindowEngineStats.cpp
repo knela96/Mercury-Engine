@@ -24,10 +24,12 @@ WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Mod
 	PhysicalMemory = MemoryHardware_.GetPhysicalMemory();
 	VirtualMemory = MemoryHardware_.GetVirtualMemory();
 
+	ProcessorHardware_ = SysInfo.GetCPUHardwareInfo();
 
 	GPUHardware_ = SysInfo.GetGPUHardwareInfo();
 
-
+	CPUBrand = ProcessorHardware_.GetCPUBrand();
+	CPUCores = ProcessorHardware_.GetCPUCores();
 	/*
 
 	LOGC("RamSize = %f", RamSizeSDL);
@@ -78,9 +80,40 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Text("Memoriae temere Acces Thecuites     %f", RamSizeSDL);
+		ImGui::Spacing();
 		ImGui::Text("VirtualMemory                       %u", VirtualMemory);
+		ImGui::Spacing();
 		ImGui::Text("MemoryLoaded                        %u", MemoryLoaded);
+		ImGui::Spacing();
 		ImGui::Text("PhysicalMemory                      %u", PhysicalMemory);
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+
+		ImGui::Text("CppVersion                          %s", CppVersion.c_str());
+		ImGui::Spacing();
+		ImGui::Text("CompilerVersion                     %s", CompilerVersion.c_str());
+		ImGui::Spacing();
+		ImGui::Text("SDLVersion                          %s", SDLVersion.c_str());
+		ImGui::Spacing();
+		ImGui::Text("VSCompilerVersion                   %s", VSCompilerVersion.c_str());
+		ImGui::Spacing();
+		ImGui::Text("WindowsVersion                      %s", WindowsVersion.c_str());
+
+
+		ImGui::Spacing();
+		ImGui::Spacing(); 
+		ImGui::Spacing();
+
+		ImGui::Text("CPU Brand                     %s", CPUBrand.c_str());
+		ImGui::Spacing();
+		ImGui::Text("CPU Cores                     %u", CPUCores);
+
+
+		ImGui::Spacing(); 
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 
 		ImGui::End();

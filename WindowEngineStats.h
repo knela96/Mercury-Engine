@@ -34,6 +34,7 @@ private:
 	Engine::SoftwareInfo Softwareinfo_;
 	Engine::MemoryHardware MemoryHardware_;
 	Engine::GPUHardware GPUHardware_;
+	Engine::ProcessorHardware ProcessorHardware_;
 
 	//Software
 	std::string CompilerVersion;
@@ -48,6 +49,8 @@ private:
 	uint32 MemoryLoaded;
 	uint64 PhysicalMemory;
 	uint64 VirtualMemory;
+	std::string CPUBrand;
+	uint CPUCores;
 	float RamSizeSDL;
 };
 #endif
