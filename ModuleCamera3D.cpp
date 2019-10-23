@@ -68,7 +68,7 @@ update_status ModuleCamera3D::Update(float dt)
 				Position = vec3(0.0f, 0.0f, 5.0f);
 				Reference = vec3(0.0f, 0.0f, 0.0f);
 
-				Move(vec3(1.0f, 1.0f, 0.0f));
+				Move(vec3(0.0f, 3.0f, 3.0f));
 				LookAt(vec3(0, 0, 0));
 			}
 		}
@@ -203,6 +203,20 @@ float* ModuleCamera3D::GetViewMatrix()
 
 mat4x4 ModuleCamera3D::GetViewMatrix4x4() {
 	return  ViewMatrix;
+}
+
+void ModuleCamera3D::setFrustum()
+{
+	
+}
+
+void ModuleCamera3D::focusAt(AABB box)
+{
+	frustum.pos = box.CenterPoint();
+}
+
+void ModuleCamera3D::checkInside(AABB box)
+{
 }
 
 // -----------------------------------------------------------------

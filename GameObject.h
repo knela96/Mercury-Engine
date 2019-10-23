@@ -54,6 +54,9 @@ public:
 
 	GameObject* parent;
 
+	AABB box;
+	
+
 	bool face_normals = false;
 	bool vertex_normals = false;
 
@@ -62,6 +65,7 @@ public:
 	FileFormats c_texformat = PNG;
 	bool debug_tex = false;
 	bool active = true;
+	bool boundary_box = false;
 };
 
 #endif GAMEOBJECT_H_

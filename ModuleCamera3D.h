@@ -1,7 +1,14 @@
 #pragma once
-#include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+#include "Application.h"
+#include "Module.h"
+
+#include "MathGeoLib/include/MathGeoLib.h"
+#ifdef _DEBUG
+#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#else
+#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
+#endif
 
 class ModuleCamera3D : public Module
 {
@@ -19,11 +26,17 @@ public:
 	float* GetViewMatrix();
 
 	mat4x4 GetViewMatrix4x4();
+	void setFrustum();
+	void focusAt(AABB box);
+	void checkInside(AABB box);
+
 
 private:
 
 	void CalculateViewMatrix();
 	bool moving = false;
+
+	math::Frustum frustum;
 
 public:
 	
