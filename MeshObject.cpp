@@ -115,6 +115,8 @@ void MeshObject::Draw() {
 
 	if(getComponent(Normals)->isActive())
 		DebugNormals();
+
+	DrawBox();
 }
 
 void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
@@ -199,4 +201,42 @@ void MeshObject::DebugNormals() {
 		}
 	}
 }
+void MeshObject::DrawBox() {
+	if (boundary_box) {
+		float3 points[8];
+		box.GetCornerPoints(points);
 
+		glBegin(GL_LINES);
+		glColor3f(1, 0.84, 0);
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glEnd();
+	}
+
+}

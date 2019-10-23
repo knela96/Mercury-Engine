@@ -76,40 +76,13 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	/*dt = (float)ms_timer.Read() / 1000.0f;
-	ms_timer.Start();*/
+
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
-	//// Framerate calculations --
 
-	//if (last_sec_frame_time.Read() > 1000)
-	//{
-	//	last_sec_frame_time.Start();
-	//	prev_last_sec_frame_count = last_sec_frame_count;
-	//	last_sec_frame_count = 0;
-	//}
-
-	//float avg_fps = float(frame_count) / startup_time.ReadSec();
-	//float seconds_since_startup = startup_time.ReadSec();
-	//last_frame_ms = frame_time.Read();
-	//float frames_on_last_update = prev_last_sec_frame_count;
-
-	//static char title[256];
-	///*sprintf_s(title, 256, " Aegis  ||  FPS: %f | Av.FPS: %f | Last Frame Ms: %f | Cap: %i | Vsync: off | DT %f", frames_on_last_update, avg_fps, last_frame_ms, framerate_cap, dt);
-	//Application->win->SetTitle(title);*/
-
-	////when game is cappd at 30 fps this is working
-	//float capped_ms = 1000 / framerate_cap;
-
-	//if (capped_ms > 0 && framerate_cap < 60 && last_frame_ms < capped_ms && framerate_cap_activated)
-	//{
-	//	//MasterTimer t;
-	//	SDL_Delay(capped_ms - last_frame_ms);
-	//	gui->console.AddLog("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
-	//}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

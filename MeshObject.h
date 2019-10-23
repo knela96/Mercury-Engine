@@ -30,6 +30,7 @@ public:
 
 	void DebugNormals();
 
+	void DrawBox();
 public:
 	vector<Vertex> vertices;
 	vector<uint> indices;

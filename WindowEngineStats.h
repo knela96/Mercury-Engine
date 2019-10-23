@@ -22,7 +22,8 @@ public:
 private:
 	bool enabled;
 
-	float FPS_array[20];
+	float FPS_array[50];
+	float RAM_array[50];
 	float beforeLastFramefps = 0;
 	float values_offset = 0;
 

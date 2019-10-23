@@ -80,11 +80,11 @@ public:
 };
 
 // ============================================
-class Line : public Primitive
+class Line_ : public Primitive
 {
 public:
-	Line();
-	Line(float x, float y, float z);
+	Line_();
+	Line_(float x, float y, float z);
 	void InnerRender() const;
 public:
 	vec3 origin;
@@ -92,11 +92,11 @@ public:
 };
 
 // ============================================
-class Plane : public Primitive
+class Plane_ : public Primitive
 {
 public:
-	Plane();
-	Plane(float x, float y, float z, float d);
+	Plane_();
+	Plane_(float x, float y, float z, float d);
 	void InnerRender() const;
 public:
 	vec3 normal;
