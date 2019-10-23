@@ -164,9 +164,11 @@ namespace Engine {
 		void DetectSystemProperties(); //DON'T USE THIS FUNCTION, IS JUST FOR CLASS PURPOSES!!!
 		void RecalculateGPUParameters() const { GPUDetect_ExtractGPUInfo(); }
 
-		/*const auto GetGPUBenchmark()	const { return glGetString(GL_VENDOR); }
+		const auto GetGPUBenchmark()	const { return glGetString(GL_VENDOR); }
 		const auto GetGPUModel()		const { return glGetString(GL_RENDERER); }
-*/
+
+		const auto GetExample() const { return 1; }
+
 		const int GetGPUTotalVRAM();  // In MB... Only for NVIDIA GPUs, otherwise returns 0
 		const int GetGPUCurrentVRAM(); // In MB... Only for NVIDIA GPUs, otherwise returns 0
 

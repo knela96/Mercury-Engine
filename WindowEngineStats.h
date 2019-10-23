@@ -22,7 +22,8 @@ public:
 private:
 	bool enabled;
 
-	float FPS_array[20];
+	float FPS_array[50];
+	float RAM_array[50];
 	float beforeLastFramefps = 0;
 	float values_offset = 0;
 
@@ -55,5 +56,6 @@ private:
 	float RamSizeSDL;
 	int GPUUsedRam;
 	int GPUTotalRam;
+	const GLubyte* GPUModel;
 };
 #endif

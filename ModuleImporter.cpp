@@ -149,6 +149,11 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	vector<uint> indices;
 	vector<Texture*> textures;
 
+	vec3 min;
+	vec3 max;
+
+	math::float3* points = (float3*)malloc(sizeof(float3) * mesh->mNumVertices);
+
 	for (uint i = 0; i < mesh->mNumVertices; ++i)
 	{
 		Vertex vertex;
@@ -159,7 +164,9 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 				mesh->mVertices[i].y,
 				mesh->mVertices[i].z
 			};
+			points[i].Set(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 		}
+
 		if (mesh->HasNormals())
 		{
 			vertex.Normal = {
@@ -219,7 +226,13 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	return (GameObject*)new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
+	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
+
+	gameobject->box.SetFrom(points, mesh->mNumVertices);
+
+	free(points);
+
+	return gameobject;
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
@@ -406,10 +419,6 @@ void ModuleImporter::PushObj(aiMesh * mesh)
 }
 
 bool ModuleImporter::Draw() {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-
 
 	for (int i = 0; i < gameObjects.size(); ++i) {
 		if(gameObjects[i]->active)
