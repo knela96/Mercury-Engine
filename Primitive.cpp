@@ -225,17 +225,17 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 }
 
 // LINE ==================================================
-Line_::Line_() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
+Line::Line() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
 
-Line_::Line_(float x, float y, float z) : Primitive(), origin(0, 0, 0), destination(x, y, z)
+Line::Line(float x, float y, float z) : Primitive(), origin(0, 0, 0), destination(x, y, z)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
 
-void Line_::InnerRender() const
+void Line::InnerRender() const
 {
 	glLineWidth(2.0f);
 
@@ -250,17 +250,17 @@ void Line_::InnerRender() const
 }
 
 // PLANE ==================================================
-Plane_::Plane_() : Primitive(), normal(0, 1, 0), constant(1)
+Plane::Plane() : Primitive(), normal(0, 1, 0), constant(1)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-Plane_::Plane_(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
+Plane::Plane(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-void Plane_::InnerRender() const
+void Plane::InnerRender() const
 {
 	glLineWidth(1.0f);
 

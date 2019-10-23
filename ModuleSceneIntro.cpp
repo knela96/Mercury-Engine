@@ -35,7 +35,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 
-	Plane_ p(0, 1, 0, 0);
+	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
 

@@ -1,5 +1,6 @@
 #ifndef PRIMITIVE_H
 #define PRIMITIVE_H
+#include "glmath.h"
 #include "Color.h"
 
 enum PrimitiveTypes
@@ -79,11 +80,11 @@ public:
 };
 
 // ============================================
-class Line_ : public Primitive
+class Line : public Primitive
 {
 public:
-	Line_();
-	Line_(float x, float y, float z);
+	Line();
+	Line(float x, float y, float z);
 	void InnerRender() const;
 public:
 	vec3 origin;
@@ -91,11 +92,11 @@ public:
 };
 
 // ============================================
-class Plane_ : public Primitive
+class Plane : public Primitive
 {
 public:
-	Plane_();
-	Plane_(float x, float y, float z, float d);
+	Plane();
+	Plane(float x, float y, float z, float d);
 	void InnerRender() const;
 public:
 	vec3 normal;

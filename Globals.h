@@ -1,13 +1,11 @@
-#ifndef GLOBALS_H
-#define GLOBALS_H
+#pragma once
+
 // Warning disabled ---
 #pragma warning( disable : 4577 ) // Warning that exceptions are disabled
 #pragma warning( disable : 4530 )
 
-
-
 #include <windows.h>
-#include <stdio.h>
+#include <stdio.h>"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
@@ -48,6 +46,3 @@ enum update_status
 
 
 //Userfull defines
-
-#endif // !GLOBALS_H
-

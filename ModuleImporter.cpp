@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "SDL.h"
 
+
 #include "DevIL/include/IL/ilut.h"
 
 #include "Assimp/include/cimport.h"
@@ -148,11 +149,6 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	vector<uint> indices;
 	vector<Texture*> textures;
 
-	vec3 min;
-	vec3 max;
-
-	math::float3* points = (float3*)malloc(sizeof(float3) * mesh->mNumVertices);
-	
 	for (uint i = 0; i < mesh->mNumVertices; ++i)
 	{
 		Vertex vertex;
@@ -163,17 +159,6 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 				mesh->mVertices[i].y,
 				mesh->mVertices[i].z
 			};
-
-			points[i].Set(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-
-			if (i == 0) {
-				min = { vertex.Position.x,vertex.Position.y,vertex.Position.z };
-				max = { vertex.Position.x,vertex.Position.y,vertex.Position.z };
-			}
-			else {
-				min = { min(vertex.Position.x,min.x),min(vertex.Position.y,min.y),min(vertex.Position.z,min.z) };
-				max = { max(vertex.Position.x,max.x),max(vertex.Position.y,max.y),max(vertex.Position.z,max.z) };
-			}
 		}
 		if (mesh->HasNormals())
 		{
@@ -233,14 +218,8 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
-
-	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
-
-	gameobject->box.SetFrom(points, mesh->mNumVertices);
-
-	free(points);
-
-	return gameobject;
+	
+	return (GameObject*)new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
@@ -427,6 +406,10 @@ void ModuleImporter::PushObj(aiMesh * mesh)
 }
 
 bool ModuleImporter::Draw() {
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
+
 
 	for (int i = 0; i < gameObjects.size(); ++i) {
 		if(gameObjects[i]->active)
