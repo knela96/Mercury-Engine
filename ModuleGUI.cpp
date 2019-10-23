@@ -276,4 +276,5 @@ void ModuleGUI::ShowWindowSettings() {
 	if (ImGui::Checkbox("Resizable", &resizable))
 		App->window->SetResizable(resizable);
 	ImGui::End();
+	//TODO add here options that change all modules variables (ver power point del principio)
 }
