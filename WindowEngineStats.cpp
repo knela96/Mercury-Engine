@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "WindowEngineStats.h"
-
+#include "SDL_opengl.h"
 
 
 WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -32,7 +32,7 @@ WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Mod
 	
 	
 	GPUTotalRam = GPUHardware_.GetGPUTotalVRAM();
-
+	GPUModel = (unsigned char*)GPUHardware_.GetGPUModel();
 
 	CPUBrand = ProcessorHardware_.GetCPUBrand();
 	CPUCores = ProcessorHardware_.GetCPUCores();
@@ -116,6 +116,7 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing(); 
 		ImGui::Spacing();
 
+		
 
 		//-----------------------------------------------
 		//                HardWareInfo 
@@ -139,6 +140,7 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing();
 		ImGui::Spacing();
 
+		ImGui::Text("GPU Model                           %c", GPUModel);
 
 		ImGui::End();
 	}
