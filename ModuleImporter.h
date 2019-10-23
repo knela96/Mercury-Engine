@@ -44,13 +44,15 @@ public:
 
 	string getRootPath(const string & s);
 
+	string getFileName(const string & s);
+
 	bool CleanUp();
 
 	bool LoadFile(const char * path);
 
 	bool Load(const char * path);
 
-	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const aiScene * scene = NULL);
+	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 

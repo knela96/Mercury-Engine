@@ -48,8 +48,8 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 				speed = 50.0f * dt;
 
-			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+		/*	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;*/
 
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
@@ -70,7 +70,7 @@ update_status ModuleCamera3D::Update(float dt)
 				Position = vec3(0.0f, 0.0f, 5.0f);
 				Reference = vec3(0.0f, 0.0f, 0.0f);
 
-				Move(vec3(1.0f, 1.0f, 0.0f));
+				Move(vec3(1.0f, 3.0f, 4.0f));
 				LookAt(vec3(0, 0, 0));
 			}
 		}

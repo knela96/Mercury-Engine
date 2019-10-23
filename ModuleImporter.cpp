@@ -124,6 +124,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 
 bool ModuleImporter::Load(const char* path) {
 	bool ret = true;
+	string FileName = getFileName(path);
 	LOGC("Loading Mesh File: %s", path);
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
@@ -132,7 +133,7 @@ bool ModuleImporter::Load(const char* path) {
 		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
 			aiMesh* new_mesh = scene->mMeshes[j];
 			string str(&path[0]);
-			gameObjects.push_back(ProcessMesh(new_mesh, &getRootPath(str), scene));
+			gameObjects.push_back(ProcessMesh(new_mesh, &getRootPath(str), FileName.c_str(), scene));
 		}
 
 		aiReleaseImport(scene);
@@ -143,7 +144,7 @@ bool ModuleImporter::Load(const char* path) {
 	return ret;
 }
 
-GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiScene* scene) {
+GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char* fileName, const aiScene* scene) {
 
 	vector<Vertex> vertices;
 	vector<uint> indices;
@@ -225,6 +226,11 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const aiSce
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
+
+	static int c = 0;
+
+	if (mesh->mName.length == 0)
+		mesh->mName = fileName;
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 
@@ -448,4 +454,22 @@ string ModuleImporter::getRootPath(const string& s) {
 	}
 
 	return(directory);
+}
+
+string ModuleImporter::getFileName(const string& s) {
+
+	string directory;
+	size_t i = s.rfind('\\', s.length());
+	if (i != string::npos) {
+		directory = (s.substr(i + 1, s.length() - i));
+	}
+	string file;
+	const size_t last_slash_idx = directory.rfind('.');
+	if (std::string::npos != last_slash_idx)
+	{
+		file = directory.substr(0, last_slash_idx);
+	}
+
+
+	return(file);
 }

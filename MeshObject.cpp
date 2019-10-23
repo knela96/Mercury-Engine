@@ -10,6 +10,7 @@ MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, ve
 	this->vertices = vertices;
 	this->indices = indices;
 
+
 	SetupBuffers();
 }
 
