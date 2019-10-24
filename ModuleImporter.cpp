@@ -58,7 +58,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Models/Baker_House/BakerHouse.fbx");
+	Load("Models\\Baker_House\\BakerHouse.fbx");
 
 	return true;
 }
@@ -115,7 +115,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 			else if (extension == "DDS") {
 				format = DDS;
 			}
-			App->gui->inspector->active_gameObject->mesh->TexCoordsDSS_PNG(format);
+			//App->gui->inspector->active_gameObject->mesh->TexCoordsDSS_PNG(format);
 			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE,format));
 		}
 	}
@@ -155,6 +155,12 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 
 	math::float3* points = (float3*)malloc(sizeof(float3) * mesh->mNumVertices);
 
+	//LOAD MATERIAL TEXTURES
+	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+	aiColor3D color(1.f, 1.f, 1.f);
+	material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+
 	for (uint i = 0; i < mesh->mNumVertices; ++i)
 	{
 		Vertex vertex;
@@ -184,8 +190,16 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 				mesh->mColors[0][i].a
 			};
 		}
-		else
-			vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
+		else {
+			vertex.Colors = { 
+				color.r,
+				color.g,
+				color.b,
+				1.0f
+			};
+		}
+		/*else
+			vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };*/
 		if (mesh->mTextureCoords[0])
 		{
 			vertex.TexCoords = {
@@ -207,8 +221,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 			indices.push_back(face->mIndices[j]);
 	}
 
-	//LOAD MATERIAL TEXTURES
-	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+	
 
 	// 1. diffuse maps
 	vector<Texture*> diffuseMaps = loadMaterialTextures(path, material, aiTextureType_DIFFUSE);
@@ -230,13 +243,13 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	static int c = 0;
 
 	if (mesh->mName.length == 0)
-		mesh->mName = fileName;
+		mesh->mName = fileName + std::to_string(c);
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 
 	gameobject->box.SetFrom(points, mesh->mNumVertices);
 
-	free(points);
+	std::free(points);
 
 	return gameobject;
 }
@@ -249,7 +262,7 @@ vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *
 		aiString str;
 		mat->GetTexture(type, i, &str);
 		if(path->size() != 0)
-			path->append("/");
+			path->append("\\");
 		path->append(str.C_Str());
 		Texture* tex = SaveTexture(path->c_str(), type,PNG);
 		if(tex != nullptr)
@@ -268,10 +281,10 @@ Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type, FileFo
 	}
 	Texture* tex = new Texture();
 	bool ret = false;
-	if(format == PNG)
+	//if(format == PNG)
 		ret = LoadTexture(str, tex->id, tex->size);
-	else if(format == DDS)
-		ret = loadDDS(str, tex->id, tex->size);
+	/*else if(format == DDS)
+		ret = loadDDS(str, tex->id, tex->size);*/
 	if (ret){
 		tex->type = type;
 		tex->path = str;
@@ -447,7 +460,7 @@ string ModuleImporter::getFileExt(const string& s) {
 string ModuleImporter::getRootPath(const string& s) {
 
 	string directory;
-	const size_t last_slash_idx = s.rfind('/');
+	const size_t last_slash_idx = s.rfind('\\');
 	if (std::string::npos != last_slash_idx)
 	{
 		directory = s.substr(0, last_slash_idx);
