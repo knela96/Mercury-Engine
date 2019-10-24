@@ -171,6 +171,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	vector<uint> indices;
 	vector<Texture*> textures;
 	Vertex vertex;
+	math::float3* points = (float3*)malloc(sizeof(float3) * new_mesh->npoints);
 
 	for (uint i = 0; i < new_mesh->npoints; i++)
 	{
@@ -181,6 +182,8 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 				new_mesh->points[(3 * i) + 1],
 				new_mesh->points[(3 * i) + 2]
 			};
+
+			points[i].Set(new_mesh->points[3 * i], new_mesh->points[(3 * i) + 1], new_mesh->points[(3 * i) + 2]);
 		}
 		if (new_mesh->normals != nullptr)
 		{
@@ -214,14 +217,20 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 
 	}
 
-	if (new_mesh != nullptr)
-		par_shapes_free_mesh(new_mesh);
-
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	App->importer->gameObjects.push_back((GameObject*) new MeshObject(vertices, indices, textures, name));
+	GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
+
+	gameobject->box.SetFrom(points, new_mesh->npoints);
+
+	std::free(points);
+
+	if (new_mesh != nullptr)
+		par_shapes_free_mesh(new_mesh);
+
+	App->importer->gameObjects.push_back(gameobject);
 }
 
 // LINE ==================================================

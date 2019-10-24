@@ -99,7 +99,7 @@ bool ModuleGUI::Draw()
 
 
 	//Show Windows FIRST BUFFERS
-	ImGui::ShowDemoWindow(&show_demo_window);
+	//ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
 	if (openWindowSettings)
