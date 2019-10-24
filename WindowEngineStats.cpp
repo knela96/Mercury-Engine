@@ -139,7 +139,7 @@ bool WindowEngineStats::Draw()
 		ImGui::PlotHistogram("RAM USED LAST SECOND", RAM_array, IM_ARRAYSIZE(RAM_array), 0, RAMoverlay, 0.0f, RamSizeSDL*1024, ImVec2(0, 100));
 		ImGui::Spacing();
 		ImGui::Spacing();
-		ImGui::Text("GPU Used RAM           %i", GPUUsedRam);//Create graphic TODO
+		ImGui::Text("GPU Used RAM           %i", GPUUsedRam);
 		ImGui::Spacing();
 		ImGui::Text("GPU Total RAM          %i", GPUTotalRam);
 		ImGui::Spacing();

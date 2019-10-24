@@ -2545,7 +2545,7 @@ static stbtt_int32  stbtt__GetGlyphGPOSInfoAdvance(const stbtt_fontinfo *info, i
             };
 
             default:
-                // TODO: Implement other stuff.
+                
                 break;
         }
     }

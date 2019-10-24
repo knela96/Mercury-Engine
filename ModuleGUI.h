@@ -17,7 +17,11 @@
 #include "WindowInspector.h"
 #include "WindowGame.h"
 #include "WindowEngineStats.h"
+
+
 using namespace std;
+
+class About;
 
 struct MercuryEngineConsole
 {
@@ -189,6 +193,7 @@ public:
 	WindowInspector* inspector;
 	WindowEngineStats *EngineStats;
 	WindowGame* game;
+	About* about;
 
 private:
 	bool openWindowSettings = false;
@@ -209,8 +214,7 @@ public:
 	bool openInspector = true;
 	bool openHirearchy = true;
 	bool ShowFPS = true;
-public:
-	
+	bool openAbout = false;
 };
 
 

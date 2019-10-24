@@ -171,6 +171,9 @@
     <ClInclude Include="C_Transform.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="About.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="C_Transform.cpp">
       <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="About.cpp">
+      <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "WindowHierarchy.h"
 #include "WindowEngineStats.h"
 #include "ModuleInput.h"
+#include "About.h"
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -40,11 +41,14 @@ bool ModuleGUI::Init()
 
 	//INIT WINDOWS
 	game = new WindowGame(App);
+	about = new About(App);
 	windows.push_back(game);
 	windows.push_back(new WindowHierarchy(App));
 	inspector = new WindowInspector(App);
 	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
+	windows.push_back(about);
+
 	return true;
 }
 
@@ -225,6 +229,9 @@ bool ModuleGUI::CreateMenuBar() {
 			}
 			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
 				ShowFPS = !ShowFPS;
+			}
+			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
+				openAbout = !openAbout;
 			}
 			if (ImGui::MenuItem("Settings")) {
 				openWindowSettings = true;
