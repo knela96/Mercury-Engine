@@ -163,6 +163,8 @@ struct MercuryEngineConsole
 
 };
 
+
+
 class ModuleGUI : public Module {
 
 public:
@@ -195,6 +197,9 @@ public:
 	WindowGame* game;
 	About* about;
 
+	int MouseX;
+	int MouseY;
+
 private:
 	bool openWindowSettings = false;
 	bool fullscreen = false;
@@ -203,8 +208,7 @@ private:
 	bool fulldesktop = false;
 	bool openDebug = false;
 
-	int screen_width = SCREEN_WIDTH;
-	int screen_height = SCREEN_HEIGHT;
+	
 	bool p_open = true; 
 	bool quit = false;
 	list<Module*> windows;
@@ -215,6 +219,9 @@ public:
 	bool openHirearchy = true;
 	bool ShowFPS = true;
 	bool openAbout = false;
+
+	int screen_width = SCREEN_WIDTH;
+	int screen_height = SCREEN_HEIGHT;
 };
 
 
