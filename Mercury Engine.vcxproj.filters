@@ -72,9 +72,6 @@
     <ClInclude Include="Application.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
@@ -150,9 +147,6 @@
     <ClInclude Include="WindowEngineStats.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="SystemInfo.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="lib\mmgr\mmgr.h">
       <Filter>Sources\Containers\mmgr</Filter>
     </ClInclude>
@@ -170,6 +164,15 @@
     </ClInclude>
     <ClInclude Include="C_Transform.h">
       <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="About.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemInfo.h">
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +269,6 @@
     <ClCompile Include="WindowEngineStats.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="SystemInfo.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="lib\mmgr\mmgr.cpp">
       <Filter>Sources\Containers\mmgr</Filter>
     </ClCompile>
@@ -286,6 +286,12 @@
     </ClCompile>
     <ClCompile Include="C_Transform.cpp">
       <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="About.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemInfo.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

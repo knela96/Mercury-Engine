@@ -17,7 +17,11 @@
 #include "WindowInspector.h"
 #include "WindowGame.h"
 #include "WindowEngineStats.h"
+
+
 using namespace std;
+
+class About;
 
 struct MercuryEngineConsole
 {
@@ -159,6 +163,8 @@ struct MercuryEngineConsole
 
 };
 
+
+
 class ModuleGUI : public Module {
 
 public:
@@ -189,6 +195,10 @@ public:
 	WindowInspector* inspector;
 	WindowEngineStats *EngineStats;
 	WindowGame* game;
+	About* about;
+
+	int MouseX;
+	int MouseY;
 
 private:
 	bool openWindowSettings = false;
@@ -198,8 +208,7 @@ private:
 	bool fulldesktop = false;
 	bool openDebug = false;
 
-	int screen_width = SCREEN_WIDTH;
-	int screen_height = SCREEN_HEIGHT;
+	
 	bool p_open = true; 
 	bool quit = false;
 	list<Module*> windows;
@@ -209,8 +218,10 @@ public:
 	bool openInspector = true;
 	bool openHirearchy = true;
 	bool ShowFPS = true;
-public:
-	
+	bool openAbout = false;
+
+	int screen_width = SCREEN_WIDTH;
+	int screen_height = SCREEN_HEIGHT;
 };
 
 

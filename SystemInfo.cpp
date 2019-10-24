@@ -1,5 +1,4 @@
 #include"SystemInfo.h"
-#include "gpudetect/DeviceId.h"
 
 
 namespace Engine {
@@ -159,6 +158,9 @@ namespace Engine {
 		GPUDetect_ExtractGPUInfo();
 	}
 
+
+	
+	
 
 	const int GPUHardware::GetGPUTotalVRAM()
 	{

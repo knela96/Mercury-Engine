@@ -56,6 +56,6 @@ private:
 	float RamSizeSDL;
 	int GPUUsedRam;
 	int GPUTotalRam;
-	const GLubyte* GPUModel;
+	const char* GPUModel;
 };
 #endif

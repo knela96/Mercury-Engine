@@ -1,4 +1,3 @@
-#pragma once
 #ifndef INSPECTOR_H
 #define INSPECTOR_H
 #include "Module.h"

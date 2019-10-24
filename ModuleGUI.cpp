@@ -6,6 +6,7 @@
 #include "WindowHierarchy.h"
 #include "WindowEngineStats.h"
 #include "ModuleInput.h"
+#include "About.h"
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -40,11 +41,14 @@ bool ModuleGUI::Init()
 
 	//INIT WINDOWS
 	game = new WindowGame(App);
+	about = new About(App);
 	windows.push_back(game);
 	windows.push_back(new WindowHierarchy(App));
 	inspector = new WindowInspector(App);
 	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
+	windows.push_back(about);
+
 	return true;
 }
 
@@ -226,6 +230,7 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
 				ShowFPS = !ShowFPS;
 			}
+			
 			if (ImGui::MenuItem("Settings")) {
 				openWindowSettings = true;
 			}
@@ -239,8 +244,8 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Found any bug?")) {
 				ShellExecuteA(NULL, "open", "https://github.com/knela96/Mercury-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
 			}
-			if (ImGui::MenuItem("About..")) {
-				ShellExecuteA(NULL,"open","https://github.com/knela96/Mercury-Engine/wiki",NULL,NULL,SW_SHOWNORMAL);
+			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
+				openAbout = !openAbout;
 			}
 			ImGui::EndMenu();
 		}
@@ -260,13 +265,13 @@ void ModuleGUI::ShowWindowSettings() {
 	ImGui::Begin("Settings",&openWindowSettings);
 
 
-	ImGui::Text("Width: ");
+	/*ImGui::Text("Width:      ");
 	ImGui::SameLine(); ImGui::PushID("screen_width");
 	ImGui::SliderInt("px", &screen_width, 800, 3840); ImGui::PopID();
 
-	ImGui::Text("Height: ");
+	ImGui::Text("Height:     ");
 	ImGui::SameLine(); ImGui::PushID("screen_height");
-	ImGui::SliderInt("px", &screen_height, 600, 2160); ImGui::PopID();
+	ImGui::SliderInt("px", &screen_height, 600, 2160); ImGui::PopID();*/
 
 	if (ImGui::Checkbox("Fullscreen", &fullscreen))
 		App->window->SetFullscreen(fullscreen);
@@ -275,6 +280,22 @@ void ModuleGUI::ShowWindowSettings() {
 		App->window->SetBorderless(borderless);
 	if (ImGui::Checkbox("Resizable", &resizable))
 		App->window->SetResizable(resizable);
+
+	//windowed full screen borderless, frame cap, vsync, inputs list (q teclas pulsas), mouse position, camera fov, resolution 
+	
+	ImGui::Checkbox("Frame rate cap activated", &App->framerate_cap_activated);
+	ImGui::Text("Frame rate: "); ImGui::SameLine();
+	ImGui::SliderInt("fps",&App->framerate_cap, 10, 60);
+
+	/*ImGui::Checkbox("depth activated", &App->renderer3D->depth_active);
+	ImGui::Checkbox("cullface active", &App->renderer3D->cullface_active);
+	ImGui::Checkbox("lighting active", &App->renderer3D->lighting_active);
+	ImGui::Checkbox("texture active", &App->renderer3D->texture_active);
+	ImGui::Checkbox("wireframe active", &App->renderer3D->wireframe_active);*/
+	SDL_GetMouseState(&MouseX,&MouseY);
+
+	ImGui::Text("Mouse Position: x=%i , y=%i ",MouseX,MouseY);
+
 	ImGui::End();
 	//TODO add here options that change all modules variables (ver power point del principio)
 }

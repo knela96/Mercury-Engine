@@ -41,8 +41,8 @@ private:
 	float last_sec_frame_count = 0;//frames in last sec
 
 
-	uint framerate_cap = 60;
-	bool framerate_cap_activated = false;
+	
+	
 
 	p2List<Module*> list_modules;			//All Application modules inside
 
@@ -54,7 +54,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-
+	int framerate_cap = 23;
+	bool framerate_cap_activated = true;
 	float prev_last_sec_frame_count = 0;	//frames the sec before last sec.
 private:
 
