@@ -201,9 +201,6 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Exit")) {
 				ret = false;
 			}
-			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
-				openAbout = !openAbout;
-			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Edit"))
@@ -247,8 +244,8 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Found any bug?")) {
 				ShellExecuteA(NULL, "open", "https://github.com/knela96/Mercury-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
 			}
-			if (ImGui::MenuItem("About..")) {
-				ShellExecuteA(NULL,"open","https://github.com/knela96/Mercury-Engine/wiki",NULL,NULL,SW_SHOWNORMAL);
+			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
+				openAbout = !openAbout;
 			}
 			ImGui::EndMenu();
 		}

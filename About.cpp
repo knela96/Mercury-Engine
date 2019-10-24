@@ -42,7 +42,7 @@ bool About::Draw()
 		
 		ImGui::Spacing();
 
-		ImGui::Text("               MERCURY ENGINE v 0.1    ");
+		ImGui::Text("               MERCURY ENGINE v 0.1              ");
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
@@ -69,6 +69,13 @@ bool About::Draw()
 		ImGui::Text("MathGeoLib  version 1.4.0");
 
 		ImGui::Text("mmgr        version 0, cero releases");
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Text("Move: WASD");
+		ImGui::Text("Rotate: ALT+LEFT_CLICK");
+		ImGui::Text("TRANSLATE: ALT+MOUSE CENTER BUTTON");
+		ImGui::Text("ZOOM: MOUSE WHEEL");
 
 
 		ImGui::Spacing();

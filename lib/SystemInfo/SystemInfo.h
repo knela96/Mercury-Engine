@@ -1,5 +1,5 @@
-#ifndef MEMMORYMANAGER_H
-#define MEMMORYMANAGER_H
+#ifndef SYSTEMINFO_H
+#define SYSTEMINFO_H
 #include "Globals.h"
 #include "glew/include/GL/glew.h"
 #include <codecvt> //To convert wstring to string (For GPU info)
@@ -162,7 +162,10 @@ namespace Engine {
 		void RecalculateGPUParameters() const { GPUDetect_ExtractGPUInfo(); }
 
 		const auto GetGPUBenchmark()	const { return glGetString(GL_VENDOR); }
-		const auto GetGPUModel()		const { return glGetString(GL_RENDERER); }
+		const auto GetGPUModel()		const {
+			const GLubyte* a = glGetString(GL_RENDERER);
+				return a;
+		}
 
 		const int GetGPUTotalVRAM();  // In MB... Only for NVIDIA GPUs, otherwise returns 0
 		const int GetGPUCurrentVRAM(); // In MB... Only for NVIDIA GPUs, otherwise returns 0
