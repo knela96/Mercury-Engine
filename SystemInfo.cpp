@@ -159,6 +159,9 @@ namespace Engine {
 	}
 
 
+	
+	
+
 	const int GPUHardware::GetGPUTotalVRAM()
 	{
 		int tmp_GPUTotalVRAM = 0;

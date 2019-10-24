@@ -162,9 +162,10 @@ namespace Engine {
 		void RecalculateGPUParameters() const { GPUDetect_ExtractGPUInfo(); }
 
 		const auto GetGPUBenchmark()	const { return glGetString(GL_VENDOR); }
-		const auto GetGPUModel()		const {
+		/*const auto GetGPUModel();*/
+		const auto GetGPUModel() {
 			const GLubyte* a = glGetString(GL_RENDERER);
-				return a;
+			return a;
 		}
 
 		const int GetGPUTotalVRAM();  // In MB... Only for NVIDIA GPUs, otherwise returns 0
@@ -173,6 +174,7 @@ namespace Engine {
 		const GPUPrimaryInfo_IntelGPUDetect GetGPUInfo_GPUDet() const { return m_PI_GPUDet_GPUInfo; }
 
 	};
+	
 	
 	//______________________________________________________________________________________
 

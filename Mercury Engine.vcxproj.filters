@@ -168,10 +168,10 @@
     <ClInclude Include="About.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="lib\SystemInfo\SystemInfo.h">
+    <ClInclude Include="Globals.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
+    <ClInclude Include="SystemInfo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
@@ -290,7 +290,7 @@
     <ClCompile Include="About.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="lib\SystemInfo\SystemInfo.cpp">
+    <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>

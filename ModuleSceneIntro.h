@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 
-#include "SystemInfo/SystemInfo.h"
+#include "SystemInfo.h"
 class ModuleSceneIntro : public Module
 {
 public:
