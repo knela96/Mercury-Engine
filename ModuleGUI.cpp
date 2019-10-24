@@ -201,6 +201,9 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Exit")) {
 				ret = false;
 			}
+			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
+				openAbout = !openAbout;
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Edit"))
@@ -230,9 +233,7 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
 				ShowFPS = !ShowFPS;
 			}
-			if (ImGui::MenuItem("About this Engine", "", openAbout)) {
-				openAbout = !openAbout;
-			}
+			
 			if (ImGui::MenuItem("Settings")) {
 				openWindowSettings = true;
 			}
