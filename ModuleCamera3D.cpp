@@ -70,7 +70,7 @@ update_status ModuleCamera3D::Update(float dt)
 				Position = vec3(0.0f, 0.0f, 5.0f);
 				Reference = vec3(0.0f, 0.0f, 0.0f);
 
-				Move(vec3(1.0f, 3.0f, 4.0f));
+				Move(vec3(0.0f, 0.0f, 0.0f));
 				LookAt(vec3(0, 0, 0));
 			}
 		}

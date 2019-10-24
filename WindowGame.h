@@ -21,9 +21,9 @@ public:
 
 private:
 	bool enabled;
-	FrameBuffer* fbo = nullptr;
 
 public:
+	FrameBuffer* fbo = nullptr;
 	ImVec2 size_Game;
 	ImVec2 position;
 	ImVec2 newsize_Game;

@@ -128,8 +128,11 @@ update_status ModuleInput::PreUpdate(float dt)
 
 
 			case SDL_WINDOWEVENT:
-				if (e.window.event == SDL_WINDOWEVENT_RESIZED)
+				if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+					App->gui->game->fbo->CleanUp();
+					App->gui->game->fbo->Start(e.window.data1, e.window.data2);
+				}
 				break;
 		}
 
