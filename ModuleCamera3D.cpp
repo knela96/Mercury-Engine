@@ -1,7 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
-
+#include "WindowInspector.h"
+#include "GameObject.h"
 
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -12,7 +13,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = vec3(0.0f, 1.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
+	Position = vec3(0.0f, 2.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
@@ -62,16 +63,36 @@ update_status ModuleCamera3D::Update(float dt)
 			Reference += newPos;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-				X = vec3(1.0f, 0.0f, 0.0f);
-				Y = vec3(0.0f, 1.0f, 0.0f);
-				Z = vec3(0.0f, 0.0f, 1.0f);
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+				GameObject* gameObject = App->gui->inspector->active_gameObject;
+				if (gameObject != nullptr) {
+					//Move camera to Point Reference of the Object(Pivot)
+					vec3 distance = { gameObject->box.CenterPoint().x - Reference.x,
+									gameObject->box.CenterPoint().y - Reference.y,
+									gameObject->box.CenterPoint().z - Reference.z };
+					
+					Reference += distance;
 
-				Position = vec3(0.0f, 0.0f, 5.0f);
-				Reference = vec3(0.0f, 0.0f, 0.0f);
+					//Focus Camera distance
+					float3 points [8];
+					gameObject->box.GetCornerPoints(points);
 
-				Move(vec3(0.0f, 0.0f, 0.0f));
-				LookAt(vec3(0, 0, 0));
+					vec3 max_ = { 0,0,0 };
+					for (int i = 0; i < 8; ++i) {
+						max_.x = max(points[i].At(0), max_.x);
+						max_.y = max(points[i].At(1), max_.y);
+						max_.x = max(points[i].At(2), max_.z);
+					}
+
+					double boundSphereRadius = length(max_) / 2;
+
+					double fov = 60 * DEGTORAD;
+
+					double camDistance = (boundSphereRadius * 2.0) / tan(fov / 2.0);
+					
+					Position = Reference + Z * camDistance;
+
+				}
 			}
 		}
 

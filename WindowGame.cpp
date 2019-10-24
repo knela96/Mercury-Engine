@@ -77,8 +77,6 @@ bool WindowGame::Draw()
 			size_Game = newsize_Game;
 			App->renderer3D->OnResize(newsize_Game.x, newsize_Game.y);
 		}
-		LOGC("%f,%f", newsize_Game.x, newsize_Game.y);
-		LOGC("%f,%f", size_Game.x, size_Game.y);
 
 		ImGui::Image((void*)fbo->GetTexture(), ImVec2(size_Game.x, size_Game.y), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
