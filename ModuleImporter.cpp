@@ -236,6 +236,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	std::vector<Texture*> heightMaps = loadMaterialTextures(path, material, aiTextureType_AMBIENT);
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
+	LOGC("Loaded Model: %s", mesh->mName.C_Str());
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());

@@ -77,18 +77,18 @@ update_status ModuleCamera3D::Update(float dt)
 					float3 points [8];
 					gameObject->box.GetCornerPoints(points);
 
-					vec3 max_ = { 0,0,0 };
-					for (int i = 0; i < 8; ++i) {
-						max_.x = max(points[i].At(0), max_.x);
-						max_.y = max(points[i].At(1), max_.y);
-						max_.x = max(points[i].At(2), max_.z);
+					vec3 max_ = { points[0].At(0),points[0].At(1),points[0].At(2) };
+					for (int i = 0; i < 8 - 1; ++i) {
+						vec3 point_ = { points[i].At(0), points[i].At(1), points[i].At(2) };
+						if(length(max_) < length(point_))
+							max_ = point_;
 					}
 
-					double boundSphereRadius = length(max_) / 2;
+					double radius = length(max_) / 2;
 
 					double fov = 60 * DEGTORAD;
 
-					double camDistance = (boundSphereRadius * 2.0) / tan(fov / 2.0);
+					double camDistance = (radius * 2.0) / tan(fov / 2.0);
 					
 					Position = Reference + Z * camDistance;
 
