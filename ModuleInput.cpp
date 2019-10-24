@@ -101,12 +101,6 @@ update_status ModuleInput::PreUpdate(float dt)
 					dropped_filedir = e.drop.file;
 					if (dropped_filedir != nullptr) {
 						// Shows directory of dropped file
-						SDL_ShowSimpleMessageBox(
-							SDL_MESSAGEBOX_INFORMATION,
-							"Loaded File",
-							dropped_filedir,
-							App->window->window
-						);
 
 						App->importer->LoadFile(dropped_filedir);
 
