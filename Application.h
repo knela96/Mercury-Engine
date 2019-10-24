@@ -54,8 +54,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-	int framerate_cap = 23;
-	bool framerate_cap_activated = true;
+	int framerate_cap = 30;
+	bool framerate_cap_activated = false;
 	float prev_last_sec_frame_count = 0;	//frames the sec before last sec.
 private:
 
