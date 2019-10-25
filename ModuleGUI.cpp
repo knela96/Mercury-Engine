@@ -103,6 +103,10 @@ bool ModuleGUI::Draw()
 
 
 	//Show Windows FIRST BUFFERS
+	ImGui::ShowStyleEditor();
+
+	
+
 	//ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
