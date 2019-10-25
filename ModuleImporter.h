@@ -60,8 +60,6 @@ public:
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
-	bool loadDDS(const char * path, uint & id, vec2 & size);
-
 	Texture* SaveTexture(const char * str, aiTextureType type, FileFormats format);
 
 public:

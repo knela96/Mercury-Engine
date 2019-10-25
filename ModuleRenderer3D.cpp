@@ -4,11 +4,16 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
 #include "DevIL/include/IL/ilut.h"
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/DevIL.lib")
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/ILU.lib")
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/ILUT.lib")
+
+#include "my_icon.h"
+
+#include "SDL.h"
+#pragma comment( lib, "lib/SDL/libx86/SDL2.lib" )
+#pragma comment( lib, "lib/SDL/libx86/SDL2main.lib" )
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -111,7 +116,9 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
-		lights[0].Active(true);
+		lights[0].Active(true); 
+		
+		SetSDLIcon(App->window->window);
 	}
 
 	// Projection matrix for
@@ -204,4 +211,29 @@ void ModuleRenderer3D::checkRenderFilters() {
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	// //wireframe
+}
+
+void ModuleRenderer3D::SetSDLIcon(SDL_Window* window)
+{
+// these masks are needed to tell SDL_CreateRGBSurface(From)
+// to assume the data it gets is byte-wise RGB(A) data
+	Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	int shift = (my_icon.bytes_per_pixel == 3) ? 8 : 0;
+	rmask = 0xff000000 >> shift;
+	gmask = 0x00ff0000 >> shift;
+	bmask = 0x0000ff00 >> shift;
+	amask = 0x000000ff >> shift;
+#else // little endian, like x86
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = (my_icon.bytes_per_pixel == 3) ? 0 : 0xff000000;
+#endif
+	SDL_Surface* icon = SDL_CreateRGBSurfaceFrom((void*)my_icon.pixel_data, my_icon.width,
+		my_icon.height, my_icon.bytes_per_pixel * 8, my_icon.bytes_per_pixel*my_icon.width,
+		rmask, gmask, bmask, amask);
+	SDL_SetWindowIcon(window, icon);
+
+	SDL_FreeSurface(icon);
 }

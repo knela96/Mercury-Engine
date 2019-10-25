@@ -171,6 +171,9 @@
     <ClInclude Include="C_Transform.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="my_icon.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">

@@ -106,6 +106,7 @@
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
+    <ClInclude Include="my_icon.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />

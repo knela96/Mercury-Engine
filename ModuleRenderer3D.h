@@ -7,6 +7,8 @@
 
 #define MAX_LIGHTS 8
 
+
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -21,6 +23,8 @@ public:
 	void OnResize(int width, int height);
 
 	void checkRenderFilters();
+
+	static void SetSDLIcon(SDL_Window * window);
 
 
 
