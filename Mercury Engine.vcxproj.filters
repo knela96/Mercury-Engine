@@ -299,7 +299,6 @@
     <ResourceCompile Include="Mercury Engine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\ME64.ico" />
-    <Image Include="..\..\..\Downloads\Sin título-1.ico" />
+    <Image Include="Game\icon.ico" />
   </ItemGroup>
 </Project>

@@ -107,7 +107,6 @@
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="my_icon.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -117,6 +116,7 @@
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="Timer.h" />
@@ -165,6 +165,12 @@
     <ClCompile Include="WindowGame.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Mercury Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
