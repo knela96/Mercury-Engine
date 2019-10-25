@@ -164,8 +164,8 @@ namespace Engine {
 		const auto GetGPUBenchmark()	const { return glGetString(GL_VENDOR); }
 		/*const auto GetGPUModel();*/
 		const auto GetGPUModel() {
-			const GLubyte* a = glGetString(GL_RENDERER);
-			return a;
+			//const GLubyte* a = glGetString(GL_RENDERER);
+			return m_PI_GPUDet_GPUInfo.m_GPUBrand;
 		}
 
 		const int GetGPUTotalVRAM();  // In MB... Only for NVIDIA GPUs, otherwise returns 0

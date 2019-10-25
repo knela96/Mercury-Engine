@@ -280,9 +280,11 @@ Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
 	if (ret){
 		tex->type = type;
 		tex->path = str;
+		LOGC("Loaded Texture: %s", str);
 		stored_textures.push_back(tex); //store to loaded textures
 		return tex;
-	}
+	}else
+		LOGC("Textures not found");
 	return nullptr;
 }
 

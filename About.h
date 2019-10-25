@@ -19,7 +19,7 @@ public:
 	update_status Update();
 	update_status PreUpdate();
 	update_status PostUpdate();
-	bool Draw() const;
+	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
 	

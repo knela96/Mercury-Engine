@@ -103,7 +103,7 @@ bool ModuleGUI::Draw()
 
 
 	//Show Windows FIRST BUFFERS
-	ImGui::ShowStyleEditor();
+	//ImGui::ShowStyleEditor();
 
 	
 
@@ -235,8 +235,8 @@ bool ModuleGUI::CreateMenuBar() {
 				ShowFPS = !ShowFPS;
 			}
 			
-			if (ImGui::MenuItem("Settings")) {
-				openWindowSettings = true;
+			if (ImGui::MenuItem("Settings",NULL, openWindowSettings)) {
+				openWindowSettings = !openWindowSettings;
 			}
 			ImGui::EndMenu();
 		}

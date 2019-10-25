@@ -56,7 +56,7 @@ bool WindowGame::Draw()
 			}
 
 			ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 85);//Put the button on the right
-			if (ImGui::BeginMenu("Gizmos", true))
+			if (ImGui::BeginMenu("Render", true))
 			{
 				ImGui::PushItemWidth(300);
 				ImGui::MenuItem("Depth", NULL, &App->renderer3D->depth_active);

@@ -164,11 +164,12 @@ namespace Engine {
 
 	const int GPUHardware::GetGPUTotalVRAM()
 	{
-		int tmp_GPUTotalVRAM = 0;
+		/*int tmp_GPUTotalVRAM = 0;
 		glGetIntegerv(0x9048, &tmp_GPUTotalVRAM);
 
-		m_GPUTotalVRAM = tmp_GPUTotalVRAM;
-		return m_GPUTotalVRAM / KBTOMB;
+		m_GPUTotalVRAM = tmp_GPUTotalVRAM;*/
+		//return m_GPUTotalVRAM / KBTOMB;
+		return m_PI_GPUDet_GPUInfo.mPI_GPUDet_TotalVRAM_MB;
 	}
 
 	const int GPUHardware::GetGPUCurrentVRAM()

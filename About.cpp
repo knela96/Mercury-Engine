@@ -33,7 +33,7 @@ update_status About::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
-bool About::Draw() const
+bool About::Draw()
 {
 	if (App->gui->openAbout) {
 		ImGui::SetNextWindowSizeConstraints(ImVec2(400, -1), ImVec2(1000, -1));

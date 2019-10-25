@@ -56,6 +56,6 @@ private:
 	float RamSizeSDL;
 	int GPUUsedRam;
 	int GPUTotalRam;
-	const char* GPUModel;
+	std::string GPUModel;
 };
 #endif
