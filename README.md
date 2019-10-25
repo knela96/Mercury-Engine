@@ -2,54 +2,57 @@
 
 **Mercury Engine** allows the creators to develop a 3D Game in a low consuming time, to fast the development of a project.
 
-Devoloped by:
+This Engine is currently being developed and updated constantly, so keep in mind that it might have some bugs. We encourage you that if you find some bugs, let us know in the Issues section of the repository, and we will fix them *ASAP*
+
+- [**Issues**](https://github.com/knela96/Mercury-Engine/issues) 
+
+- [GitHub repository](https://github.com/knela96/Mercury-Engine)
+
+# Devoloped by:
 
 [@Eric Canela](https://github.com/knela96)
+
 [@Jaume Avinyó](https://github.com/Jaumeavinyo)
 
-This Engine is currently being developed and updated constantly, so keep in mind that it might have some bugs. We encourage you that if you find some bugs, let us know in the "**[Issues]**(https://github.com/knela96/Mercury-Engine/issues)" section of the repository, and we will fix them *ASAP*
+# Game engine instructions:
 
-[GitHub repository](https://github.com/knela96/Mercury-Engine)
+## File:
+  - Exit: to exit the application
+  - About this engine: More info about the engine, libraries used and license
+## Window:
+  - Game: 
+     - Open the game view windows
+     - Create game objects and change rendering options for them
+     - Drag and drop models and textures in the Game window
+  - Console: Open the console
+  - Hierarchy: open the hierarchy where you can see the objects you are working with in the engine and select them
+  - Inspector:
+     - Activate and deactivate objects.
+     - Position, Rotation and scale information
+     - Mesh info: number of vertices faces and an option to see the bounding boxes
+     - Option to activate normals visualization and to configure them
+     - Activate and deactivate materials and see its properties.
+     - Debug texture in materials submenu (To check mesh UVs)
+  - Engine Stats:
+     - Fps graphs
+     - RAM information and graph
+     - Memory info
+     - Versions
+     - CPU and GPU information
+  - Settings:
+     - Screen options
+     - Frame rate control
+     - Mouse information
+  - Render: Render options
 
-Game engine instructions:
-
-+File:
-  -Exit: to exit the application
-  -About this engine: More info about the engine, libraries used and license
-+Window:
-  -Game: 
-     º Open the game view windows
-     º Create game objects and change rendering options for them
-     º Drag and drop models and textures in the Game window
-  -Console: Open the console
-  -Hierarchy: open the hierarchy where you can see the objects you are working with in the engine and select them
-  -Inspector:
-     º Activate and deactivate objects.
-     º Position, Rotation and scale information
-     º Mesh info: number of vertices faces and an option to see the bounding boxes
-     º Option to activate normals visualization and to configure them
-     º Activate and deactivate materials and see its properties.
-     º Debug texture in materials submenu (To check mesh UVs)
-  -Engine Stats:
-     º Fps graphs
-     º RAM information and graph
-     º Memory info
-     º Versions
-     º CPU and GPU information
-  -Settings:
-     º Screen options
-     º Frame rate control
-     º Mouse information
-  -Gizmo: Render options
-
-+Camera Movement:
-  -WASD to move
-  -Mouse Wheel to zoom in and zoom out
-  -Alt+Left Click to rotate
-  -Alt+Wheel Click to desplace camera
+## Camera Movement:
+  - WASD to move
+  - Mouse Wheel to zoom in and zoom out
+  - Alt+Left Click to rotate
+  - Alt+Wheel Click to desplace camera
 
 
-LICENSE
+# LICENSE
 
 Copyright <2019> <Mercury Engine Studios by Eric Canela Sol and Jaume Avinyo Sedano>
 
