@@ -42,7 +42,7 @@ bool About::Draw()
 		
 		ImGui::Spacing();
 
-		ImGui::Text("               MERCURY ENGINE v 0.1              ");
+		ImGui::Text("               MERCURY ENGINE v0.1              ");
 		ImGui::Spacing();
 		ImGui::Spacing();
 		ImGui::Spacing();
@@ -74,8 +74,8 @@ bool About::Draw()
 		ImGui::Spacing();
 		ImGui::Text("Move: WASD");
 		ImGui::Text("Rotate: ALT+LEFT_CLICK");
-		ImGui::Text("TRANSLATE: ALT+MOUSE CENTER BUTTON");
-		ImGui::Text("ZOOM: MOUSE WHEEL");
+		ImGui::Text("Displace: ALT+MOUSE CENTER BUTTON");
+		ImGui::Text("Zoom: MOUSE WHEEL");
 
 
 		ImGui::Spacing();
