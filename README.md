@@ -2,14 +2,17 @@
 
 **Mercury Engine** allows the creators to develop a 3D Game in a low consuming time, to fast the development of a project.
 
+This Engine is currently being developed and updated constantly, so keep in mind that it might have some bugs. We encourage you that if you find some bugs, let us know in the Issues section of the repository, and we will fix them *ASAP*
+
+- [**Issues**](https://github.com/knela96/Mercury-Engine/issues) 
+
+- [GitHub repository](https://github.com/knela96/Mercury-Engine)
+
 # Devoloped by:
 
 [@Eric Canela](https://github.com/knela96)
+
 [@Jaume Avinyó](https://github.com/Jaumeavinyo)
-
-This Engine is currently being developed and updated constantly, so keep in mind that it might have some bugs. We encourage you that if you find some bugs, let us know in the "**[Issues]**(https://github.com/knela96/Mercury-Engine/issues)" section of the repository, and we will fix them *ASAP*
-
-[GitHub repository](https://github.com/knela96/Mercury-Engine)
 
 # Game engine instructions:
 
