@@ -93,6 +93,7 @@ bool WindowEngineStats::Draw()
 
 		ImGui::Spacing();
 		ImGui::Spacing();
+		
 	
 		ImGui::Text("Total RAM              %f bytes", RamSizeSDL);
 		ImGui::Spacing();
