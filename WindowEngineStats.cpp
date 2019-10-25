@@ -32,7 +32,7 @@ WindowEngineStats::WindowEngineStats(Application* app, bool start_enabled) : Mod
 	
 	
 	GPUTotalRam = GPUHardware_.GetGPUTotalVRAM();
-	GPUModel = (unsigned char*)GPUHardware_.GetGPUModel();
+	GPUModel = (const char*)(GPUHardware_.GetGPUModel());
 
 	CPUBrand = ProcessorHardware_.GetCPUBrand();
 	CPUCores = ProcessorHardware_.GetCPUCores();
@@ -72,8 +72,21 @@ bool WindowEngineStats::Draw()
 
 		sprintf(overlay, "fps %f", lastFramefps);
 		
-		ImGui::PlotHistogram ("Frames per second", FPS_array, IM_ARRAYSIZE(FPS_array), 0, overlay, 0.0f, 200.0f, ImVec2(0, 100));
+		ImGui::PlotHistogram ("Fps", FPS_array, IM_ARRAYSIZE(FPS_array), 0, overlay, 0.0f, 200.0f, ImVec2(0, 100));
 
+
+
+
+		char RAMoverlay[32];
+		float lastFrameRAM = GPUUsedRam;
+		sprintf(RAMoverlay, "ram %f", lastFrameRAM);
+
+		for (int i = 0; i < 49; i++) {
+			RAM_array[i] = RAM_array[i + 1];
+		}
+		RAM_array[49] = lastFrameRAM;
+		sprintf(RAMoverlay, "Bytes %f", lastFrameRAM);
+		ImGui::PlotHistogram("RAM", RAM_array, IM_ARRAYSIZE(RAM_array), 0, RAMoverlay, 0.0f, RamSizeSDL * 1024, ImVec2(0, 100));
 		//-----------------------------------------------
 		//                SoftwareInfo 
 		//-----------------------------------------------
@@ -81,13 +94,13 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing();
 		ImGui::Spacing();
 	
-		ImGui::Text("Total RAM              %f", RamSizeSDL);
+		ImGui::Text("Total RAM              %f bytes", RamSizeSDL);
 		ImGui::Spacing();
-		ImGui::Text("VirtualMemory          %u", VirtualMemory);
+		ImGui::Text("VirtualMemory          %u gb", VirtualMemory);
 		ImGui::Spacing();
-		ImGui::Text("MemoryLoaded           %u", MemoryLoaded);
+		ImGui::Text("MemoryLoaded           %u '/,", MemoryLoaded);
 		ImGui::Spacing();
-		ImGui::Text("PhysicalMemory         %u", PhysicalMemory);
+		ImGui::Text("PhysicalMemory         %u gb", PhysicalMemory);
 
 		ImGui::Spacing();
 		ImGui::Spacing();
@@ -127,23 +140,13 @@ bool WindowEngineStats::Draw()
 		ImGui::Spacing();
 		ImGui::Spacing();
 
-		char RAMoverlay[32];
-		float lastFrameRAM = GPUUsedRam;
-		sprintf(RAMoverlay, "avg %f", lastFrameRAM);
-
-		for (int i = 0; i < 49; i++) {
-			RAM_array[i] = RAM_array[i + 1];
-		}
-		RAM_array[49] = lastFrameRAM;
-		sprintf(RAMoverlay, "Bytes %f", lastFrameRAM);
-		ImGui::PlotHistogram("RAM USED LAST SECOND", RAM_array, IM_ARRAYSIZE(RAM_array), 0, RAMoverlay, 0.0f, RamSizeSDL*1024, ImVec2(0, 100));
+		
 		ImGui::Spacing();
 		ImGui::Spacing();
-		ImGui::Text("GPU Used RAM           %i", GPUUsedRam);//Create graphic TODO
-		ImGui::Spacing();
-		ImGui::Text("GPU Total RAM          %i", GPUTotalRam);
-		ImGui::Spacing();
-		ImGui::Text("GPU Model              %c", GPUModel);
+		
+		/*ImGui::Text("GPU Total RAM          %i gb", GPUTotalRam);
+		ImGui::Spacing();*/
+		ImGui::Text("GPU Model              %c ", GPUModel);
 
 		ImGui::End();
 	}

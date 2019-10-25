@@ -142,7 +142,7 @@ update_status Application::Update()
 	//framerate caop
 	float capped_ms = 1000 / framerate_cap;
 
-	if (capped_ms > 0 && framerate_cap < 60 && last_frame_ms < capped_ms && framerate_cap_activated)
+	if (capped_ms > 0 && framerate_cap < 100 && last_frame_ms < capped_ms && framerate_cap_activated)
 	{
 		//MasterTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
