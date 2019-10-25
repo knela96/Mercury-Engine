@@ -49,9 +49,6 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 				speed = 50.0f * dt;
 
-		/*	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;*/
-
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
@@ -77,14 +74,14 @@ update_status ModuleCamera3D::Update(float dt)
 					float3 points [8];
 					gameObject->box.GetCornerPoints(points);
 
-					vec3 max_ = { points[0].At(0),points[0].At(1),points[0].At(2) };
+					vec3 max_ = { points[0].At(0),points[0].At(1),points[0].At(2) }; //set first point
 					for (int i = 0; i < 8 - 1; ++i) {
 						vec3 point_ = { points[i].At(0), points[i].At(1), points[i].At(2) };
 						if(length(max_) < length(point_))
 							max_ = point_;
 					}
 
-					double radius = length(max_) / 2;
+					double radius = length(max_) / 2; //radius of sphere
 
 					double fov = 60 * DEGTORAD;
 

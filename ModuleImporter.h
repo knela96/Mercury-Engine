@@ -40,11 +40,11 @@ public:
 	update_status Update(float dt);
 	bool Draw();
 
-	string getFileExt(const string & s);
+	const string getFileExt(const string & s);
 
 	string getRootPath(const string & s);
 
-	string getFileName(const string & s);
+	const string getFileName(const string & s);
 
 	bool CleanUp();
 
@@ -60,7 +60,7 @@ public:
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
-	Texture* SaveTexture(const char * str, aiTextureType type, FileFormats format);
+	Texture* SaveTexture(const char * str, aiTextureType type);
 
 public:
 	std::vector<GameObject*> gameObjects;

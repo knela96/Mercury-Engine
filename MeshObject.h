@@ -22,15 +22,13 @@ public:
 
 	void Draw();
 
-	void TexCoordsDSS_PNG(FileFormats format);
-
-	vec3 getNormal(vec3 p1, vec3 p2, vec3 p3);
+	const vec3 getNormal(vec3 p1, vec3 p2, vec3 p3) const;
 
 	void CleanUp();
 
-	void DebugNormals();
+	void DebugNormals() const;
 
-	void DrawBox();
+	void DrawBox() const;
 public:
 	vector<Vertex> vertices;
 	vector<uint> indices;

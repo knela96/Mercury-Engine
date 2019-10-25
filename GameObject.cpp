@@ -23,12 +23,31 @@ void GameObject::drawChilds() {
 }
 
 void GameObject::CleanUp() {
+
+	for (int i = 0; i < childs.size(); ++i) {
+		childs[i]->CleanUp();
+		delete[] childs[i];
+		childs[i] = nullptr;
+	}
+	childs.clear();
+	for (int i = 0; i < components.size(); ++i) {
+		delete components[i];
+		components[i] = nullptr;
+	}
+	components.clear();
+
 	mesh->CleanUp();
+
+	for (int i = 0; i < textures.size(); ++i) {
+		textures[i] = nullptr;
+	}
+	textures.clear();
+	
 	delete mesh;
 	mesh = nullptr;
 }
 
-char* GameObject::getType(aiTextureType type)
+const char* GameObject::getType(aiTextureType type)
 {
 	switch (type) {
 	case aiTextureType_DIFFUSE:

@@ -10,7 +10,6 @@ MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, ve
 	this->vertices = vertices;
 	this->indices = indices;
 
-
 	SetupBuffers();
 }
 
@@ -56,7 +55,8 @@ bool MeshObject::SetupBuffers() {
 	return ret;
 }
 
-void MeshObject::Draw() {
+void MeshObject::Draw()
+{
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
@@ -120,22 +120,8 @@ void MeshObject::Draw() {
 	DrawBox();
 }
 
-void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
-	if (c_texformat != format) {
-		for (int i = 0; i < vertices.size(); ++i) {
-			vertices[i].TexCoords.y = 1 - vertices[i].TexCoords.y;
-		}
-
-		c_texformat = format;
-
-		CleanUp();//Do I need to destroy the buffers?
-		SetupBuffers();
-	}
-}
-
-
-vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {
-
+const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
+{
 	vec3 output;
 
 	//Calculate vectors to create the normal
@@ -162,7 +148,8 @@ void MeshObject::CleanUp() {
 	glBindVertexArray(0);
 }
 
-void MeshObject::DebugNormals() {
+void MeshObject::DebugNormals() const
+{
 	if (vertex_normals) {
 		//NORMAL VERTEX
 		for (int i = 0; i < vertices.size(); i++)
@@ -186,7 +173,7 @@ void MeshObject::DebugNormals() {
 			vec3 p2 = vec3(vertices[indices[i + 1]].Position.x, vertices[indices[i + 1]].Position.y, vertices[indices[i + 1]].Position.z);
 			vec3 p3 = vec3(vertices[indices[i + 2]].Position.x, vertices[indices[i + 2]].Position.y, vertices[indices[i + 2]].Position.z);
 
-			vec3 normal = getNormal(p1, p2, p3);
+			const vec3 normal = getNormal(p1, p2, p3);
 
 			vec3 face_center = vec3(
 				(p1.x + p2.x + p3.x) / 3,
@@ -202,7 +189,8 @@ void MeshObject::DebugNormals() {
 		}
 	}
 }
-void MeshObject::DrawBox() {
+void MeshObject::DrawBox() const
+{
 	if (boundary_box) {
 		float3 points[8];
 		box.GetCornerPoints(points);

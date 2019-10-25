@@ -40,7 +40,7 @@ public:
 
 	void CleanUp();
 
-	char* getType(aiTextureType type);
+	const char* getType(aiTextureType type);
 
 	Component* AddComponent(Component_Type type);
 

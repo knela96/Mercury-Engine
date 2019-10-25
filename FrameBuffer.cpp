@@ -58,7 +58,7 @@ void FrameBuffer::PostUpdate(){
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
 }
 
-uint FrameBuffer::GetTexture() {
+const uint FrameBuffer::GetTexture() {
 	return texture;
 }
 

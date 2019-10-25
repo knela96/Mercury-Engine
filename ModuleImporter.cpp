@@ -35,6 +35,7 @@ bool ModuleImporter::Start(){
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	//CREATE CHEKERS TEXTURE
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
 			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
@@ -90,6 +91,13 @@ bool ModuleImporter::CleanUp()
 	}
 	gameObjects.clear();
 
+	for (Texture* tex : stored_textures) {
+		if (tex != nullptr) {
+			delete tex;
+			tex = nullptr;
+		}
+	}
+
 	delete shader;
 	shader = nullptr;
 	return true;
@@ -108,15 +116,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 		if (App->gui->inspector->active_gameObject != nullptr) {
 			if(App->gui->inspector->active_gameObject->textures.size() != 0)
 				App->gui->inspector->active_gameObject->textures.pop_back();
-			FileFormats format;
-			if (extension == "PNG") {
-				format = PNG;
-			}
-			else if (extension == "DDS") {
-				format = DDS;
-			}
-			//App->gui->inspector->active_gameObject->mesh->TexCoordsDSS_PNG(format);
-			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE,format));
+			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
 		}
 	}
 	return true;
@@ -149,9 +149,6 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	vector<Texture*> textures;
-
-	vec3 min;
-	vec3 max;
 
 	math::float3* points = (float3*)malloc(sizeof(float3) * mesh->mNumVertices);
 
@@ -198,8 +195,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 				1.0f
 			};
 		}
-		/*else
-			vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };*/
+
 		if (mesh->mTextureCoords[0])
 		{
 			vertex.TexCoords = {
@@ -241,10 +237,8 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	static int c = 0;
-
 	if (mesh->mName.length == 0)
-		mesh->mName = fileName + std::to_string(c);
+		mesh->mName = fileName;
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 
@@ -265,27 +259,24 @@ vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *
 		if(path->size() != 0)
 			path->append("\\");
 		path->append(str.C_Str());
-		Texture* tex = SaveTexture(path->c_str(), type,PNG);
+		Texture* tex = SaveTexture(path->c_str(), type);
 		if(tex != nullptr)
 			texture.push_back(tex);
 	}
 	return texture;
 }
 
-Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type, FileFormats format) {
+Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
 	for (unsigned int j = 0; j < stored_textures.size(); j++)
 	{
 		if (std::strcmp(stored_textures[j]->path.c_str(), str) == 0)
 		{
-			return stored_textures[j];
+			return stored_textures[j]; //check if texture is already loaded
 		}
 	}
 	Texture* tex = new Texture();
 	bool ret = false;
-	//if(format == PNG)
-		ret = LoadTexture(str, tex->id, tex->size);
-	/*else if(format == DDS)
-		ret = loadDDS(str, tex->id, tex->size);*/
+	ret = LoadTexture(str, tex->id, tex->size);
 	if (ret){
 		tex->type = type;
 		tex->path = str;
@@ -358,7 +349,7 @@ bool ModuleImporter::Draw() {
 	return true;
 }
 
-string ModuleImporter::getFileExt(const string& s) {
+const string ModuleImporter::getFileExt(const string& s) {
 
 	size_t i = s.rfind('.', s.length());
 	if (i != string::npos) {
@@ -380,7 +371,7 @@ string ModuleImporter::getRootPath(const string& s) {
 	return(directory);
 }
 
-string ModuleImporter::getFileName(const string& s) {
+const string ModuleImporter::getFileName(const string& s) {
 
 	string directory;
 	size_t i = s.rfind('\\', s.length());

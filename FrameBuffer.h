@@ -9,7 +9,7 @@ public:
 	bool Start(int width, int heigth);
 	void PreUpdate();
 	void PostUpdate();
-	uint GetTexture();
+	const uint GetTexture();
 
 	void CleanUp();
 
