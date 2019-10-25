@@ -67,8 +67,7 @@ void MeshObject::Draw()
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
 			{
-				glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-				// retrieve texture number (the N in diffuse_textureN)
+				glActiveTexture(GL_TEXTURE0 + i); // active texture unit
 				string number;
 				aiTextureType type = textures[i]->type;
 				if (type == aiTextureType_DIFFUSE)
@@ -80,12 +79,12 @@ void MeshObject::Draw()
 				else if (type == aiTextureType_HEIGHT)
 					number = std::to_string(heightNr++);
 
-				// now set the sampler to the correct texture unit
+				//set the sampler to the correct texture unit
 				App->importer->shader->setInt((getType(type) + number).c_str(), i);
 
 				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
 			}
-			//If mesh has no textures, don't draw any texture BLACK
+			//If mesh has no textures, don't draw any texture
 			if (textures.size() > 0) {
 				mat4x4 model = mat4x4();
 				App->importer->shader->use();
@@ -95,7 +94,7 @@ void MeshObject::Draw()
 			}
 		}
 		else {
-			glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
+			glActiveTexture(GL_TEXTURE0);
 			App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
 

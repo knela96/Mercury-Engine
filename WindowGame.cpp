@@ -73,7 +73,7 @@ bool WindowGame::Draw()
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		newsize_Game = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
 
-		if ((size_Game.x != newsize_Game.x || size_Game.y != newsize_Game.y) && App->gui->openConsole) {
+		if ((size_Game.x != newsize_Game.x || size_Game.y != newsize_Game.y)) {
 			size_Game = newsize_Game;
 			App->renderer3D->OnResize(newsize_Game.x, newsize_Game.y);
 		}
