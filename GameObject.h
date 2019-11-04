@@ -40,12 +40,13 @@ public:
 
 	void CleanUp();
 
-	char* getType(aiTextureType type);
+	const char* getType(aiTextureType type);
 
 	Component* AddComponent(Component_Type type);
 
 	Component* getComponent(Component_Type type);
 
+	
 public:
 	MeshObject* mesh;
 	vector<Texture*> textures;
@@ -62,6 +63,9 @@ public:
 	FileFormats c_texformat = PNG;
 	bool debug_tex = false;
 	bool active = true;
+
+	AABB box;
+	bool boundary_box = false;
 };
 
 #endif GAMEOBJECT_H_

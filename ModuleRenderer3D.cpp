@@ -4,11 +4,14 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
 #include "DevIL/include/IL/ilut.h"
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/DevIL.lib")
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/ILU.lib")
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/ILUT.lib")
+
+#include "SDL.h"
+#pragma comment( lib, "lib/SDL/libx86/SDL2.lib" )
+#pragma comment( lib, "lib/SDL/libx86/SDL2main.lib" )
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -111,7 +114,9 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
-		lights[0].Active(true);
+		lights[0].Active(true); 
+		
+		SetSDLIcon(App->window->window);
 	}
 
 	// Projection matrix for
@@ -204,4 +209,9 @@ void ModuleRenderer3D::checkRenderFilters() {
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	// //wireframe
+}
+
+void ModuleRenderer3D::SetSDLIcon(SDL_Window* window)
+{
+
 }

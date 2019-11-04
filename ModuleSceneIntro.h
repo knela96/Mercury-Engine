@@ -3,6 +3,8 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 
+
+#include "SystemInfo.h"
 class ModuleSceneIntro : public Module
 {
 public:
@@ -13,7 +15,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	
-
+	//Engine::SystemInfo s_info;
 
 public:
 };

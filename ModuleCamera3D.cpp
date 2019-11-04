@@ -1,6 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "WindowInspector.h"
+#include "GameObject.h"
+
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -10,7 +13,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = vec3(0.0f, 1.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
+	Position = vec3(0.0f, 2.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
@@ -46,9 +49,6 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 				speed = 50.0f * dt;
 
-			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
-
 			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
@@ -60,16 +60,36 @@ update_status ModuleCamera3D::Update(float dt)
 			Reference += newPos;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-				X = vec3(1.0f, 0.0f, 0.0f);
-				Y = vec3(0.0f, 1.0f, 0.0f);
-				Z = vec3(0.0f, 0.0f, 1.0f);
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+				GameObject* gameObject = App->gui->inspector->active_gameObject;
+				if (gameObject != nullptr) {
+					//Move camera to Point Reference of the Object(Pivot)
+					vec3 distance = { gameObject->box.CenterPoint().x - Reference.x,
+									gameObject->box.CenterPoint().y - Reference.y,
+									gameObject->box.CenterPoint().z - Reference.z };
+					
+					Reference += distance;
 
-				Position = vec3(0.0f, 0.0f, 5.0f);
-				Reference = vec3(0.0f, 0.0f, 0.0f);
+					//Focus Camera distance
+					float3 points [8];
+					gameObject->box.GetCornerPoints(points);
 
-				Move(vec3(1.0f, 1.0f, 0.0f));
-				LookAt(vec3(0, 0, 0));
+					vec3 max_ = { points[0].At(0),points[0].At(1),points[0].At(2) }; //set first point
+					for (int i = 0; i < 8 - 1; ++i) {
+						vec3 point_ = { points[i].At(0), points[i].At(1), points[i].At(2) };
+						if(length(max_) < length(point_))
+							max_ = point_;
+					}
+
+					double radius = length(max_) / 2; //radius of sphere
+
+					double fov = 60 * DEGTORAD;
+
+					double camDistance = (radius * 2.0) / tan(fov / 2.0);
+					
+					Position = Reference + Z * camDistance;
+
+				}
 			}
 		}
 

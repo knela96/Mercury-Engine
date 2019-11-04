@@ -40,9 +40,11 @@ public:
 	update_status Update(float dt);
 	bool Draw();
 
-	string getFileExt(const string & s);
+	const string getFileExt(const string & s);
 
 	string getRootPath(const string & s);
+
+	const string getFileName(const string & s);
 
 	bool CleanUp();
 
@@ -50,7 +52,7 @@ public:
 
 	bool Load(const char * path);
 
-	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const aiScene * scene = NULL);
+	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 
@@ -58,9 +60,7 @@ public:
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
-	bool loadDDS(const char * path, uint & id, vec2 & size);
-
-	Texture* SaveTexture(const char * str, aiTextureType type, FileFormats format);
+	Texture* SaveTexture(const char * str, aiTextureType type);
 
 public:
 	std::vector<GameObject*> gameObjects;

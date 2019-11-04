@@ -4,6 +4,7 @@
 #include <gl/GLU.h>
 #include "Globals.h"
 #include "FrameBuffer.h"
+#include "ModuleRenderer3D.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -52,12 +53,12 @@ void FrameBuffer::PreUpdate() {
 }
 
 void FrameBuffer::PostUpdate(){
+	if(App->renderer3D->color_active)
+		glColor3f(1.0, 1.0, 1.0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind
-	//glClearColor(0.25f, 0.25f, 0.25f, 0.25f);
-	//glClear(GL_COLOR_BUFFER_BIT);
 }
 
-uint FrameBuffer::GetTexture() {
+const uint FrameBuffer::GetTexture() {
 	return texture;
 }
 

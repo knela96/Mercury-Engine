@@ -17,7 +17,7 @@ WindowGame::~WindowGame()
 
 bool WindowGame::Start()
 {
-	size_Game = { 1280,720 };
+	size_Game = { SCREEN_WIDTH,SCREEN_HEIGHT };
 
 	//Init FrameBuffer
 	fbo = new FrameBuffer();
@@ -56,7 +56,7 @@ bool WindowGame::Draw()
 			}
 
 			ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - 85);//Put the button on the right
-			if (ImGui::BeginMenu("Gizmos", true))
+			if (ImGui::BeginMenu("Render", true))
 			{
 				ImGui::PushItemWidth(300);
 				ImGui::MenuItem("Depth", NULL, &App->renderer3D->depth_active);
@@ -73,11 +73,10 @@ bool WindowGame::Draw()
 		position = ImVec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y);
 		newsize_Game = ImVec2(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
 
-		if (size_Game.x != newsize_Game.x || size_Game.y != newsize_Game.y) {
+		if ((size_Game.x != newsize_Game.x || size_Game.y != newsize_Game.y)) {
 			size_Game = newsize_Game;
-			App->renderer3D->OnResize(size_Game.x, size_Game.y);
+			App->renderer3D->OnResize(newsize_Game.x, newsize_Game.y);
 		}
-
 
 		ImGui::Image((void*)fbo->GetTexture(), ImVec2(size_Game.x, size_Game.y), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();

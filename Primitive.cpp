@@ -171,6 +171,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	vector<uint> indices;
 	vector<Texture*> textures;
 	Vertex vertex;
+	math::float3* points = (float3*)malloc(sizeof(float3) * new_mesh->npoints);
 
 	for (uint i = 0; i < new_mesh->npoints; i++)
 	{
@@ -181,6 +182,8 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 				new_mesh->points[(3 * i) + 1],
 				new_mesh->points[(3 * i) + 2]
 			};
+
+			points[i].Set(new_mesh->points[3 * i], new_mesh->points[(3 * i) + 1], new_mesh->points[(3 * i) + 2]);
 		}
 		if (new_mesh->normals != nullptr)
 		{
@@ -214,28 +217,34 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 
 	}
 
-	if (new_mesh != nullptr)
-		par_shapes_free_mesh(new_mesh);
-
 	LOGC("Loaded Vertices: %u", vertices.size());
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	App->importer->gameObjects.push_back((GameObject*) new MeshObject(vertices, indices, textures, name));
+	GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
+
+	gameobject->box.SetFrom(points, new_mesh->npoints);
+
+	std::free(points);
+
+	if (new_mesh != nullptr)
+		par_shapes_free_mesh(new_mesh);
+
+	App->importer->gameObjects.push_back(gameobject);
 }
 
 // LINE ==================================================
-Line::Line() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
+Line_::Line_() : Primitive(), origin(0, 0, 0), destination(1, 1, 1)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
 
-Line::Line(float x, float y, float z) : Primitive(), origin(0, 0, 0), destination(x, y, z)
+Line_::Line_(float x, float y, float z) : Primitive(), origin(0, 0, 0), destination(x, y, z)
 {
 	type = PrimitiveTypes::Primitive_Line;
 }
 
-void Line::InnerRender() const
+void Line_::InnerRender() const
 {
 	glLineWidth(2.0f);
 
@@ -250,17 +259,17 @@ void Line::InnerRender() const
 }
 
 // PLANE ==================================================
-Plane::Plane() : Primitive(), normal(0, 1, 0), constant(1)
+Plane_::Plane_() : Primitive(), normal(0, 1, 0), constant(1)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-Plane::Plane(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
+Plane_::Plane_(float x, float y, float z, float d) : Primitive(), normal(x, y, z), constant(d)
 {
 	type = PrimitiveTypes::Primitive_Plane;
 }
 
-void Plane::InnerRender() const
+void Plane_::InnerRender() const
 {
 	glLineWidth(1.0f);
 

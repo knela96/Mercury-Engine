@@ -55,7 +55,8 @@ bool MeshObject::SetupBuffers() {
 	return ret;
 }
 
-void MeshObject::Draw() {
+void MeshObject::Draw()
+{
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
@@ -66,8 +67,7 @@ void MeshObject::Draw() {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
 			{
-				glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-				// retrieve texture number (the N in diffuse_textureN)
+				glActiveTexture(GL_TEXTURE0 + i); // active texture unit
 				string number;
 				aiTextureType type = textures[i]->type;
 				if (type == aiTextureType_DIFFUSE)
@@ -79,12 +79,12 @@ void MeshObject::Draw() {
 				else if (type == aiTextureType_HEIGHT)
 					number = std::to_string(heightNr++);
 
-				// now set the sampler to the correct texture unit
+				//set the sampler to the correct texture unit
 				App->importer->shader->setInt((getType(type) + number).c_str(), i);
 
 				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
 			}
-			//If mesh has no textures, don't draw any texture BLACK
+			//If mesh has no textures, don't draw any texture
 			if (textures.size() > 0) {
 				mat4x4 model = mat4x4();
 				App->importer->shader->use();
@@ -94,7 +94,7 @@ void MeshObject::Draw() {
 			}
 		}
 		else {
-			glActiveTexture(GL_TEXTURE0); // active proper texture unit before binding
+			glActiveTexture(GL_TEXTURE0);
 			App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
 
@@ -115,24 +115,12 @@ void MeshObject::Draw() {
 
 	if(getComponent(Normals)->isActive())
 		DebugNormals();
+
+	DrawBox();
 }
 
-void MeshObject::TexCoordsDSS_PNG(FileFormats format) {
-	if (c_texformat != format) {
-		for (int i = 0; i < vertices.size(); ++i) {
-			vertices[i].TexCoords.y = 1 - vertices[i].TexCoords.y;
-		}
-
-		c_texformat = format;
-
-		CleanUp();//Do I need to destroy the buffers?
-		SetupBuffers();
-	}
-}
-
-
-vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) {
-
+const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
+{
 	vec3 output;
 
 	//Calculate vectors to create the normal
@@ -159,7 +147,8 @@ void MeshObject::CleanUp() {
 	glBindVertexArray(0);
 }
 
-void MeshObject::DebugNormals() {
+void MeshObject::DebugNormals() const
+{
 	if (vertex_normals) {
 		//NORMAL VERTEX
 		for (int i = 0; i < vertices.size(); i++)
@@ -183,7 +172,7 @@ void MeshObject::DebugNormals() {
 			vec3 p2 = vec3(vertices[indices[i + 1]].Position.x, vertices[indices[i + 1]].Position.y, vertices[indices[i + 1]].Position.z);
 			vec3 p3 = vec3(vertices[indices[i + 2]].Position.x, vertices[indices[i + 2]].Position.y, vertices[indices[i + 2]].Position.z);
 
-			vec3 normal = getNormal(p1, p2, p3);
+			const vec3 normal = getNormal(p1, p2, p3);
 
 			vec3 face_center = vec3(
 				(p1.x + p2.x + p3.x) / 3,
@@ -199,4 +188,43 @@ void MeshObject::DebugNormals() {
 		}
 	}
 }
+void MeshObject::DrawBox() const
+{
+	if (boundary_box) {
+		float3 points[8];
+		box.GetCornerPoints(points);
 
+		glBegin(GL_LINES);
+		glColor3f(1, 0.84, 0);
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
+		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
+		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
+		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
+		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
+		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
+		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
+		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
+
+		glEnd();
+	}
+
+}

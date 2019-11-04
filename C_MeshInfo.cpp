@@ -21,8 +21,8 @@ void C_MeshInfo::Update()
 	//ImGui::PushID("active_MeshInfo"); ImGui::Checkbox("", &active); ImGui::PopID(); ImGui::SameLine();
 	if (ImGui::CollapsingHeader(name.c_str(), open_mesh_info))
 	{
-		ImGui::Text("Vertices: %i", gameobject->mesh->vertices.size());
-		ImGui::Text("Faces: %i", gameobject->mesh->indices.size() / 3);
+		ImGui::Text("Vertices: %i", gameobject->mesh->vertices.size()); ImGui::SameLine(); ImGui::Spacing();  ImGui::SameLine(); ImGui::Text("Tris: %i", gameobject->mesh->indices.size() / 3);
+		ImGui::Checkbox("Boundary Box", &gameobject->boundary_box);
 	}
 
 	if (!unFold) {

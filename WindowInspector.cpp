@@ -57,6 +57,7 @@ bool WindowInspector::Draw()
 
 bool WindowInspector::Cleanup()
 {
+	active_gameObject = nullptr;
 	return true;
 }
 
