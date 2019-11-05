@@ -26,7 +26,7 @@ typedef unsigned int uint;
 typedef unsigned char uchar;
 typedef unsigned __int32 uint32;
 typedef unsigned __int64 uint64;
-
+typedef unsigned long long RID;
 
 enum update_status
 {
@@ -49,6 +49,31 @@ enum update_status
 #define WIN_DOUBLE_BUFFERING false
 #define TITLE "Mercury Engine"
 
+//Librarys and paths
+#define MODELS "/Assets/Models"
+#define TEXTURES "/Assets/Textures"
+
+
 
 
 //Userfull defines
+
+// Deletes a buffer
+#define RELEASE( x )\
+    {\
+       if( x != nullptr )\
+       {\
+         delete x;\
+	     x = nullptr;\
+       }\
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x )\
+	{\
+       if( x != nullptr )\
+       {\
+           delete[] x;\
+	       x = nullptr;\
+		 }\
+	 }
