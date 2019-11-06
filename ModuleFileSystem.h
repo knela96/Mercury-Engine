@@ -74,7 +74,9 @@ public:
 	void SetFolderPath(std::experimental::filesystem::path path) { weFolderPath = path; }
 
 	std::experimental::filesystem::path weFolderPath;
-
+	
+	int depthID;
+	int ID;
 	weFolder* weParentFolder = nullptr;
 
 public:
