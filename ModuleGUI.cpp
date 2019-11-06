@@ -107,7 +107,7 @@ bool ModuleGUI::Draw()
 
 	
 
-	//ImGui::ShowDemoWindow(&show_demo_window);
+	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
 	if (openWindowSettings)

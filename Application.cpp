@@ -11,7 +11,7 @@ Application::Application()
 	gui = new ModuleGUI(this);
 	camera = new ModuleCamera3D(this);
 	importer = new ModuleImporter(this);
-	
+	filesystem = new weFileSystem(this);
 
 	
 	// The order of calls is very important!
@@ -30,6 +30,7 @@ Application::Application()
 
 	//RECHECK
 	AddModule(gui);
+	AddModule(filesystem);
 
 	// Renderer last!
 	AddModule(renderer3D);
@@ -44,6 +45,7 @@ Application::~Application()
 	{
 		delete item->data;
 		item = item->prev;
+		
 	}
 }
 

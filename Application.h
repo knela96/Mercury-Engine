@@ -12,7 +12,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "ModuleImporter.h"
-
+#include "ModuleFileSystem.h"
 
 class Application
 {
@@ -25,7 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleImporter* importer;
-
+	weFileSystem* filesystem;
 private:
 
 	Timer   dt_timer;						//timer to calculate things related to delta time

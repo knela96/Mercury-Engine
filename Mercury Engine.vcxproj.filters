@@ -178,14 +178,11 @@
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="ModuleFileSystem.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="parson.h">
       <Filter>Sources\Containers\Json</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Sources\Tools</Filter>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,14 +303,11 @@
     <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleFileSystem.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="parson.c">
       <Filter>Sources\Containers\Json</Filter>
     </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Sources\Tools</Filter>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
