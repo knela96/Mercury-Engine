@@ -18,6 +18,7 @@ enum class weFileType {
 	FILE_NONE = 0,
 	FILE_FBX,
 	FILE_TEXTURE,
+	FOLDER,
 	FILE_MAX
 };
 
@@ -81,8 +82,8 @@ public:
 
 public:
 
-	std::list<weFolder> childFolders;
-	std::list<weFile> childFiles;
+	std::list<weFolder*> childFolders;
+	std::list<weFile*> childFiles;
 };
 
 //------------------------------------------------------------------------------
