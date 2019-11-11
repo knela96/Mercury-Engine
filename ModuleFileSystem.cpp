@@ -2,9 +2,29 @@
 
 
 
+bool weFileSystem::Start()
+{
+	return true;
+}
+
+bool weFileSystem::Draw()
+{
+	return true;
+}
+
+update_status weFileSystem::Update(float dt)
+{
+	Draw();
 
 
 
+	return UPDATE_CONTINUE;
+}
+
+bool weFileSystem::CleanUp()
+{
+	return true;
+}
 
 weFile::weFile(std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype){
 	wePath = wepath;

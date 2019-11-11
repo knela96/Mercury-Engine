@@ -94,6 +94,22 @@ public:
 	weFileSystem(Application* app, bool start_enabled = true);
 	~weFileSystem();
 
+	bool Start();
+	
+	bool Draw();
+
+	update_status Update(float dt);	
+
+	bool CleanUp();
+	
+	bool isEnabled() {
+		return true;
+	}
+
+
+
+	//______________________________________________________________________________
+
 	weFolder* GetRootFolder() { return RootFolder; }
 	std::experimental::filesystem::path GetRootFolderPath() { return RootFolderPath; }
 
