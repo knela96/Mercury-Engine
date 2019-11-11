@@ -25,7 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleImporter* importer;
-	weFileSystem* filesystem;
+	ModuleFileSystem* filesystem;
 private:
 
 	Timer   dt_timer;						//timer to calculate things related to delta time

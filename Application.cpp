@@ -11,7 +11,7 @@ Application::Application()
 	gui = new ModuleGUI(this);
 	camera = new ModuleCamera3D(this);
 	importer = new ModuleImporter(this);
-	filesystem = new weFileSystem(this);
+	filesystem = new ModuleFileSystem(this);
 
 	
 	// The order of calls is very important!

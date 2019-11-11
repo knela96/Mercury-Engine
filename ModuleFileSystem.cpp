@@ -1,53 +1,7 @@
+#include "Application.h"
 #include "ModuleFileSystem.h"
 
-
-
-bool weFileSystem::Start()
-{
-	return true;
-}
-
-bool weFileSystem::Draw()
-{
-	return true;
-}
-
-update_status weFileSystem::Update(float dt)
-{
-	Draw();
-
-
-
-	return UPDATE_CONTINUE;
-}
-
-bool weFileSystem::CleanUp()
-{
-	return true;
-}
-
-weFile::weFile(std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype){
-	wePath = wepath;
-	fileFolder = parentfolder;
-	weType = wetype;
-}
-
-weFile::~weFile(){
-}
-
-//---
-
-weFolder::weFolder(std::experimental::filesystem::path path) {
-	weFolderPath = path;
-}
-
-weFolder::~weFolder() {
-
-}
-
-//---
-
-weFileSystem::weFileSystem(Application * app, bool start_enabled):Module(app,start_enabled)
+ModuleFileSystem::ModuleFileSystem(Application * app, bool start_enabled) :Module(app, start_enabled)
 {
 	LOGC("Creating file system");
 	RootFolderPath = std::experimental::filesystem::current_path(); //set root path
@@ -55,12 +9,12 @@ weFileSystem::weFileSystem(Application * app, bool start_enabled):Module(app,sta
 
 }
 
-weFileSystem::~weFileSystem()
+ModuleFileSystem::~ModuleFileSystem()
 {
 }
 
-weFolder* weFileSystem::LoadCurrentFolder(std::experimental::filesystem::path path) {
-	
+weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::path path) {
+
 	static int lastDepth = 0;
 	static int ID = 0;
 	static int currentDepth = 0;
@@ -82,10 +36,10 @@ weFolder* weFileSystem::LoadCurrentFolder(std::experimental::filesystem::path pa
 				newPath->ID = ID;
 				newPath->depthID = p.depth();
 				//int debug = p.depth();
-				if (p.depth <= lastDepth) {
+				if (p.depth() <= lastDepth) {
 					int nearID = 0;
 					for (auto&co : weFoldersArray) {
-						if (p.depth > 0 && co->depthID == p.depth() - 1) {
+						if (p.depth() > 0 && co->depthID == p.depth() - 1) {
 							if (co->ID > nearID) {
 								nearID = co->ID;
 								CurrentFolder = co;
@@ -126,3 +80,26 @@ weFolder* weFileSystem::LoadCurrentFolder(std::experimental::filesystem::path pa
 		}
 	}
 }
+
+//----
+weFile::weFile(std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype) {
+	wePath = wepath;
+	fileFolder = parentfolder;
+	weType = wetype;
+}
+
+weFile::~weFile() {
+}
+
+//---
+
+weFolder::weFolder(std::experimental::filesystem::path path) {
+	weFolderPath = path;
+}
+
+weFolder::~weFolder() {
+
+}
+
+//---
+
