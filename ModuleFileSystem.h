@@ -37,6 +37,10 @@ public:
 	bool isEnabled() {
 		return true;
 	}
+	bool Draw();
+	
+	update_status Update(float dt);
+	
 
 	//______________________________________________________________________________
 
