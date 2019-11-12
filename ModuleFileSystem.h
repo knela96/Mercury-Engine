@@ -38,7 +38,13 @@ public:
 		return true;
 	}
 
+	//_____________________________________ 
+
+	update_status Update(float dt);
+
 	//______________________________________________________________________________
+
+	void LoadFilesToProject();
 
 	weFolder* GetRootFolder() { return RootFolder; }
 	std::experimental::filesystem::path GetRootFolderPath() { return RootFolderPath; }

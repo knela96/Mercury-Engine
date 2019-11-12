@@ -218,7 +218,7 @@ public:
 	bool openInspector = true;
 	bool openHirearchy = true;
 	bool ShowFPS = true;
-	bool openAbout = false;
+	bool openAbout = false; 
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_HEIGHT;
