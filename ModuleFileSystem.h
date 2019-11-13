@@ -46,10 +46,13 @@ public:
 
 	void LoadFilesToProject();
 
+
 	weFolder* GetRootFolder() { return RootFolder; }
-	std::experimental::filesystem::path GetRootFolderPath() { return RootFolderPath; }
+	std::experimental::filesystem::path GetRootFolderPath() { return RootFolderPath.string(); }
 
 	weFolder *LoadCurrentFolder(std::experimental::filesystem::path path);
+
+	
 
 public:
 
@@ -98,7 +101,11 @@ public:
 
 	weFileType weType = weFileType::FILE_NONE;
 	std::string weName;
+	std::string weFullName;
+	std::string weNameNoExtension;
+	char labelID[150];
 	std::experimental::filesystem::path wePath;
+	std::string weAbsolutePath;
 	uint64 weRID;
 
 public:

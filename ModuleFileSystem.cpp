@@ -41,8 +41,31 @@ weFile::weFile(std::experimental::filesystem::path path, weFolder* parentfolder,
 	sprintf_s(labelID, "%s", weFullName.c_str());
 	weNameNoExtension = weName = weFullName;
 
-	weRID = //create random generator for IDs
+	weFileRID = App->RandomNumberGenerator.GetIntRN();
 
+	if (weFullName.length() > 10) {
+		weName.erase(10);
+		weName += "...";
+	}
+	if (path.has_extension()) {
+		ExtensionString = path.extension().string();
+		weNameNoExtension.erase(weNameNoExtension.find(ExtensionString));
+	}
+	if (ExtensionString == ".obj") {
+		weType = weFileType::FILE_OBJ;
+		
+	}
+	else if (ExtensionString == ".fbx" || ExtensionString == ".FBX") {
+		weType = weFileType::FILE_FBX;
+		
+	}
+	else if (ExtensionString == ".cpp" || ExtensionString == ".h") {
+		weType = weFileType::FILE_CPP;
+		
+	}
+	else if (ExtensionString == ".png") {
+		weType = weFileType::FILE_TEXTURE_PNG;
+	}
 
 }
 
