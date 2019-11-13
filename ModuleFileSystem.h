@@ -19,6 +19,9 @@ enum weFileType {
 	FILE_FBX,
 	FILE_TEXTURE,
 	FOLDER,
+	FILE_OBJ,
+	FILE_CPP,
+	FILE_TEXTURE_PNG,
 	FILE_MAX
 };
 
@@ -106,13 +109,14 @@ public:
 	char labelID[150];
 	std::experimental::filesystem::path wePath;
 	std::string weAbsolutePath;
-	uint64 weRID;
+	uint64 weFileRID;
+	std::string ExtensionString;
 
 public:
 
 	weFileType GetType() { return weType; }
 
-	uint64 GetRID() { return weRID; }
+	uint64 GetRID() { return weFileRID; }
 
 	std::string GetName() { return weName; }
 	void SetName(std::string name) { weName = name; }

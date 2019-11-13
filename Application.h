@@ -13,6 +13,7 @@
 #include "ModuleGUI.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "RNGenerator.h"
 
 class Application
 {
@@ -26,6 +27,9 @@ public:
 	ModuleGUI* gui;
 	ModuleImporter* importer;
 	ModuleFileSystem* filesystem;
+
+
+	RNGenerator RandomNumberGenerator;
 private:
 
 	Timer   dt_timer;						//timer to calculate things related to delta time
