@@ -52,9 +52,8 @@ private:
 		"uniform sampler2D Diffuse_Map1;\n"
 		"void main()\n"
 		"{\n"
-			//"if (render == true) { FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0); }\n"
-		"   FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0);\n"
-			//"if (render == false){ FragColor =  ourColor;  }\n"
+			"if (render == true) { FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0); }\n"
+			"if (render == false){ FragColor =  ourColor;  }\n"
 		"}\0";
 };
 
