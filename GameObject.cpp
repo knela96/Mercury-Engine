@@ -19,10 +19,22 @@ GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name)
 
 GameObject::~GameObject() {}
 
+
+void GameObject::UpdateChilds() {
+	if (active) {
+		for (int i = 0; i < childs.size(); ++i) {
+				childs[i]->transform->UpdateMatrices();
+				childs[i]->UpdateChilds();
+		}
+	}
+}
+
 void GameObject::drawChilds() {
-	for(int i = 0; i < childs.size(); ++i){
-		childs[i]->Draw();
-		childs[i]->drawChilds();
+	if (active) {
+		for(int i = 0; i < childs.size(); ++i){
+				childs[i]->Draw();
+				childs[i]->drawChilds();
+		}
 	}
 }
 

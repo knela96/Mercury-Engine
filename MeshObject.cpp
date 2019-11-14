@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
+#include "C_Transform.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -63,6 +64,11 @@ void MeshObject::Draw()
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
+	
+	mat4x4 model = mat4x4();
+	model = this->transform->globalMatrix * model;
+
+	App->importer->shader->use();
 	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
@@ -86,25 +92,26 @@ void MeshObject::Draw()
 			}
 			//If mesh has no textures, don't draw any texture
 			if (textures.size() > 0) {
-				mat4x4 model = mat4x4();
-				App->importer->shader->use();
-				App->importer->shader->setMat4("model", model);
-				App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-				App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+				App->importer->shader->setBool("render", true);
+			}
+			else {
+				App->importer->shader->setBool("render", false);
 			}
 		}
 		else {
 			glActiveTexture(GL_TEXTURE0);
 			App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
-
-			mat4x4 model = mat4x4();
-			App->importer->shader->use();
-			App->importer->shader->setMat4("model", model);
-			App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-			App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+			App->importer->shader->setBool("render", true);
 		}
 	}
+	else {
+		App->importer->shader->setBool("render", false);
+	}
+
+	App->importer->shader->setMat4("model", model);
+	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

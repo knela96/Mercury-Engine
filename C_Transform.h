@@ -14,16 +14,13 @@ public:
 	bool Disable();
 
 public:
-	float4x4 globalMatrix;
-	float4x4 localMatrix;
+	mat4x4 globalMatrix;
+	mat4x4 localMatrix;
 
-	float4x4 translationMatrix;
-	float4x4 rotationMatrix;
-	float4x4 scalingMatrix;
-	mat4x4 tr;
+	float4x4 f4x4_2_mat4x4;
 
-	float3 position = float3(0, 0, 0);
-	Quat rotation = Quat(0, 0, 0, 0);
-	float3 scale = float3(1, 1, 1);
+	float3 vposition = float3(0, 0, 0);
+	Quat vrotation = Quat(0, 0, 0, 0);
+	float3 vscale = float3(1, 1, 1);
 };
 

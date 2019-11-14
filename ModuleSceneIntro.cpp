@@ -51,11 +51,10 @@ bool ModuleSceneIntro::CleanUp()
 bool ModuleSceneIntro::Draw()
 {
 	for (int i = 0; i < root->childs.size(); ++i) {
-		if (root->childs[i]->active)
+		if (root->childs[i]->active && root->active)
 			root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
-
 	return true;
 }
 

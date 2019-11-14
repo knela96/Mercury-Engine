@@ -34,9 +34,9 @@ private:
 		"layout (location = 3) in vec4 Colors;\n"
 		"out vec4 ourColor;\n"
 		"out vec2 TexCoord;\n"
-		"uniform mat4x4 view;"
-		"uniform mat4x4 projection;"
-		"uniform mat4x4 model;"
+		"uniform mat4x4 view;\n"
+		"uniform mat4x4 projection;\n"
+		"uniform mat4x4 model;\n"
 		"void main()\n"
 		"{\n"
 		"   gl_Position = projection * view * model * vec4(vertices, 1.0);\n"
@@ -47,11 +47,13 @@ private:
 	const char *fragmentShaderSource = "#version 330 core\n"
 		"out vec4 FragColor;\n"
 		"in vec4 ourColor;\n"
-		"in vec2 TexCoord; \n"
+		"in vec2 TexCoord;\n"
+		"uniform bool render;\n"
 		"uniform sampler2D Diffuse_Map1;\n"
 		"void main()\n"
 		"{\n"
-		"   FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0);\n"
+			"if (render == true) { FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0); }\n"
+			"if (render == false){ FragColor =  ourColor;  }\n"
 		"}\0";
 };
 

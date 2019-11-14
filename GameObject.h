@@ -38,6 +38,8 @@ public:
 
 	virtual void Draw() {}
 
+	void UpdateChilds();
+
 	void drawChilds();
 
 	void CleanUp();
@@ -55,7 +57,7 @@ public:
 	vector<Component*> components;
 	vector<GameObject*> childs;
 
-	GameObject* parent;
+	GameObject* parent = nullptr;
 
 	bool face_normals = false;
 	bool vertex_normals = false;
