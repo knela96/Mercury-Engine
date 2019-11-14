@@ -58,13 +58,16 @@ bool MeshObject::SetupBuffers() {
 
 void MeshObject::Draw()
 {
+
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
-	
+	if (!active)
+		return;
+
 	mat4x4 model = mat4x4();
 	model = this->transform->globalMatrix * model;
 

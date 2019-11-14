@@ -139,7 +139,8 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 		gameObject = new GameObject(FileName->c_str());
 	}
 	else {
-		gameObject = ProcessMesh(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), scene);
+		if(index != nullptr)
+			gameObject = ProcessMesh(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), scene);
 	}
 
 	if (gameObject != nullptr) {
@@ -161,7 +162,10 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 
 		for (int i = 0; i < node->mNumChildren; ++i) {
 			aiNode* child = node->mChildren[i];
-			gameObject->childs.push_back(LoadHierarchy(child, scene, FileName, str, gameObject));
+			GameObject* go = nullptr;
+			go = LoadHierarchy(child, scene, FileName, str, gameObject);
+			if(go != nullptr)
+				gameObject->childs.push_back(go);
 		}
 	}
 

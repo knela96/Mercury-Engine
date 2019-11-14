@@ -30,11 +30,21 @@ bool WindowInspector::Draw()
 		ImGui::SetNextWindowSizeConstraints(ImVec2(400, -1), ImVec2(1000, -1));
 		ImGui::Begin("Inspector",&App->gui->openInspector);
 		if (active_gameObject != nullptr) {
+			bool aux = active_gameObject->active;
+			ImGui::Checkbox("Active", &aux); ImGui::SameLine();
 
-			ImGui::Checkbox("Active", &active_gameObject->active); ImGui::SameLine();
+			if (active_gameObject->parent->active)
+				active_gameObject->active = aux;
+
+			if (ImGui::IsItemEdited()) {
+				for (int i = 0; i < active_gameObject->childs.size(); ++i) {
+					active_gameObject->childs[i]->active = active_gameObject->active;
+					active_gameObject->childs[i]->UpdateChilds();
+				}
+			}
 			ImGui::SetNextItemWidth(200);
 			ImGui::InputText("Name", (char*)&active_gameObject->name, 20); 
-
+			
 			if (ImGui::IsItemActive()) {
 				App->input->writting = true;
 			}
