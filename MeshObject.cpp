@@ -103,7 +103,7 @@ void MeshObject::Draw()
 		}
 		else {
 			glActiveTexture(GL_TEXTURE0);
-			App->importer->shader->setInt("Diffuse_Map1", 1);
+			//App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
 			App->importer->shader->setBool("render", true);
 		}
