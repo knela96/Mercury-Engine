@@ -20,7 +20,8 @@ public:
 	bool CleanUp();
 
 	bool Draw();
-	
+	bool setParent(GameObject* to_parent, GameObject* to_child);
+
 	//Engine::SystemInfo s_info;
 
 public:

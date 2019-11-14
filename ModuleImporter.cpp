@@ -157,10 +157,9 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 		gameObject->transform->rotation = rot;
 		gameObject->transform->scale = scale;
 
-		gameObject->transform->UpdateMatrices();
+		//gameObject->transform->UpdateMatrices();
 
-		gameObject->transform->localMatrix = gameObject->transform->translationMatrix * gameObject->transform->rotationMatrix * gameObject->transform->scalingMatrix;
-		gameObject->transform->globalMatrix = parent->transform->globalMatrix * gameObject->transform->localMatrix;
+		
 
 		for (int i = 0; i < node->mNumChildren; ++i) {
 			aiNode* child = node->mChildren[i];

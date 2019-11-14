@@ -64,6 +64,7 @@ public:
 	FileFormats c_texformat = PNG;
 	bool debug_tex = false;
 	bool active = true;
+	bool selected = false;
 
 	AABB box;
 	bool boundary_box = false;

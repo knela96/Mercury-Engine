@@ -17,12 +17,13 @@ public:
 	~WindowHierarchy();
 
 	bool Start();
-	GameObject* CreateHierarchy(GameObject * gameObject, int & node_clicked, int selection_mask, int& index, bool node_open = false);
+	GameObject* CreateHierarchy(GameObject * gameObject, int & node_clicked, int& index);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
 
 private:
 	bool enabled;
+	GameObject* dragGameObject;
 };
 #endif

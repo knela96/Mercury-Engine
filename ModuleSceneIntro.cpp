@@ -4,6 +4,7 @@
 //#include "MathGeoLib/include/Geometry/Sphere.h"
 #include "Primitive.h"
 #include "GameObject.h"
+#include "C_Transform.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,6 +16,7 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 bool ModuleSceneIntro::Init() {
 	root = new GameObject("Scene");
+	root->transform->UpdateMatrices();
 	return true;
 }
 
@@ -53,6 +55,25 @@ bool ModuleSceneIntro::Draw()
 			root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
+
+	return true;
+}
+
+bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
+{
+	for (int i = 0; i < child->childs.size(); ++i) {
+		if (child->childs[i] == parent) {
+			LOGC("Cannot parent to a child GameObject");
+			return false;
+		}
+	}
+
+	for (int i = 0; i < child->parent->childs.size(); ++i) {
+		if (child->parent->childs[i] == child)
+			child->parent->childs.erase(child->parent->childs.begin() + i);
+	}
+	child->parent = parent;
+	parent->childs.push_back(child);
 
 	return true;
 }
