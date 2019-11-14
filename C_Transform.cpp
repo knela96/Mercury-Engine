@@ -41,6 +41,14 @@ void C_Transform::Update()
 		ImGui::GetStateStorage()->SetInt(ImGui::GetID(name.c_str()), 1);
 		unFold = true;
 	}
+
+	UpdateMatrices();
+}
+
+void C_Transform::UpdateMatrices() {
+	translationMatrix.SetTranslatePart(position);
+	rotationMatrix = rotation.ToFloat4x4();
+	scalingMatrix.Scale(scale);
 }
 
 bool C_Transform::Disable()

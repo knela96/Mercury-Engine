@@ -9,11 +9,19 @@ public:
 
 	bool Enable();
 	void Update();
+	void UpdateMatrices();
 	bool Disable();
 
-private:
-	vec3 position;
-	vec3 rotation;
-	vec3 scale;
+public:
+	float4x4 globalMatrix;
+	float4x4 localMatrix;
+
+	float4x4 translationMatrix;
+	float4x4 rotationMatrix;
+	float4x4 scalingMatrix;
+
+	float3 position;
+	Quat rotation;
+	float3 scale;
 };
 

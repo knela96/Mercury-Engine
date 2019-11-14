@@ -188,7 +188,7 @@ public:
 
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 0.00f);
 	ImGuiIO* io = nullptr;
-	bool show_demo_window = false;
+	bool show_demo_window = true;
 	bool show_another_window = false;
 
 	MercuryEngineConsole console;

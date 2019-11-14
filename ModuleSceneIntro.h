@@ -5,17 +5,24 @@
 
 
 #include "SystemInfo.h"
+
+class GameObject;
+
 class ModuleSceneIntro : public Module
 {
 public:
 	ModuleSceneIntro(Application* app, bool start_enabled = true);
 	~ModuleSceneIntro();
 
+	bool Init();
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+
+	bool Draw();
 	
 	//Engine::SystemInfo s_info;
 
 public:
+	GameObject* root;
 };

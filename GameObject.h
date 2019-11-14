@@ -24,6 +24,7 @@ struct Texture {
 class MeshObject;
 class Component;
 class C_Normals;
+class C_Transform;
 
 enum aiTextureType;
 enum Component_Type;
@@ -31,6 +32,7 @@ enum Component_Type;
 class GameObject
 {
 public:
+	GameObject(string name);
 	GameObject(MeshObject* mesh, vector<Texture*> textures, string name);
 	~GameObject();
 
@@ -48,7 +50,7 @@ public:
 
 	
 public:
-	MeshObject* mesh;
+	MeshObject* mesh = nullptr;
 	vector<Texture*> textures;
 	vector<Component*> components;
 	vector<GameObject*> childs;
@@ -58,7 +60,6 @@ public:
 	bool face_normals = false;
 	bool vertex_normals = false;
 
-	C_Normals* normals = nullptr;
 	string name;
 	FileFormats c_texformat = PNG;
 	bool debug_tex = false;
@@ -66,6 +67,13 @@ public:
 
 	AABB box;
 	bool boundary_box = false;
+
+
+public:
+	C_Transform* transform = nullptr;
+	C_Normals* normals = nullptr;
+
+
 };
 
 #endif GAMEOBJECT_H_

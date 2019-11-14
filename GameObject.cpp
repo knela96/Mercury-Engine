@@ -6,6 +6,10 @@
 #include "C_MeshInfo.h"
 #include "C_Material.h"
 
+GameObject::GameObject(string name) : name(name){
+	components.push_back(AddComponent(Transform));
+}
+
 GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
 	components.push_back(AddComponent(Transform));
 	components.push_back(AddComponent(Mesh_Info));
@@ -23,27 +27,31 @@ void GameObject::drawChilds() {
 }
 
 void GameObject::CleanUp() {
-
-	for (int i = 0; i < childs.size(); ++i) {
-		childs[i]->CleanUp();
-		delete[] childs[i];
-		childs[i] = nullptr;
+	for (GameObject* obj : childs) {
+		if (obj != nullptr) {
+			obj->CleanUp();
+		}
+		obj = nullptr;
 	}
 	childs.clear();
+
 	for (int i = 0; i < components.size(); ++i) {
-		delete components[i];
+		if (components[i] != nullptr)
+			delete components[i];
 		components[i] = nullptr;
 	}
 	components.clear();
 
-	mesh->CleanUp();
 
 	for (int i = 0; i < textures.size(); ++i) {
 		textures[i] = nullptr;
 	}
 	textures.clear();
-	
-	delete mesh;
+
+	if (mesh != nullptr) {
+		mesh->CleanUp();
+		delete mesh;
+	}
 	mesh = nullptr;
 }
 
@@ -71,6 +79,7 @@ Component * GameObject::AddComponent(Component_Type type)
 	switch (type) {
 	case Component_Type::Transform:
 		component = new C_Transform(this, type);
+		transform = (C_Transform*)component;
 		break;
 	case Component_Type::Mesh_Info:
 		component = new C_MeshInfo(this, type);
