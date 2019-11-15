@@ -71,7 +71,7 @@ void MeshObject::Draw()
 	mat4x4 model = mat4x4();
 	model = this->transform->globalMatrix * model;
 
-	uint program = App->importer->shader->use();
+	App->importer->shader->use();
 	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)

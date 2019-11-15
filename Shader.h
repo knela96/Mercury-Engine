@@ -15,7 +15,7 @@ public:
 	// constructor reads and builds the shader
 	Shader();
 	// use/activate the shader
-	uint use();
+	void use();
 	void stop();
 	// utility uniform functions
 	void setBool(const std::string &name, bool value) const;

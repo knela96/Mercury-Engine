@@ -48,11 +48,10 @@ Shader::Shader()
 	glDeleteShader(fragmentShader);
 }
 
-uint Shader::use()
+void Shader::use()
 {
 	glUseProgram(ID);
 	glEnable(GL_BLEND);
-	return ID;
 }
 
 
