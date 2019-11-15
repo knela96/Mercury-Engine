@@ -22,7 +22,7 @@ ModuleFileSystem::~ModuleFileSystem()
 }
 
 //----
-weFile::weFile(std::experimental::filesystem::path path, weFolder* parentfolder, weFileType wetype) {
+weFile::weFile(ModuleFileSystem* filesystem,std::experimental::filesystem::path path, weFolder* parentfolder, weFileType wetype) {
 	wePath = path.root_path();
 	fileFolder = parentfolder;
 	weType = wetype;
@@ -33,7 +33,7 @@ weFile::weFile(std::experimental::filesystem::path path, weFolder* parentfolder,
 
 	weAbsolutePath = path.generic_string(); //store the absolute path inside weabsolutepath as a string
 	std::string temp = path.generic_string();
-	std::experimental::filesystem::path a = App->filesystem->GetRootFolderPath();
+	std::experimental::filesystem::path a = filesystem->GetRootFolderPath();
 	//temp.erase(0, App->filesystem->GetRootFolderPath().size() + 1);//not geting the root folder path as a string even if i put .as_genericstring()??????????
 	wePath = temp;
 	//temp-=App->filesystem->GetLabelAssetRoot();
@@ -42,7 +42,7 @@ weFile::weFile(std::experimental::filesystem::path path, weFolder* parentfolder,
 	sprintf_s(labelID, "%s", weFullName.c_str());
 	weNameNoExtension = weName = weFullName;
 
-	weFileRID = App->RandomNumberGenerator.GetIntRN();
+	weFileRID = filesystem->App->RandomNumberGenerator.GetIntRN();
 
 	if (weFullName.length() > 10) {
 		weName.erase(10);
@@ -146,7 +146,7 @@ weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::pat
 					}
 					CurrentFolder->childFolders.push_back(newPath);
 
-					weFile* t = new weFile(path.path().string().c_str(), newPath, weFileType::FOLDER);
+					weFile* t = new weFile((ModuleFileSystem*)this,path.path().string().c_str(), newPath, weFileType::FOLDER);
 					CurrentFolder->childFiles.push_front(t);
 					newPath->SetParentFolder(CurrentFolder);
 					CurrentFolder = newPath;
@@ -154,7 +154,7 @@ weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::pat
 				else if (p.depth() > lastDepth) {
 					CurrentFolder->childFolders.push_back(newPath);
 
-					weFile* t = new weFile(path.path().string().c_str(), newPath, weFileType::FOLDER);
+					weFile* t = new weFile((ModuleFileSystem*)this,path.path().string().c_str(), newPath, weFileType::FOLDER);
 
 					CurrentFolder->childFiles.push_front(t);
 					newPath->SetParentFolder(CurrentFolder);
@@ -166,7 +166,7 @@ weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::pat
 
 			}
 			else {
-				weFile* t = new weFile(path.path().string().c_str(), CurrentFolder);
+				weFile* t = new weFile((ModuleFileSystem*)this,path.path().string().c_str(), CurrentFolder);
 				CurrentFolder->childFiles.push_back(t);
 				weFilesArray.push_back(t);
 			}

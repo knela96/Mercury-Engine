@@ -99,7 +99,7 @@ public:
 class weFile
 {
 public:
-	weFile(std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype = weFileType::FILE_NONE);
+	weFile(ModuleFileSystem* filesystem, std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype = weFileType::FILE_NONE);
 	~weFile();
 
 	weFileType weType = weFileType::FILE_NONE;
