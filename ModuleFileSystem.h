@@ -51,7 +51,7 @@ public:
 
 
 	weFolder* GetRootFolder() { return RootFolder; }
-	std::experimental::filesystem::path GetRootFolderPath(); 
+	string GetRootFolderPath(); 
 
 	weFolder *LoadCurrentFolder(std::experimental::filesystem::path path);
 

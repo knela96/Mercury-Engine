@@ -33,10 +33,9 @@ weFile::weFile(ModuleFileSystem* filesystem,std::experimental::filesystem::path 
 
 	weAbsolutePath = path.generic_string(); //store the absolute path inside weabsolutepath as a string
 	std::string temp = path.generic_string();
-	std::experimental::filesystem::path a = filesystem->GetRootFolderPath();
-	//temp.erase(0, App->filesystem->GetRootFolderPath().size() + 1);//not geting the root folder path as a string even if i put .as_genericstring()??????????
+	temp.erase(0, filesystem->GetRootFolderPath().size() + 1);//not geting the root folder path as a string even if i put .as_genericstring()??????????
 	wePath = temp;
-	//temp-=App->filesystem->GetLabelAssetRoot();
+	//temp-=filesystem->GetLabelAssetRoot();
 
 	weFullName = path.filename().string();
 	sprintf_s(labelID, "%s", weFullName.c_str());
@@ -104,8 +103,9 @@ void ModuleFileSystem::LoadFilesToProject() {
 
 }
 
-std::experimental::filesystem::path ModuleFileSystem::GetRootFolderPath() { 
-	return RootFolderPath; }
+string ModuleFileSystem::GetRootFolderPath() { 
+	return RootFolderPath.string();
+}
 
 weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::path path) {
 
