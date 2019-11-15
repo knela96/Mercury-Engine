@@ -31,6 +31,17 @@ Shader::Shader()
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
 		LOGC("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n %s", infoLog);
 	}
+	// fragment shader
+	int fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
+	glCompileShader(fragmentShader2);
+	// check for shader compile errors
+	glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
+		LOGC("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n %s", infoLog);
+	}
 
 	// link shaders
 	ID = glCreateProgram();
@@ -43,14 +54,33 @@ Shader::Shader()
 		glGetProgramInfoLog(ID, 512, NULL, infoLog);
 		LOGC("ERROR::SHADER::PROGRAM::LINKING_FAILED\n %s", infoLog);
 	}
+
+	// link shaders
+	ID_N = glCreateProgram();
+	glAttachShader(ID_N, vertexShader);
+	glAttachShader(ID_N, fragmentShader2);
+	glLinkProgram(ID_N);
+	// check for linking errors
+	glGetProgramiv(ID_N, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(ID_N, 512, NULL, infoLog);
+		LOGC("ERROR::SHADER::PROGRAM::LINKING_FAILED\n %s", infoLog);
+	}
 	
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 }
 
-void Shader::use()
+void Shader::use(int i)
 {
-	glUseProgram(ID);
+	switch (i) {
+	case 0:
+		glUseProgram(ID);
+		break;
+	case 1:
+		glUseProgram(ID_N);
+		break;
+	}
 	glEnable(GL_BLEND);
 }
 

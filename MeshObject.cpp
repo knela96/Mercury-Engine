@@ -71,7 +71,7 @@ void MeshObject::Draw()
 	mat4x4 model = mat4x4();
 	model = this->transform->globalMatrix * model;
 
-	App->importer->shader->use();
+	App->importer->shader->setBool("render", true);
 	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
@@ -95,9 +95,11 @@ void MeshObject::Draw()
 			}
 			//If mesh has no textures, don't draw any texture
 			if (textures.size() > 0) {
+				App->importer->shader->use(0);
 				App->importer->shader->setBool("render", true);
 			}
 			else {
+				App->importer->shader->use(1);
 				App->importer->shader->setBool("render", false);
 			}
 		}
@@ -106,9 +108,11 @@ void MeshObject::Draw()
 			//App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
 			App->importer->shader->setBool("render", true);
+			App->importer->shader->use(0);
 		}
 	}
 	else {
+		App->importer->shader->use(1);
 		App->importer->shader->setBool("render", false);
 	}
 
