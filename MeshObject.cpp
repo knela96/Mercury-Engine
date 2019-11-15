@@ -71,7 +71,7 @@ void MeshObject::Draw()
 	mat4x4 model = mat4x4();
 	model = this->transform->globalMatrix * model;
 
-	App->importer->shader->use();
+	uint program = App->importer->shader->use();
 	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
@@ -112,21 +112,24 @@ void MeshObject::Draw()
 		App->importer->shader->setBool("render", false);
 	}
 
+	glPushMatrix();
+	glMultMatrixf(this->transform->globalMatrix.M);//Aplies transform to all rendering objects Lines,Box etc.
+
+	glBindVertexArray(VAO);
 	App->importer->shader->setMat4("model", model);
 	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
 	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
-
-	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
 	App->importer->shader->stop();
-	glBindTexture(GL_TEXTURE_2D, 0);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
 	if(getComponent(Normals)->isActive())
 		DebugNormals();
 
 	DrawBox();
+	glBindVertexArray(0);
+
+	glPopMatrix();
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
