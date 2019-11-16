@@ -28,8 +28,15 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+
+	for (int i = 0; i < root->childs.size(); ++i) {
+		if (root->childs[i]->active && root->active)
+			root->childs[i]->Start();
+		root->childs[i]->StartChilds();
+	}
 	return ret;
 }
+
 
 // Load assets
 bool ModuleSceneIntro::CleanUp()
@@ -55,8 +62,11 @@ bool ModuleSceneIntro::Draw()
 			root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
+
 	return true;
 }
+
+
 
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {
@@ -86,7 +96,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 	
 	Draw();
-
 
 	return UPDATE_CONTINUE;
 }

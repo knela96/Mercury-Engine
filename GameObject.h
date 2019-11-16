@@ -14,6 +14,9 @@
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
 
+#include "MathGeoLib/include/MathGeoLib.h"
+
+
 struct Texture {
 	uint id;
 	string path;
@@ -38,11 +41,17 @@ public:
 
 	virtual void Draw() {}
 
+	bool Start();
+	void StartChilds();
 	void UpdateChilds();
 
 	void drawChilds();
 
+	float4x4 mat2float4(mat4x4 mat);
+
 	void CleanUp();
+
+	void UpdateBox();
 
 	const char* getType(aiTextureType type);
 
@@ -69,6 +78,8 @@ public:
 	bool selected = false;
 
 	AABB box;
+	AABB aabb;
+	OBB obb;
 	bool boundary_box = false;
 
 

@@ -23,6 +23,7 @@ void C_MeshInfo::Update()
 	{
 		ImGui::Text("Vertices: %i", gameobject->mesh->vertices.size()); ImGui::SameLine(); ImGui::Spacing();  ImGui::SameLine(); ImGui::Text("Tris: %i", gameobject->mesh->indices.size() / 3);
 		ImGui::Checkbox("Boundary Box", &gameobject->boundary_box);
+		if (ImGui::IsItemActivated()) { gameobject->UpdateBox(); }
 	}
 
 	if (!unFold) {

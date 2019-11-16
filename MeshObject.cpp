@@ -1,7 +1,6 @@
 #include "MeshObject.h"
 #include "Application.h"
 #include "glmath.h"
-#include "glmath.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
 #include "C_Transform.h"
@@ -52,6 +51,8 @@ bool MeshObject::SetupBuffers() {
 
 	glBindVertexArray(0);
 	App->importer->shader->stop();
+
+
 
 	return ret;
 }
@@ -129,11 +130,15 @@ void MeshObject::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	if(getComponent(Normals)->isActive())
 		DebugNormals();
-
-	DrawBox();
 	glBindVertexArray(0);
-
 	glPopMatrix();
+	
+	b_obb->box = &obb;
+	b_aabb->box = &aabb;
+
+	DrawBox(b_obb);
+	DrawBox(b_aabb);
+
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
@@ -205,14 +210,16 @@ void MeshObject::DebugNormals() const
 		}
 	}
 }
-void MeshObject::DrawBox() const
+
+template <class T>
+void MeshObject::DrawBox(Box<T>* box) const
 {
 	if (boundary_box) {
 		float3 points[8];
-		box.GetCornerPoints(points);
-
+		box->box->GetCornerPoints(points);
+		glDisable(GL_LIGHTING);
 		glBegin(GL_LINES);
-		glColor3f(1, 0.84, 0);
+		glColor3f(box->color.r, box->color.g, box->color.b);
 		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
 		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
 		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
@@ -242,6 +249,7 @@ void MeshObject::DrawBox() const
 		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
 
 		glEnd();
+		glEnable(GL_LIGHTING);
 	}
 
 }

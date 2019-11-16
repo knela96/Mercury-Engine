@@ -269,8 +269,8 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 		mesh->mName = fileName;
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
-
-	gameobject->box.SetFrom(points, mesh->mNumVertices);
+	gameobject->box.SetNegativeInfinity();
+	gameobject->box.Enclose(points, mesh->mNumVertices);
 
 	std::free(points);
 

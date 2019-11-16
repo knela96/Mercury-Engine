@@ -19,6 +19,23 @@ GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name)
 
 GameObject::~GameObject() {}
 
+bool GameObject::Start()
+{
+	if (mesh != nullptr) {
+		mesh->b_aabb = new Box<AABB>(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
+		mesh->b_obb = new Box<OBB>(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+	}
+	return false;
+}
+
+void GameObject::StartChilds() {
+	if (active) {
+		for (int i = 0; i < childs.size(); ++i) {
+			childs[i]->Start();
+			childs[i]->StartChilds();
+		}
+	}
+}
 
 void GameObject::UpdateChilds() {
 	if (active) {
@@ -36,6 +53,13 @@ void GameObject::drawChilds() {
 				childs[i]->drawChilds();
 		}
 	}
+}
+
+float4x4 GameObject::mat2float4(mat4x4 mat)
+{
+	float4x4 f_mat;
+	f_mat.Set(mat.M);
+	return f_mat.Transposed();
 }
 
 void GameObject::CleanUp() {
@@ -65,6 +89,14 @@ void GameObject::CleanUp() {
 		delete mesh;
 	}
 	mesh = nullptr;
+}
+
+
+void GameObject::UpdateBox() {
+	obb = box;
+	obb.Transform(mat2float4(this->transform->globalMatrix));
+	aabb.SetNegativeInfinity();
+	aabb.Enclose(obb);
 }
 
 const char* GameObject::getType(aiTextureType type)
