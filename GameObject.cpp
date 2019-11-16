@@ -5,7 +5,7 @@
 #include "C_Normals.h"
 #include "C_MeshInfo.h"
 #include "C_Material.h"
-//#include "C_Camera.h"
+#include "C_Camera.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	components.push_back(AddComponent(Transform));
@@ -141,8 +141,8 @@ Component * GameObject::AddComponent(Component_Type type)
 		//component = new C_Script(this, type);
 		break;
 	case Component_Type::Camera:
-		//component = new C_Camera(this, type);
-		//camera = (C_Camera*)component;
+		component = new C_Camera(this, type);
+		camera = (C_Camera*)component;
 		break;
 	}
 

@@ -1,9 +1,9 @@
 #include "MeshObject.h"
 #include "Application.h"
-#include "glmath.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
 #include "C_Transform.h"
+#include "C_Camera.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -122,8 +122,8 @@ void MeshObject::Draw()
 
 	glBindVertexArray(VAO);
 	App->importer->shader->setMat4("model", model);
-	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+	App->importer->shader->setMat4("view", App->camera->camera->ViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->camera->camera->ProjectionMatrix4x4());
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	App->importer->shader->stop();
 

@@ -1,6 +1,12 @@
 #pragma once
 #include "Component.h"
-#include "glmath.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+
+#ifdef _DEBUG
+#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#else
+#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
+#endif
 
 class C_Transform : public Component
 {

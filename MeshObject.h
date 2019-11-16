@@ -2,8 +2,12 @@
 #include "Globals.h"
 #include "Application.h"
 #include "GameObject.h"
-#include "glmath.h"
-
+#include "MathGeoLib/include/MathGeoLib.h"
+#ifdef _DEBUG
+#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#else
+#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
+#endif
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;

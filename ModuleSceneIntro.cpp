@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-//#include "MathGeoLib/include/Geometry/Sphere.h"
 #include "Primitive.h"
 #include "GameObject.h"
 #include "C_Transform.h"
@@ -28,7 +27,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	//App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	for (int i = 0; i < root->childs.size(); ++i) {

@@ -7,11 +7,18 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
 
+#include "MathGeoLib/include/MathGeoLib.h"
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
+#ifdef _DEBUG
+#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#else
+#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
+#endif
 
 
 struct Texture {
@@ -25,7 +32,7 @@ class MeshObject;
 class Component;
 class C_Normals;
 class C_Transform;
-//class C_Camera;
+class C_Camera;
 
 enum aiTextureType;
 enum Component_Type;
@@ -84,7 +91,7 @@ public:
 public:
 	C_Transform* transform = nullptr;
 	C_Normals* normals = nullptr;
-	//C_Camera* camera = nullptr;
+	C_Camera* camera = nullptr;
 
 
 };

@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "Module.h"
 #include "Shader.h"
-#include "glmath.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 #include <vector>
 
