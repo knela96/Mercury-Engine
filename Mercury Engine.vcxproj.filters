@@ -178,6 +178,9 @@
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Gizmo.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -299,6 +302,9 @@
     </ClCompile>
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Gizmo.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

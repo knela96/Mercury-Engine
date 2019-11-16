@@ -1,4 +1,7 @@
+#include "Globals.h"
+#include "Application.h"
 #include "C_Camera.h"
+//#include "Gizmo.h"
 
 C_Camera::C_Camera(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
@@ -11,7 +14,6 @@ C_Camera::C_Camera(GameObject* gameobject, Component_Type type) : Component(type
 	frustum.farPlaneDistance = 2000.0f;
 	frustum.verticalFov = 1.0f;
 	frustum.horizontalFov = 1.0f;
-
 	GetPlanes();
 }
 
@@ -22,16 +24,17 @@ C_Camera::~C_Camera()
 bool C_Camera::Enable()
 {
 	active = true;
+	App->scene_intro->AddFrustum(&frustum, Color(1.0f, 0.0f, 0.0f, 1.0f));
 	return true;
 }
 
 void C_Camera::Update()
 {
-	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
+	/*if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
 	{
-	}
-
-
+		ImGui::DragInt("FOV", &fov,1,1,200);
+		if (ImGui::IsItemEdited()) { SetFOV(frustum.verticalFov); }
+	}*/
 }
 
 void C_Camera::UpdateTransformPosition(float4x4 global) {

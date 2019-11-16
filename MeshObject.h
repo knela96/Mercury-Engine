@@ -1,26 +1,13 @@
-#pragma once
+#ifndef __MESHOBJECT_H__
+#define __MESHOBJECT_H__
 #include "Globals.h"
 #include "Application.h"
 #include "GameObject.h"
-#include "MathGeoLib/include/MathGeoLib.h"
-#ifdef _DEBUG
-#pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
-#else
-#pragma comment (lib, "lib/MathGeoLib/libx86/Release/MathGeoLib.lib")
-#endif
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;
 	vec4 Colors;
 	vec2 TexCoords;
-};
-
-template <class T>
-struct Box {
-	Box(T* box, Color color): box(box), color(color){}
-	
-	T* box;
-	Color color;
 };
 
 class aiMesh;
@@ -41,17 +28,12 @@ public:
 
 	void DebugNormals() const;
 
-	template <class T>
-	void DrawBox(Box<T>* box) const;
-
 public:
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	uint VAO;
 
-	Box<AABB>* b_aabb = nullptr;
-	Box<OBB>* b_obb = nullptr;
-
 private:
 	uint VBO, EBO;
 };
+#endif

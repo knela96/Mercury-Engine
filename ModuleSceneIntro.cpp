@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "GameObject.h"
 #include "C_Transform.h"
+#include "Gizmo.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -64,10 +65,35 @@ bool ModuleSceneIntro::Draw()
 			root->childs[i]->drawChilds();
 	}
 
+	DrawBB();
+
+
 	return true;
 }
 
+void ModuleSceneIntro::DrawBB() {
+	for (int i = 0; i < aabbs.size(); ++i) {
+		Gizmo::DrawBox(*aabbs[i].box, aabbs[i].color);
+	}
+	for (int i = 0; i < obbs.size(); ++i) {
+		Gizmo::DrawBox(*obbs[i].box, obbs[i].color);
+	}
+	for (int i = 0; i < frustums.size(); ++i) {
+		Gizmo::DrawBox(*frustums[i].box, frustums[i].color);
+	}
+}
 
+void ModuleSceneIntro::AddAABB(AABB* box,Color color) {
+	aabbs.push_back(BBox<AABB>(box,color));
+}
+
+void ModuleSceneIntro::AddOBB(OBB* box, Color color) {
+	obbs.push_back(BBox<OBB>(box, color));
+}
+
+void ModuleSceneIntro::AddFrustum(Frustum* box, Color color) {
+	frustums.push_back(BBox<Frustum>(box, color));
+}
 
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {

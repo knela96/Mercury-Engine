@@ -48,6 +48,7 @@ public:
 public:
 	Plane planes[6];
 	Frustum frustum;
+	int fov = 60;
 };
 
 #endif

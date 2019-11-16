@@ -23,8 +23,12 @@ GameObject::~GameObject() {}
 bool GameObject::Start()
 {
 	if (mesh != nullptr) {
-		mesh->b_aabb = new Box<AABB>(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
-		mesh->b_obb = new Box<OBB>(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+		App->scene_intro->AddAABB(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
+		App->scene_intro->AddOBB(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+
+		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
+		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
+
 		mesh->UpdateBox();
 	}
 	return false;

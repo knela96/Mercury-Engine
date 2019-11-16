@@ -1,9 +1,10 @@
-#include "MeshObject.h"
 #include "Application.h"
+#include "MeshObject.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
 #include "C_Transform.h"
 #include "C_Camera.h"
+//#include "Gizmo.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -132,13 +133,6 @@ void MeshObject::Draw()
 		DebugNormals();
 	glBindVertexArray(0);
 	glPopMatrix();
-	
-	b_obb->box = &obb;
-	b_aabb->box = &aabb;
-
-	DrawBox(b_obb);
-	DrawBox(b_aabb);
-
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
@@ -213,47 +207,4 @@ void MeshObject::DebugNormals() const
 			glEnable(GL_LIGHTING);
 		}
 	}
-}
-
-template <class T>
-void MeshObject::DrawBox(Box<T>* box) const
-{
-	if (boundary_box) {
-		float3 points[8];
-		box->box->GetCornerPoints(points);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_LINES);
-		glColor3f(box->color.r, box->color.g, box->color.b);
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glEnd();
-		glEnable(GL_LIGHTING);
-	}
-
 }
