@@ -8,7 +8,7 @@ C_Camera::C_Camera(GameObject* gameobject, Component_Type type) : Component(type
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 	frustum.nearPlaneDistance = 1.0f;
-	frustum.farPlaneDistance = 1000.0f;
+	frustum.farPlaneDistance = 2000.0f;
 	frustum.verticalFov = 1.0f;
 	frustum.horizontalFov = 1.0f;
 

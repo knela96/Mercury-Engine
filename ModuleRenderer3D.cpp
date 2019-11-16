@@ -172,7 +172,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	App->camera->camera->SetAspectRatio((float)width / (float)height);
 	glLoadMatrixf(App->camera->camera->ProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
