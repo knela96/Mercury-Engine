@@ -5,6 +5,11 @@
 #include "C_Normals.h"
 #include "C_MeshInfo.h"
 #include "C_Material.h"
+#include "C_Camera.h"
+
+GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
+	components.push_back(AddComponent(Transform));
+}
 
 GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
 	components.push_back(AddComponent(Transform));
@@ -15,36 +20,89 @@ GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name)
 
 GameObject::~GameObject() {}
 
-void GameObject::drawChilds() {
-	for(int i = 0; i < childs.size(); ++i){
-		childs[i]->Draw();
-		childs[i]->drawChilds();
+bool GameObject::Start()
+{
+	if (mesh != nullptr) {
+		App->scene_intro->AddAABB(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
+		App->scene_intro->AddOBB(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+
+		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
+		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
+
+		mesh->UpdateBox();
+	}
+	return false;
+}
+
+void GameObject::StartChilds() {
+	if (active) {
+		for (int i = 0; i < childs.size(); ++i) {
+			childs[i]->Start();
+			childs[i]->StartChilds();
+		}
 	}
 }
 
-void GameObject::CleanUp() {
+void GameObject::UpdateChilds() {
+	if (active) {
+		for (int i = 0; i < childs.size(); ++i) {
+			childs[i]->transform->UpdateMatrices();
+			childs[i]->UpdateChilds();
+		}
+	}
+}
 
-	for (int i = 0; i < childs.size(); ++i) {
-		childs[i]->CleanUp();
-		delete[] childs[i];
-		childs[i] = nullptr;
+void GameObject::drawChilds() {
+	if (active) {
+		for(int i = 0; i < childs.size(); ++i){
+				childs[i]->Draw();
+				childs[i]->drawChilds();
+		}
+	}
+}
+
+float4x4 GameObject::mat2float4(mat4x4 mat)
+{
+	float4x4 f_mat;
+	f_mat.Set(mat.M);
+	return f_mat.Transposed();
+}
+
+void GameObject::CleanUp() {
+	for (GameObject* obj : childs) {
+		if (obj != nullptr) {
+			obj->CleanUp();
+		}
+		obj = nullptr;
 	}
 	childs.clear();
+
 	for (int i = 0; i < components.size(); ++i) {
-		delete components[i];
+		if (components[i] != nullptr)
+			delete components[i];
 		components[i] = nullptr;
 	}
 	components.clear();
 
-	mesh->CleanUp();
 
 	for (int i = 0; i < textures.size(); ++i) {
 		textures[i] = nullptr;
 	}
 	textures.clear();
-	
-	delete mesh;
+
+	if (mesh != nullptr) {
+		mesh->CleanUp();
+		delete mesh;
+	}
 	mesh = nullptr;
+}
+
+
+void GameObject::UpdateBox() {
+	obb = box;
+	obb.Transform(mat2float4(this->transform->globalMatrix));
+	aabb.SetNegativeInfinity();
+	aabb.Enclose(obb);
 }
 
 const char* GameObject::getType(aiTextureType type)
@@ -71,6 +129,7 @@ Component * GameObject::AddComponent(Component_Type type)
 	switch (type) {
 	case Component_Type::Transform:
 		component = new C_Transform(this, type);
+		transform = (C_Transform*)component;
 		break;
 	case Component_Type::Mesh_Info:
 		component = new C_MeshInfo(this, type);
@@ -84,6 +143,10 @@ Component * GameObject::AddComponent(Component_Type type)
 		break;
 	case Component_Type::Script:
 		//component = new C_Script(this, type);
+		break;
+	case Component_Type::Camera:
+		component = new C_Camera(this, type);
+		camera = (C_Camera*)component;
 		break;
 	}
 

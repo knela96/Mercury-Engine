@@ -8,6 +8,8 @@
 
 #include <GL/glew.h>
 
+class GameObject;
+
 class WindowHierarchy : public Module
 {
 public:
@@ -15,11 +17,13 @@ public:
 	~WindowHierarchy();
 
 	bool Start();
+	GameObject* CreateHierarchy(GameObject * gameObject, int & node_clicked, int& index);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
 
 private:
 	bool enabled;
+	GameObject* dragGameObject;
 };
 #endif

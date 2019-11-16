@@ -222,7 +222,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	LOGC("Loaded Textures: %u", textures.size());
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
-
+	gameobject->parent = App->scene_intro->root;
 	gameobject->box.SetFrom(points, new_mesh->npoints);
 
 	std::free(points);
@@ -230,7 +230,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	if (new_mesh != nullptr)
 		par_shapes_free_mesh(new_mesh);
 
-	App->importer->gameObjects.push_back(gameobject);
+	App->scene_intro->root->childs.push_back(gameobject);
 }
 
 // LINE ==================================================

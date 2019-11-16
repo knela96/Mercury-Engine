@@ -1,8 +1,8 @@
-#pragma once
+#ifndef __MESHOBJECT_H__
+#define __MESHOBJECT_H__
 #include "Globals.h"
 #include "Application.h"
 #include "GameObject.h"
-
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;
@@ -28,7 +28,6 @@ public:
 
 	void DebugNormals() const;
 
-	void DrawBox() const;
 public:
 	vector<Vertex> vertices;
 	vector<uint> indices;
@@ -37,4 +36,4 @@ public:
 private:
 	uint VBO, EBO;
 };
-
+#endif

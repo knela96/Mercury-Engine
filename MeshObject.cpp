@@ -1,9 +1,10 @@
-#include "MeshObject.h"
 #include "Application.h"
-#include "glmath.h"
-#include "glmath.h"
+#include "MeshObject.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
+#include "C_Transform.h"
+#include "C_Camera.h"
+//#include "Gizmo.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -52,17 +53,27 @@ bool MeshObject::SetupBuffers() {
 	glBindVertexArray(0);
 	App->importer->shader->stop();
 
+
+
 	return ret;
 }
 
 void MeshObject::Draw()
 {
+
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
+	if (!active)
+		return;
+
+	mat4x4 model = mat4x4();
+	model = this->transform->globalMatrix * model;
+
+	App->importer->shader->setBool("render", true);
 	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
 		if(!debug_tex){
 			for (unsigned int i = 0; i < textures.size(); i++)
@@ -86,37 +97,42 @@ void MeshObject::Draw()
 			}
 			//If mesh has no textures, don't draw any texture
 			if (textures.size() > 0) {
-				mat4x4 model = mat4x4();
-				App->importer->shader->use();
-				App->importer->shader->setMat4("model", model);
-				App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-				App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+				App->importer->shader->use(0);
+				App->importer->shader->setBool("render", true);
+			}
+			else {
+				App->importer->shader->use(1);
+				App->importer->shader->setBool("render", false);
 			}
 		}
 		else {
 			glActiveTexture(GL_TEXTURE0);
-			App->importer->shader->setInt("Diffuse_Map1", 1);
+			//App->importer->shader->setInt("Diffuse_Map1", 1);
 			glBindTexture(GL_TEXTURE_2D, App->importer->checkImage_id);
-
-			mat4x4 model = mat4x4();
-			App->importer->shader->use();
-			App->importer->shader->setMat4("model", model);
-			App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-			App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+			App->importer->shader->setBool("render", true);
+			App->importer->shader->use(0);
 		}
 	}
+	else {
+		App->importer->shader->use(1);
+		App->importer->shader->setBool("render", false);
+	}
+
+	glPushMatrix();
+	glMultMatrixf(this->transform->globalMatrix.M);//Aplies transform to all rendering objects Lines,Box etc.
 
 	glBindVertexArray(VAO);
+	App->importer->shader->setMat4("model", model);
+	App->importer->shader->setMat4("view", App->camera->camera->ViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->camera->camera->ProjectionMatrix4x4());
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
 	App->importer->shader->stop();
-	glBindTexture(GL_TEXTURE_2D, 0);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
 	if(getComponent(Normals)->isActive())
 		DebugNormals();
-
-	DrawBox();
+	glBindVertexArray(0);
+	glPopMatrix();
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
@@ -156,11 +172,13 @@ void MeshObject::DebugNormals() const
 			vec3 vertex = vec3(vertices[i].Position.x, vertices[i].Position.y, vertices[i].Position.z);
 			vec3 normal = vec3(vertices[i].Normal.x, vertices[i].Normal.y, vertices[i].Normal.z);
 
+			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
 			glColor3f(normals->vertex_color.r, normals->vertex_color.g, normals->vertex_color.b);
 			glVertex3f(vertex.x, vertex.y, vertex.z);
 			glVertex3f((vertex.x + normal.x * normals->vertex_lenght), (vertex.y + normal.y * normals->vertex_lenght), (vertex.z + normal.z * normals->vertex_lenght));
 			glEnd();
+			glEnable(GL_LIGHTING);
 		}
 	}
 
@@ -180,51 +198,13 @@ void MeshObject::DebugNormals() const
 				(p1.z + p2.z + p3.z) / 3
 			);
 
+			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
 			glColor3f(normals->face_color.r, normals->face_color.g, normals->face_color.b);
 			glVertex3f(face_center.x, face_center.y, face_center.z);
 			glVertex3f((face_center.x + normal.x * normals->face_lenght), (face_center.y + normal.y * normals->face_lenght), (face_center.z + normal.z * normals->face_lenght));
 			glEnd();
+			glEnable(GL_LIGHTING);
 		}
 	}
-}
-void MeshObject::DrawBox() const
-{
-	if (boundary_box) {
-		float3 points[8];
-		box.GetCornerPoints(points);
-
-		glBegin(GL_LINES);
-		glColor3f(1, 0.84, 0);
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glEnd();
-	}
-
 }

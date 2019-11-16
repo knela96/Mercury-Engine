@@ -3,7 +3,7 @@
 #include "MeshObject.h"
 #include "Primitive.h"
 #include "SDL.h"
-
+#include "C_Transform.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -83,21 +83,13 @@ bool ModuleImporter::CleanUp()
 	// detach log stream
 	aiDetachAllLogStreams();
 
-	for (GameObject* obj : gameObjects){
-		if (obj != nullptr) {
-			obj->CleanUp();
-			obj = nullptr;
-		}
-	}
-	gameObjects.clear();
-
 	for (Texture* tex : stored_textures) {
 		if (tex != nullptr) {
 			delete tex;
 			tex = nullptr;
 		}
 	}
-
+	stored_textures.clear();
 	delete shader;
 	shader = nullptr;
 	return true;
@@ -129,12 +121,8 @@ bool ModuleImporter::Load(const char* path) {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
-		for (int j = 0; j < scene->mNumMeshes && ret; ++j) {
-			aiMesh* new_mesh = scene->mMeshes[j];
-			string str(&path[0]);
-			gameObjects.push_back(ProcessMesh(new_mesh, &getRootPath(str), FileName.c_str(), scene));
-		}
+		string str(&path[0]);
+		App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
 
 		aiReleaseImport(scene);
 	}
@@ -142,6 +130,46 @@ bool ModuleImporter::Load(const char* path) {
 		LOG("Error loading scene %s", path);
 
 	return ret;
+}
+
+GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
+	uint* index = node->mMeshes;
+	GameObject* gameObject = nullptr;
+	if (index == nullptr && parent == App->scene_intro->root) {
+		gameObject = new GameObject(FileName->c_str());
+	}
+	else {
+		if(index != nullptr)
+			gameObject = ProcessMesh(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), scene);
+	}
+
+	if (gameObject != nullptr) {
+		gameObject->parent = parent;
+
+		aiVector3D translation, scaling;
+		aiQuaternion rotation;
+		node->mTransformation.Decompose(scaling, rotation, translation);
+		
+		float3 pos(translation.x, translation.y, translation.z);
+		float3 scale(scaling.x, scaling.y, scaling.z);
+		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+		gameObject->transform->vposition = pos;
+		gameObject->transform->vrotation = rot;
+		gameObject->transform->vscale = scale;
+
+		gameObject->transform->UpdateMatrices();		
+
+		for (int i = 0; i < node->mNumChildren; ++i) {
+			aiNode* child = node->mChildren[i];
+			GameObject* go = nullptr;
+			go = LoadHierarchy(child, scene, FileName, str, gameObject);
+			if(go != nullptr)
+				gameObject->childs.push_back(go);
+		}
+	}
+
+	return gameObject;
 }
 
 GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char* fileName, const aiScene* scene) {
@@ -241,8 +269,8 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 		mesh->mName = fileName;
 
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
-
-	gameobject->box.SetFrom(points, mesh->mNumVertices);
+	gameobject->box.SetNegativeInfinity();
+	gameobject->box.Enclose(points, mesh->mNumVertices);
 
 	std::free(points);
 
@@ -335,21 +363,13 @@ bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 
 	return true;
 }
+//
+//void ModuleImporter::PushObj(aiMesh * mesh)
+//{
+//	gameObjects.push_back(ProcessMesh(mesh));
+//}
 
-void ModuleImporter::PushObj(aiMesh * mesh)
-{
-	gameObjects.push_back(ProcessMesh(mesh));
-}
 
-bool ModuleImporter::Draw() {
-
-	for (int i = 0; i < gameObjects.size(); ++i) {
-		if(gameObjects[i]->active)
-			gameObjects[i]->Draw();
-	}
-
-	return true;
-}
 
 const string ModuleImporter::getFileExt(const string& s) {
 

@@ -190,6 +190,12 @@
     <ClInclude Include="WindowFileSystem.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Gizmo.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -309,6 +315,7 @@
     <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+
     <ClCompile Include="parson.c">
       <Filter>Sources\Containers\Json</Filter>
     </ClCompile>
@@ -321,6 +328,14 @@
     <ClCompile Include="WindowFileSystem.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
+
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Gizmo.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />

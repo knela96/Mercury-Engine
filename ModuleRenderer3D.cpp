@@ -4,6 +4,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "C_Camera.h"
 #include "DevIL/include/IL/ilut.h"
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/DevIL.lib")
 #pragma comment (lib, "lib/DevIL/lib/x86/Release/ILU.lib")
@@ -135,7 +136,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->camera->ViewMatrix());
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
@@ -171,8 +172,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+	App->camera->camera->SetAspectRatio((float)width / (float)height);
+	glLoadMatrixf(App->camera->camera->ProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

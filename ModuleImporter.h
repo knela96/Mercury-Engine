@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Module.h"
 #include "Shader.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 #include <vector>
 
@@ -16,6 +17,8 @@
 enum aiTextureType;
 
 class GameObject;
+class aiNode;
+class aiScene;
 struct Texture;
 class aiMesh;
 class aiScene;
@@ -38,7 +41,6 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	update_status Update(float dt);
-	bool Draw();
 
 	const string getFileExt(const string & s);
 
@@ -52,18 +54,17 @@ public:
 
 	bool Load(const char * path);
 
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
+
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
-
-	void PushObj(aiMesh* mesh);
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);
 
 	Texture* SaveTexture(const char * str, aiTextureType type);
 
 public:
-	std::vector<GameObject*> gameObjects;
 	std::vector<Texture*> stored_textures;
 	
 private:
