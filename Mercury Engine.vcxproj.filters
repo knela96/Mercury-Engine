@@ -187,6 +187,9 @@
     <ClInclude Include="RNGenerator.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="WindowFileSystem.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -314,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="RNGenerator.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowFileSystem.cpp">
+      <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

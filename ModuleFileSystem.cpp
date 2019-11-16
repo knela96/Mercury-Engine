@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "lib/imgui/imgui.h"
+#include "imgui/imgui.h"
 
 
 ModuleFileSystem::ModuleFileSystem(Application * app, bool start_enabled) :Module(app, start_enabled)
@@ -47,22 +48,27 @@ weFile::weFile(ModuleFileSystem* filesystem,std::experimental::filesystem::path 
 		weName.erase(10);
 		weName += "...";
 	}
+
 	if (path.has_extension()) {
 		ExtensionString = path.extension().string();
 		weNameNoExtension.erase(weNameNoExtension.find(ExtensionString));
 	}
+
 	if (ExtensionString == ".obj") {
 		weType = weFileType::FILE_OBJ;
 		
 	}
+
 	else if (ExtensionString == ".fbx" || ExtensionString == ".FBX") {
 		weType = weFileType::FILE_FBX;
 		
 	}
+
 	else if (ExtensionString == ".cpp" || ExtensionString == ".h") {
 		weType = weFileType::FILE_CPP;
 		
 	}
+
 	else if (ExtensionString == ".png") {
 		weType = weFileType::FILE_TEXTURE_PNG;
 	}
@@ -89,17 +95,14 @@ update_status ModuleFileSystem::Update(float dt)
 	
 
 
-
 	return UPDATE_CONTINUE;
 }
 
 void ModuleFileSystem::LoadFilesToProject() {
 	
-	/*ImGui::Begin("Folder Assets");
-	ImGui::BeginMenuBar();
-	ImGui::BeginMenu("Menu");
-	ImGui::EndMenuBar();
-	ImGui::End();*/
+	
+	
+	
 
 }
 

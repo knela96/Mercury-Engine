@@ -29,8 +29,9 @@ Application::Application()
 	AddModule(scene_intro);
 
 	//RECHECK
-	AddModule(gui);
 	AddModule(filesystem);
+	AddModule(gui);
+	
 
 	// Renderer last!
 	AddModule(renderer3D);

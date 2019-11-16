@@ -124,6 +124,7 @@
     <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowEngineStats.h" />
+    <ClInclude Include="WindowFileSystem.h" />
     <ClInclude Include="WindowGame.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowInspector.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowEngineStats.cpp" />
+    <ClCompile Include="WindowFileSystem.cpp" />
     <ClCompile Include="WindowGame.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
