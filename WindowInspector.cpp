@@ -33,8 +33,13 @@ bool WindowInspector::Draw()
 			bool aux = active_gameObject->active;
 			ImGui::Checkbox("Active", &aux); ImGui::SameLine();
 
-			if (active_gameObject->parent->active)//FIX
+			if (active_gameObject->parent != nullptr) {
+				if (active_gameObject->parent->active)//FIX
+					active_gameObject->active = aux;
+			}
+			else {
 				active_gameObject->active = aux;
+			}
 
 			if (ImGui::IsItemEdited()) {
 				for (int i = 0; i < active_gameObject->childs.size(); ++i) {

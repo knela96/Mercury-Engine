@@ -29,7 +29,8 @@ GameObject* WindowHierarchy::CreateHierarchy(GameObject* parent, int& node_click
 
 	if (parent->childs.size() == 0)
 		node_flags |= ImGuiTreeNodeFlags_Leaf;
-
+	if (parent == nullptr)
+		node_flags = ImGuiTreeNodeFlags_None;
 
 	if (!parent->active)
 		ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);

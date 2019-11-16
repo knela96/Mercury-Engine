@@ -5,8 +5,9 @@
 #include "C_Normals.h"
 #include "C_MeshInfo.h"
 #include "C_Material.h"
+//#include "C_Camera.h"
 
-GameObject::GameObject(string name) : name(name){
+GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	components.push_back(AddComponent(Transform));
 }
 
@@ -24,6 +25,7 @@ bool GameObject::Start()
 	if (mesh != nullptr) {
 		mesh->b_aabb = new Box<AABB>(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
 		mesh->b_obb = new Box<OBB>(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+		mesh->UpdateBox();
 	}
 	return false;
 }
@@ -40,8 +42,8 @@ void GameObject::StartChilds() {
 void GameObject::UpdateChilds() {
 	if (active) {
 		for (int i = 0; i < childs.size(); ++i) {
-				childs[i]->transform->UpdateMatrices();
-				childs[i]->UpdateChilds();
+			childs[i]->transform->UpdateMatrices();
+			childs[i]->UpdateChilds();
 		}
 	}
 }
@@ -137,6 +139,10 @@ Component * GameObject::AddComponent(Component_Type type)
 		break;
 	case Component_Type::Script:
 		//component = new C_Script(this, type);
+		break;
+	case Component_Type::Camera:
+		//component = new C_Camera(this, type);
+		//camera = (C_Camera*)component;
 		break;
 	}
 

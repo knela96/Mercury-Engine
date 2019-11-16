@@ -178,11 +178,13 @@ void MeshObject::DebugNormals() const
 			vec3 vertex = vec3(vertices[i].Position.x, vertices[i].Position.y, vertices[i].Position.z);
 			vec3 normal = vec3(vertices[i].Normal.x, vertices[i].Normal.y, vertices[i].Normal.z);
 
+			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
 			glColor3f(normals->vertex_color.r, normals->vertex_color.g, normals->vertex_color.b);
 			glVertex3f(vertex.x, vertex.y, vertex.z);
 			glVertex3f((vertex.x + normal.x * normals->vertex_lenght), (vertex.y + normal.y * normals->vertex_lenght), (vertex.z + normal.z * normals->vertex_lenght));
 			glEnd();
+			glEnable(GL_LIGHTING);
 		}
 	}
 
@@ -202,11 +204,13 @@ void MeshObject::DebugNormals() const
 				(p1.z + p2.z + p3.z) / 3
 			);
 
+			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
 			glColor3f(normals->face_color.r, normals->face_color.g, normals->face_color.b);
 			glVertex3f(face_center.x, face_center.y, face_center.z);
 			glVertex3f((face_center.x + normal.x * normals->face_lenght), (face_center.y + normal.y * normals->face_lenght), (face_center.z + normal.z * normals->face_lenght));
 			glEnd();
+			glEnable(GL_LIGHTING);
 		}
 	}
 }

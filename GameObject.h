@@ -14,9 +14,6 @@
 #pragma comment (lib, "lib/Assimp/libx86/assimp.lib")
 
 
-#include "MathGeoLib/include/MathGeoLib.h"
-
-
 struct Texture {
 	uint id;
 	string path;
@@ -28,6 +25,7 @@ class MeshObject;
 class Component;
 class C_Normals;
 class C_Transform;
+//class C_Camera;
 
 enum aiTextureType;
 enum Component_Type;
@@ -35,7 +33,7 @@ enum Component_Type;
 class GameObject
 {
 public:
-	GameObject(string name);
+	GameObject(string name,GameObject* parent = nullptr);
 	GameObject(MeshObject* mesh, vector<Texture*> textures, string name);
 	~GameObject();
 
@@ -86,6 +84,7 @@ public:
 public:
 	C_Transform* transform = nullptr;
 	C_Normals* normals = nullptr;
+	//C_Camera* camera = nullptr;
 
 
 };

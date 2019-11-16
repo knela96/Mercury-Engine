@@ -9,7 +9,8 @@ enum Component_Type {
 	Mesh_Info,
 	Normals,
 	Material,
-	Script
+	Script,
+	Camera
 };
 
 class Component
