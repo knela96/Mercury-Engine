@@ -89,7 +89,6 @@
     <ClInclude Include="C_Transform.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Gizmo.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
@@ -138,7 +137,6 @@
     <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
     <ClCompile Include="lib\gpudetect\DeviceId.cpp" />

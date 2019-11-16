@@ -178,7 +178,6 @@
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Gizmo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -301,7 +300,6 @@
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Gizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />
