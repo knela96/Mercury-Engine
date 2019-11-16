@@ -22,6 +22,7 @@ ModuleFileSystem::~ModuleFileSystem()
 {
 }
 
+
 //----
 weFile::weFile(ModuleFileSystem* filesystem,std::experimental::filesystem::path path, weFolder* parentfolder, weFileType wetype) {
 	wePath = path.root_path();
@@ -82,6 +83,11 @@ weFile::~weFile() {
 
 weFolder::weFolder(std::experimental::filesystem::path path) {
 	weFolderPath = path;
+	setName();
+}
+void weFolder::setName() {
+	weFolderName = weFolderPath.string();
+
 }
 
 weFolder::~weFolder() {

@@ -85,10 +85,12 @@ public:
 
 	std::experimental::filesystem::path weFolderPath;
 
+	void setName();
+
 	int depthID;
 	int ID;
 	weFolder* weParentFolder = nullptr;
-
+	std::string weFolderName;
 public:
 
 	std::list<weFolder*> childFolders;

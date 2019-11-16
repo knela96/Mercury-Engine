@@ -1,4 +1,6 @@
+#include "Application.h"
 #include "ModuleFileSystem.h"
+
 #include "WindowFileSystem.h"
 #include "imgui.h"
 
@@ -25,6 +27,15 @@ bool WindowFileSystem::Draw()
 	if (App->gui->openFileSystem) {
 		ImGui::Begin("Assets", &App->gui->openFileSystem);
 
+		for (int i = 0; i < App->filesystem->weFoldersArray.size(); i++) {
+			ImGui::TreeNodeEx(App->filesystem->weFoldersArray[i]->weFolderName.data());
+			//for(int j = 0;)
+		}
+			/*if (ImGui::CollapsingHeader("Help")) {
+				
+			}*/
+		
+		
 
 
 		ImGui::End();
