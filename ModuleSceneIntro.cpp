@@ -16,8 +16,8 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 bool ModuleSceneIntro::Init() {
 	root = new GameObject("Scene");
-	root->childs.push_back(new GameObject("Main Camera",root));
-	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
+	//root->childs.push_back(new GameObject("Main Camera",root));
+	//root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
 	root->transform->UpdateMatrices();
 	return true;
 }
