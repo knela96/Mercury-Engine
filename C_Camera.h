@@ -29,11 +29,13 @@ public:
 
 	float GetAspectRatio();
 
-	void SetFOV(float fov);
+	void SetFOV(float fov, float width = 16.0f, float height = 9.0f);
 
 	void SetPos(float3 position);
 
 	void SetPos(vec3 position);
+
+	//void SetAspectRatio(float ar, float hFov);
 
 	void SetAspectRatio(float ar);
 

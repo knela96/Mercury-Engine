@@ -52,7 +52,7 @@ public:
 
 	void drawChilds();
 
-	float4x4 mat2float4(mat4x4 mat);
+	static float4x4 mat2float4(mat4x4 mat);
 
 	void CleanUp();
 

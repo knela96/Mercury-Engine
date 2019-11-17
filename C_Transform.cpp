@@ -1,4 +1,5 @@
 #include "C_Transform.h"
+#include "C_Camera.h"
 
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
@@ -43,7 +44,7 @@ void C_Transform::Update()
 			last_rotation.x != vrotation.x || last_rotation.y != vrotation.y || last_rotation.z != vrotation.z ||
 			last_scale.x != vscale.x || last_scale.y != vscale.y || last_scale.z != vscale.z) 
 		{
-			UpdateMatrices(); gameobject->UpdateBox();
+			UpdateMatrices();
 		}
 
 	}
@@ -57,6 +58,8 @@ void C_Transform::Update()
 
 void C_Transform::UpdateMatrices() {
 
+	C_Camera* camera = (C_Camera*)gameobject->getComponent(Component_Type::Camera);
+
 	mat4x4 translation = translate(vposition.x, vposition.y, vposition.z);
 	mat4x4 rotation, aux;
 	rotation = rotation * aux.rotate(vrotation.x, { 1,0,0 });
@@ -65,7 +68,11 @@ void C_Transform::UpdateMatrices() {
 
 	mat4x4 scaling = scale(vscale.x, vscale.y, vscale.z);
 
-	localMatrix = translation * rotation * scaling;
+	if (camera != nullptr)
+		localMatrix = translation * rotation;
+	else
+		localMatrix = translation * rotation * scaling;
+
 
 	if(gameobject->parent != nullptr)
 		globalMatrix = gameobject->parent->transform->globalMatrix * localMatrix;
@@ -73,6 +80,13 @@ void C_Transform::UpdateMatrices() {
 		globalMatrix = localMatrix;
 
 	gameobject->UpdateChilds();
+
+	if (camera != nullptr) { 
+		camera->UpdateTransformPosition(GameObject::mat2float4(globalMatrix)); 
+	}
+
+	gameobject->UpdateBox();
+
 }
 
 bool C_Transform::Disable()

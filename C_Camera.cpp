@@ -12,8 +12,13 @@ C_Camera::C_Camera(GameObject* gameobject, Component_Type type) : Component(type
 	frustum.up = float3::unitY;
 	frustum.nearPlaneDistance = 1.0f;
 	frustum.farPlaneDistance = 2000.0f;
-	frustum.verticalFov = 1.0f;
-	frustum.horizontalFov = 1.0f;
+	if (gameobject == nullptr) {
+		frustum.verticalFov = 1.0f;
+		frustum.horizontalFov = 1.0f;
+	}
+	else {
+		SetFOV(60);
+	}
 	GetPlanes();
 }
 
@@ -30,15 +35,28 @@ bool C_Camera::Enable()
 
 void C_Camera::Update()
 {
-	/*if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
-	{
-		ImGui::DragInt("FOV", &fov,1,1,200);
-		if (ImGui::IsItemEdited()) { SetFOV(frustum.verticalFov); }
-	}*/
+	if (gameobject != nullptr) {
+		if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
+		{
+			ImGui::DragInt("FOV", &fov,1,1,200);
+			if (ImGui::IsItemEdited()) { SetFOV(fov); }
+			//
+		}
+	}
+	
 }
 
 void C_Camera::UpdateTransformPosition(float4x4 global) {
+	frustum.front = global.WorldZ();
+	frustum.up = global.WorldY();
 
+	float3 position;
+	float3 scale;
+	Quat quat;
+	global.Decompose(position, quat, scale);
+
+	SetPos(position);
+	GetPlanes();
 }
 
 bool C_Camera::Disable()
@@ -72,9 +90,10 @@ float C_Camera::GetAspectRatio() {
 	return frustum.AspectRatio();
 }
 
-void C_Camera::SetFOV(float fov) {
+void C_Camera::SetFOV(float fov, float width, float height) {
+	float ar = height / width;
 	frustum.verticalFov = fov * DEGTORAD;
-	frustum.horizontalFov = 2.f * Atan(Tan(frustum.verticalFov*0.5f) / GetAspectRatio());
+	frustum.horizontalFov = 2.f * Atan(Tan(frustum.verticalFov*0.5f) / ar);
 	GetPlanes();
 }
 

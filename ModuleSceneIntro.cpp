@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "Gizmo.h"
+#include "KDimensionalTree.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,6 +16,7 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 
 bool ModuleSceneIntro::Init() {
+	KDimensionalTree quat;
 	root = new GameObject("Scene");
 	root->childs.push_back(new GameObject("Main Camera",root));
 	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
