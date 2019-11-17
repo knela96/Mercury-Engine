@@ -220,7 +220,7 @@ public:
 	bool openHirearchy = true;
 	bool ShowFPS = true;
 	bool openAbout = false; 
-	bool openFileSystem = false;
+	bool openFileSystem = true;
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_HEIGHT;

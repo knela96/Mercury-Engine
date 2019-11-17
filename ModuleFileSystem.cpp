@@ -86,7 +86,7 @@ weFolder::weFolder(std::experimental::filesystem::path path) {
 	setName();
 }
 void weFolder::setName() {
-	weFolderName = weFolderPath.string();
+	FolderName = weFolderPath.string();
 
 }
 
@@ -156,7 +156,7 @@ weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::pat
 					CurrentFolder->childFolders.push_back(newPath);
 
 					weFile* t = new weFile((ModuleFileSystem*)this,path.path().string().c_str(), newPath, weFileType::FOLDER);
-					CurrentFolder->childFiles.push_front(t);
+					CurrentFolder->childFiles.insert(CurrentFolder->childFiles.begin(), t);
 					newPath->SetParentFolder(CurrentFolder);
 					CurrentFolder = newPath;
 				}
@@ -165,7 +165,7 @@ weFolder* ModuleFileSystem::LoadCurrentFolder(std::experimental::filesystem::pat
 
 					weFile* t = new weFile((ModuleFileSystem*)this,path.path().string().c_str(), newPath, weFileType::FOLDER);
 
-					CurrentFolder->childFiles.push_front(t);
+					CurrentFolder->childFiles.insert(CurrentFolder->childFiles.begin(),t);
 					newPath->SetParentFolder(CurrentFolder);
 					CurrentFolder = newPath;
 				}

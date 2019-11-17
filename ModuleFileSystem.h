@@ -59,10 +59,12 @@ public:
 
 public:
 
+	
+
 	std::vector<weFile*> weFilesArray;
 	std::vector<weFolder*> weFoldersArray;
 
-	weFolder* RootFolder;
+	weFolder* RootFolder = nullptr;
 	std::experimental::filesystem::path RootFolderPath;
 
 };
@@ -90,11 +92,11 @@ public:
 	int depthID;
 	int ID;
 	weFolder* weParentFolder = nullptr;
-	std::string weFolderName;
+	std::string FolderName;
 public:
 
-	std::list<weFolder*> childFolders;
-	std::list<weFile*> childFiles;
+	std::vector<weFolder*> childFolders;
+	std::vector<weFile*> childFiles;
 };
 //------------------------------------------------------------------------------
 
