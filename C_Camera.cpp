@@ -72,13 +72,13 @@ void C_Camera::GetPlanes()
 
 void C_Camera::SetNearPlane(float distance) {
 	if (distance > 0 && distance < frustum.farPlaneDistance)
-		frustum.farPlaneDistance = distance;
+		frustum.nearPlaneDistance = distance;
 	GetPlanes();
 }
 
 void C_Camera::SetFarPlane(float distance) {
 	if (distance > 0 && distance > frustum.nearPlaneDistance)
-		frustum.nearPlaneDistance = distance;
+		frustum.farPlaneDistance = distance;
 	GetPlanes();
 }
 
@@ -151,4 +151,8 @@ void C_Camera::Look(const float3 &Spot) {
 	frustum.up = (matrix.MulDir(frustum.up).Normalized());
 
 	GetPlanes();
+}
+
+void C_Camera::CullFace(GameObject * gameobject)
+{
 }

@@ -6,6 +6,7 @@
 #include "SystemInfo.h"
 #include "Color.h"
 #include <vector>
+#include "Quadtree.h"
 
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "MathGeoLib/include/MathBuildConfig.h"
@@ -31,11 +32,15 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void checkElements(GameObject * gameObject);
+
 	bool Draw();
 	void DrawBB();
 	void AddAABB(AABB * box, Color color);
 	void AddOBB(OBB * box, Color color);
 	void AddFrustum(Frustum * box, Color color);
+	void Insert2Quat(GameObject * gameobject);
+	void Remove2Quat(GameObject * gameobject);
 	bool setParent(GameObject* to_parent, GameObject* to_child);
 
 	//Engine::SystemInfo s_info;
@@ -46,5 +51,9 @@ public:
 
 public:
 	GameObject* root = nullptr;
+	std::vector<GameObject*> use_elements;
+	bool camera_culling = false;
+	Quadtree* quat = nullptr;
+	AABB* box = nullptr;
 };
 #endif

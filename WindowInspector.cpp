@@ -24,6 +24,19 @@ bool WindowInspector::Start()
 	return true;
 }
 
+update_status WindowInspector::Update(float dt)
+{
+	if (to_static) {
+		if (active_gameObject->_static)
+			App->scene_intro->Insert2Quat(active_gameObject);
+		else
+			App->scene_intro->Remove2Quat(active_gameObject);
+
+		to_static = false;
+	}
+	return UPDATE_CONTINUE;
+}
+
 bool WindowInspector::Draw()
 {
 	if (App->gui->openInspector) {
@@ -57,16 +70,21 @@ bool WindowInspector::Draw()
 				App->input->writting = false;
 			}
 
+			ImGui::Checkbox("Static", &active_gameObject->_static);
+			if (ImGui::IsItemEdited()) { 
+				to_static = true;
+			}
+
 			for (int i = 0; i < active_gameObject->components.size(); ++i) {
 				active_gameObject->components[i]->Update();
 			}
-
+			
 		}
-		
-
-
 		ImGui::End();
 	}
+
+	
+
 	return false;
 }
 

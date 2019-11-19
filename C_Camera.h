@@ -47,6 +47,8 @@ public:
 
 	void Look(const float3 & Spot);
 
+	void CullFace(GameObject * gameobject);
+
 public:
 	Plane planes[6];
 	Frustum frustum;

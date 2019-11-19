@@ -9,13 +9,15 @@
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	components.push_back(AddComponent(Transform));
+	Start();
 }
 
 GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
 	components.push_back(AddComponent(Transform));
 	components.push_back(AddComponent(Mesh_Info));
 	components.push_back(AddComponent(Normals));
-	components.push_back(AddComponent(Material));
+	components.push_back(AddComponent(Material)); 
+	Start();
 }
 
 GameObject::~GameObject() {}
@@ -25,11 +27,6 @@ bool GameObject::Start()
 	if (mesh != nullptr) {
 		App->scene_intro->AddAABB(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
 		App->scene_intro->AddOBB(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
-
-		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
-		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
-
-		mesh->UpdateBox();
 	}
 	return false;
 }

@@ -5,7 +5,6 @@
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "Gizmo.h"
-#include "KDimensionalTree.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -16,7 +15,8 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 
 bool ModuleSceneIntro::Init() {
-	KDimensionalTree quat;
+	box = new AABB(float3(-1000, -1000, -1000), float3(1000, 1000, 1000));
+	quat = new Quadtree(*box);
 	root = new GameObject("Scene");
 	root->childs.push_back(new GameObject("Main Camera",root));
 	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
@@ -34,10 +34,13 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	for (int i = 0; i < root->childs.size(); ++i) {
-		if (root->childs[i]->active && root->active)
+		if (root->childs[i]->active && root->active) {
 			root->childs[i]->Start();
-		root->childs[i]->StartChilds();
+			root->childs[i]->StartChilds();
+		}
 	}
+
+
 	return ret;
 }
 
@@ -59,16 +62,23 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
+void ModuleSceneIntro::checkElements(GameObject* gameObject) {
+	if (!camera_culling)
+		Draw();
+}
+
 bool ModuleSceneIntro::Draw()
 {
 	for (int i = 0; i < root->childs.size(); ++i) {
-		if (root->childs[i]->active && root->active)
+		if (root->childs[i]->active && root->active) {
 			root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
+		}
 	}
 
 	DrawBB();
 
+	quat->Draw();
 
 	return true;
 }
@@ -95,6 +105,14 @@ void ModuleSceneIntro::AddOBB(OBB* box, Color color) {
 
 void ModuleSceneIntro::AddFrustum(Frustum* box, Color color) {
 	frustums.push_back(BBox<Frustum>(box, color));
+}
+
+void ModuleSceneIntro::Insert2Quat(GameObject* gameobject) {
+	quat->Insert(gameobject);
+}
+
+void ModuleSceneIntro::Remove2Quat(GameObject* gameobject) {
+	quat->Remove(gameobject);
 }
 
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)

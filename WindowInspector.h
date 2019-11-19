@@ -18,6 +18,7 @@ public:
 
 	bool Start();
 	bool Draw();
+	update_status Update(float dt);
 	bool Cleanup();
 	bool isEnabled();
 
@@ -34,7 +35,7 @@ public:
 	float vertex_lenght;
 	Color face_color;
 	Color vertex_color;*/
-
+	bool to_static = false;
 	GameObject* active_gameObject = nullptr;
 };
 #endif
