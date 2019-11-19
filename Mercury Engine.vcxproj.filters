@@ -315,7 +315,6 @@
     <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-
     <ClCompile Include="parson.c">
       <Filter>Sources\Containers\Json</Filter>
     </ClCompile>
@@ -328,14 +327,12 @@
     <ClCompile Include="WindowFileSystem.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />

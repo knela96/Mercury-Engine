@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Shader.h"
 #include "MathGeoLib/include/MathGeoLib.h"
-
+#include "Globals.h"
 #include <vector>
 
 #define CHECKERS_HEIGHT 64
@@ -75,6 +75,20 @@ private:
 public: 
 	Shader* shader;
 	uint checkImage_id;
+
+
+public: //OUR OWN FILE FORMAT HERE
+
+	struct weOBJ {
+		std::string    name;
+		float4x4       transform = float4x4::identity;
+		uint           parent = 0;
+		RID            mesh = 0;
+		RID            material = 0;
+	};
+
+	void saveGOinFile(const GameObject *go);
+
 
 };
 #endif IMPORTER_H
