@@ -19,7 +19,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	camera = new C_Camera(nullptr,Component_Type::Camera);
 	camera->SetPos(Position);
-	camera->SetFOV(60);
+	//camera->SetFOV(60);
 }
 
 ModuleCamera3D::~ModuleCamera3D()

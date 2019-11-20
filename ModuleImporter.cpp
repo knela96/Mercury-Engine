@@ -409,57 +409,78 @@ const string ModuleImporter::getFileName(const string& s) {
 void ModuleImporter::saveGOinFile(const GameObject *go) {
 
 	//1) Create and open a file:
-	std::string Models = "Assets/Models/";
-	fstream file;
 	
-	uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
-	
-	file.open(Models + go->name + ".ggg", ios::out );
+	//string path = "/1";// +go->name;
+	//
 
-	if (!file) {
-		LOGC("An error ocurred creating your file: %s ", &go->name);
-	}
-	
-	
-	uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
-	
-	char* data = new char[size];
-	char* cursor = data;
+	//uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
+	//
+	//uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
+	//
+	//char* data = new char[size];
+	//char* cursor = data;
 
-	//-------
-	uint bytes = sizeof(ranges);
+	////Save Ranges
+	//uint bytes = sizeof(ranges);
+	//memcpy(cursor, ranges, bytes);
+	//cursor += bytes;
 
-	memcpy(cursor, ranges, bytes);
+	////Save Indices
+	//bytes = sizeof(uint) * go->mesh->indices.size();
+	//uint* info_data = go->mesh->indices.data();
+	//memcpy(cursor, &info_data, bytes);
+	//cursor += bytes;
+	//
+	////Save Vertices
+	//bytes = sizeof(Vertex) * go->mesh->vertices.size();
+	//Vertex* v_data = go->mesh->vertices.data();
+	//memcpy(cursor, &v_data, bytes);
+	//cursor += bytes;
 
-	cursor += bytes;
+	//uint ret = App->filesystem->Save(path.c_str(), data, size);
+	//RELEASE_ARRAY(data);
 
-	bytes = sizeof(uint)*go->mesh->indices.size();
 
-	/*for (int i = 0; i < go->mesh->indices.size(); i++) {
-		memcpy(cursor, &go->mesh->indices[i], sizeof(go->mesh->indices[i]));
-		cursor += sizeof(go->mesh->indices[i]);
-	}*/
-	/*file.write(cursor, sizeof(cursor));*/
+	//fstream file2;
 
-	//memcpy(cursor, &go->mesh->indices, bytes);
+	//file2.open("Assets/Models/Untitled.ggg", ios::in);
 
-	
+	//if (!file2.is_open()) {
+	//	LOGC("Eror");
+	//}
 
-	//memcpy(cursor, (char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//int* indicesptr = go->mesh->indices.data();
-	memcpy(
-		cursor,
-		&(*go->mesh->indices.begin()),
-		go->mesh->indices.size() * sizeof(uint));
-	
-	file.write(cursor, sizeof(cursor));
+	//
+	//file2.seekg(0, ios::end);
+	//int fileSize = file2.tellg();
 
-	
-	file.close();
+	//char* buffer = new char[fileSize];
 
-	
+	//file2.seekg(0, std::ios::beg);
+	//file2.read(buffer, fileSize);
+
+	//cursor = buffer;
+
+	//uint32 sdd = sizeof(cursor);
+
+	////Save Ranges
+	//uint new_ranges[3];
+	//uint bytes2 = sizeof(new_ranges);
+	//memcpy(&new_ranges, cursor, bytes2);
+	//cursor += bytes2;
+
+	////Save Indices
+	//bytes2 = sizeof(uint) * new_ranges[1];
+	//uint* indices2 = new uint[new_ranges[1]];
+	//memcpy(&indices2, cursor, bytes2);
+	//cursor += bytes2;
+
+	////Save Vertices
+	//bytes2 = sizeof(Vertex) * new_ranges[0];
+	//Vertex* v_data2 = new Vertex[new_ranges[0]];
+	//memcpy(&v_data2, cursor, bytes2);
+	//cursor += sizeof(Vertex);
+
+	//file2.close();
 
 }
+
