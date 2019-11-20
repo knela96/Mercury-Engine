@@ -11,6 +11,7 @@ Application::Application()
 	gui = new ModuleGUI(this);
 	camera = new ModuleCamera3D(this);
 	importer = new ModuleImporter(this);
+	filesystem = new ModuleFileSystem(this);
 
 	
 	// The order of calls is very important!
@@ -28,7 +29,10 @@ Application::Application()
 	AddModule(scene_intro);
 
 	//RECHECK
+	AddModule(resources);
+	AddModule(filesystem);
 	AddModule(gui);
+	
 
 	// Renderer last!
 	AddModule(renderer3D);
@@ -43,6 +47,7 @@ Application::~Application()
 	{
 		delete item->data;
 		item = item->prev;
+		
 	}
 }
 
@@ -155,6 +160,39 @@ update_status Application::Update()
 	
 	
 	return ret;
+}
+
+
+// ---------------------------------------------
+const char* Application::GetAppName() const
+{
+	return app_name.c_str();
+}
+
+// ---------------------------------------------
+void Application::SetAppName(const char * name)
+{
+	if (name != nullptr && name != app_name)
+	{
+		app_name = name;
+		window->SetTitle(name);
+		// TODO: Filesystem should adjust its writing folder
+	}
+}
+
+// ---------------------------------------------
+const char* Application::GetOrganizationName() const
+{
+	return organization_name.c_str();
+}
+
+void Application::SetOrganizationName(const char * name)
+{
+	if (name != nullptr && name != organization_name)
+	{
+		organization_name = name;
+		// TODO: Filesystem should adjust its writing folder
+	}
 }
 
 bool Application::CleanUp()

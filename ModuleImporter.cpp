@@ -59,7 +59,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Models\\Baker_House\\BakerHouse.fbx");
+	Load("Assets\\Models\\BakerHouse.fbx");
 
 	return true;
 }
@@ -273,7 +273,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	gameobject->box.Enclose(points, mesh->mNumVertices);
 
 	std::free(points);
-
+	saveGOinFile(gameobject);
 	return gameobject;
 }
 
@@ -363,13 +363,6 @@ bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 
 	return true;
 }
-//
-//void ModuleImporter::PushObj(aiMesh * mesh)
-//{
-//	gameObjects.push_back(ProcessMesh(mesh));
-//}
-
-
 
 const string ModuleImporter::getFileExt(const string& s) {
 
@@ -410,3 +403,84 @@ const string ModuleImporter::getFileName(const string& s) {
 
 	return(file);
 }
+
+//OUR OWN FILE FORMAT HERE
+
+void ModuleImporter::saveGOinFile(const GameObject *go) {
+
+	//1) Create and open a file:
+	
+	//string path = "/1";// +go->name;
+	//
+
+	//uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
+	//
+	//uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
+	//
+	//char* data = new char[size];
+	//char* cursor = data;
+
+	////Save Ranges
+	//uint bytes = sizeof(ranges);
+	//memcpy(cursor, ranges, bytes);
+	//cursor += bytes;
+
+	////Save Indices
+	//bytes = sizeof(uint) * go->mesh->indices.size();
+	//uint* info_data = go->mesh->indices.data();
+	//memcpy(cursor, &info_data, bytes);
+	//cursor += bytes;
+	//
+	////Save Vertices
+	//bytes = sizeof(Vertex) * go->mesh->vertices.size();
+	//Vertex* v_data = go->mesh->vertices.data();
+	//memcpy(cursor, &v_data, bytes);
+	//cursor += bytes;
+
+	//uint ret = App->filesystem->Save(path.c_str(), data, size);
+	//RELEASE_ARRAY(data);
+
+
+	//fstream file2;
+
+	//file2.open("Assets/Models/Untitled.ggg", ios::in);
+
+	//if (!file2.is_open()) {
+	//	LOGC("Eror");
+	//}
+
+	//
+	//file2.seekg(0, ios::end);
+	//int fileSize = file2.tellg();
+
+	//char* buffer = new char[fileSize];
+
+	//file2.seekg(0, std::ios::beg);
+	//file2.read(buffer, fileSize);
+
+	//cursor = buffer;
+
+	//uint32 sdd = sizeof(cursor);
+
+	////Save Ranges
+	//uint new_ranges[3];
+	//uint bytes2 = sizeof(new_ranges);
+	//memcpy(&new_ranges, cursor, bytes2);
+	//cursor += bytes2;
+
+	////Save Indices
+	//bytes2 = sizeof(uint) * new_ranges[1];
+	//uint* indices2 = new uint[new_ranges[1]];
+	//memcpy(&indices2, cursor, bytes2);
+	//cursor += bytes2;
+
+	////Save Vertices
+	//bytes2 = sizeof(Vertex) * new_ranges[0];
+	//Vertex* v_data2 = new Vertex[new_ranges[0]];
+	//memcpy(&v_data2, cursor, bytes2);
+	//cursor += sizeof(Vertex);
+
+	//file2.close();
+
+}
+

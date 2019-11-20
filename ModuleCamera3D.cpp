@@ -41,15 +41,15 @@ void ModuleCamera3D::MoveCamera(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 50.0f * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		newPos += to_vec3(camera->frustum.front) * speed;
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		newPos -= to_vec3(camera->frustum.front) * speed;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		newPos -= to_vec3(camera->frustum.WorldRight()) * speed;
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		newPos += to_vec3(camera->frustum.WorldRight()) * speed;
 
 	Position += newPos;
@@ -79,8 +79,8 @@ void ModuleCamera3D::FocusTarget()
 					max_ = point_;
 			}
 			double radius = length(max_) / 2; //radius of sphere
-			
-			
+
+
 			//double radius = gameObject->obb.MaximalContainedSphere().Diameter() / 2; //radius of sphere
 
 			double fov = camera->GetFOV() * DEGTORAD;
@@ -172,11 +172,11 @@ update_status ModuleCamera3D::Update(float dt)
 		speed = 20.0f * dt;
 
 		if (!App->input->writting) {
-			
+
 			MoveCamera(dt);
 
 			FocusTarget();
-			
+
 		}
 
 		// Mouse motion ----------------
@@ -187,7 +187,7 @@ update_status ModuleCamera3D::Update(float dt)
 			moving = App->gui->game->mouseHover();
 
 		Pan();
-			   
+
 		Orbit();
 
 		Zoom();

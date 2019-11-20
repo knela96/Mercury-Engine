@@ -17,6 +17,7 @@
 #include "WindowInspector.h"
 #include "WindowGame.h"
 #include "WindowEngineStats.h"
+#include "WindowFileSystem.h"
 
 
 using namespace std;
@@ -208,7 +209,7 @@ private:
 	bool resizable = true;
 	bool fulldesktop = false;
 	bool openDebug = false;
-
+	
 	
 	bool p_open = true; 
 	bool quit = false;
@@ -219,7 +220,8 @@ public:
 	bool openInspector = true;
 	bool openHirearchy = true;
 	bool ShowFPS = true;
-	bool openAbout = false;
+	bool openAbout = false; 
+	bool openFileSystem = true;
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_HEIGHT;

@@ -48,13 +48,13 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>lib\SystemInfo;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib\PhysFS\include;lib\SystemInfo;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\PhysFS\libx86;\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,7 +66,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib\PhysFS\include;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,7 +74,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\PhysFS\libx86;\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -87,6 +87,7 @@
     <ClInclude Include="C_MeshInfo.h" />
     <ClInclude Include="C_Normals.h" />
     <ClInclude Include="C_Transform.h" />
+    <ClInclude Include="FolderContainer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gizmo.h" />
@@ -104,11 +105,14 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\mmgr\mmgr.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
+    <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -117,13 +121,16 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="parson.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RNGenerator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowEngineStats.h" />
+    <ClInclude Include="WindowFileSystem.h" />
     <ClInclude Include="WindowGame.h" />
     <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowInspector.h" />
@@ -153,21 +160,27 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshObject.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
+    <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
+    <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="parson.c" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="RNGenerator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowEngineStats.cpp" />
+    <ClCompile Include="WindowFileSystem.cpp" />
     <ClCompile Include="WindowGame.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />

@@ -7,6 +7,8 @@
 #include "WindowEngineStats.h"
 #include "ModuleInput.h"
 #include "About.h"
+#include "ModuleFileSystem.h"
+
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -48,7 +50,7 @@ bool ModuleGUI::Init()
 	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
 	windows.push_back(about);
-
+	windows.push_back(new WindowFileSystem(App));
 	return true;
 }
 
@@ -104,7 +106,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 // PostUpdate present buffer to screen
 bool ModuleGUI::Draw()
 {
-	// Start the Dear ImGui frame
+	//Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
@@ -237,15 +239,19 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Game", "", openGame)) {
 				openGame = !openGame;
 			}
+
 			if (ImGui::MenuItem("Console", "F1", openConsole)) {
 				openConsole = !openConsole;
 			}
+
 			if (ImGui::MenuItem("Hirearchy", "", openHirearchy)) {
 				openHirearchy = !openHirearchy;
 			}
+
 			if (ImGui::MenuItem("Inspector", "", openInspector)) {
 				openInspector = !openInspector;
 			}
+
 			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
 				ShowFPS = !ShowFPS;
 			}
@@ -253,6 +259,11 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Settings",NULL, openWindowSettings)) {
 				openWindowSettings = !openWindowSettings;
 			}
+
+			if (ImGui::MenuItem("Assets", "", openFileSystem)) {
+				openFileSystem = !openFileSystem;
+			}
+
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

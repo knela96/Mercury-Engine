@@ -37,6 +37,12 @@
     <Filter Include="Sources\Containers\mmgr">
       <UniqueIdentifier>{1435844e-8159-4037-b579-fc0192fdc3c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Containers\Json">
+      <UniqueIdentifier>{e2d0dba6-c79e-458d-aa4c-5bbc4204ce87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Modules\Importers">
+      <UniqueIdentifier>{8516c2d6-2108-4a90-a515-58aac6f439d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -175,15 +181,34 @@
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="parson.h">
+      <Filter>Sources\Containers\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="RNGenerator.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowFileSystem.h">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClInclude>
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
     <ClInclude Include="Gizmo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleResources.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderContainer.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
     <ClInclude Include="Quadtree.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="MeshImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -303,15 +328,31 @@
     <ClCompile Include="SystemInfo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="parson.c">
+      <Filter>Sources\Containers\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="RNGenerator.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowFileSystem.cpp">
+      <Filter>Sources\Modules\UI</Filter>
+    </ClCompile>
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleResources.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="MeshImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />
