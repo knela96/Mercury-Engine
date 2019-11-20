@@ -16,7 +16,7 @@
 
 enum aiTextureType;
 
-class GameObject;
+class MeshObject;
 class aiNode;
 class aiScene;
 struct Texture;
@@ -87,7 +87,7 @@ public: //OUR OWN FILE FORMAT HERE
 		RID            material = 0;
 	};
 
-	void saveGOinFile(const GameObject *go);
+	void saveGOinFile(const MeshObject *go);
 
 };
 #endif IMPORTER_H

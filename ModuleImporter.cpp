@@ -271,9 +271,9 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 	gameobject->box.SetNegativeInfinity();
 	gameobject->box.Enclose(points, mesh->mNumVertices);
-
 	std::free(points);
-	saveGOinFile(gameobject);
+
+	//saveGOinFile(gameobject);
 	return gameobject;
 }
 
@@ -406,39 +406,38 @@ const string ModuleImporter::getFileName(const string& s) {
 
 //OUR OWN FILE FORMAT HERE
 
-void ModuleImporter::saveGOinFile(const GameObject *go) {
+void ModuleImporter::saveGOinFile(const MeshObject *go) {
 
-	//1) Create and open a file:
 	
-	//string path = "/1";// +go->name;
-	//
+	string path = "/1";// +go->name;
+	
 
-	//uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
-	//
-	//uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
-	//
-	//char* data = new char[size];
-	//char* cursor = data;
+	uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
+	
+	uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
+	
+	char* data = new char[size];
+	char* cursor = data;
 
-	////Save Ranges
-	//uint bytes = sizeof(ranges);
-	//memcpy(cursor, ranges, bytes);
-	//cursor += bytes;
+	//Save Ranges
+	uint bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+	cursor += bytes;
 
-	////Save Indices
-	//bytes = sizeof(uint) * go->mesh->indices.size();
-	//uint* info_data = go->mesh->indices.data();
-	//memcpy(cursor, &info_data, bytes);
-	//cursor += bytes;
-	//
-	////Save Vertices
-	//bytes = sizeof(Vertex) * go->mesh->vertices.size();
-	//Vertex* v_data = go->mesh->vertices.data();
-	//memcpy(cursor, &v_data, bytes);
-	//cursor += bytes;
+	//Save Indices
+	bytes = sizeof(uint) * go->mesh->indices.size();
+	uint* info_data = go->mesh->indices.data();
+	memcpy(cursor, &info_data, bytes);
+	cursor += bytes;
+	
+	//Save Vertices
+	bytes = sizeof(Vertex) * go->mesh->vertices.size();
+	Vertex* v_data = go->mesh->vertices.data();
+	memcpy(cursor, &v_data, bytes);
+	cursor += bytes;
 
-	//uint ret = App->filesystem->Save(path.c_str(), data, size);
-	//RELEASE_ARRAY(data);
+	uint ret = App->filesystem->Save(path.c_str(), data, size);
+	RELEASE_ARRAY(data);
 
 
 	//fstream file2;

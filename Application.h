@@ -13,7 +13,9 @@
 #include "ModuleGUI.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
+#include "ModuleResources.h"
 #include "RNGenerator.h"
+#include "MeshImporter.h"
 
 class Application
 {
@@ -26,8 +28,9 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleImporter* importer;
-	ModuleFileSystem* filesystem;
 	ModuleResources* resources;
+	ModuleFileSystem* filesystem;
+	MeshImporter* mesh_importer;
 
 
 	RNGenerator RandomNumberGenerator;

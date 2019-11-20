@@ -12,6 +12,8 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	importer = new ModuleImporter(this);
 	filesystem = new ModuleFileSystem(this);
+	resources = new ModuleResources(this);
+	mesh_importer = new MeshImporter(this);
 
 	
 	// The order of calls is very important!
@@ -24,6 +26,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(importer);
+	AddModule(mesh_importer);
 	
 	// Scenes
 	AddModule(scene_intro);
