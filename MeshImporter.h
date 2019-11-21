@@ -13,9 +13,10 @@ public:
 	MeshImporter(Application* app, bool start_enabled = true);
 	~MeshImporter();
 
-	MeshObject*	ImportMeshResource(const aiMesh* mesh, unsigned long long ID, const char* file, const char* name);
+	MeshObject * ImportMeshResource(aiMesh * mesh, string * path, const char * fileName, uint ID, const aiScene * scene = nullptr);
 
-	bool	SaveMeshResource(const MeshObject*);
+	bool SaveMeshResource(const MeshObject * mesh, uint ID);
+
 	MeshObject* LoadMeshResource(u64 ID);
 };
 #endif

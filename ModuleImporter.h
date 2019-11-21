@@ -54,6 +54,8 @@ public:
 
 	bool Load(const char * path);
 
+	void ImportMesh(aiNode * node, aiScene *scene, string *FileName, string *str);
+
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);

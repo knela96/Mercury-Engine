@@ -41,7 +41,7 @@ class GameObject
 {
 public:
 	GameObject(string name,GameObject* parent = nullptr);
-	GameObject(MeshObject* mesh, vector<Texture*> textures, string name);
+	GameObject();
 	~GameObject();
 
 	virtual void Draw() {}

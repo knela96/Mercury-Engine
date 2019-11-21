@@ -6,12 +6,12 @@
 #include "C_Camera.h"
 //#include "Gizmo.h"
 
-MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
-{
+MeshObject::MeshObject() : GameObject()
+{/*
 	this->vertices = vertices;
 	this->indices = indices;
 
-	SetupBuffers();
+	SetupBuffers();*/
 }
 
 MeshObject::~MeshObject()
@@ -34,7 +34,7 @@ bool MeshObject::SetupBuffers() {
 
 	// load data into indices buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint), &indices[0], GL_STATIC_DRAW);
 	
 	// set the vertex attribute pointers
 	// vertex Positions
@@ -46,16 +46,48 @@ bool MeshObject::SetupBuffers() {
 	// vertex texture coords
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 	glEnableVertexAttribArray(2);
-	// vertex colours
-	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
-	glEnableVertexAttribArray(3);
+	//// vertex colours
+	//glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
+	//glEnableVertexAttribArray(3);
 
 	glBindVertexArray(0);
 	App->importer->shader->stop();
 
-
-
 	return ret;
+}
+
+void MeshObject::Transform2Vertex() {
+
+	for (int i = 0; i < buffersSize[vertices_size]; ++i) {
+		Vertex vertex;
+
+		vertex.Position = {
+				_vertices[i],
+				_vertices[i + 1],
+				_vertices[i + 2]
+		};
+
+		if (buffersSize[normals_size] > 0) {
+			vertex.Normal = {
+					_normals[i],
+					_normals[i + 1],
+					_normals[i + 2]
+			};
+		}
+		
+		if (buffersSize[tex_coords_size] > 0) {
+			vertex.TexCoords = {
+				_tex_coords[i],
+				_tex_coords[i + 1]
+			};
+		}
+		else {
+			vertex.TexCoords = {0.0f,0.0f};
+		}
+
+		vertices.push_back(vertex);
+	}
+
 }
 
 void MeshObject::Draw()

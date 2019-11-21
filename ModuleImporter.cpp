@@ -59,7 +59,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Assets\\Models\\BakerHouse.fbx");
+	//Load("Assets\\Models\\BakerHouse.fbx");
 
 	return true;
 }
@@ -122,8 +122,8 @@ bool ModuleImporter::Load(const char* path) {
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		string str(&path[0]);
-		App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
-
+		//App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
+		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &str);
 		aiReleaseImport(scene);
 	}
 	else
@@ -131,6 +131,21 @@ bool ModuleImporter::Load(const char* path) {
 
 	return ret;
 }
+
+void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
+	uint* index = node->mMeshes;
+
+	if (index != nullptr)
+		App->mesh_importer->ImportMeshResource(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(),App->RandomNumberGenerator.GetIntRNInRange(), scene);
+
+	for (int i = 0; i < node->mNumChildren; ++i) {
+		aiNode* child = node->mChildren[i];
+		ImportMesh(child, scene, FileName, str);
+	}
+
+}
+
+
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
 	uint* index = node->mMeshes;
@@ -207,7 +222,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 				mesh->mNormals[i].z
 			};
 		}
-		if (mesh->HasVertexColors(0)) {
+		/*if (mesh->HasVertexColors(0)) {
 			vertex.Colors = {
 				mesh->mColors[0][i].r,
 				mesh->mColors[0][i].g,
@@ -222,7 +237,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 				color.b,
 				1.0f
 			};
-		}
+		}*/
 
 		if (mesh->mTextureCoords[0])
 		{
@@ -268,11 +283,12 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	if (mesh->mName.length == 0)
 		mesh->mName = fileName;
 
-	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
+	GameObject* gameobject = new MeshObject(/*vertices, indices, textures, mesh->mName.C_Str()*/);
+
 	gameobject->box.SetNegativeInfinity();
 	gameobject->box.Enclose(points, mesh->mNumVertices);
-	std::free(points);
 
+	std::free(points);
 	//saveGOinFile(gameobject);
 	return gameobject;
 }
@@ -403,83 +419,3 @@ const string ModuleImporter::getFileName(const string& s) {
 
 	return(file);
 }
-
-//OUR OWN FILE FORMAT HERE
-
-void ModuleImporter::saveGOinFile(const MeshObject *go) {
-
-	
-	string path = "/1";// +go->name;
-	
-
-	uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
-	
-	uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
-	
-	char* data = new char[size];
-	char* cursor = data;
-
-	//Save Ranges
-	uint bytes = sizeof(ranges);
-	memcpy(cursor, ranges, bytes);
-	cursor += bytes;
-
-	//Save Indices
-	bytes = sizeof(uint) * go->mesh->indices.size();
-	uint* info_data = go->mesh->indices.data();
-	memcpy(cursor, &info_data, bytes);
-	cursor += bytes;
-	
-	//Save Vertices
-	bytes = sizeof(Vertex) * go->mesh->vertices.size();
-	Vertex* v_data = go->mesh->vertices.data();
-	memcpy(cursor, &v_data, bytes);
-	cursor += bytes;
-
-	uint ret = App->filesystem->Save(path.c_str(), data, size);
-	RELEASE_ARRAY(data);
-
-
-	//fstream file2;
-
-	//file2.open("Assets/Models/Untitled.ggg", ios::in);
-
-	//if (!file2.is_open()) {
-	//	LOGC("Eror");
-	//}
-
-	//
-	//file2.seekg(0, ios::end);
-	//int fileSize = file2.tellg();
-
-	//char* buffer = new char[fileSize];
-
-	//file2.seekg(0, std::ios::beg);
-	//file2.read(buffer, fileSize);
-
-	//cursor = buffer;
-
-	//uint32 sdd = sizeof(cursor);
-
-	////Save Ranges
-	//uint new_ranges[3];
-	//uint bytes2 = sizeof(new_ranges);
-	//memcpy(&new_ranges, cursor, bytes2);
-	//cursor += bytes2;
-
-	////Save Indices
-	//bytes2 = sizeof(uint) * new_ranges[1];
-	//uint* indices2 = new uint[new_ranges[1]];
-	//memcpy(&indices2, cursor, bytes2);
-	//cursor += bytes2;
-
-	////Save Vertices
-	//bytes2 = sizeof(Vertex) * new_ranges[0];
-	//Vertex* v_data2 = new Vertex[new_ranges[0]];
-	//memcpy(&v_data2, cursor, bytes2);
-	//cursor += sizeof(Vertex);
-
-	//file2.close();
-
-}
-

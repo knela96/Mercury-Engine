@@ -12,7 +12,7 @@ GameObject::GameObject(string name, GameObject * parent) : name(name), parent(pa
 	Start();
 }
 
-GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
+GameObject::GameObject(){
 	components.push_back(AddComponent(Transform));
 	components.push_back(AddComponent(Mesh_Info));
 	components.push_back(AddComponent(Normals));

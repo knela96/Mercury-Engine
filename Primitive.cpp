@@ -194,7 +194,7 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 			};
 		}
 
-		vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
+		//vertex.Colors = { 1.0f,1.0f,1.0f,1.0f };
 
 		if (new_mesh->tcoords != nullptr)
 		{
@@ -221,7 +221,13 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
+	MeshObject* _mesh = new MeshObject();
+	_mesh->vertices = vertices;
+	_mesh->indices = indices;
+	_mesh->textures = textures;
+	_mesh->name = name;
+	GameObject* gameobject = new GameObject();
+	gameobject->name = name;
 	gameobject->parent = App->scene_intro->root;
 	gameobject->box.SetFrom(points, new_mesh->npoints);
 

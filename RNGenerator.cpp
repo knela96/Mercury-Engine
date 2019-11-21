@@ -18,10 +18,10 @@ int RNGenerator::GetIntRN()
 	return UIntDistribution(DRNEngine);
 }
 
-int RNGenerator::GetIntRNInRange(int MIN, int MAX)
+int RNGenerator::GetIntRNInRange(uint MIN, uint MAX)
 {
 
-	std::uniform_int_distribution<int> tmp_IntDistribution(MIN, MAX);
+	std::uniform_int_distribution<uint> tmp_IntDistribution(MIN, MAX);
 	return tmp_IntDistribution(DRNEngine);
 
 }
