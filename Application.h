@@ -13,9 +13,11 @@
 #include "ModuleGUI.h"
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
-#include "ModuleResources.h"
+#include "Resources.h"
 #include "RNGenerator.h"
 #include "MeshImporter.h"
+#include "MaterialImporter.h"
+#include "ModuleResources.h"
 
 class Application
 {
@@ -31,6 +33,7 @@ public:
 	ModuleResources* resources;
 	ModuleFileSystem* filesystem;
 	MeshImporter* mesh_importer;
+	MaterialImporter* material_importer;
 
 
 	RNGenerator RandomNumberGenerator;

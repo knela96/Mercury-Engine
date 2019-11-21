@@ -105,6 +105,8 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\mmgr\mmgr.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="MaterialImporter.h" />
+    <ClInclude Include="Material_R.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshObject.h" />
     <ClInclude Include="ModuleCamera3D.h" />
@@ -125,9 +127,11 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="RNGenerator.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SystemInfo.h" />
+    <ClInclude Include="Texture_R.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowEngineStats.h" />
     <ClInclude Include="WindowFileSystem.h" />
@@ -160,6 +164,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MaterialImporter.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshObject.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
@@ -175,6 +180,7 @@
     <ClCompile Include="parson.c" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RNGenerator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SystemInfo.cpp" />

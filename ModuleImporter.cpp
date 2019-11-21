@@ -35,28 +35,6 @@ bool ModuleImporter::Start(){
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
-	//CREATE CHEKERS TEXTURE
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &checkImage_id);
-	glBindTexture(GL_TEXTURE_2D, checkImage_id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	shader = new Shader();
 
 	//Load("Assets\\Models\\BakerHouse.fbx");
@@ -97,19 +75,37 @@ bool ModuleImporter::CleanUp()
 
 bool ModuleImporter::LoadFile(const char* path) {
 	string extension = getFileExt(path);
-
+	std::string fileName = "";
 	for (int i = 0; i < strlen(extension.c_str()); i++) {
 		extension[i] = toupper(extension[i]); //to Upper letters
 	}
 
-	if (extension == "FBX")
-		Load(path);
+	fileName = "";
+	if (extension == "FBX") {
+		App->filesystem->SplitFilePath(path, nullptr, &fileName);
+		std::string destiny("/Assets/Models/");
+		destiny.append(fileName);
+		if(!App->filesystem->Exists(destiny.c_str()))
+			App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
+		Load(destiny.c_str());
+	}
 	else if (extension == "PNG" || extension =="DDS") {
-		if (App->gui->inspector->active_gameObject != nullptr) {
-			if(App->gui->inspector->active_gameObject->textures.size() != 0)
-				App->gui->inspector->active_gameObject->textures.pop_back();
-			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
-		}
+		App->filesystem->SplitFilePath(path, nullptr, &fileName);
+		std::string destiny("/Assets/Textures/");
+		destiny.append(fileName);
+		if (!App->filesystem->Exists(destiny.c_str()))
+			App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
+
+
+		char* buffer = nullptr;
+		uint size = App->filesystem->Load(destiny.c_str(), &buffer);
+		std::string texture_fileName = "", texture_extension = ""; std::string texture_path;
+		App->filesystem->SplitFilePath(destiny.c_str(), nullptr, &texture_fileName, &texture_extension);
+
+		texture_path = "/Assets/Textures/";
+		texture_path.append(texture_fileName);
+
+		App->material_importer->ImportTextureResource(buffer, texture_path.c_str(), size);
 	}
 	return true;
 }
@@ -118,6 +114,9 @@ bool ModuleImporter::Load(const char* path) {
 	bool ret = true;
 	string FileName = getFileName(path);
 	LOGC("Loading Mesh File: %s", path);
+
+	App->filesystem->GetReadPaths();
+
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -135,8 +134,15 @@ bool ModuleImporter::Load(const char* path) {
 void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
 	uint* index = node->mMeshes;
 
-	if (index != nullptr)
-		App->mesh_importer->ImportMeshResource(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(),App->RandomNumberGenerator.GetIntRNInRange(), scene);
+
+
+	if (index != nullptr) {
+		App->mesh_importer->ImportMeshResource(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), App->RandomNumberGenerator.GetIntRNInRange(), scene);
+
+		aiMaterial* material = scene->mMaterials[scene->mMeshes[*index]->mMaterialIndex];
+		App->material_importer->ImportMaterialResource(&getRootPath(*str), material);
+
+	}
 
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
@@ -189,195 +195,15 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 
 GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char* fileName, const aiScene* scene) {
 
-	vector<Vertex> vertices;
-	vector<uint> indices;
-	vector<Texture*> textures;
+	//GameObject* gameobject = new MeshObject(/*vertices, indices, textures, mesh->mName.C_Str()*/);
 
-	math::float3* points = (float3*)malloc(sizeof(float3) * mesh->mNumVertices);
+	//gameobject->box.SetNegativeInfinity();
+	//gameobject->box.Enclose(points, mesh->mNumVertices);
 
-	//LOAD MATERIAL TEXTURES
-	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
-	aiColor3D color(1.f, 1.f, 1.f);
-	material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-
-	for (uint i = 0; i < mesh->mNumVertices; ++i)
-	{
-		Vertex vertex;
-		if (mesh->HasFaces())
-		{
-			vertex.Position = {
-				mesh->mVertices[i].x,
-				mesh->mVertices[i].y,
-				mesh->mVertices[i].z
-			};
-			points[i].Set(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-		}
-
-		if (mesh->HasNormals())
-		{
-			vertex.Normal = {
-				mesh->mNormals[i].x,
-				mesh->mNormals[i].y,
-				mesh->mNormals[i].z
-			};
-		}
-		/*if (mesh->HasVertexColors(0)) {
-			vertex.Colors = {
-				mesh->mColors[0][i].r,
-				mesh->mColors[0][i].g,
-				mesh->mColors[0][i].b,
-				mesh->mColors[0][i].a
-			};
-		}
-		else {
-			vertex.Colors = { 
-				color.r,
-				color.g,
-				color.b,
-				1.0f
-			};
-		}*/
-
-		if (mesh->mTextureCoords[0])
-		{
-			vertex.TexCoords = {
-				mesh->mTextureCoords[0][i].x,
-				mesh->mTextureCoords[0][i].y
-			};
-		}
-		else
-			vertex.TexCoords = { 0.0f,0.0f };
-
-		vertices.push_back(vertex);
-	}
-
-	for (uint i = 0; i < mesh->mNumFaces; i++)
-	{
-		aiFace* face = &mesh->mFaces[i];
-
-		for (uint j = 0; j < face->mNumIndices; j++)
-			indices.push_back(face->mIndices[j]);
-	}
-
-	
-
-	// 1. diffuse maps
-	vector<Texture*> diffuseMaps = loadMaterialTextures(path, material, aiTextureType_DIFFUSE);
-	textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-	// 2. specular maps
-	vector<Texture*> specularMaps = loadMaterialTextures(path, material, aiTextureType_SPECULAR);
-	textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-	// 3. normal maps
-	std::vector<Texture*> normalMaps = loadMaterialTextures(path, material, aiTextureType_HEIGHT);
-	textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-	// 4. height maps
-	std::vector<Texture*> heightMaps = loadMaterialTextures(path, material, aiTextureType_AMBIENT);
-	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
-
-	LOGC("Loaded Model: %s", mesh->mName.C_Str());
-	LOGC("Loaded Vertices: %u", vertices.size());
-	LOGC("Loaded Indices: %u", indices.size());
-	LOGC("Loaded Textures: %u", textures.size());
-
-	if (mesh->mName.length == 0)
-		mesh->mName = fileName;
-
-	GameObject* gameobject = new MeshObject(/*vertices, indices, textures, mesh->mName.C_Str()*/);
-
-	gameobject->box.SetNegativeInfinity();
-	gameobject->box.Enclose(points, mesh->mNumVertices);
-
-	std::free(points);
-	//saveGOinFile(gameobject);
-	return gameobject;
-}
-
-vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
-{
-	vector<Texture*> texture;
-	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
-	{
-		aiString str;
-		mat->GetTexture(type, i, &str);
-		if(path->size() != 0)
-			path->append("\\");
-		path->append(str.C_Str());
-		Texture* tex = SaveTexture(path->c_str(), type);
-		if(tex != nullptr)
-			texture.push_back(tex);
-	}
-	return texture;
-}
-
-Texture* ModuleImporter::SaveTexture(const char* str, aiTextureType type) {
-	for (unsigned int j = 0; j < stored_textures.size(); j++)
-	{
-		if (std::strcmp(stored_textures[j]->path.c_str(), str) == 0)
-		{
-			return stored_textures[j]; //check if texture is already loaded
-		}
-	}
-	Texture* tex = new Texture();
-	bool ret = false;
-	ret = LoadTexture(str, tex->id, tex->size);
-	if (ret){
-		tex->type = type;
-		tex->path = str;
-		LOGC("Loaded Texture: %s", str);
-		stored_textures.push_back(tex); //store to loaded textures
-		return tex;
-	}else
-		LOGC("Textures not found");
+	//std::free(points);
+	////saveGOinFile(gameobject);
+	//return gameobject;
 	return nullptr;
-}
-
-bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
-
-	ILuint image;
-
-	ilGenImages(1,&image);
-	ilBindImage(image);
-
-	if (!ilLoadImage(path)) {
-		ilDeleteImages(1, &image);
-		LOGC("TEXTURE NOT FOUND");
-			return false;
-	}
-	else {
-		ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-
-		if (!ilutGLBindTexImage())
-			LOGC("Cannot Bind Texture Image");
-		LOG("generating texture, path: %s", path);
-
-		long h, v, bpp, f;
-		ILubyte *texdata = 0;
-
-		v = ilGetInteger(IL_IMAGE_WIDTH);
-		h = ilGetInteger(IL_IMAGE_HEIGHT);
-		bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
-		f = ilGetInteger(IL_IMAGE_FORMAT);
-		texdata = ilGetData();
-		size.x = v;
-		size.y = h;
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &id);
-		glBindTexture(GL_TEXTURE_2D, id);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-
-		glTexImage2D(GL_TEXTURE_2D,0, f, v, h,0,GL_RGBA, GL_UNSIGNED_BYTE, texdata);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		ilDeleteImages(1, &image);
-	}
-
-	return true;
 }
 
 const string ModuleImporter::getFileExt(const string& s) {

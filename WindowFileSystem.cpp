@@ -29,11 +29,11 @@ bool WindowFileSystem::Start()
 
 	Texture* tex;
 	tex = new Texture();
-	App->importer->LoadTexture("Settings/Icons/folder-icon.png", tex->id, tex->size);
+	App->material_importer->LoadTexture("Settings/Icons/folder-icon.png", tex->id, tex->size);
 	icons.push_back(tex);
 
 	tex = new Texture();
-	App->importer->LoadTexture("Settings/Icons/file.png", tex->id, tex->size);
+	App->material_importer->LoadTexture("Settings/Icons/file.png", tex->id, tex->size);
 	icons.push_back(tex);
 
 

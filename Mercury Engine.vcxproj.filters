@@ -43,6 +43,9 @@
     <Filter Include="Sources\Modules\Importers">
       <UniqueIdentifier>{8516c2d6-2108-4a90-a515-58aac6f439d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Resources">
+      <UniqueIdentifier>{b2f64732-6179-4053-9f17-0aea48c2d2f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -199,16 +202,28 @@
     <ClInclude Include="Gizmo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleResources.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="FolderContainer.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Quadtree.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="MeshImporter.h" />
+    <ClInclude Include="MeshImporter.h">
+      <Filter>Sources\Modules\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialImporter.h">
+      <Filter>Sources\Modules\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Sources\Modules\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Material_R.h">
+      <Filter>Sources\Modules\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture_R.h">
+      <Filter>Sources\Modules\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -346,13 +361,19 @@
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleResources.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="MeshImporter.cpp" />
+    <ClCompile Include="MeshImporter.cpp">
+      <Filter>Sources\Modules\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialImporter.cpp">
+      <Filter>Sources\Modules\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Sources\Modules\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />

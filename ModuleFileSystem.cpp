@@ -191,7 +191,7 @@ bool ModuleFileSystem::Copy(const char * source, const char * destination)
 	return ret;
 }
 
-void ModuleFileSystem::SplitFilePath(const char * full_path, std::string * path, std::string * file, std::string * extension) const
+void ModuleFileSystem::SplitFilePath(const char * full_path, std::string * path, std::string * file, std::string * extension, bool onlyName) const
 {
 	if (full_path != nullptr)
 	{
@@ -210,10 +210,18 @@ void ModuleFileSystem::SplitFilePath(const char * full_path, std::string * path,
 
 		if (file != nullptr)
 		{
-			if (pos_separator < full.length())
+			if (pos_separator < full.length()) {
 				*file = full.substr(pos_separator + 1);
+			}
 			else
 				*file = full;
+			if (onlyName) {
+				if (pos_dot < full.length()) {
+					string ext(*file);
+					size_t pos_dot2 = ext.find_last_of(".");
+					*file = ext.substr(0, pos_dot2);
+				}
+			}
 		}
 
 		if (extension != nullptr)

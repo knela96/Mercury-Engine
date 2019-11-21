@@ -14,7 +14,7 @@ MeshImporter::~MeshImporter()
 {
 }
 
-MeshObject * MeshImporter::ImportMeshResource(aiMesh* mesh, string* path, const char* fileName, uint ID, const aiScene* scene)
+void MeshImporter::ImportMeshResource(aiMesh* mesh, string* path, const char* fileName, uint ID, const aiScene* scene)
 {
 	MeshObject* newmesh = new MeshObject();
 
@@ -62,7 +62,6 @@ MeshObject * MeshImporter::ImportMeshResource(aiMesh* mesh, string* path, const 
 
 
 	SaveMeshResource(newmesh, ID);
-	return nullptr;
 }
 
 bool MeshImporter::SaveMeshResource(const MeshObject *mesh, uint ID)
@@ -121,7 +120,7 @@ bool MeshImporter::SaveMeshResource(const MeshObject *mesh, uint ID)
 	uint ret = App->filesystem->Save(mesh->resource_path.c_str(), data, size);
 	RELEASE_ARRAY(data);
 
-	LoadMeshResource(ID);
+	//LoadMeshResource(ID);
 
 	return false;
 }

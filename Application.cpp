@@ -14,6 +14,7 @@ Application::Application()
 	filesystem = new ModuleFileSystem(this);
 	resources = new ModuleResources(this);
 	mesh_importer = new MeshImporter(this);
+	material_importer = new MaterialImporter(this);
 
 	
 	// The order of calls is very important!
@@ -27,6 +28,7 @@ Application::Application()
 	AddModule(audio);
 	AddModule(importer);
 	AddModule(mesh_importer);
+	AddModule(material_importer);
 	
 	// Scenes
 	AddModule(scene_intro);

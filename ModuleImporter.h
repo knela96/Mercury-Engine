@@ -60,17 +60,10 @@ public:
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
-	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
-
-	bool LoadTexture(const char * path, uint & texture, vec2 &size);
-
-	Texture* SaveTexture(const char * str, aiTextureType type);
-
 public:
 	std::vector<Texture*> stored_textures;
 	
 private:
-	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 	bool enabled;
 	uint Texture_id = 0;
@@ -89,7 +82,8 @@ public: //OUR OWN FILE FORMAT HERE
 		RID            material = 0;
 	};
 
-	void saveGOinFile(const MeshObject *go);
+
+	
 
 };
 #endif IMPORTER_H

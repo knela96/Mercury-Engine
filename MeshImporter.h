@@ -6,6 +6,7 @@
 
 class MeshObject;
 struct aiMesh;
+struct aiScene;
 
 class MeshImporter : public Module
 {
@@ -13,7 +14,7 @@ public:
 	MeshImporter(Application* app, bool start_enabled = true);
 	~MeshImporter();
 
-	MeshObject * ImportMeshResource(aiMesh * mesh, string * path, const char * fileName, uint ID, const aiScene * scene = nullptr);
+	void ImportMeshResource(aiMesh * mesh, string * path, const char * fileName, uint ID, const aiScene * scene = nullptr);
 
 	bool SaveMeshResource(const MeshObject * mesh, uint ID);
 
