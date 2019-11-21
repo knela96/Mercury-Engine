@@ -89,5 +89,6 @@ public: //OUR OWN FILE FORMAT HERE
 
 	void saveGOinFile(const GameObject *go);
 
+
 };
 #endif IMPORTER_H

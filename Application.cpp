@@ -29,7 +29,6 @@ Application::Application()
 	AddModule(scene_intro);
 
 	//RECHECK
-	AddModule(resources);
 	AddModule(filesystem);
 	AddModule(gui);
 	
@@ -160,39 +159,6 @@ update_status Application::Update()
 	
 	
 	return ret;
-}
-
-
-// ---------------------------------------------
-const char* Application::GetAppName() const
-{
-	return app_name.c_str();
-}
-
-// ---------------------------------------------
-void Application::SetAppName(const char * name)
-{
-	if (name != nullptr && name != app_name)
-	{
-		app_name = name;
-		window->SetTitle(name);
-		// TODO: Filesystem should adjust its writing folder
-	}
-}
-
-// ---------------------------------------------
-const char* Application::GetOrganizationName() const
-{
-	return organization_name.c_str();
-}
-
-void Application::SetOrganizationName(const char * name)
-{
-	if (name != nullptr && name != organization_name)
-	{
-		organization_name = name;
-		// TODO: Filesystem should adjust its writing folder
-	}
 }
 
 bool Application::CleanUp()

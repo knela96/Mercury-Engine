@@ -48,13 +48,13 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>lib\PhysFS\include;lib\SystemInfo;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib\SystemInfo;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>lib\PhysFS\libx86;\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,7 +66,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>lib\PhysFS\include;lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib\glew\include;lib;lib\imgui;lib\DevIL\include;lib\SDL_mixer\include;lib\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,7 +74,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>lib\PhysFS\libx86;\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>\lib\DevIL\lib;\lib\DevIL\lib\x86\Release;lib\SDL\libx86;lib\imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -87,7 +87,6 @@
     <ClInclude Include="C_MeshInfo.h" />
     <ClInclude Include="C_Normals.h" />
     <ClInclude Include="C_Transform.h" />
-    <ClInclude Include="FolderContainer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gizmo.h" />
@@ -111,7 +110,6 @@
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -166,7 +164,6 @@
     <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />

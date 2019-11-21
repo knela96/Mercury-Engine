@@ -4,9 +4,6 @@
 #include "WindowFileSystem.h"
 #include "imgui.h"
 #include <cmath>
-#include "ModuleFileSystem.h"
-#include "GameObject.h"
-#include "ModuleResources.h"
 
 WindowFileSystem::WindowFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -21,22 +18,6 @@ WindowFileSystem::~WindowFileSystem()
 
 bool WindowFileSystem::Start()
 {
-	root = FolderContainer(ASSETS_FOLDER);
-
-	root = App->filesystem->RecursiveGetFoldersFiles(root.path.c_str());
-
-	currentFolder = &root;
-
-	Texture* tex;
-	tex = new Texture();
-	App->importer->LoadTexture("Settings/Icons/folder-icon.png", tex->id, tex->size);
-	icons.push_back(tex);
-
-	tex = new Texture();
-	App->importer->LoadTexture("Settings/Icons/file.png", tex->id, tex->size);
-	icons.push_back(tex);
-
-
 	return true;
 }
 
@@ -51,31 +32,21 @@ bool WindowFileSystem::Draw()
 
 	if (App->gui->openFileSystem) {
 		ImGui::Begin("Assets", &App->gui->openFileSystem);
-
-		ImVec2 max = ImGui::GetWindowContentRegionMax();
-
-		static float w = 200.0f;
-		float h = max.y - 27;
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-		ImGui::BeginChild("child1", ImVec2(w, h), false);
-		CreateHierarchy(&root, node_clicked, index);
-		ImGui::EndChild();
-		ImGui::SameLine();
-		ImGui::Button("vsplitter", ImVec2(2.0f, h));
-		if (ImGui::IsItemActive())
-			w += ImGui::GetIO().MouseDelta.x;
-		ImGui::SameLine();
-		ImGui::BeginChild("child2", ImVec2(0, h), false); 
-		ImGui::Text(" "); ImGui::SameLine(); ImGui::Text(currentFolder->localPath.c_str());
-		ImGui::Separator();
+		ImGui::Columns(2, NULL, true);
+		//ImGui::SetColumnWidth(0, 100);
+		//ImGui::SetColumnWidth(1,ImGui::GetContentRegionAvailWidth()-100);
+		CreateHierarchy(App->filesystem->RootFolder, node_clicked, index);
+		ImGui::NextColumn();
+		//Visually Select Node in Hirearchy
 		ShowFiles();
-		ImGui::EndChild();
-		ImGui::PopStyleVar();
-
 		if (node_clicked != -1)
 		{
-			selection_mask = (1 << node_clicked);           // Click to single-select
+			if (ImGui::GetIO().KeyCtrl)
+				selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
+			else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
+				selection_mask = (1 << node_clicked);           // Click to single-select
 		}
+		
 
 
 		ImGui::End();
@@ -84,44 +55,25 @@ bool WindowFileSystem::Draw()
 }
 
 void WindowFileSystem::ShowFiles() {
-	for (int i = 0; i < currentFolder->folderchilds.size(); ++i) {
-		DrawNode(&currentFolder->folderchilds.at(i));
-	}
-	for (int i = 0; i < currentFolder->filechilds.size(); ++i) {
-		DrawNode(&currentFolder->filechilds.at(i));
-	}
+	
+	//static bool selected[5 * 5] = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	//for (int i = 0; i < 5 * 5; i++)
+	//{
+	//	ImGui::PushID(i);
+	//	if (ImGui::Selectable(currentFolder->childFiles[i]->weName.c_str()/*"Sailor"*/, &selected[i], 0, ImVec2(70, 50)))
+	//	{
+	//		currentFolder->childFiles.size();
+	//		//currentFolder->childFiles[i]->weName.c_str();
+	//		// Note: We _unnecessarily_ test for both x/y and i here only to silence some static analyzer. The second part of each test is unnecessary.
+	//		
+	//	}
+	//	if ((i % 4) < 3) ImGui::SameLine();
+	//	ImGui::PopID();
+	//}
+	
 }
 
-void WindowFileSystem::DrawNode(FolderContainer* node) {
-	uint64 resourceID = 0;
-	std::string texIcon("");
-	uint ID = *GetNodeTexID(node, resourceID, texIcon);
-
-	glBindTexture(GL_TEXTURE_2D, ID);
-	ImGui::Image((ImTextureID)ID, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0));
-
-	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
-	{
-		ImGui::SetDragDropPayload(node->localPath.c_str(), &resourceID, sizeof(uint64));
-		ImGui::Image((ImTextureID)ID, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0));
-		ImGui::Text(node->localPath.c_str());
-
-		ImGui::EndDragDropSource();
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-uint* WindowFileSystem::GetNodeTexID(FolderContainer* node, uint64& resourceID,std::string texIcon) {
-
-	resourceID = App->resources->GetResource(node->path.c_str());
-
-	if (node->isFile == true)
-		return &icons.at(0)->id;
-	else
-		return &icons.at(1)->id;
-}
-
-void WindowFileSystem::CreateHierarchy(FolderContainer* folder,int &node_clicked,int index) {
+void WindowFileSystem::CreateHierarchy(weFolder* folder,int &node_clicked,int index) {
 	
 	++index;
 
@@ -132,8 +84,7 @@ void WindowFileSystem::CreateHierarchy(FolderContainer* folder,int &node_clicked
 	/*if (parent == gameObject)  FIX TODO
 		node_flags |= ImGuiTreeNodeFlags_Selected;*/
 
-
-	if (folder->folderchilds.size() == 0)
+	if (folder->childFolders.size() == 0)
 		node_flags |= ImGuiTreeNodeFlags_Leaf;
 
 	
@@ -142,7 +93,7 @@ void WindowFileSystem::CreateHierarchy(FolderContainer* folder,int &node_clicked
 	
 	
 
-	if (ImGui::TreeNodeEx((void*)(intptr_t)folder->ID, node_flags, folder->localPath.c_str())) {
+	if (ImGui::TreeNodeEx((void*)(intptr_t)folder->ID, node_flags, folder->FolderName.c_str())) {
 
 		if (ImGui::IsItemClicked()) {
 			HierarchyFolderID = folder->ID;
@@ -150,9 +101,9 @@ void WindowFileSystem::CreateHierarchy(FolderContainer* folder,int &node_clicked
 			node_clicked = index;
 		}
 
-		if (folder->folderchilds.size() > 0) {
-			for (int i = 0; i < folder->folderchilds.size();  ++i) {
-				CreateHierarchy(&folder->folderchilds[i], node_clicked, index);
+		if (folder->childFolders.size() > 0) {
+			for (int i = 0; i < folder->childFolders.size();  ++i) {
+				CreateHierarchy(folder->childFolders[i], node_clicked, index);
 			}
 		}
 

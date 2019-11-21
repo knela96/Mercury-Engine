@@ -5,12 +5,9 @@
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
-#include "FolderContainer.h"
 
 #include <GL/glew.h>
-
-struct Texture;
-
+class weFolder;
 class WindowFileSystem : public Module
 {
 public:
@@ -19,28 +16,16 @@ public:
 
 	bool Start();
 	bool Draw();
-	void CreateHierarchy(FolderContainer* folder, int & node_clicked, int index);
 	bool Cleanup();
 	bool isEnabled();
 
+	void CreateHierarchy(weFolder* folder, int &node_clicked, int index);
 	void ShowFiles();
-
-	void DrawNode(FolderContainer * node);
-
-	uint * GetNodeTexID(FolderContainer * node, uint64 & resourceID, std::string texIcon);
 
 	int node_clicked = -1;
 	int HierarchyFolderID = -1;
 
-
-	FolderContainer root;
-
-	std::vector<FolderContainer> cointainer;
-
-	FolderContainer* currentFolder;
-
-	std::vector<Texture*> icons;
-
+	weFolder* currentFolder = nullptr;
 private:
 	bool enabled;
 };
