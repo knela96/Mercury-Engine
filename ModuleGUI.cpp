@@ -307,7 +307,7 @@ void ModuleGUI::ShowWindowSettings() {
 	ImGui::Checkbox("lighting active", &App->renderer3D->lighting_active);
 	ImGui::Checkbox("texture active", &App->renderer3D->texture_active);
 	ImGui::Checkbox("wireframe active", &App->renderer3D->wireframe_active);*/
-	SDL_GetMouseState(&MouseX,&MouseY);
+	SDL_GetMouseState(&MouseX, &MouseY);
 
 	ImGui::Text("Mouse Position: x=%i , y=%i ",MouseX,MouseY);
 

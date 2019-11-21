@@ -23,7 +23,7 @@ vec2 mix(const vec2 &u, const vec2 &v, float a)
 }
 
 vec2 normalize(const vec2 &u)
-{
+{	 
 	return u / sqrt(u.x * u.x + u.y * u.y);
 }
 

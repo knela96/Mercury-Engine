@@ -49,6 +49,21 @@ public:
 	Plane planes[6];
 	Frustum frustum;
 	int fov = 60;
+
+	vec2 ScreenToWorld(vec2 p);
+
+	bool hit = false;
+	int MouseX = 0;
+	int MouseY = 0;
+	LineSegment picking;
+	bool showray = false;
+
+	GameObject* Pick(float3* hit_point = nullptr) const;
+
+
+	//temp
+	int Mouse_X = 0;
+	int Mouse_Y = 0;
 };
 
 #endif
