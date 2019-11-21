@@ -408,58 +408,58 @@ const string ModuleImporter::getFileName(const string& s) {
 
 void ModuleImporter::saveGOinFile(const GameObject *go) {
 
-	////1) Create and open a file:
-	//std::string Models = "Assets/Models/";
-	//fstream file;
-	//
-	//uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
-	//
-	//file.open(Models + go->name + ".ggg", ios::out );
+	//1) Create and open a file:
+	std::string Models = "Assets/Models/";
+	fstream file;
+	
+	uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
+	
+	file.open(Models + go->name + ".ggg", ios::out );
 
-	//if (!file) {
-	//	LOGC("An error ocurred creating your file: %s ", &go->name);
-	//}
-	//
-	//
-	//uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
-	//
-	//char* data = new char[size];
-	//char* cursor = data;
+	if (!file) {
+		LOGC("An error ocurred creating your file: %s ", &go->name);
+	}
+	
+	
+	uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
+	
+	char* data = new char[size];
+	char* cursor = data;
 
-	////-------
-	//uint bytes = sizeof(ranges);
+	//-------
+	uint bytes = sizeof(ranges);
 
-	//memcpy(cursor, ranges, bytes);
+	memcpy(cursor, ranges, bytes);
 
-	//cursor += bytes;
+	cursor += bytes;
 
-	//bytes = sizeof(uint)*go->mesh->indices.size();
+	bytes = sizeof(uint)*go->mesh->indices.size();
 
-	///*for (int i = 0; i < go->mesh->indices.size(); i++) {
-	//	memcpy(cursor, &go->mesh->indices[i], sizeof(go->mesh->indices[i]));
-	//	cursor += sizeof(go->mesh->indices[i]);
-	//}*/
-	///*file.write(cursor, sizeof(cursor));*/
+	/*for (int i = 0; i < go->mesh->indices.size(); i++) {
+		memcpy(cursor, &go->mesh->indices[i], sizeof(go->mesh->indices[i]));
+		cursor += sizeof(go->mesh->indices[i]);
+	}*/
+	/*file.write(cursor, sizeof(cursor));*/
 
-	////memcpy(cursor, &go->mesh->indices, bytes);
+	//memcpy(cursor, &go->mesh->indices, bytes);
 
-	//
+	
 
-	////memcpy(cursor, (char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	////file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	////file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	////file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	////int* indicesptr = go->mesh->indices.data();
-	//memcpy(
-	//	cursor,
-	//	&(*go->mesh->indices.begin()),
-	//	go->mesh->indices.size() * sizeof(uint));
-	//
-	//file.write(cursor, sizeof(cursor));
+	//memcpy(cursor, (char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
+	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
+	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
+	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
+	//int* indicesptr = go->mesh->indices.data();
+	memcpy(
+		cursor,
+		&(*go->mesh->indices.begin()),
+		go->mesh->indices.size() * sizeof(uint));
+	
+	file.write(cursor, sizeof(cursor));
 
-	//
-	//file.close();
+	
+	file.close();
 
-	//
+	
 
 }

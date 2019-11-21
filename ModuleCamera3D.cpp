@@ -30,7 +30,7 @@ bool ModuleCamera3D::Start()
 {
 	LOGC("Starting camera module");
 	bool ret = true;
-	App->scene_intro->AddFrustum(&camera->frustum, Color(1.0f, 0.0f, 0.0f, 1.0f));
+
 	return ret;
 }
 
@@ -194,7 +194,6 @@ update_status ModuleCamera3D::Update(float dt)
 		//CalculateViewMatrix();
 
 		camera->Update();
-		
 	return UPDATE_CONTINUE;
 }
 
