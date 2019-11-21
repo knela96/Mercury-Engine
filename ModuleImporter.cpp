@@ -149,7 +149,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 		aiVector3D translation, scaling;
 		aiQuaternion rotation;
 		node->mTransformation.Decompose(scaling, rotation, translation);
-		
+
 		float3 pos(translation.x, translation.y, translation.z);
 		float3 scale(scaling.x, scaling.y, scaling.z);
 		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
@@ -158,7 +158,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 		gameObject->transform->vrotation = rot;
 		gameObject->transform->vscale = scale;
 
-		gameObject->transform->UpdateMatrices();		
+		gameObject->transform->UpdateMatrices();
 
 		for (int i = 0; i < node->mNumChildren; ++i) {
 			aiNode* child = node->mChildren[i];
@@ -216,7 +216,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 			};
 		}
 		else {
-			vertex.Colors = { 
+			vertex.Colors = {
 				color.r,
 				color.g,
 				color.b,
@@ -245,7 +245,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 			indices.push_back(face->mIndices[j]);
 	}
 
-	
+
 
 	// 1. diffuse maps
 	vector<Texture*> diffuseMaps = loadMaterialTextures(path, material, aiTextureType_DIFFUSE);
