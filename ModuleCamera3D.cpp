@@ -17,9 +17,11 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Position = vec3(0.0f, 2.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 
-	camera = new C_Camera(nullptr,Component_Type::Camera);
+	camera = new C_Camera(nullptr, Component_Type::Camera);
 	camera->SetPos(Position);
 	camera->SetFOV(60);
+	camera->SetNearPlane(1);
+	camera->SetFarPlane(10000);
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -39,15 +41,15 @@ void ModuleCamera3D::MoveCamera(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 50.0f * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		newPos += to_vec3(camera->frustum.front) * speed;
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		newPos -= to_vec3(camera->frustum.front) * speed;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		newPos -= to_vec3(camera->frustum.WorldRight()) * speed;
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		newPos += to_vec3(camera->frustum.WorldRight()) * speed;
 
 	Position += newPos;
@@ -77,8 +79,8 @@ void ModuleCamera3D::FocusTarget()
 					max_ = point_;
 			}
 			double radius = length(max_) / 2; //radius of sphere
-			
-			
+
+
 			//double radius = gameObject->obb.MaximalContainedSphere().Diameter() / 2; //radius of sphere
 
 			double fov = camera->GetFOV() * DEGTORAD;
@@ -166,34 +168,34 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-		newPos = { 0,0,0 };
-		speed = 20.0f * dt;
+	newPos = { 0,0,0 };
+	speed = 20.0f * dt;
 
-		if (!App->input->writting) {
-			
-			MoveCamera(dt);
+	if (!App->input->writting) {
 
-			FocusTarget();
-			
-		}
+		MoveCamera(dt);
 
-		// Mouse motion ----------------
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_UP || App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_UP)
-			moving = false;
+		FocusTarget();
 
-		if (!moving)
-			moving = App->gui->game->mouseHover();
+	}
 
-		Pan();
-			   
-		Orbit();
+	// Mouse motion ----------------
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_UP || App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_UP)
+		moving = false;
 
-		Zoom();
+	if (!moving)
+		moving = App->gui->game->mouseHover();
 
-		// Recalculate matrix -------------
-		//CalculateViewMatrix();
+	Pan();
 
-		camera->Update();
+	Orbit();
+
+	Zoom();
+
+	// Recalculate matrix -------------
+	//CalculateViewMatrix();
+
+	camera->Update();
 	return UPDATE_CONTINUE;
 }
 

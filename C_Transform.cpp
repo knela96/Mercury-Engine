@@ -72,6 +72,7 @@ void C_Transform::UpdateMatrices() {
 	else
 		globalMatrix = localMatrix;
 
+	gameobject->UpdateBox();
 	gameobject->UpdateChilds();
 }
 

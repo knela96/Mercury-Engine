@@ -105,10 +105,26 @@ bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 	}
 
 	for (int i = 0; i < child->parent->childs.size(); ++i) {
-		if (child->parent->childs[i] == child)
+		if (child->parent->childs[i] == child) {
+			child->transform->vposition += child->parent->transform->vposition;
+			child->transform->vrotation.x += child->parent->transform->vrotation.x;
+			child->transform->vrotation.y += child->parent->transform->vrotation.y;
+			child->transform->vrotation.z += child->parent->transform->vrotation.z;
+			child->transform->vscale.x *= child->parent->transform->vscale.x;
+			child->transform->vscale.y *= child->parent->transform->vscale.y;
+			child->transform->vscale.z *= child->parent->transform->vscale.z;
 			child->parent->childs.erase(child->parent->childs.begin() + i);
+		}
 	}
 	child->parent = parent;
+	child->transform->vposition -= parent->transform->vposition;
+	child->transform->vrotation.x -= parent->transform->vrotation.x;
+	child->transform->vrotation.y -= parent->transform->vrotation.y;
+	child->transform->vrotation.z -= parent->transform->vrotation.z;
+	child->transform->vscale.x /= parent->transform->vscale.x;
+	child->transform->vscale.y /= parent->transform->vscale.y;
+	child->transform->vscale.z /= parent->transform->vscale.z;
+	child->transform->UpdateMatrices();
 	parent->childs.push_back(child);
 
 	return true;
