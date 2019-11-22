@@ -43,7 +43,7 @@ private:
 	float speed = 0.0f;
 
 public:
-	
+
 	vec3 X, Y, Z, Position, Reference;
 	C_Camera* camera = nullptr;
 
