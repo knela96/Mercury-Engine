@@ -4,7 +4,7 @@
 #include "C_Normals.h"
 #include "C_Transform.h"
 #include "C_Camera.h"
-//#include "Gizmo.h"
+#include "Gizmo.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -133,6 +133,11 @@ void MeshObject::Draw()
 		DebugNormals();
 	glBindVertexArray(0);
 	glPopMatrix();
+
+	if (boundary_box) {
+		Gizmo::DrawBox(aabb, Color(0.f, 1.f, 0.f, 1.f));
+		Gizmo::DrawBox(obb, Color(0.f, 0.f, 1.f, 1.f));
+	}
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const

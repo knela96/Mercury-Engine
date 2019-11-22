@@ -65,7 +65,7 @@ bool ModuleSceneIntro::Draw()
 			root->childs[i]->drawChilds();
 	}
 
-	DrawBB();
+	//DrawBB();
 
 
 	return true;

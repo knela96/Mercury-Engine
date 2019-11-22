@@ -36,7 +36,7 @@ bool C_Camera::Enable()
 void C_Camera::Update()
 {
 	if (gameobject != nullptr) {
-		if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
+		if (ImGui::CollapsingHeader("Camera"), open_camera_info)
 		{
 			ImGui::DragInt("FOV", &fov, 1, 1, 200);
 			if (ImGui::IsItemEdited()) { SetFOV(fov); }

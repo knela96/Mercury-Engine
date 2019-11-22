@@ -53,6 +53,7 @@ public:
 	Plane planes[6];
 	Frustum frustum;
 	int fov = 60;
+	bool open_camera_info = true;
 };
 
 #endif
