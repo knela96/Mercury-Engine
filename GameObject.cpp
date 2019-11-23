@@ -35,29 +35,27 @@ bool GameObject::Start()
 }
 
 void GameObject::StartChilds() {
-	if (active) {
-		for (int i = 0; i < childs.size(); ++i) {
+	for (int i = 0; i < childs.size(); ++i) {
+		if (active)
 			childs[i]->Start();
-			childs[i]->StartChilds();
-		}
+		childs[i]->StartChilds();
 	}
 }
 
 void GameObject::UpdateChilds() {
-	if (active) {
-		for (int i = 0; i < childs.size(); ++i) {
-			childs[i]->transform->UpdateMatrices();
-			childs[i]->UpdateChilds();
-		}
+	for (int i = 0; i < childs.size(); ++i) {
+		childs[i]->active = active;
+		childs[i]->transform->UpdateMatrices();
+		childs[i]->UpdateChilds();
 	}
 }
 
 void GameObject::drawChilds() {
-	if (active) {
-		for(int i = 0; i < childs.size(); ++i){
-				childs[i]->Draw();
-				childs[i]->drawChilds();
+	for(int i = 0; i < childs.size(); ++i){
+		if (active) {
+			childs[i]->Draw();
 		}
+			childs[i]->drawChilds();
 	}
 }
 

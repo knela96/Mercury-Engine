@@ -43,7 +43,7 @@ void C_Transform::Update()
 			last_rotation.x != vrotation.x || last_rotation.y != vrotation.y || last_rotation.z != vrotation.z ||
 			last_scale.x != vscale.x || last_scale.y != vscale.y || last_scale.z != vscale.z) 
 		{
-			UpdateMatrices(); gameobject->UpdateBox();
+			UpdateMatrices();
 		}
 
 	}

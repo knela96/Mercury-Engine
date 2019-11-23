@@ -134,20 +134,21 @@ bool ModuleImporter::Load(const char* path) {
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
 	GameObject* gameObject = nullptr;
-	if(node->mNumMeshes == 0)
-		gameObject = new GameObject(FileName->c_str());
+	if (node->mMeshes == 0)
+		gameObject = new GameObject(node->mName.C_Str());
 
 	for (int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
+
+		if (!strcmp(newMesh->mName.C_Str(), ""))
+			newMesh->mName = node->mName;
 
 		if (newMesh != nullptr)
 			gameObject = ProcessMesh(newMesh, &getRootPath(*str), newMesh->mName.C_Str(), scene);
 
 
 		if (gameObject != nullptr) {
-			gameObject->parent = parent;
-
 			aiVector3D translation, scaling;
 			aiQuaternion rotation;
 			node->mTransformation.Decompose(scaling, rotation, translation);
@@ -164,9 +165,13 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 		}
 	}
 
+	gameObject->parent = parent;
+
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
 		GameObject* go = nullptr;
+		if (gameObject == nullptr)
+			gameObject = parent;
 		go = LoadHierarchy(child, scene, FileName, str, gameObject);
 		if (go != nullptr)
 			gameObject->childs.push_back(go);
@@ -290,6 +295,7 @@ vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *
 		if(path->size() != 0)
 			path->append("\\");
 		path->append(str.C_Str());
+		LOGC("Searching %s", str.C_Str());
 		Texture* tex = SaveTexture(path->c_str(), type);
 		if(tex != nullptr)
 			texture.push_back(tex);
