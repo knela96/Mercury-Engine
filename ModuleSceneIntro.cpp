@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "Gizmo.h"
+#include "C_Camera.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,6 +21,7 @@ bool ModuleSceneIntro::Init() {
 	root = new GameObject("Scene");
 	root->childs.push_back(new GameObject("Main Camera",root));
 	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
+	main_camera = root->childs[0];
 	root->transform->UpdateMatrices();
 	return true;
 }
@@ -63,7 +65,8 @@ bool ModuleSceneIntro::Draw()
 {
 	for (int i = 0; i < root->childs.size(); ++i) {
 		if (root->childs[i]->active && root->active)
-			root->childs[i]->Draw();
+			if(App->scene_intro->main_camera->camera->CullFace(root))
+				root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
 

@@ -77,6 +77,18 @@ update_status ModuleGUI::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleGUI::Update(float dt)
+{
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->Update(dt);
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleGUI::PostUpdate(float dt)
 {
 	list <Module*> ::iterator it;

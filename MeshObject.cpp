@@ -125,6 +125,11 @@ void MeshObject::Draw()
 	App->importer->shader->setMat4("model", model);
 	App->importer->shader->setMat4("view", App->camera->camera->ViewMatrix4x4());
 	App->importer->shader->setMat4("projection", App->camera->camera->ProjectionMatrix4x4());
+	
+	if (!App->renderer3D->texture_active) {
+		App->importer->shader->setFloat("near", 1);
+		App->importer->shader->setFloat("far", 1000);
+	}
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	App->importer->shader->stop();
 

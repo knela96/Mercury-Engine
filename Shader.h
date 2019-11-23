@@ -56,16 +56,29 @@ private:
 			"if (render == true) { FragColor = texture(Diffuse_Map1, TexCoord) * vec4(1.0,1.0,1.0,1.0); }\n"
 		"}\0";
 
-	const char *fragmentShaderSource2 = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"in vec4 ourColor;\n"
-		"in vec2 TexCoord;\n"
-		"uniform bool render;\n"
-		"uniform sampler2D Diffuse_Map1;\n"
-		"void main()\n"
-		"{\n"
-		"	if (render == false) { FragColor = gl_Color;  }\n"
-		"}\0";
+	std::string fragmentShaderSource2 = R"(
+		#version 330 core
+		out vec4 FragColor;
+		in vec4 ourColor;
+		in vec2 TexCoord;
+		uniform bool render;
+		uniform sampler2D Diffuse_Map1;
+		uniform float near;
+		uniform float far;
+
+		float LinearizeZ(float depth){
+			float z = depth * 2.0 - 1.0;
+			float ret = (2.0 * near * far)/(far + near - z*(far - near));
+			return ret; 
+		}
+
+		void main()
+		{
+			FragColor = gl_Color;
+			float depth = (LinearizeZ(gl_FragCoord.z)/far);
+			FragColor = vec4(vec3(depth),1.0);
+		}
+	)";
 };
 
 #endif

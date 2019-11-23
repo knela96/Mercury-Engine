@@ -53,7 +53,8 @@ void GameObject::UpdateChilds() {
 void GameObject::drawChilds() {
 	for(int i = 0; i < childs.size(); ++i){
 		if (active) {
-			childs[i]->Draw();
+			if (App->scene_intro->main_camera->camera->CullFace(childs[i]))
+				childs[i]->Draw();
 		}
 			childs[i]->drawChilds();
 	}

@@ -1,4 +1,6 @@
 #include "C_Transform.h"
+#include "C_Camera.h"
+#include "GameObject.h"
 
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
@@ -65,12 +67,18 @@ void C_Transform::UpdateMatrices() {
 
 	mat4x4 scaling = scale(vscale.x, vscale.y, vscale.z);
 
-	localMatrix = translation * rotation * scaling;
+	if (gameobject->camera != nullptr) {
+		localMatrix = translation * rotation;
+		gameobject->camera->UpdateTransformPosition(gameobject->mat2float4(localMatrix));
+	}
+	else {
+		localMatrix = translation * rotation * scaling;
 
-	if(gameobject->parent != nullptr)
-		globalMatrix = gameobject->parent->transform->globalMatrix * localMatrix;
-	else
-		globalMatrix = localMatrix;
+		if (gameobject->parent != nullptr)
+			globalMatrix = gameobject->parent->transform->globalMatrix * localMatrix;
+		else
+			globalMatrix = localMatrix;
+	}
 
 	gameobject->UpdateBox();
 	gameobject->UpdateChilds();

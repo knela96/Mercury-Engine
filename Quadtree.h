@@ -3,7 +3,7 @@
 #include "MathGeoLib/include/MathGeoLib.h"
 
 
-#define QUADTREE_MAX_ITEMS 1
+#define QUADTREE_MAX_ITEMS 2
 
 class GameObject;
 class QuadTreeNode;

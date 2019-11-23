@@ -148,59 +148,66 @@ bool QuadTreeNode::SendToChilds(GameObject* gameObject)
 
 bool QuadTreeNode::Remove(GameObject* gameObject)
 {
-	uint i = 4;
-	for (std::vector<GameObject*>::iterator it = bucket.begin(); it != bucket.end(); it++)
-	{
-		if (*it == gameObject)
-		{
-			bucket.erase(it);
-			RemoveChilds(gameObject,i);
-			return true;
+	bool ret = false;
+
+	if (box.Contains(gameObject->aabb)) {	// If obj is contained inside this node
+		if (childs.size() > 0) {	// If I'm a branch
+			for (int i = 0; i < childs.size(); i++) {
+				if (childs[i]->Remove(gameObject)) {	// If obj has been removed from one of the children nodes
+					ret = true;
+
+					int j = 0;
+					for (j; j < childs.size(); j++)	// After obj removal, if the children node is a "leafs" with no objects left inside, add to counter
+						if (childs[j]->childs.size() > 0 && !childs[j]->childs.empty())
+							break;
+
+					if (j == childs.size())	// If all children nodes meet the above conditions, they can be eliminated
+						childs[0] = childs[1] = childs[2] = childs[3] = nullptr;
+
+					break;
+				}
+			}
+
+			if (!ret) {	// If obj was not found in any of the children nodes, yet I contain it, it means I, the parent branch, hold it and must remove it myself
+				for (int i = 0; i < bucket.size(); i++) {
+					if (bucket[i] == gameObject) {
+						bucket.erase(bucket.begin() + i);
+						ret = true;
+						break;
+					}
+				}
+
+				SDL_assert(ret);
+			}
+		}
+		else {	// If I'm a leaf
+			for (int i = 0; i < bucket.size(); i++) {
+				if (bucket[i] == gameObject) {
+					bucket.erase(bucket.begin() + i);
+					ret = true;
+					break;
+				}
+			}
 		}
 	}
-	if (i == 0)
-		LOGC("UNSPLIT");
 
-	i = 4;
-	for (uint i = 0; i < childs.size(); i++)
-	{
-		if (childs[i]->Remove(gameObject))
-		{
-			RemoveChilds(gameObject,i);
-			return true;
-		}
-
-	}
-
-
-
-	return false;
+	return ret;
 }
 
 void QuadTreeNode::RemoveChilds(GameObject* gameObject,uint& i)
 {
-	std::vector<GameObject*> childs;
-	GetChilds(childs,this);
+	std::vector<GameObject*> childsbucket;
+	GetChilds(childsbucket,this);
 
-	if (childs.size() > 0) {
-		for (std::vector<GameObject*>::iterator it = childs.begin(); it != childs.end();)
+	if (childsbucket.size() + bucket.size() <= QUADTREE_MAX_ITEMS)
+	{
+		for (uint i = 0; i < childsbucket.size(); i++)
 		{
-			if (*it == gameObject)
-			{
-				childs.erase(it);
-			}
-			else
-				++it;
+			bucket.push_back(childsbucket[i]);
 		}
-
-		for (uint i = 0; i < childs.size(); i++)
-		{
-			bucket.push_back(childs[i]);
-		}
-		bucket.clear();
+		childs.clear();
 	}
-
-	i = childs.size();
+	childsbucket.clear();
 }
 
 
@@ -221,7 +228,6 @@ void QuadTreeNode::GetChilds(vector<GameObject*> &vector, QuadTreeNode* cur_node
 void QuadTreeNode::Draw()
 {
 	Gizmo::DrawBox(box, Color(0.0f, 1.0f, 0.0f, 1.0f));
-
 	for (int i = 0; i < childs.size(); ++i) {
 		childs[i]->Draw();
 	}

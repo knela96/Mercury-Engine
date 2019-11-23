@@ -61,13 +61,18 @@ bool WindowInspector::Draw()
 				}
 			}
 			ImGui::SetNextItemWidth(200);
-			ImGui::InputText("Name", (char*)active_gameObject->name.c_str(), 20); 
-			
+			ImGui::InputText("Name", (char*)active_gameObject->name.c_str(), 40); 
+
 			if (ImGui::IsItemActive()) {
 				App->input->writting = true;
 			}
 			else {
 				App->input->writting = false;
+			}
+
+			ImGui::Checkbox("Static", &active_gameObject->_static);
+			if (ImGui::IsItemEdited()) {
+				to_static = true;
 			}
 
 			for (int i = 0; i < active_gameObject->components.size(); ++i) {

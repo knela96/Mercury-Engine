@@ -133,8 +133,24 @@ bool ModuleImporter::Load(const char* path) {
 }
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
+
+	std::string name = node->mName.C_Str();
+	static const char* transformNodes[5] = {
+		"$AssimpFbx$_PreRotation", "$AssimpFbx$_Rotation", "$AssimpFbx$_PostRotation",
+		"$AssimpFbx$_Scaling", "$AssimpFbx$_Translation" };
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (name.find(transformNodes[i]) != string::npos && node->mNumChildren > 0)
+		{
+			node = node->mChildren[0];
+			name = node->mName.C_Str();
+			i = -1;
+		}
+	}
+	
 	GameObject* gameObject = nullptr;
-	if (node->mMeshes == 0)
+	if (node->mNumMeshes == 0)
 		gameObject = new GameObject(node->mName.C_Str());
 
 	for (int i = 0; i < node->mNumMeshes; i++)
@@ -170,8 +186,6 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* 
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
 		GameObject* go = nullptr;
-		if (gameObject == nullptr)
-			gameObject = parent;
 		go = LoadHierarchy(child, scene, FileName, str, gameObject);
 		if (go != nullptr)
 			gameObject->childs.push_back(go);

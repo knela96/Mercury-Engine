@@ -177,6 +177,7 @@ public:
 	bool Init();
 	bool Start();
 	update_status PreUpdate(float dt);
+	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool Draw();
 	bool CleanUp();

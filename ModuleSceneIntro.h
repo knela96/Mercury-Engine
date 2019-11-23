@@ -49,6 +49,8 @@ public:
 
 public:
 	GameObject* root = nullptr;
+	GameObject* main_camera = nullptr;
+
 	std::vector<GameObject*> use_elements;
 	bool camera_culling = false;
 	Quadtree* quat = nullptr;
