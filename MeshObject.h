@@ -3,15 +3,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "GameObject.h"
-
-enum Buffers
-{
-	indices_size,
-	vertices_size,
-	normals_size,
-	tex_coords_size,
-	buffer_size
-};
+#include "Mesh_R.h"
 
 struct Vertex {
 	vec3 Position;
@@ -41,20 +33,11 @@ public:
 	void DebugNormals() const;
 
 public:
-	uint buffersSize[buffer_size];
-
-	uint*	_indices = nullptr;
-	float*	_vertices = nullptr;
-	float*	_normals = nullptr;
-	float*	_tex_coords = nullptr;
 
 	vector<Vertex> vertices;
 	vector<uint> indices;
 
-	uint ID = 0;
-
-	std::string resource_path = "";
-	std::string original_path = "";
+	Mesh_R* mesh;
 
 	uint VAO;
 

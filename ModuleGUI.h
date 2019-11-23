@@ -196,6 +196,7 @@ public:
 	MercuryEngineConsole console;
 	WindowInspector* inspector;
 	WindowEngineStats *EngineStats;
+	WindowFileSystem *filesystem;
 	WindowGame* game;
 	About* about;
 

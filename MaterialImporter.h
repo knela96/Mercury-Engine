@@ -15,10 +15,10 @@ public:
 	MaterialImporter(Application* app, bool start_enabled = true);
 	~MaterialImporter();
 
-	void ImportMaterialResource(string * path, aiMaterial * material);
+	Material_R* ImportMaterialResource(string * path, aiMaterial * mat, std::string * mat_name);
 	void getMaterialTextures(string * path, Material_R & material, aiMaterial * mat, aiTextureType type);
 
-	bool SaveMaterialResource(Material_R * material);
+	std::string* SaveMaterialResource(Material_R * material);
 
 	Material_R* LoadMaterialResource(u64 ID);
 

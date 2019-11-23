@@ -109,6 +109,7 @@
     <ClInclude Include="Material_R.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshObject.h" />
+    <ClInclude Include="Mesh_R.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleGUI.h" />

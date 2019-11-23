@@ -50,7 +50,8 @@ bool ModuleGUI::Init()
 	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
 	windows.push_back(about);
-	windows.push_back(new WindowFileSystem(App));
+	filesystem = new WindowFileSystem(App);
+	windows.push_back(filesystem);
 	return true;
 }
 

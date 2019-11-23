@@ -4,9 +4,8 @@
 #include "Globals.h"
 #include "Module.h"
 
-class MeshObject;
+class Mesh_R;
 struct aiMesh;
-struct aiScene;
 
 class MeshImporter : public Module
 {
@@ -14,11 +13,11 @@ public:
 	MeshImporter(Application* app, bool start_enabled = true);
 	~MeshImporter();
 
-	void ImportMeshResource(aiMesh * mesh, string * path, const char * fileName, uint ID, const aiScene * scene = nullptr);
+	Mesh_R* ImportMeshResource(aiMesh* mesh, std::string* path, const char* fileName, UID ID);
 
-	bool SaveMeshResource(const MeshObject * mesh, uint ID);
+	bool SaveMeshResource(const Mesh_R * mesh, UID ID);
 
-	MeshObject* LoadMeshResource(u64 ID);
+	Mesh_R* LoadMeshResource(UID ID);
 };
 #endif
 

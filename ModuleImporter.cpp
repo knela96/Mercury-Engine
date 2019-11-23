@@ -74,81 +74,94 @@ bool ModuleImporter::CleanUp()
 }
 
 bool ModuleImporter::LoadFile(const char* path) {
-	string extension = getFileExt(path);
-	std::string fileName = "";
-	for (int i = 0; i < strlen(extension.c_str()); i++) {
-		extension[i] = toupper(extension[i]); //to Upper letters
-	}
+	//string extension = getFileExt(path);
+	//std::string fileName = "";
+	//for (int i = 0; i < strlen(extension.c_str()); i++) {
+	//	extension[i] = toupper(extension[i]); //to Upper letters
+	//}
 
-	fileName = "";
-	if (extension == "FBX") {
-		App->filesystem->SplitFilePath(path, nullptr, &fileName);
-		std::string destiny("/Assets/Models/");
-		destiny.append(fileName);
-		if(!App->filesystem->Exists(destiny.c_str()))
-			App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
-		Load(destiny.c_str());
-	}
-	else if (extension == "PNG" || extension =="DDS") {
-		App->filesystem->SplitFilePath(path, nullptr, &fileName);
-		std::string destiny("/Assets/Textures/");
-		destiny.append(fileName);
-		if (!App->filesystem->Exists(destiny.c_str()))
-			App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
+	//fileName = "";
+	//if (extension == "FBX") {
+	//	App->filesystem->SplitFilePath(path, nullptr, &fileName);
+	//	std::string destiny("/Assets/Models/");
+	//	destiny.append(fileName);
+	//	if(!App->filesystem->Exists(destiny.c_str()))
+	//		App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
+	//	Load(destiny.c_str());
+	//}
+	//else if (extension == "PNG" || extension =="DDS") {
+	//	App->filesystem->SplitFilePath(path, nullptr, &fileName);
+	//	std::string destiny("/Assets/Textures/");
+	//	destiny.append(fileName);
+	//	if (!App->filesystem->Exists(destiny.c_str()))
+	//		App->filesystem->CopyFromOutsideFS(path, destiny.c_str());
 
 
-		char* buffer = nullptr;
-		uint size = App->filesystem->Load(destiny.c_str(), &buffer);
-		std::string texture_fileName = "", texture_extension = ""; std::string texture_path;
-		App->filesystem->SplitFilePath(destiny.c_str(), nullptr, &texture_fileName, &texture_extension);
+	//	char* buffer = nullptr;
+	//	uint size = App->filesystem->Load(destiny.c_str(), &buffer);
+	//	std::string texture_fileName = "", texture_extension = ""; std::string texture_path;
+	//	App->filesystem->SplitFilePath(destiny.c_str(), nullptr, &texture_fileName, &texture_extension);
 
-		texture_path = "/Assets/Textures/";
-		texture_path.append(texture_fileName);
+	//	texture_path = "/Assets/Textures/";
+	//	texture_path.append(texture_fileName);
 
-		App->material_importer->ImportTextureResource(buffer, texture_path.c_str(), size);
-	}
+	//	App->material_importer->ImportTextureResource(buffer, texture_path.c_str(), size);
+	//}
 	return true;
 }
 
-bool ModuleImporter::Load(const char* path) {
+Mesh_R* ModuleImporter::Load(const char* path,std::string original_file) {
 	bool ret = true;
 	string FileName = getFileName(path);
 	LOGC("Loading Mesh File: %s", path);
-
-	App->filesystem->GetReadPaths();
-
+	
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		string str(&path[0]);
-		//App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
-		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &str);
+		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &original_file);
+
+
+
 		aiReleaseImport(scene);
 	}
 	else
 		LOG("Error loading scene %s", path);
 
-	return ret;
+	return nullptr;
 }
 
 void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
-	uint* index = node->mMeshes;
+	for (int i = 0; i < scene->mNumMeshes; i++)
+	{
+		Mesh_R* resourceMesh = nullptr;
+		std::string name(scene->mMeshes[i]->mName.C_Str());
 
+		if (!std::strcmp(name.c_str(), "")) {
+			name.append(FileName->c_str());
+			name.append("_");
+			name.append(to_string(i));
+		}
 
+		Meta* meta = App->resources->FindMetaResource(str->c_str(), name.c_str(), ResourceType::MeshR);
+		UID id = (meta == nullptr) ? App->resources->GenerateNewUID() : meta->id;
 
-	if (index != nullptr) {
-		App->mesh_importer->ImportMeshResource(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), App->RandomNumberGenerator.GetIntRNInRange(), scene);
+		resourceMesh = App->mesh_importer->ImportMeshResource(scene->mMeshes[i], str, name.c_str(), id); //Import the mesh
+		App->resources->AddResource(resourceMesh);
 
-		aiMaterial* material = scene->mMaterials[scene->mMeshes[*index]->mMaterialIndex];
-		App->material_importer->ImportMaterialResource(&getRootPath(*str), material);
+		
+
+		Material_R* resourceMaterial = nullptr;
+		aiMaterial* material = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+
+		meta = App->resources->FindMetaResource(str->c_str(), matName.C_Str(), ResourceType::MaterialR);
+
+		std::string matname = matName.C_Str();
+		resourceMaterial = App->material_importer->ImportMaterialResource(str, material, &matname);
+		App->resources->AddResource((Resources*)resourceMaterial);
 
 	}
-
-	for (int i = 0; i < node->mNumChildren; ++i) {
-		aiNode* child = node->mChildren[i];
-		ImportMesh(child, scene, FileName, str);
-	}
-
 }
 
 

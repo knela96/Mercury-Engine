@@ -11,8 +11,8 @@ public:
 	~RNGenerator();
 
 
-	int GetIntRN(); //Shouldn't give negative numbers
-	int GetIntRNInRange(uint MIN = 0, uint MAX = 999999999);
+	uint GetIntRN(); //Shouldn't give negative numbers
+	uint GetIntRNInRange(uint MIN = 0, uint MAX = 999999999);
 
 private:
 	

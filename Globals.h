@@ -38,6 +38,7 @@ typedef unsigned int uint;
 typedef unsigned char uchar;
 typedef unsigned __int32 uint32;
 typedef unsigned __int64 uint64;
+typedef unsigned long long UID;
 typedef unsigned long long RID;
 
 enum update_status

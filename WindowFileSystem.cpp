@@ -113,7 +113,8 @@ void WindowFileSystem::DrawNode(FolderContainer* node) {
 
 uint* WindowFileSystem::GetNodeTexID(FolderContainer* node, uint64& resourceID,std::string texIcon) {
 
-	resourceID = App->resources->GetResource(node->path.c_str());
+	//resourceID = App->resources->GetResource(node->path.c_str());
+	//resourceID = App->resources->Get(-1)->ID;
 
 	if (node->isFile == true)
 		return &icons.at(0)->id;

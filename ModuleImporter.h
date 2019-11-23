@@ -23,6 +23,7 @@ struct Texture;
 class aiMesh;
 class aiScene;
 class aiMaterial;
+class Mesh_R;
 
 enum FileFormats {
 	NONE = -1,
@@ -52,9 +53,9 @@ public:
 
 	bool LoadFile(const char * path);
 
-	bool Load(const char * path);
+	Mesh_R* Load(const char * path, std::string original_file);
 
-	void ImportMesh(aiNode * node, aiScene *scene, string *FileName, string *str);
+	void ImportMesh(aiNode * node, aiScene * scene, string * FileName, string * str);
 
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
 

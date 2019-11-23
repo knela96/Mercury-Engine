@@ -58,27 +58,27 @@ bool MeshObject::SetupBuffers() {
 
 void MeshObject::Transform2Vertex() {
 
-	for (int i = 0; i < buffersSize[vertices_size]; ++i) {
+	for (int i = 0; i < mesh->buffersSize[vertices_size]; ++i) {
 		Vertex vertex;
 
 		vertex.Position = {
-				_vertices[i],
-				_vertices[i + 1],
-				_vertices[i + 2]
+				mesh->_vertices[i],
+				mesh->_vertices[i + 1],
+				mesh->_vertices[i + 2]
 		};
 
-		if (buffersSize[normals_size] > 0) {
+		if (mesh->buffersSize[normals_size] > 0) {
 			vertex.Normal = {
-					_normals[i],
-					_normals[i + 1],
-					_normals[i + 2]
+					mesh->_normals[i],
+					mesh->_normals[i + 1],
+					mesh->_normals[i + 2]
 			};
 		}
 		
-		if (buffersSize[tex_coords_size] > 0) {
+		if (mesh->buffersSize[tex_coords_size] > 0) {
 			vertex.TexCoords = {
-				_tex_coords[i],
-				_tex_coords[i + 1]
+				mesh->_tex_coords[i],
+				mesh->_tex_coords[i + 1]
 			};
 		}
 		else {

@@ -20,7 +20,7 @@ MaterialImporter::~MaterialImporter()
 {
 }
 
-void MaterialImporter::ImportMaterialResource(string* path, aiMaterial* mat)
+Material_R* MaterialImporter::ImportMaterialResource(string* path, aiMaterial* mat, std::string* mat_name)
 {
 
 	Material_R* material = new Material_R();
@@ -39,14 +39,14 @@ void MaterialImporter::ImportMaterialResource(string* path, aiMaterial* mat)
 	mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
 
 	material->color = Color(color.r, color.g, color.b, color.a);
-	material->ID = App->RandomNumberGenerator.GetIntRNInRange();
-	aiString matName;
-	mat->Get(AI_MATKEY_NAME, matName);
+	material->ID = App->resources->GenerateNewUID();
 
-	material->name = matName.C_Str();
+	material->name = mat_name->c_str();
 	material->original_path = *path;
 
 	SaveMaterialResource(material);
+
+	return material;
 }
 
 void MaterialImporter::getMaterialTextures(string* path, Material_R &material, aiMaterial* mat, aiTextureType type)
@@ -174,7 +174,7 @@ Texture_R* MaterialImporter::LoadTextureResource(uint64 ID)
 	return tex;
 }
 
-bool MaterialImporter::SaveMaterialResource(Material_R* material)
+std::string* MaterialImporter::SaveMaterialResource(Material_R* material)
 {
 	uint size = sizeof(uint64) * 4 + sizeof(float) * 4 + sizeof(uint) + material->name.size();
 	
@@ -223,7 +223,7 @@ bool MaterialImporter::SaveMaterialResource(Material_R* material)
 	
 	LoadMaterialResource(material->ID);
 
-	return false;
+	return &path;
 }
 
 Material_R * MaterialImporter::LoadMaterialResource(u64 ID)
