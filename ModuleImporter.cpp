@@ -133,40 +133,43 @@ bool ModuleImporter::Load(const char* path) {
 }
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
-	uint* index = node->mMeshes;
 	GameObject* gameObject = nullptr;
-	if (index == nullptr && parent == App->scene_intro->root) {
+	if(node->mNumMeshes == 0)
 		gameObject = new GameObject(FileName->c_str());
-	}
-	else {
-		if(index != nullptr)
-			gameObject = ProcessMesh(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), scene);
-	}
 
-	if (gameObject != nullptr) {
-		gameObject->parent = parent;
+	for (int i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
 
-		aiVector3D translation, scaling;
-		aiQuaternion rotation;
-		node->mTransformation.Decompose(scaling, rotation, translation);
-		
-		float3 pos(translation.x, translation.y, translation.z);
-		float3 scale(scaling.x, scaling.y, scaling.z);
-		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+		if (newMesh != nullptr)
+			gameObject = ProcessMesh(newMesh, &getRootPath(*str), newMesh->mName.C_Str(), scene);
 
-		gameObject->transform->vposition = pos;
-		gameObject->transform->vrotation = rot;
-		gameObject->transform->vscale = scale;
 
-		gameObject->transform->UpdateMatrices();		
+		if (gameObject != nullptr) {
+			gameObject->parent = parent;
 
-		for (int i = 0; i < node->mNumChildren; ++i) {
-			aiNode* child = node->mChildren[i];
-			GameObject* go = nullptr;
-			go = LoadHierarchy(child, scene, FileName, str, gameObject);
-			if(go != nullptr)
-				gameObject->childs.push_back(go);
+			aiVector3D translation, scaling;
+			aiQuaternion rotation;
+			node->mTransformation.Decompose(scaling, rotation, translation);
+
+			float3 pos(translation.x, translation.y, translation.z);
+			float3 scale(scaling.x, scaling.y, scaling.z);
+			Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+			gameObject->transform->vposition = pos;
+			gameObject->transform->vrotation = rot;
+			gameObject->transform->vscale = scale;
+
+			gameObject->transform->UpdateMatrices();
 		}
+	}
+
+	for (int i = 0; i < node->mNumChildren; ++i) {
+		aiNode* child = node->mChildren[i];
+		GameObject* go = nullptr;
+		go = LoadHierarchy(child, scene, FileName, str, gameObject);
+		if (go != nullptr)
+			gameObject->childs.push_back(go);
 	}
 
 	return gameObject;
