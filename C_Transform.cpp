@@ -25,21 +25,22 @@ void C_Transform::Update()
 	{
 		float3 last_position = vposition;
 		ImGui::Text("Position:");
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("X", &vposition.x, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Y", &vposition.y, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Z", &vposition.z, 0.1f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("X", &vposition.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Y", &vposition.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Z", &vposition.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 	
 		Quat last_rotation = vrotation;
 		ImGui::Text("Rotation:");
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot"); ImGui::DragFloat("X", &vrotation.x, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Y", &vrotation.y, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Z", &vrotation.z, 0.1f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot"); ImGui::DragFloat("X", &vrotation.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Y", &vrotation.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Z", &vrotation.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		
 		float3 last_scale = vscale;
 		ImGui::Text("Scale:   ");
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("X", &vscale.x, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Y", &vscale.y, 0.1f); ImGui::PopID();
-		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Z", &vscale.z, 0.1f); ImGui::PopID();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("X", &vscale.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Y", &vscale.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Z", &vscale.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
+
 		
 		if (last_position.x != vposition.x || last_position.y != vposition.y || last_position.z != vposition.z ||
 			last_rotation.x != vrotation.x || last_rotation.y != vrotation.y || last_rotation.z != vrotation.z ||

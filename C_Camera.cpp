@@ -40,7 +40,7 @@ void C_Camera::Update()
 		{
 			ImGui::DragInt("FOV", &fov, 1, 1, 200);
 			if (ImGui::IsItemEdited()) { SetFOV(fov); }
-
+			ImGui::SameLine();
 			ImGui::Checkbox("Culling", &culling);
 		}
 	}
