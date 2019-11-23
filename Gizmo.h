@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "Color.h"
 #include "MathGeoLib/include/MathGeoLib.h"
-
+#include "ImGuizmo/ImGuizmo.h"
 class Gizmo
 {
 public:
@@ -14,5 +14,25 @@ public:
 		DrawCubeBox(points, color);
 	}
 	static void DrawCubeBox(float3 * points, Color color);
+
+	Gizmo();
+	~Gizmo();
+
+	void Update();
+
+	//Variables for gizmo handling
+	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
+
+	void HandleGuizmo();
+
+
+	vec2 win_size;
+	vec2 img_offset;
+
+	vec2 img_corner;
+	vec2 img_size;
+	vec2 cornerPos;
+
 };
 #endif

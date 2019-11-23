@@ -1,4 +1,6 @@
 #include "C_Transform.h"
+#include "C_Camera.h"
+#include "GameObject.h"
 
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
@@ -53,7 +55,32 @@ void C_Transform::Update()
 		unFold = true;
 	}
 
+
+	
+
 }
+
+float4x4 C_Transform::GetGlobalMatrix() const
+{
+	GameObject* gameObject;
+	float4x4 a = gameObject->mat2float4(globalMatrix);
+	return a;
+}
+
+void C_Transform::SetGlobalMatrix(float4x4 transform)
+{
+	
+	float4x4 localTransform = gameobject->parent->GetComponent<C_Transform>()->GetGlobalMatrix().Inverted() * transform;
+	this->transform = localTransform;
+
+	GameObject* gameObject;
+	globalMatrix = gameObject->Float2Mat4(transform);
+	//globalMatrix = transform; NOW THIS IS LINE AVOBE
+	globalMatrixTransposed = globalMatrix.transpose();
+	transform_updated = true; //no se realment pq serveix, TODO
+}
+
+
 
 void C_Transform::UpdateMatrices() {
 
@@ -80,3 +107,4 @@ bool C_Transform::Disable()
 	active = false;
 	return true;
 }
+
