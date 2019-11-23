@@ -45,7 +45,7 @@ void Gizmo::HandleGuizmo() {
 		viewM.Transpose();
 
 		float4x4 projectionM = App->camera->camera->frustum.ProjectionMatrix();
-		float4x4 modelProjection = gameObject->GetComponent<C_Transform>()->GetGlobalMatrix().Transposed();
+		float4x4 modelProjection = gameObject->mat2float4(gameObject->transform->localMatrix);
 
 		ImGuizmo::SetDrawlist();
 		cornerPos = vec2(img_corner.x, SCREEN_HEIGHT - img_corner.y - img_size.y);
@@ -61,6 +61,9 @@ void Gizmo::HandleGuizmo() {
 			float4x4 newMatrix;
 			newMatrix.Set(modelPtr);
 			modelProjection = newMatrix.Transposed();
+			/*primer pillar quina variacio de x o y o z ha fer
+		despres podrem fer un updatre matrices per actualitzar posicions			
+			*/
 			gameObject->GetComponent<C_Transform>()->SetGlobalMatrix(modelProjection);
 		}
 

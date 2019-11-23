@@ -99,21 +99,21 @@ public:
 	//GET COMPONENTS ----------------------------
 
 
-	template<typename RetComponent>
-	RetComponent* GetComponent()
-	{
-		Component::Type type = RetComponent::GetType();
-		if (type == Component::Type::Transform)
-			return (RetComponent*)transform;
-		for (uint i = 0; i < components.size(); i++)
-		{
-			if (components[i]->GetType() == type)
-			{
-				return ((RetComponent*)(components[i]));
-			}
-		}
-		return nullptr;
-	}
+	//template<typename RetComponent>
+	//RetComponent* GetComponent()
+	//{
+	//	Component::Type type = RetComponent::GetType();
+	//	if (type == Component::Type::Transform)
+	//		return (RetComponent*)transform;
+	//	for (uint i = 0; i < components.size(); i++)
+	//	{
+	//		if (components[i]->GetType() == type)
+	//		{
+	//			return ((RetComponent*)(components[i]));
+	//		}
+	//	}
+	//	return nullptr;
+	//}
 
 	//GET COMPONENTS ----------------------------
 };

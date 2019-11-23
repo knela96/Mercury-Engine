@@ -69,8 +69,8 @@ float4x4 C_Transform::GetGlobalMatrix() const
 
 void C_Transform::SetGlobalMatrix(float4x4 transform)
 {
-	
-	float4x4 localTransform = gameobject->parent->GetComponent<C_Transform>()->GetGlobalMatrix().Inverted() * transform;
+	GameObject a;
+	float4x4 localTransform = a.
 	this->transform = localTransform;
 
 	GameObject* gameObject;
