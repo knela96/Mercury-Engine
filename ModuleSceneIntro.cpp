@@ -15,6 +15,8 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 
 bool ModuleSceneIntro::Init() {
+	box = new AABB(float3(-1000, -1000, -1000), float3(1000, 1000, 1000));
+	quat = new Quadtree(*box);
 	root = new GameObject("Scene");
 	root->childs.push_back(new GameObject("Main Camera",root));
 	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
@@ -67,7 +69,7 @@ bool ModuleSceneIntro::Draw()
 
 	DrawBB();
 
-
+	quat->Draw();
 	return true;
 }
 
@@ -95,6 +97,13 @@ void ModuleSceneIntro::AddFrustum(Frustum* box, Color color) {
 	frustums.push_back(BBox<Frustum>(box, color));
 }
 
+void ModuleSceneIntro::Insert2Quat(GameObject* gameobject) {
+	quat->Insert(gameobject);
+}
+
+void ModuleSceneIntro::Remove2Quat(GameObject* gameobject) {
+	quat->Remove(gameobject);
+}
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {
 	for (int i = 0; i < child->childs.size(); ++i) {

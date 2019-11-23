@@ -17,6 +17,7 @@ public:
 	~WindowInspector();
 
 	bool Start();
+	update_status Update(float dt);
 	bool Draw();
 	bool Cleanup();
 	bool isEnabled();
@@ -35,6 +36,7 @@ public:
 	Color face_color;
 	Color vertex_color;*/
 
+	bool to_static = false;
 	GameObject* active_gameObject = nullptr;
 };
 #endif

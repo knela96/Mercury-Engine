@@ -120,6 +120,7 @@
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="parson.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RNGenerator.h" />
     <ClInclude Include="Shader.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RNGenerator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SystemInfo.cpp" />

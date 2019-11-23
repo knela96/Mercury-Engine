@@ -24,6 +24,19 @@ bool WindowInspector::Start()
 	return true;
 }
 
+update_status WindowInspector::Update(float dt)
+{
+	if (to_static) {
+		if (active_gameObject->_static)
+			App->scene_intro->Insert2Quat(active_gameObject);
+		else
+			App->scene_intro->Remove2Quat(active_gameObject);
+
+		to_static = false;
+	}
+	return UPDATE_CONTINUE;
+}
+
 bool WindowInspector::Draw()
 {
 	if (App->gui->openInspector) {
@@ -48,7 +61,7 @@ bool WindowInspector::Draw()
 				}
 			}
 			ImGui::SetNextItemWidth(200);
-			ImGui::InputText("Name", (char*)&active_gameObject->name, 20); 
+			ImGui::InputText("Name", (char*)active_gameObject->name.c_str(), 20); 
 			
 			if (ImGui::IsItemActive()) {
 				App->input->writting = true;
