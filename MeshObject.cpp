@@ -62,23 +62,23 @@ void MeshObject::Transform2Vertex() {
 		Vertex vertex;
 
 		vertex.Position = {
-				mesh->_vertices[i],
-				mesh->_vertices[i + 1],
-				mesh->_vertices[i + 2]
+				mesh->_vertices[i * 3],
+				mesh->_vertices[i * 3 + 1],
+				mesh->_vertices[i * 3 + 2]
 		};
 
 		if (mesh->buffersSize[normals_size] > 0) {
 			vertex.Normal = {
-					mesh->_normals[i],
-					mesh->_normals[i + 1],
-					mesh->_normals[i + 2]
+					mesh->_normals[i * 3],
+					mesh->_normals[i * 3 + 1],
+					mesh->_normals[i * 3 + 2]
 			};
 		}
 		
 		if (mesh->buffersSize[tex_coords_size] > 0) {
 			vertex.TexCoords = {
-				mesh->_tex_coords[i],
-				mesh->_tex_coords[i + 1]
+				mesh->_tex_coords[i * 2],
+				mesh->_tex_coords[i * 2 + 1]
 			};
 		}
 		else {

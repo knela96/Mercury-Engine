@@ -125,9 +125,9 @@ void ModuleResources::SaveMetaInfo(Resources* resource)
 	App->filesystem->SplitFilePath(resource->original_path.c_str(), &path, &filename,nullptr,true);
 
 	// Create the stream and open the file
-	std::string fullpath = path + filename + ".meta";
-	std::ofstream stream;
-	stream.open(fullpath);
+	std::string fullpath = "Assets/" + filename + ".meta";
+	std::ofstream stream{ fullpath,std::ofstream::out };
+	//stream.open(fullpath);
 	stream << std::setw(4) << config << std::endl;
 	stream.close();
 }

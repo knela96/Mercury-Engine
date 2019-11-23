@@ -26,9 +26,11 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const 
 	{
 		newmesh->buffersSize[indices_size] = mesh->mNumFaces;
 		newmesh->_indices = new uint[mesh->mNumFaces * 3];
+
+		memcpy(&newmesh->_indices, mesh->mFaces[i].mIndices, sizeof(uint) * 3);
 		for (uint i = 0; i < mesh->mNumFaces; i++)
 		{
-			memcpy(&newmesh->_indices[i*3], mesh->mFaces[i].mIndices, sizeof(uint) * 3);
+			memcpy(&newmesh->_indices, mesh->mFaces[i].mIndices, sizeof(uint) * 3);
 		}
 	}
 	else
