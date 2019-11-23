@@ -20,7 +20,7 @@ MaterialImporter::~MaterialImporter()
 {
 }
 
-Material_R* MaterialImporter::ImportMaterialResource(string* path, aiMaterial* mat, std::string* mat_name)
+Material_R* MaterialImporter::ImportMaterialResource(string* path, aiMaterial* mat, std::string* mat_name,UID id)
 {
 
 	Material_R* material = new Material_R();
@@ -39,7 +39,7 @@ Material_R* MaterialImporter::ImportMaterialResource(string* path, aiMaterial* m
 	mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
 
 	material->color = Color(color.r, color.g, color.b, color.a);
-	material->ID = App->resources->GenerateNewUID();
+	material->ID = id;
 
 	material->name = mat_name->c_str();
 	material->original_path = *path;

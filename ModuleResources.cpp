@@ -5,6 +5,9 @@
 #include "Mesh_R.h"
 #include "RNGenerator.h"
 
+
+#include <fstream>
+#include <iomanip>
 ModuleResources::ModuleResources(Application * app, bool start_enabled) : Module(app,start_enabled)
 {
 }
@@ -108,24 +111,25 @@ Meta ModuleResources::GetMetaInfo(Resources* resource)
 //Save .meta file in assets
 void ModuleResources::SaveMetaInfo(Resources* resource)
 {
-	//SAVE META
-	Config config; 
-
-	config.SetNumber("ID", resource->ID);
-	config.SetString("Name", resource->name.c_str());
-	config.SetNumber("Type", static_cast<int>(resource->getType()));
-
+	json config;
 	//Getting file modification date
 	uint64 modDate = App->filesystem->GetLastModTime(resource->original_path.c_str());
-	config.SetNumber("Date", modDate);
 
-	char* buffer = nullptr;
-	uint size = config.Serialize(&buffer);
-	if (size > 0)
-	{
-		std::string path = resource->original_path + ".meta";
-		App->filesystem->Save(path.c_str(), buffer, size);
-	}
+	//config["GameObjects"]["ID"][resource->ID];
+	config["GameObjects"]["ID"]["ID"] = resource->ID;
+	config["GameObjects"]["ID"]["Name"] = resource->name.c_str();
+	config["GameObjects"]["ID"]["Type"] = resource->getType();
+	config["GameObjects"]["ID"]["Date"] = modDate;
+
+	std::string path, filename;
+	App->filesystem->SplitFilePath(resource->original_path.c_str(), &path, &filename,nullptr,true);
+
+	// Create the stream and open the file
+	std::string fullpath = path + filename + ".meta";
+	std::ofstream stream;
+	stream.open(fullpath);
+	stream << std::setw(4) << config << std::endl;
+	stream.close();
 }
 
 void ModuleResources::LoadResource(Resources* resource)

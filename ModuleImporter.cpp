@@ -131,10 +131,12 @@ Mesh_R* ModuleImporter::Load(const char* path,std::string original_file) {
 }
 
 void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
-	for (int i = 0; i < scene->mNumMeshes; i++)
+	for (int i = 0; i < node->mNumMeshes; i++)
 	{
+		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
+
 		Mesh_R* resourceMesh = nullptr;
-		std::string name(scene->mMeshes[i]->mName.C_Str());
+		std::string name(newMesh->mName.C_Str());
 
 		if (!std::strcmp(name.c_str(), "")) {
 			name.append(FileName->c_str());
@@ -145,22 +147,26 @@ void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, 
 		Meta* meta = App->resources->FindMetaResource(str->c_str(), name.c_str(), ResourceType::MeshR);
 		UID id = (meta == nullptr) ? App->resources->GenerateNewUID() : meta->id;
 
-		resourceMesh = App->mesh_importer->ImportMeshResource(scene->mMeshes[i], str, name.c_str(), id); //Import the mesh
+		resourceMesh = App->mesh_importer->ImportMeshResource(newMesh, str, name.c_str(), id); //Import the mesh
 		App->resources->AddResource(resourceMesh);
-
 		
 
 		Material_R* resourceMaterial = nullptr;
-		aiMaterial* material = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
+		aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
 		aiString matName;
 		material->Get(AI_MATKEY_NAME, matName);
 
 		meta = App->resources->FindMetaResource(str->c_str(), matName.C_Str(), ResourceType::MaterialR);
+		id = (meta == nullptr) ? App->resources->GenerateNewUID() : meta->id;
 
 		std::string matname = matName.C_Str();
-		resourceMaterial = App->material_importer->ImportMaterialResource(str, material, &matname);
+		resourceMaterial = App->material_importer->ImportMaterialResource(str, material, &matname,id);
 		App->resources->AddResource((Resources*)resourceMaterial);
 
+	}
+	for (uint i = 0; i < node->mNumChildren; i++)
+	{
+		ImportMesh(node->mChildren[i], scene, FileName, str);
 	}
 }
 

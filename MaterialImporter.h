@@ -15,7 +15,8 @@ public:
 	MaterialImporter(Application* app, bool start_enabled = true);
 	~MaterialImporter();
 
-	Material_R* ImportMaterialResource(string * path, aiMaterial * mat, std::string * mat_name);
+	Material_R * ImportMaterialResource(string * path, aiMaterial * mat, std::string * mat_name, UID id);
+
 	void getMaterialTextures(string * path, Material_R & material, aiMaterial * mat, aiTextureType type);
 
 	std::string* SaveMaterialResource(Material_R * material);

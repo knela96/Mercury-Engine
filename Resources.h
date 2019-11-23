@@ -17,7 +17,7 @@ class Resources
 public:
 	Resources(ResourceType type);
 	~Resources();
-	ResourceType GetType() {
+	ResourceType getType() {
 		return type;
 	}
 

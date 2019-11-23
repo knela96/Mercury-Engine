@@ -541,6 +541,11 @@ aiFileIO * ModuleFileSystem::GetAssimpIO()
 	return AssimpIO;
 }
 
+uint64 ModuleFileSystem::GetLastModTime(const char* filename)
+{
+	return PHYSFS_getLastModTime(filename);
+}
+
 FolderContainer ModuleFileSystem::RecursiveGetFoldersFiles(const char* directory, std::vector<std::string>* filter_ext, std::vector<std::string>* ignore_ext)
 {
 	FolderContainer node(directory);

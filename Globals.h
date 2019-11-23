@@ -6,6 +6,7 @@
 
 #include <windows.h>
 #include <stdio.h>"
+#include "lib/nlohmann/json.hpp"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
@@ -40,6 +41,7 @@ typedef unsigned __int32 uint32;
 typedef unsigned __int64 uint64;
 typedef unsigned long long UID;
 typedef unsigned long long RID;
+using json = nlohmann::json;
 
 enum update_status
 {
