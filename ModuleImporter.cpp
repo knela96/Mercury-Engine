@@ -61,7 +61,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Assets\\Models\\BakerHouse.fbx","");
+	Load("Assets\\Models\\Street environment_V01.fbx","");
 
 	return true;
 }
