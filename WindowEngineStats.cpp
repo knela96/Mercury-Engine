@@ -165,8 +165,7 @@ bool WindowEngineStats::Draw()
 
 		ImGui::NewLine();
 		
-		/*ImGui::Text("GPU Total RAM          %i gb", GPUTotalRam);
-		ImGui::Spacing();*/
+
 		ImGui::Text("GPU Model:");
 		ImGui::NextColumn();
 		ImGui::NewLine();

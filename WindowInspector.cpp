@@ -16,11 +16,7 @@ WindowInspector::~WindowInspector()
 
 
 bool WindowInspector::Start()
-{/*
-	face_lenght = 1.0f;
-	vertex_lenght = 1.0f;
-	face_color = { 0.0f,1.0f,1.0f,1.0f };
-	vertex_color = { 1.0f,0.0f,0.0f,1.0f };*/
+{
 	return true;
 }
 

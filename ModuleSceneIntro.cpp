@@ -75,8 +75,6 @@ bool ModuleSceneIntro::Draw()
 
 	DrawBB();
 
-
-	gizmo.Update();
 	quat->Draw();
 	return true;
 }

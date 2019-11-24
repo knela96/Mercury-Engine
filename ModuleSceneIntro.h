@@ -54,8 +54,6 @@ public:
 
 	uint LoadAllScene(GameObject * root, json & file, uint elements);
 
-	//Engine::SystemInfo s_info;
-
 	std::vector<BBox<AABB>> aabbs;
 	std::vector<BBox<OBB>> obbs;
 	std::vector<BBox<Frustum>> frustums;

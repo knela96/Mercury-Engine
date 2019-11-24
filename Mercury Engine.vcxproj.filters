@@ -196,9 +196,6 @@
     <ClInclude Include="WindowFileSystem.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="C_Camera.h">
-      <Filter>Sources\Helpers\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Gizmo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -228,6 +225,18 @@
     </ClInclude>
     <ClInclude Include="FolderContainer.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImSequencer.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImCurveEdit.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGradient.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGuizmo.h">
+      <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +369,6 @@
     <ClCompile Include="WindowFileSystem.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="C_Camera.cpp">
-      <Filter>Sources\Helpers\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -380,6 +386,18 @@
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGradient.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
