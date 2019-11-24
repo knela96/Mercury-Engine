@@ -44,6 +44,17 @@ void C_Camera::Update()
 			ImGui::Checkbox("Culling", &culling);
 		}
 	}
+	else {
+		if(App->input->GetKey(SDL_SCANCODE_T)==KEY_DOWN)
+			OnClick();
+
+		glBegin(GL_LINES);
+		glColor3f(1.f,0.f,1.f);
+		glVertex3f(picking.a.x, picking.a.y, picking.a.z);
+		glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+		glEnd();
+
+	}
 
 }
 
@@ -185,4 +196,28 @@ bool C_Camera::CullFace(GameObject * gameobject)
 		// we must be partly in then otherwise
 	}
 	return(true);
+}
+
+void C_Camera::OnClick() {
+	vec2 pos;
+	pos.x = App->input->GetMouseX();
+	pos.y = App->input->GetMouseY();
+	ImVec2 g_p = App->gui->game->position;
+	ImVec2 g_w = App->gui->game->size_Game;
+	vec2 t;
+
+	t.x = -((g_p.x - pos.x) / SCREEN_WIDTH) * (SCREEN_WIDTH / g_w.x);
+	t.y = ((g_p.y - pos.y + 37 + g_w.y) / SCREEN_HEIGHT) * (SCREEN_HEIGHT / g_w.y);//offset
+
+	t.x *= SCREEN_WIDTH;
+	t.y *= SCREEN_HEIGHT;
+
+	picking = frustum.UnProjectLineSegment(t.x, t.y);
+
+
+	LOGC("%f - %f", t.x, t.y);
+	LOGC("%f - %f", pos.x, pos.y);
+	LOGC("-----");
+
+
 }

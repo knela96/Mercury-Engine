@@ -150,46 +150,6 @@ bool QuadTreeNode::Remove(GameObject* gameObject)
 {
 	bool ret = false;
 
-	if (box.Contains(gameObject->aabb)) {	// If obj is contained inside this node
-		if (childs.size() > 0) {	// If I'm a branch
-			for (int i = 0; i < childs.size(); i++) {
-				if (childs[i]->Remove(gameObject)) {	// If obj has been removed from one of the children nodes
-					ret = true;
-
-					int j = 0;
-					for (j; j < childs.size(); j++)	// After obj removal, if the children node is a "leafs" with no objects left inside, add to counter
-						if (childs[j]->childs.size() > 0 && !childs[j]->childs.empty())
-							break;
-
-					if (j == childs.size())	// If all children nodes meet the above conditions, they can be eliminated
-						childs[0] = childs[1] = childs[2] = childs[3] = nullptr;
-
-					break;
-				}
-			}
-
-			if (!ret) {	// If obj was not found in any of the children nodes, yet I contain it, it means I, the parent branch, hold it and must remove it myself
-				for (int i = 0; i < bucket.size(); i++) {
-					if (bucket[i] == gameObject) {
-						bucket.erase(bucket.begin() + i);
-						ret = true;
-						break;
-					}
-				}
-
-				SDL_assert(ret);
-			}
-		}
-		else {	// If I'm a leaf
-			for (int i = 0; i < bucket.size(); i++) {
-				if (bucket[i] == gameObject) {
-					bucket.erase(bucket.begin() + i);
-					ret = true;
-					break;
-				}
-			}
-		}
-	}
 
 	return ret;
 }

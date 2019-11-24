@@ -123,8 +123,13 @@ bool ModuleImporter::Load(const char* path, std::string original_file) {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
+
+		Timer time;
+		time.Start();
 		string str(&path[0]);
 		App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
+		LOGC("FILE[%s] loaded with FBX in %lf ms", path, time.ReadTicks());
+		time.Reset();
 
 		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &original_file);
 
