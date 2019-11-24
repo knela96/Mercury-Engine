@@ -51,7 +51,6 @@ public:
 public:
 	GameObject* root = nullptr;
 
-
 	Gizmo gizmo;
 
 	GameObject* main_camera = nullptr;
@@ -60,5 +59,8 @@ public:
 	bool camera_culling = false;
 	Quadtree* quat = nullptr;
 	AABB* box = nullptr;
+
+	bool lookQuads = true;
+
 };
 #endif

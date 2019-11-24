@@ -40,6 +40,9 @@ bool ModuleSceneIntro::Start()
 			root->childs[i]->Start();
 		root->childs[i]->StartChilds();
 	}
+
+	
+
 	return ret;
 }
 
@@ -108,6 +111,7 @@ void ModuleSceneIntro::Insert2Quat(GameObject* gameobject) {
 
 void ModuleSceneIntro::Remove2Quat(GameObject* gameobject) {
 	quat->Remove(gameobject);
+	lookQuads = true;
 }
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {
@@ -152,6 +156,41 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane_ p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+
+	//if (lookQuads) {
+
+	//	vector<GameObject*> childs;
+	//	QuadTreeNode* cnode = quat->tree_node;
+	//	quat->tree_node->GetChilds(childs, cnode);
+	//	
+		/*for (int i = 0; i < App->scene_intro->root->childs.size(); i++) {
+			Insert2Quat(App->scene_intro->root->childs[i]);
+		}*/
+	//	
+
+
+	//	//for (int j = 0; j < childs.size(); j++) {
+	//	//	if (childs.size() > 0) {
+	//	//		
+	//	//	}
+	//	//}
+	//	
+
+	//	
+	//	
+	//	
+
+
+	//	//quat->tree_node->RemoveChilds();
+	//	////crate childs again
+	//	//for (int i = 0; i < App->scene_intro->root->childs.size(); i++) {
+	//	//	quat->tree_node->Insert(App->scene_intro->root->childs[i]);
+	//	//}
+	//	//
+	//	//quat->tree_node->Redistribute();
+	//	lookQuads = false;
+	//}
 
 	Draw();
 
