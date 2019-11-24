@@ -94,6 +94,10 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="lib\glew\include\GL\glew.h" />
     <ClInclude Include="lib\gpudetect\DeviceId.h" />
+    <ClInclude Include="lib\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="lib\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="lib\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="lib\ImGuizmo\ImSequencer.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
@@ -146,6 +150,10 @@
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
     <ClCompile Include="lib\gpudetect\DeviceId.cpp" />
+    <ClCompile Include="lib\ImGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="lib\ImGuizmo\ImGradient.cpp" />
+    <ClCompile Include="lib\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
     <ClCompile Include="lib\imgui\imgui_demo.cpp" />
     <ClCompile Include="lib\imgui\imgui_draw.cpp" />

@@ -4,6 +4,7 @@
 #include "Color.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "glmath.h"
 class Gizmo
 {
 public:
@@ -19,6 +20,8 @@ public:
 	~Gizmo();
 
 	void Update();
+	void Draw();
+
 
 	//Variables for gizmo handling
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;

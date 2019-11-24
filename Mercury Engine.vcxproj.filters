@@ -196,6 +196,18 @@
     <ClInclude Include="Gizmo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGuizmo.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImCurveEdit.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGradient.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImSequencer.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -332,6 +344,18 @@
     </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGradient.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

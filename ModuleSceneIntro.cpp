@@ -4,7 +4,7 @@
 #include "Primitive.h"
 #include "GameObject.h"
 #include "C_Transform.h"
-#include "Gizmo.h"
+
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -67,7 +67,8 @@ bool ModuleSceneIntro::Draw()
 
 	DrawBB();
 
-
+	
+	gizmo.Update();
 	return true;
 }
 

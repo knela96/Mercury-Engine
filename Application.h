@@ -27,7 +27,7 @@ public:
 	ModuleGUI* gui;
 	ModuleImporter* importer;
 	ModuleFileSystem* filesystem;
-
+	
 
 	RNGenerator RandomNumberGenerator;
 private:

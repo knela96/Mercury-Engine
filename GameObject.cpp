@@ -6,7 +6,8 @@
 #include "C_MeshInfo.h"
 #include "C_Material.h"
 #include "C_Camera.h"
-#include "MathGeoLib/include/Geometry/Frustum.h
+#include "MathGeoLib/include/Geometry/Frustum.h"
+
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	components.push_back(AddComponent(Transform));
 }
@@ -69,8 +70,10 @@ float4x4 GameObject::mat2float4(mat4x4 mat)
 }
 
 mat4x4 GameObject::Float2Mat4(float4x4 f) {
-	//float4x4 m = camera->frustum->ProjectionMatrix();
-	//m.Transpose();
+	GameObject* a;
+	a->camera->frustum.ProjectionMatrix();
+	float4x4 m = App->camera->camera->frustum.ProjectionMatrix();
+	m.Transpose();
 	mat4x4 m4 = { m.At(0,0), m.At(0,1), m.At(0,2), m.At(0,3),
 				 m.At(1,0), m.At(1,1), m.At(1,2), m.At(1,3),
 				 m.At(2,0), m.At(2,1), m.At(2,2), m.At(2,3),

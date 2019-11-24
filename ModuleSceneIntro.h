@@ -6,6 +6,7 @@
 #include "SystemInfo.h"
 #include "Color.h"
 #include <vector>
+#include "Gizmo.h"
 
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "MathGeoLib/include/MathBuildConfig.h"
@@ -46,5 +47,9 @@ public:
 
 public:
 	GameObject* root = nullptr;
+
+
+	Gizmo gizmo;
+
 };
 #endif

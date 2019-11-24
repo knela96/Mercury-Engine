@@ -2,10 +2,10 @@
 #include "C_Camera.h"
 #include "GameObject.h"
 
+
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
 	name = "Transform";
-
 }
 
 C_Transform::~C_Transform()
@@ -55,8 +55,11 @@ void C_Transform::Update()
 		unFold = true;
 	}
 
+	//HERE UPDATE OF IMGUIZMO
 
 	
+
+	//guizmo.Update();
 
 }
 
@@ -67,18 +70,18 @@ float4x4 C_Transform::GetGlobalMatrix() const
 	return a;
 }
 
-void C_Transform::SetGlobalMatrix(float4x4 transform)
-{
-	GameObject a;
-	float4x4 localTransform = a.
-	this->transform = localTransform;
-
-	GameObject* gameObject;
-	globalMatrix = gameObject->Float2Mat4(transform);
-	//globalMatrix = transform; NOW THIS IS LINE AVOBE
-	globalMatrixTransposed = globalMatrix.transpose();
-	transform_updated = true; //no se realment pq serveix, TODO
-}
+//void C_Transform::SetGlobalMatrix(float4x4 transform)
+//{
+//	GameObject a;
+//	float4x4 localTransform = a.
+//	this->transform = localTransform;
+//
+//	GameObject* gameObject;
+//	globalMatrix = gameObject->Float2Mat4(transform);
+//	//globalMatrix = transform; NOW THIS IS LINE AVOBE
+//	globalMatrixTransposed = globalMatrix.transpose();
+//	transform_updated = true; //no se realment pq serveix, TODO
+//}
 
 
 

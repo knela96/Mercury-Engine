@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "Gizmo.h"
 #ifdef _DEBUG
 #pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
 #else
@@ -40,5 +41,8 @@ public:
 	//?
 	bool		flipped_normals = false;
 	bool		transform_updated = true;
+
+
+
 };
 
