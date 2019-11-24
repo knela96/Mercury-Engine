@@ -109,6 +109,7 @@ void WindowFileSystem::DrawNode(FolderContainer* node) {
 		ImGui::EndDragDropSource();
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
+	ImGui::Text(node->localPath.c_str());
 }
 
 uint* WindowFileSystem::GetNodeTexID(FolderContainer* node, uint64& resourceID, std::string texIcon) {

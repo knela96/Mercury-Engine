@@ -64,6 +64,10 @@ public:
 
 	Component* getComponent(Component_Type type);
 
+	void Save(const char * name, json& file);
+
+	void Load(const char * name, const json& file);
+
 	
 public:
 	MeshObject* mesh = nullptr;
@@ -87,6 +91,7 @@ public:
 	AABB aabb;
 	OBB obb;
 	bool boundary_box = false;
+	UID ID = 0;
 
 
 public:

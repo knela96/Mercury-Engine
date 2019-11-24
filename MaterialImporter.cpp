@@ -215,7 +215,9 @@ std::string* MaterialImporter::SaveMaterialResource(Material_R* material)
 	cursor += bytes;
 
 	std::string path = ("/Library/Materials/");
-	path.append(std::to_string(material->ID));
+	//path.append(std::to_string(material->ID));
+	path.append(material->name);
+	path.append(".mat");
 
 	uint ret = App->filesystem->Save(path.c_str(), data, size);
 

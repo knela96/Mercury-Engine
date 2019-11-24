@@ -12,6 +12,8 @@ public:
 	bool Enable();
 	void Update();
 	bool Disable();
+	void Save(const char* gameObject, json &file);
+	void Load(const char* gameObject, const json &file);
 
 public:
 	bool open_normals = true;

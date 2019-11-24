@@ -265,6 +265,22 @@ void ModuleFileSystem::NormalizePath(std::string & full_path) const
 	}
 }
 
+void ModuleFileSystem::GetAllFilesWithExtension(const char * directory, const char * extension, std::vector<std::string>& file_list) const
+{
+	vector<string> files;
+	vector<string> dirs;
+	DiscoverFiles(directory, files, dirs);
+
+	for (uint i = 0; i < files.size(); i++)
+	{
+		string ext;
+		SplitFilePath(files[i].c_str(), nullptr, nullptr, &ext);
+
+		if (ext == extension)
+			file_list.push_back(files[i]);
+	}
+}
+
 unsigned int ModuleFileSystem::Load(const char * path, const char * file, char ** buffer) const
 {
 	string full_path(path);

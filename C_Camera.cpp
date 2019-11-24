@@ -28,6 +28,7 @@ C_Camera::~C_Camera()
 
 bool C_Camera::Enable()
 {
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 	active = true;
 	App->scene_intro->AddFrustum(&frustum, Color(1.0f, 0.0f, 0.0f, 1.0f));
 	return true;
@@ -220,4 +221,20 @@ void C_Camera::OnClick() {
 	LOGC("-----");
 
 
+}
+
+void C_Camera::Save(const char * _name, json & file)
+{
+	file["Game Objects"][_name]["Components"]["Camera"]["Active"] = active;
+	file["Game Objects"][_name]["Components"]["Camera"]["FOV"] = frustum.verticalFov;
+	file["Game Objects"][_name]["Components"]["Camera"]["Culling"] = culling;
+}
+
+void C_Camera::Load(const char * _name, const json & file)
+{
+	active = file["Game Objects"][_name]["Components"]["Camera"]["Active"].get<bool>();
+	int fov = file["Game Objects"][_name]["Components"]["Camera"]["FOV"].get<float>() * RADTODEG;
+	SetFOV(fov);
+
+	culling = file["Game Objects"][_name]["Components"]["Camera"]["Culling"].get<bool>();
 }

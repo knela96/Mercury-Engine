@@ -5,16 +5,21 @@
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
 	name = "Transform";
-
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 }
 
 C_Transform::~C_Transform()
 {
 }
 
+
 bool C_Transform::Enable()
 {
 	active = true;
+	return true;
+}
+
+bool C_Transform::Start() {
 	return true;
 }
 
@@ -89,4 +94,36 @@ bool C_Transform::Disable()
 {
 	active = false;
 	return true;
+}
+
+void C_Transform::Save(const char * gameObject, json & file)
+{
+	file["Game Objects"][gameObject]["Components"]["Transform"]["UID"] = ID;
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Parent UID"] = gameobject->ID;
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Active"] = active;
+
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Position"] = { vposition.x, vposition.y, vposition.z };
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"] = { vrotation.x, vrotation.y, vrotation.z, vrotation.w };
+	file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"] = { vscale.x, vscale.y, vscale.y };
+
+}
+
+void C_Transform::Load(const char * gameObject, const json & file)
+{
+	ID = file["Game Objects"][gameObject]["Components"]["Transform"]["UID"].get<uint>();
+	active = file["Game Objects"][gameObject]["Components"]["Transform"]["Active"].get<bool>();
+
+	vposition = float3(file["Game Objects"][gameObject]["Components"]["Transform"]["Position"][0],
+					   file["Game Objects"][gameObject]["Components"]["Transform"]["Position"][1],
+					   file["Game Objects"][gameObject]["Components"]["Transform"]["Position"][2]
+	);
+	vrotation = Quat(file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"][0],
+					file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"][1],
+					file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"][2],
+					file["Game Objects"][gameObject]["Components"]["Transform"]["Rotation"][3]
+	);
+	vscale = float3(file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"][0],
+		file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"][1],
+		file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"][2]
+	);
 }

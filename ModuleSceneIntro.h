@@ -40,6 +40,18 @@ public:
 	void Insert2Quat(GameObject * gameobject);
 	void Remove2Quat(GameObject * gameobject);
 	bool setParent(GameObject* to_parent, GameObject* to_child);
+	void setParentByID(UID parent_ID, GameObject * parent, GameObject * child);
+	void LoadScenePopUp();
+
+	void SaveScenePopUp();
+
+	void SaveScene(std::string fileName);
+
+	uint SaveAllScene(GameObject * root, json & file);
+
+	void LoadScene(std::string * fileName);
+
+	uint LoadAllScene(GameObject * root, json & file, uint elements);
 
 	//Engine::SystemInfo s_info;
 
@@ -55,5 +67,6 @@ public:
 	bool camera_culling = false;
 	Quadtree* quat = nullptr;
 	AABB* box = nullptr;
+	bool savePopUp = false;
 };
 #endif

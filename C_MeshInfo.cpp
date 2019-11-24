@@ -4,6 +4,7 @@
 C_MeshInfo::C_MeshInfo(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
 	name = "Mesh Info";
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 }
 
 C_MeshInfo::~C_MeshInfo()
@@ -21,7 +22,13 @@ void C_MeshInfo::Update()
 	//ImGui::PushID("active_MeshInfo"); ImGui::Checkbox("", &active); ImGui::PopID(); ImGui::SameLine();
 	if (ImGui::CollapsingHeader(name.c_str(), open_mesh_info))
 	{
-		ImGui::Text("Vertices: %i", gameobject->mesh->vertices.size()); ImGui::SameLine(); ImGui::Spacing();  ImGui::SameLine(); ImGui::Text("Tris: %i", gameobject->mesh->indices.size() / 3);
+		int vs = 0;
+		int is = 0;
+		if (gameobject->mesh != nullptr) {
+			vs = gameobject->mesh->vertices.size();
+			is = gameobject->mesh->indices.size() / 3;
+		}
+		ImGui::Text("Vertices: %i", vs); ImGui::SameLine(); ImGui::Spacing();  ImGui::SameLine(); ImGui::Text("Tris: %i", is);
 		ImGui::Checkbox("Boundary Box", &gameobject->boundary_box);
 		if (ImGui::IsItemActivated()) { gameobject->UpdateBox(); }
 	}
@@ -36,4 +43,14 @@ bool C_MeshInfo::Disable()
 {
 	active = false;
 	return true;
+}
+
+void C_MeshInfo::Save(const char * _name, json & file)
+{
+	file["Game Objects"][_name]["Components"]["Mesh"]["Active"] = gameobject->boundary_box;
+}
+
+void C_MeshInfo::Load(const char * _name, const json & file)
+{
+	gameobject->boundary_box = file["Game Objects"][_name]["Components"]["Mesh"]["Active"].get<bool>();
 }

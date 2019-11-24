@@ -135,6 +135,12 @@ bool ModuleGUI::Draw()
 			m->Draw();
 	}
 
+	if (savePopUp)
+		ImGui::OpenPopup("Save..");
+
+	App->scene_intro->SaveScenePopUp();
+
+
 	//renderig UI
 	ImGui::Render();
 
@@ -211,12 +217,15 @@ bool ModuleGUI::CreateMenuBar() {
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("New")) {}
-			if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-			if (ImGui::BeginMenu("Open Recent")) {
+			//if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
+			if (ImGui::BeginMenu("Open Scene")) {
+				App->scene_intro->LoadScenePopUp();
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
-			if (ImGui::MenuItem("Save As..")) {}
+			if (ImGui::MenuItem("Save Scene", "Ctrl+S") || (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)){
+				savePopUp = true;
+			}
+			//if (ImGui::MenuItem("Save As..")) {}
 			if (ImGui::MenuItem("Exit")) {
 				ret = false;
 			}

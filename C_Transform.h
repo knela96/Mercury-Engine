@@ -15,9 +15,12 @@ public:
 	~C_Transform();
 
 	bool Enable();
+	bool Start();
 	void Update();
 	void UpdateMatrices();
 	bool Disable();
+	void Save(const char* gameObject, json &file);
+	void Load(const char* gameObject, const json &file);
 
 public:
 	mat4x4 globalMatrix;

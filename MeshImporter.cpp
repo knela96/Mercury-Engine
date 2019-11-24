@@ -59,7 +59,9 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const 
 		newmesh->buffersSize[tex_coords_size] = 0;
 
 	std::string _path("/Library/Meshes/");
-	_path.append(to_string(ID));
+	//_path.append(to_string(ID));
+	_path.append(fileName);
+	_path.append(".mesh");
 
 	newmesh->name = fileName;
 
@@ -75,7 +77,7 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const 
 bool MeshImporter::SaveMeshResource(const Mesh_R *mesh, UID ID)
 {
 	
-	uint size = mesh->original_path.size() + mesh->name.size() + sizeof(mesh->buffersSize) + (sizeof(uint) * mesh->buffersSize[indices_size]) + (sizeof(float) * mesh->buffersSize[vertices_size] * 3)
+	uint size = mesh->original_path.size() + mesh->name.size() + sizeof(mesh->buffersSize) + (sizeof(uint) * mesh->buffersSize[indices_size] * 3) + (sizeof(float) * mesh->buffersSize[vertices_size] * 3)
 		+ (sizeof(float) * mesh->buffersSize[normals_size] * 3) + (sizeof(float) * mesh->buffersSize[tex_coords_size] * 2) + sizeof(uint) * 2;
 	
 	char* data = new char[size];
@@ -102,7 +104,7 @@ bool MeshImporter::SaveMeshResource(const Mesh_R *mesh, UID ID)
 	cursor += bytes;
 
 	//Save Indices
-	bytes = sizeof(uint) * mesh->buffersSize[indices_size];
+	bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
 	memcpy(cursor, &mesh->_indices, bytes);
 	cursor += bytes;
 

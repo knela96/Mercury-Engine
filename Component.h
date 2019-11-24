@@ -16,12 +16,16 @@ enum Component_Type {
 class Component
 {
 public:
-	Component(Component_Type type, GameObject* gameobject, bool active = true) : type(type), gameobject(gameobject) {}
+	Component(Component_Type type, GameObject* gameobject, bool active = true) : type(type), gameobject(gameobject) {
+	}
 	~Component() {}
 
+	virtual bool Start() { return true; }
 	virtual bool Enable() { return true; }
 	virtual void Update(){}
 	virtual bool Disable() { return true; }
+	virtual void Load(const char* gameObject, const json &file) {};
+	virtual void Save(const char* gameObject, json &file) {};
 
 	bool isActive() {
 		return active;
@@ -33,6 +37,7 @@ protected:
 	bool active;
 	bool unFold = false;
 	string name;
+	UID ID = 0;
 };
 
 
