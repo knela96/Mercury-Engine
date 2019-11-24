@@ -5,17 +5,20 @@
 #include "C_Normals.h"
 #include "C_MeshInfo.h"
 #include "C_Material.h"
-//#include "C_Camera.h"
+#include "C_Camera.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
-	components.push_back(AddComponent(Transform));
+	AddComponent(Transform);
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 }
 
 GameObject::GameObject(MeshObject* mesh, vector<Texture*> textures, string name) : mesh(mesh), textures(textures), name(name) {
-	components.push_back(AddComponent(Transform));
-	components.push_back(AddComponent(Mesh_Info));
-	components.push_back(AddComponent(Normals));
-	components.push_back(AddComponent(Material));
+	AddComponent(Transform);
+	AddComponent(Mesh_Info);
+	AddComponent(Normals);
+	AddComponent(Material);
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 }
 
 GameObject::~GameObject() {}
@@ -23,37 +26,40 @@ GameObject::~GameObject() {}
 bool GameObject::Start()
 {
 	if (mesh != nullptr) {
-		mesh->b_aabb = new Box<AABB>(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
-		mesh->b_obb = new Box<OBB>(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+		App->scene_intro->AddAABB(&aabb, Color(0.0f, 1.0f, 0.0f, 1.0f));
+		App->scene_intro->AddOBB(&obb, Color(0.0f, 0.0f, 1.0f, 1.0f));
+
+		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
+		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
+
 		mesh->UpdateBox();
 	}
 	return false;
 }
 
 void GameObject::StartChilds() {
-	if (active) {
-		for (int i = 0; i < childs.size(); ++i) {
+	for (int i = 0; i < childs.size(); ++i) {
+		if (active)
 			childs[i]->Start();
-			childs[i]->StartChilds();
-		}
+		childs[i]->StartChilds();
 	}
 }
 
 void GameObject::UpdateChilds() {
-	if (active) {
-		for (int i = 0; i < childs.size(); ++i) {
-			childs[i]->transform->UpdateMatrices();
-			childs[i]->UpdateChilds();
-		}
+	for (int i = 0; i < childs.size(); ++i) {
+		childs[i]->active = active;
+		childs[i]->transform->UpdateMatrices();
+		childs[i]->UpdateChilds();
 	}
 }
 
 void GameObject::drawChilds() {
-	if (active) {
-		for(int i = 0; i < childs.size(); ++i){
+	for(int i = 0; i < childs.size(); ++i){
+		if (active) {
+			if (App->scene_intro->main_camera->camera->CullFace(childs[i]))
 				childs[i]->Draw();
-				childs[i]->drawChilds();
 		}
+			childs[i]->drawChilds();
 	}
 }
 
@@ -62,6 +68,18 @@ float4x4 GameObject::mat2float4(mat4x4 mat)
 	float4x4 f_mat;
 	f_mat.Set(mat.M);
 	return f_mat.Transposed();
+}
+
+mat4x4 GameObject::Float2Mat4(float4x4 f) {
+	GameObject* a;
+	a->camera->frustum.ProjectionMatrix();
+	float4x4 m = App->camera->camera->frustum.ProjectionMatrix();
+	m.Transpose();
+	mat4x4 m4 = { m.At(0,0), m.At(0,1), m.At(0,2), m.At(0,3),
+				 m.At(1,0), m.At(1,1), m.At(1,2), m.At(1,3),
+				 m.At(2,0), m.At(2,1), m.At(2,2), m.At(2,3),
+				 m.At(3,0), m.At(3,1), m.At(3,2), m.At(3,3) };
+	return m4;
 }
 
 void GameObject::CleanUp() {
@@ -141,11 +159,11 @@ Component * GameObject::AddComponent(Component_Type type)
 		//component = new C_Script(this, type);
 		break;
 	case Component_Type::Camera:
-		//component = new C_Camera(this, type);
-		//camera = (C_Camera*)component;
+		component = new C_Camera(this, type);
+		camera = (C_Camera*)component;
 		break;
 	}
-
+	components.push_back(component);
 	component->Enable();
 
 	return component;
@@ -158,4 +176,65 @@ Component * GameObject::getComponent(Component_Type type)
 			return components[i];
 	}
 	return nullptr;
+}
+
+void GameObject::Save(const char* _name, json& file) {
+	file["Game Objects"][_name]["Name"] = name;
+	file["Game Objects"][_name]["UID"] = ID;
+	if (parent != nullptr) {
+		file["Game Objects"][_name]["Parent UID"] = parent->ID;
+	}
+	else {
+		file["Game Objects"][_name]["Parent UID"] = 0;
+	}
+	file["Game Objects"][_name]["Enable"] = active;
+	file["Game Objects"][_name]["Static"] = _static;
+
+	for (uint i = 0; i < components.size(); ++i)
+		components[i]->Save(_name, file);
+}
+
+void GameObject::Load(const char * _name, const json & file)
+{
+	name = file["Game Objects"][_name]["Name"].get<string>().c_str();
+	ID = file["Game Objects"][_name]["UID"].get<uint>();
+	if (file["Game Objects"][_name].find("Parent UID") != file["Game Objects"][_name].end()) {
+		int id = file["Game Objects"][_name]["Parent UID"].get<uint>();
+		App->scene_intro->setParentByID(id, App->scene_intro->root, this);
+	}
+	active = file["Game Objects"][_name]["Enable"].get<bool>();
+	_static = file["Game Objects"][_name]["Static"].get<bool>();
+
+	if(file["Game Objects"][_name]["Components"].find("Transform") != file["Game Objects"][_name]["Components"].end());
+	{
+		transform->Load(_name, file);
+	}
+
+	if (file["Game Objects"][_name]["Components"].find("Mesh") != file["Game Objects"][_name]["Components"].end())
+	{
+		C_MeshInfo* t = (C_MeshInfo*)AddComponent(Component_Type::Mesh_Info);
+		t->Load(_name, file);
+	}
+	
+	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())
+	{
+		C_Normals* t = (C_Normals*)AddComponent(Component_Type::Normals);
+		t->Load(_name, file);
+	}
+
+	if (file["Game Objects"][_name]["Components"].find("Material") != file["Game Objects"][_name]["Components"].end())
+	{
+		C_Material* t = (C_Material*)AddComponent(Component_Type::Material);
+		t->Load(_name, file);
+	}
+
+	if (file["Game Objects"][_name]["Components"].find("Camera") != file["Game Objects"][_name]["Components"].end())
+	{
+		C_Camera* t = (C_Camera*)AddComponent(Component_Type::Camera);
+		t->Load(_name, file);
+		App->scene_intro->main_camera = this;
+	}
+	/*std::string
+	App->importer->LoadFile("/Library/Meshes/")*/
+
 }

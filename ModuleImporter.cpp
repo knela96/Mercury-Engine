@@ -4,6 +4,8 @@
 #include "Primitive.h"
 #include "SDL.h"
 #include "C_Transform.h"
+#include "Material_R.h"
+#include "Texture_R.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -59,7 +61,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Models\\Baker_House\\BakerHouse.fbx");
+	Load("Assets\\Models\\Street environment_V01.fbx","");
 
 	return true;
 }
@@ -103,7 +105,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 	}
 
 	if (extension == "FBX")
-		Load(path);
+		Load(path,"");
 	else if (extension == "PNG" || extension =="DDS") {
 		if (App->gui->inspector->active_gameObject != nullptr) {
 			if(App->gui->inspector->active_gameObject->textures.size() != 0)
@@ -114,15 +116,22 @@ bool ModuleImporter::LoadFile(const char* path) {
 	return true;
 }
 
-bool ModuleImporter::Load(const char* path) {
+bool ModuleImporter::Load(const char* path, std::string original_file) {
 	bool ret = true;
 	string FileName = getFileName(path);
 	LOGC("Loading Mesh File: %s", path);
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
+
+		Timer time;
+		time.Start();
 		string str(&path[0]);
 		App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
+		LOGC("FILE[%s] loaded with FBX in %lf ms", path, time.ReadTicks());
+		time.Reset();
+
+		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &original_file);
 
 		aiReleaseImport(scene);
 	}
@@ -132,41 +141,113 @@ bool ModuleImporter::Load(const char* path) {
 	return ret;
 }
 
-GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
-	uint* index = node->mMeshes;
-	GameObject* gameObject = nullptr;
-	if (index == nullptr && parent == App->scene_intro->root) {
-		gameObject = new GameObject(FileName->c_str());
-	}
-	else {
-		if(index != nullptr)
-			gameObject = ProcessMesh(scene->mMeshes[*index], &getRootPath(*str), FileName->c_str(), scene);
-	}
 
-	if (gameObject != nullptr) {
-		gameObject->parent = parent;
+void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
 
-		aiVector3D translation, scaling;
-		aiQuaternion rotation;
-		node->mTransformation.Decompose(scaling, rotation, translation);
-		
-		float3 pos(translation.x, translation.y, translation.z);
-		float3 scale(scaling.x, scaling.y, scaling.z);
-		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+	for (int i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
 
-		gameObject->transform->vposition = pos;
-		gameObject->transform->vrotation = rot;
-		gameObject->transform->vscale = scale;
+		Mesh_R* resourceMesh = nullptr;
+		std::string name(newMesh->mName.C_Str());
 
-		gameObject->transform->UpdateMatrices();		
-
-		for (int i = 0; i < node->mNumChildren; ++i) {
-			aiNode* child = node->mChildren[i];
-			GameObject* go = nullptr;
-			go = LoadHierarchy(child, scene, FileName, str, gameObject);
-			if(go != nullptr)
-				gameObject->childs.push_back(go);
+		if (!std::strcmp(name.c_str(), "")) {
+			name.append(FileName->c_str());
+			name.append("_");
+			name.append(to_string(i));
 		}
+
+		Meta* meta = App->resources->FindMetaResource(str->c_str(), name.c_str(), ResourceType::MeshR);
+		UID id;
+		if (meta == nullptr)
+			id = App->resources->GenerateNewUID();
+		else
+			id = meta->id;
+
+		resourceMesh = App->mesh_importer->ImportMeshResource(newMesh, str, name.c_str(), id); //Import the mesh
+		App->resources->AddResource(resourceMesh);
+
+
+		Material_R* resourceMaterial = nullptr;
+		aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+
+		meta = App->resources->FindMetaResource(str->c_str(), matName.C_Str(), ResourceType::MaterialR);
+		if (meta == nullptr)
+			id = App->resources->GenerateNewUID();
+		else
+			id = meta->id;
+
+		std::string matname = matName.C_Str();
+		resourceMaterial = App->material_importer->ImportMaterialResource(str, material, &matname, id);
+		App->resources->AddResource(resourceMaterial);
+
+	}
+	for (uint i = 0; i < node->mNumChildren; i++)
+	{
+		ImportMesh(node->mChildren[i], scene, FileName, str);
+	}
+}
+
+
+GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
+
+	std::string name = node->mName.C_Str();
+	static const char* transformNodes[5] = {
+		"$AssimpFbx$_PreRotation", "$AssimpFbx$_Rotation", "$AssimpFbx$_PostRotation",
+		"$AssimpFbx$_Scaling", "$AssimpFbx$_Translation" };
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (name.find(transformNodes[i]) != string::npos && node->mNumChildren > 0)
+		{
+			node = node->mChildren[0];
+			name = node->mName.C_Str();
+			i = -1;
+		}
+	}
+	
+	GameObject* gameObject = nullptr;
+	if (node->mNumMeshes == 0)
+		gameObject = new GameObject(node->mName.C_Str());
+
+	for (int i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
+
+		if (!strcmp(newMesh->mName.C_Str(), ""))
+			newMesh->mName = node->mName;
+
+		if (newMesh != nullptr)
+			gameObject = ProcessMesh(newMesh, &getRootPath(*str), newMesh->mName.C_Str(), scene);
+
+
+		if (gameObject != nullptr) {
+			aiVector3D translation, scaling;
+			aiQuaternion rotation;
+			node->mTransformation.Decompose(scaling, rotation, translation);
+
+			float3 pos(translation.x, translation.y, translation.z);
+			float3 scale(scaling.x, scaling.y, scaling.z);
+			Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+
+			gameObject->transform->vposition = pos;
+			gameObject->transform->vrotation = rot;
+			gameObject->transform->vscale = scale;
+
+			gameObject->transform->UpdateMatrices();
+		}
+	}
+
+	gameObject->parent = parent;
+
+	for (int i = 0; i < node->mNumChildren; ++i) {
+		aiNode* child = node->mChildren[i];
+		GameObject* go = nullptr;
+		go = LoadHierarchy(child, scene, FileName, str, gameObject);
+		if (go != nullptr)
+			gameObject->childs.push_back(go);
 	}
 
 	return gameObject;
@@ -273,12 +354,13 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	gameobject->box.Enclose(points, mesh->mNumVertices);
 
 	std::free(points);
-
 	return gameobject;
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
 {
+	path->erase();
+	path->append("Assets\\Textures");
 	vector<Texture*> texture;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
@@ -287,6 +369,7 @@ vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *
 		if(path->size() != 0)
 			path->append("\\");
 		path->append(str.C_Str());
+		LOGC("Searching %s", str.C_Str());
 		Texture* tex = SaveTexture(path->c_str(), type);
 		if(tex != nullptr)
 			texture.push_back(tex);
@@ -363,13 +446,6 @@ bool ModuleImporter::LoadTexture(const char*path, uint &id, vec2 &size) {
 
 	return true;
 }
-//
-//void ModuleImporter::PushObj(aiMesh * mesh)
-//{
-//	gameObjects.push_back(ProcessMesh(mesh));
-//}
-
-
 
 const string ModuleImporter::getFileExt(const string& s) {
 
@@ -410,3 +486,4 @@ const string ModuleImporter::getFileName(const string& s) {
 
 	return(file);
 }
+

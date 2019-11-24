@@ -7,6 +7,8 @@
 #include "WindowEngineStats.h"
 #include "ModuleInput.h"
 #include "About.h"
+#include "ModuleFileSystem.h"
+
 
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -48,7 +50,8 @@ bool ModuleGUI::Init()
 	windows.push_back(new WindowEngineStats(App));
 	windows.push_back(inspector);
 	windows.push_back(about);
-
+	filesystem = new WindowFileSystem(App);
+	windows.push_back(filesystem);
 	return true;
 }
 
@@ -75,6 +78,18 @@ update_status ModuleGUI::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleGUI::Update(float dt)
+{
+	list <Module*> ::iterator it;
+	for (it = windows.begin(); it != windows.end(); ++it) {
+		Module* m = *it;
+		if (m != nullptr)
+			m->Update(dt);
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleGUI::PostUpdate(float dt)
 {
 	list <Module*> ::iterator it;
@@ -89,7 +104,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 // PostUpdate present buffer to screen
 bool ModuleGUI::Draw()
 {
-	// Start the Dear ImGui frame
+	//Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
@@ -107,7 +122,7 @@ bool ModuleGUI::Draw()
 
 	
 
-	ImGui::ShowDemoWindow(&show_demo_window);
+	/*ImGui::ShowDemoWindow(&show_demo_window);*/
 	if (openConsole)
 		ShowConsole();
 	if (openWindowSettings)
@@ -119,6 +134,12 @@ bool ModuleGUI::Draw()
 		if (m != nullptr && m->isEnabled())
 			m->Draw();
 	}
+
+	if (savePopUp)
+		ImGui::OpenPopup("Save..");
+
+	App->scene_intro->SaveScenePopUp();
+
 
 	//renderig UI
 	ImGui::Render();
@@ -196,12 +217,15 @@ bool ModuleGUI::CreateMenuBar() {
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("New")) {}
-			if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-			if (ImGui::BeginMenu("Open Recent")) {
+			//if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
+			if (ImGui::BeginMenu("Open Scene")) {
+				App->scene_intro->LoadScenePopUp();
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
-			if (ImGui::MenuItem("Save As..")) {}
+			if (ImGui::MenuItem("Save Scene", "Ctrl+S") || (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)){
+				savePopUp = true;
+			}
+			//if (ImGui::MenuItem("Save As..")) {}
 			if (ImGui::MenuItem("Exit")) {
 				ret = false;
 			}
@@ -222,15 +246,19 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Game", "", openGame)) {
 				openGame = !openGame;
 			}
+
 			if (ImGui::MenuItem("Console", "F1", openConsole)) {
 				openConsole = !openConsole;
 			}
+
 			if (ImGui::MenuItem("Hirearchy", "", openHirearchy)) {
 				openHirearchy = !openHirearchy;
 			}
+
 			if (ImGui::MenuItem("Inspector", "", openInspector)) {
 				openInspector = !openInspector;
 			}
+
 			if (ImGui::MenuItem("Engine Stats", "", ShowFPS)) {
 				ShowFPS = !ShowFPS;
 			}
@@ -238,6 +266,11 @@ bool ModuleGUI::CreateMenuBar() {
 			if (ImGui::MenuItem("Settings",NULL, openWindowSettings)) {
 				openWindowSettings = !openWindowSettings;
 			}
+
+			if (ImGui::MenuItem("Assets", "", openFileSystem)) {
+				openFileSystem = !openFileSystem;
+			}
+
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

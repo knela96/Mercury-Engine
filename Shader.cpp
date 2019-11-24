@@ -32,8 +32,9 @@ Shader::Shader()
 		LOGC("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n %s", infoLog);
 	}
 	// fragment shader
+	const char* f2 = fragmentShaderSource2.c_str();
 	int fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
+	glShaderSource(fragmentShader2, 1, &f2, NULL);
 	glCompileShader(fragmentShader2);
 	// check for shader compile errors
 	glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);

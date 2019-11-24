@@ -11,6 +11,10 @@ Application::Application()
 	gui = new ModuleGUI(this);
 	camera = new ModuleCamera3D(this);
 	importer = new ModuleImporter(this);
+	filesystem = new ModuleFileSystem(this);
+	resources = new ModuleResources(this);
+	mesh_importer = new MeshImporter(this);
+	material_importer = new MaterialImporter(this);
 
 	
 	// The order of calls is very important!
@@ -23,11 +27,15 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(importer);
+	AddModule(mesh_importer);
+	AddModule(material_importer);
 	
 	// Scenes
 	AddModule(scene_intro);
 
 	//RECHECK
+	AddModule(resources);
+	AddModule(filesystem);
 	AddModule(gui);
 
 	// Renderer last!
@@ -43,6 +51,7 @@ Application::~Application()
 	{
 		delete item->data;
 		item = item->prev;
+		
 	}
 }
 
@@ -85,6 +94,34 @@ void Application::FinishUpdate()
 
 }
 
+// ---------------------------------------------
+const char* Application::GetAppName() const
+{
+	return app_name.c_str();
+}
+
+// ---------------------------------------------
+void Application::SetAppName(const char * name)
+{
+	if (name != nullptr && name != app_name)
+	{
+		app_name = name;
+		window->SetTitle(name);
+	}
+}
+const char* Application::GetOrganizationName() const
+{
+	return organization_name.c_str();
+}
+
+void Application::SetOrganizationName(const char * name)
+{
+	if (name != nullptr && name != organization_name)
+	{
+		organization_name = name;
+	}
+}
+//--------------------------------------------------------------
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {

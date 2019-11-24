@@ -102,7 +102,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					if (dropped_filedir != nullptr) {
 						// Shows directory of dropped file
 
-						App->importer->LoadFile(dropped_filedir);
+						App->resources->ImportFile(dropped_filedir,true);
 
 						SDL_free(dropped_filedir);    // Free dropped_filedir memory
 					}

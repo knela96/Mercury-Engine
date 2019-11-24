@@ -3,8 +3,8 @@
 #include "Application.h"
 #include "Module.h"
 #include "Shader.h"
-#include "glmath.h"
-
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "Globals.h"
 #include <vector>
 
 #define CHECKERS_HEIGHT 64
@@ -23,6 +23,7 @@ struct Texture;
 class aiMesh;
 class aiScene;
 class aiMaterial;
+class Mesh_R;
 
 enum FileFormats {
 	NONE = -1,
@@ -52,11 +53,13 @@ public:
 
 	bool LoadFile(const char * path);
 
-	bool Load(const char * path);
+	bool Load(const char * path, std::string original_file);
 
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
+
+	void ImportMesh(aiNode * node, aiScene * scene, string * FileName, string * str);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 
@@ -75,6 +78,11 @@ private:
 public: 
 	Shader* shader;
 	uint checkImage_id;
+
+
+public: //OUR OWN FILE FORMAT HERE
+	void saveGOinFile(const GameObject *go);
+
 
 };
 #endif IMPORTER_H

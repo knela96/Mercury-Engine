@@ -17,6 +17,7 @@
 #include "WindowInspector.h"
 #include "WindowGame.h"
 #include "WindowEngineStats.h"
+#include "WindowFileSystem.h"
 
 
 using namespace std;
@@ -176,6 +177,7 @@ public:
 	bool Init();
 	bool Start();
 	update_status PreUpdate(float dt);
+	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool Draw();
 	bool CleanUp();
@@ -183,6 +185,8 @@ public:
 	bool CreateMenuBar();
 
 	void ShowConsole();
+
+	void LoadScenesPopUp();
 
 	void ShowWindowSettings();
 
@@ -195,6 +199,7 @@ public:
 	WindowInspector* inspector;
 	WindowEngineStats *EngineStats;
 	WindowGame* game;
+	WindowFileSystem* filesystem;
 	About* about;
 
 	int MouseX;
@@ -207,7 +212,7 @@ private:
 	bool resizable = true;
 	bool fulldesktop = false;
 	bool openDebug = false;
-
+	
 	
 	bool p_open = true; 
 	bool quit = false;
@@ -218,7 +223,9 @@ public:
 	bool openInspector = true;
 	bool openHirearchy = true;
 	bool ShowFPS = true;
-	bool openAbout = false;
+	bool openAbout = false; 
+	bool openFileSystem = true;
+	bool savePopUp = false;
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_HEIGHT;

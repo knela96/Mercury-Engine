@@ -18,6 +18,7 @@ public:
 
 	bool Start();
 	bool Draw();
+	update_status Update(float dt);
 	bool Cleanup();
 	bool isEnabled();
 
@@ -27,14 +28,14 @@ private:
 	bool open_transform = true;
 	bool open_normals = true;
 	bool open_mesh_info = true;
-	bool open_material = true; 
+	bool open_material = true;
 	bool s = false;
 public:
 	/*float face_lenght;
 	float vertex_lenght;
 	Color face_color;
 	Color vertex_color;*/
-
+	bool to_static = false;
 	GameObject* active_gameObject = nullptr;
 };
 #endif

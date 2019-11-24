@@ -1,9 +1,10 @@
-#include "MeshObject.h"
 #include "Application.h"
-#include "glmath.h"
+#include "MeshObject.h"
 #include "ModuleGUI.h"
 #include "C_Normals.h"
 #include "C_Transform.h"
+#include "C_Camera.h"
+#include "Gizmo.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
 {
@@ -34,7 +35,7 @@ bool MeshObject::SetupBuffers() {
 	// load data into indices buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-	
+
 	// set the vertex attribute pointers
 	// vertex Positions
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -122,8 +123,13 @@ void MeshObject::Draw()
 
 	glBindVertexArray(VAO);
 	App->importer->shader->setMat4("model", model);
-	App->importer->shader->setMat4("view", App->camera->GetViewMatrix4x4());
-	App->importer->shader->setMat4("projection", App->renderer3D->ProjectionMatrix);
+	App->importer->shader->setMat4("view", App->camera->camera->ViewMatrix4x4());
+	App->importer->shader->setMat4("projection", App->camera->camera->ProjectionMatrix4x4());
+	
+	if (!App->renderer3D->texture_active) {
+		App->importer->shader->setFloat("near", 1);
+		App->importer->shader->setFloat("far", 1000);
+	}
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	App->importer->shader->stop();
 
@@ -132,13 +138,11 @@ void MeshObject::Draw()
 		DebugNormals();
 	glBindVertexArray(0);
 	glPopMatrix();
-	
-	b_obb->box = &obb;
-	b_aabb->box = &aabb;
 
-	DrawBox(b_obb);
-	DrawBox(b_aabb);
-
+	if (boundary_box) {
+		Gizmo::DrawBox(aabb, Color(0.f, 1.f, 0.f, 1.f));
+		Gizmo::DrawBox(obb, Color(0.f, 0.f, 1.f, 1.f));
+	}
 }
 
 const vec3 MeshObject::getNormal(vec3 p1, vec3 p2, vec3 p3) const
@@ -213,47 +217,4 @@ void MeshObject::DebugNormals() const
 			glEnable(GL_LIGHTING);
 		}
 	}
-}
-
-template <class T>
-void MeshObject::DrawBox(Box<T>* box) const
-{
-	if (boundary_box) {
-		float3 points[8];
-		box->box->GetCornerPoints(points);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_LINES);
-		glColor3f(box->color.r, box->color.g, box->color.b);
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glVertex3f(points[0].At(0), points[0].At(1), points[0].At(2));
-		glVertex3f(points[2].At(0), points[2].At(1), points[2].At(2));
-		glVertex3f(points[1].At(0), points[1].At(1), points[1].At(2));
-		glVertex3f(points[3].At(0), points[3].At(1), points[3].At(2));
-		glVertex3f(points[4].At(0), points[4].At(1), points[4].At(2));
-		glVertex3f(points[6].At(0), points[6].At(1), points[6].At(2));
-		glVertex3f(points[5].At(0), points[5].At(1), points[5].At(2));
-		glVertex3f(points[7].At(0), points[7].At(1), points[7].At(2));
-
-		glEnd();
-		glEnable(GL_LIGHTING);
-	}
-
 }

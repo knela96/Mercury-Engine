@@ -27,6 +27,24 @@ public:
 	ImVec2 size_Game;
 	ImVec2 position;
 	ImVec2 newsize_Game;
+
+
+	//-----------------------------//guizmo
+	//Variables for gizmo handling
+	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
+
+	void HandleGuizmo();
+
+
+	vec2 win_size;
+	vec2 img_offset;
+
+	vec2 img_corner;
+	vec2 img_size;
+	vec2 cornerPos;
+
+	//-----------------------------//guizmo_end
 };
 
 #endif // WINDOW_GAME
