@@ -14,6 +14,9 @@
 #include "ModuleImporter.h"
 #include "ModuleFileSystem.h"
 #include "RNGenerator.h"
+#include "MeshImporter.h"
+#include "MaterialImporter.h"
+#include "ModuleResources.h"
 
 class Application
 {
@@ -26,7 +29,10 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleImporter* importer;
+	ModuleResources* resources;
 	ModuleFileSystem* filesystem;
+	MeshImporter* mesh_importer;
+	MaterialImporter* material_importer;
 
 
 	RNGenerator RandomNumberGenerator;
@@ -58,6 +64,10 @@ public:
 
 	bool Init();
 	update_status Update();
+	const char * GetAppName() const;
+	void SetAppName(const char * name);
+	const char * GetOrganizationName() const;
+	void SetOrganizationName(const char * name);
 	bool CleanUp();
 	int framerate_cap = 30;
 	bool framerate_cap_activated = false;
@@ -67,5 +77,9 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	std::string app_name;
+	std::string organization_name;
+
 };
 extern Application* App;

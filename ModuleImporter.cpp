@@ -4,6 +4,8 @@
 #include "Primitive.h"
 #include "SDL.h"
 #include "C_Transform.h"
+#include "Material_R.h"
+#include "Texture_R.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -59,7 +61,7 @@ bool ModuleImporter::Start(){
 
 	shader = new Shader();
 
-	Load("Assets\\Models\\BakerHouse.fbx");
+	Load("Assets\\Models\\BakerHouse.fbx","");
 
 	return true;
 }
@@ -103,7 +105,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 	}
 
 	if (extension == "FBX")
-		Load(path);
+		Load(path,"");
 	else if (extension == "PNG" || extension =="DDS") {
 		if (App->gui->inspector->active_gameObject != nullptr) {
 			if(App->gui->inspector->active_gameObject->textures.size() != 0)
@@ -114,7 +116,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 	return true;
 }
 
-bool ModuleImporter::Load(const char* path) {
+bool ModuleImporter::Load(const char* path, std::string original_file) {
 	bool ret = true;
 	string FileName = getFileName(path);
 	LOGC("Loading Mesh File: %s", path);
@@ -124,6 +126,8 @@ bool ModuleImporter::Load(const char* path) {
 		string str(&path[0]);
 		App->scene_intro->root->childs.push_back(LoadHierarchy(scene->mRootNode,(aiScene*)scene, &FileName, &str,App->scene_intro->root));
 
+		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &original_file);
+
 		aiReleaseImport(scene);
 	}
 	else
@@ -131,6 +135,56 @@ bool ModuleImporter::Load(const char* path) {
 
 	return ret;
 }
+
+
+void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, string* str) {
+
+	for (int i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* newMesh = scene->mMeshes[node->mMeshes[i]];
+
+		Mesh_R* resourceMesh = nullptr;
+		std::string name(newMesh->mName.C_Str());
+
+		if (!std::strcmp(name.c_str(), "")) {
+			name.append(FileName->c_str());
+			name.append("_");
+			name.append(to_string(i));
+		}
+
+		Meta* meta = App->resources->FindMetaResource(str->c_str(), name.c_str(), ResourceType::MeshR);
+		UID id;
+		if (meta == nullptr)
+			id = App->resources->GenerateNewUID();
+		else
+			id = meta->id;
+
+		resourceMesh = App->mesh_importer->ImportMeshResource(newMesh, str, name.c_str(), id); //Import the mesh
+		App->resources->AddResource(resourceMesh);
+
+
+		Material_R* resourceMaterial = nullptr;
+		aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
+		aiString matName;
+		material->Get(AI_MATKEY_NAME, matName);
+
+		meta = App->resources->FindMetaResource(str->c_str(), matName.C_Str(), ResourceType::MaterialR);
+		if (meta == nullptr)
+			id = App->resources->GenerateNewUID();
+		else
+			id = meta->id;
+
+		std::string matname = matName.C_Str();
+		resourceMaterial = App->material_importer->ImportMaterialResource(str, material, &matname, id);
+		App->resources->AddResource(resourceMaterial);
+
+	}
+	for (uint i = 0; i < node->mNumChildren; i++)
+	{
+		ImportMesh(node->mChildren[i], scene, FileName, str);
+	}
+}
+
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
 
@@ -295,12 +349,13 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	gameobject->box.Enclose(points, mesh->mNumVertices);
 
 	std::free(points);
-	saveGOinFile(gameobject);
 	return gameobject;
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
 {
+	path->erase();
+	path->append("Assets\\Textures");
 	vector<Texture*> texture;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
@@ -427,62 +482,3 @@ const string ModuleImporter::getFileName(const string& s) {
 	return(file);
 }
 
-//OUR OWN FILE FORMAT HERE
-
-void ModuleImporter::saveGOinFile(const GameObject *go) {
-
-	//1) Create and open a file:
-	std::string Models = "Assets/Models/";
-	fstream file;
-	
-	uint  ranges[3] = { go->mesh->vertices.size() , go->mesh->indices.size() ,go->mesh->textures.size() };
-	
-	file.open(Models + go->name + ".ggg", ios::out );
-
-	if (!file) {
-		LOGC("An error ocurred creating your file: %s ", &go->name);
-	}
-	
-	
-	uint64 size = sizeof(ranges)+sizeof(uint)*go->mesh->indices.size()+sizeof(Vertex)*go->mesh->vertices.size();
-	
-	char* data = new char[size];
-	char* cursor = data;
-
-	//-------
-	uint bytes = sizeof(ranges);
-
-	memcpy(cursor, ranges, bytes);
-
-	cursor += bytes;
-
-	bytes = sizeof(uint)*go->mesh->indices.size();
-
-	/*for (int i = 0; i < go->mesh->indices.size(); i++) {
-		memcpy(cursor, &go->mesh->indices[i], sizeof(go->mesh->indices[i]));
-		cursor += sizeof(go->mesh->indices[i]);
-	}*/
-	/*file.write(cursor, sizeof(cursor));*/
-
-	//memcpy(cursor, &go->mesh->indices, bytes);
-
-	
-
-	//memcpy(cursor, (char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//file.write((char*)&go->mesh->indices[0], go->mesh->indices.size() * sizeof(uint));
-	//int* indicesptr = go->mesh->indices.data();
-	memcpy(
-		cursor,
-		&(*go->mesh->indices.begin()),
-		go->mesh->indices.size() * sizeof(uint));
-	
-	file.write(cursor, sizeof(cursor));
-
-	
-	file.close();
-
-	
-
-}

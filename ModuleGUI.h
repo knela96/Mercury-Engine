@@ -197,6 +197,7 @@ public:
 	WindowInspector* inspector;
 	WindowEngineStats *EngineStats;
 	WindowGame* game;
+	WindowFileSystem* filesystem;
 	About* about;
 
 	int MouseX;

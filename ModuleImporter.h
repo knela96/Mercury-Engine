@@ -23,6 +23,7 @@ struct Texture;
 class aiMesh;
 class aiScene;
 class aiMaterial;
+class Mesh_R;
 
 enum FileFormats {
 	NONE = -1,
@@ -52,11 +53,13 @@ public:
 
 	bool LoadFile(const char * path);
 
-	bool Load(const char * path);
+	bool Load(const char * path, std::string original_file);
 
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
+
+	void ImportMesh(aiNode * node, aiScene * scene, string * FileName, string * str);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 
@@ -78,15 +81,6 @@ public:
 
 
 public: //OUR OWN FILE FORMAT HERE
-
-	struct weOBJ {
-		std::string    name;
-		float4x4       transform = float4x4::identity;
-		uint           parent = 0;
-		RID            mesh = 0;
-		RID            material = 0;
-	};
-
 	void saveGOinFile(const GameObject *go);
 
 

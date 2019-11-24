@@ -41,7 +41,7 @@ bool WindowInspector::Draw()
 {
 	if (App->gui->openInspector) {
 		ImGui::SetNextWindowSizeConstraints(ImVec2(400, -1), ImVec2(1000, -1));
-		ImGui::Begin("Inspector",&App->gui->openInspector);
+		ImGui::Begin("Inspector", &App->gui->openInspector);
 		if (active_gameObject != nullptr) {
 			bool aux = active_gameObject->active;
 			ImGui::Checkbox("Active", &aux); ImGui::SameLine();
@@ -61,7 +61,7 @@ bool WindowInspector::Draw()
 				}
 			}
 			ImGui::SetNextItemWidth(200);
-			ImGui::InputText("Name", (char*)active_gameObject->name.c_str(), 40); 
+			ImGui::InputText("Name", (char*)&active_gameObject->name, 20);
 
 			if (ImGui::IsItemActive()) {
 				App->input->writting = true;
@@ -80,11 +80,11 @@ bool WindowInspector::Draw()
 			}
 
 		}
-		
-
-
 		ImGui::End();
 	}
+
+
+
 	return false;
 }
 
