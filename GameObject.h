@@ -83,6 +83,7 @@ public:
 	bool debug_tex = false;
 	bool active = true;
 	bool selected = false;
+	bool _static = false;
 
 	AABB box;
 	AABB aabb;

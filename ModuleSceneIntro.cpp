@@ -4,7 +4,8 @@
 #include "Primitive.h"
 #include "GameObject.h"
 #include "C_Transform.h"
-
+#include "Gizmo.h"
+#include "C_Camera.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,9 +16,12 @@ ModuleSceneIntro::~ModuleSceneIntro()
 
 
 bool ModuleSceneIntro::Init() {
+	box = new AABB(float3(-1000, -1000, -1000), float3(1000, 1000, 1000));
+	quat = new Quadtree(*box);
 	root = new GameObject("Scene");
 	root->childs.push_back(new GameObject("Main Camera",root));
 	root->childs[0]->components.push_back(root->childs[0]->AddComponent(Component_Type::Camera));//FIX
+	main_camera = root->childs[0];
 	root->transform->UpdateMatrices();
 	return true;
 }
@@ -61,14 +65,16 @@ bool ModuleSceneIntro::Draw()
 {
 	for (int i = 0; i < root->childs.size(); ++i) {
 		if (root->childs[i]->active && root->active)
-			root->childs[i]->Draw();
+			if(App->scene_intro->main_camera->camera->CullFace(root))
+				root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
 
 	DrawBB();
 
-	
+
 	gizmo.Update();
+	quat->Draw();
 	return true;
 }
 
@@ -96,6 +102,13 @@ void ModuleSceneIntro::AddFrustum(Frustum* box, Color color) {
 	frustums.push_back(BBox<Frustum>(box, color));
 }
 
+void ModuleSceneIntro::Insert2Quat(GameObject* gameobject) {
+	quat->Insert(gameobject);
+}
+
+void ModuleSceneIntro::Remove2Quat(GameObject* gameobject) {
+	quat->Remove(gameobject);
+}
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {
 	for (int i = 0; i < child->childs.size(); ++i) {
@@ -139,7 +152,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane_ p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-	
+
 	Draw();
 
 	return UPDATE_CONTINUE;

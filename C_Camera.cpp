@@ -36,12 +36,24 @@ bool C_Camera::Enable()
 void C_Camera::Update()
 {
 	if (gameobject != nullptr) {
-		if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_AllowItemOverlap))
+		if (ImGui::CollapsingHeader("Camera"), open_camera_info)
 		{
 			ImGui::DragInt("FOV", &fov, 1, 1, 200);
 			if (ImGui::IsItemEdited()) { SetFOV(fov); }
-			//
+			ImGui::SameLine();
+			ImGui::Checkbox("Culling", &culling);
 		}
+	}
+	else {
+		if(App->input->GetKey(SDL_SCANCODE_T)==KEY_DOWN)
+			OnClick();
+
+		glBegin(GL_LINES);
+		glColor3f(1.f,0.f,1.f);
+		glVertex3f(picking.a.x, picking.a.y, picking.a.z);
+		glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+		glEnd();
+
 	}
 
 }
@@ -153,6 +165,59 @@ void C_Camera::Look(const float3 &Spot) {
 	GetPlanes();
 }
 
-void C_Camera::CullFace(GameObject * gameobject)
+bool C_Camera::CullFace(GameObject * gameobject)
 {
+	if (culling) {
+		float3 vCorner[8];
+		int iTotalIn = 0;
+		gameobject->aabb.GetCornerPoints(vCorner); // get the corners of the box into the vCorner array
+		// test all 8 corners against the 6 sides
+		// if all points are behind 1 specific plane, we are out
+		// if we are in with all points, then we are fully in
+		for (int p = 0; p < 6; ++p) {
+			int iInCount = 8;
+			int iPtIn = 1;
+			for (int i = 0; i < 8; ++i) {
+				// test this point against the planes
+				if (planes[p].IsOnPositiveSide(vCorner[i])) {
+					iPtIn = 0;
+					--iInCount;
+				}
+			}
+			// were all the points outside of plane p?
+			if (iInCount == 0)
+				return(false);
+			// check if they were all on the right side of the plane
+			iTotalIn += iPtIn;
+		}
+		// so if iTotalIn is 6, then all are inside the view
+		if (iTotalIn == 6)
+			return(true);
+		// we must be partly in then otherwise
+	}
+	return(true);
+}
+
+void C_Camera::OnClick() {
+	vec2 pos;
+	pos.x = App->input->GetMouseX();
+	pos.y = App->input->GetMouseY();
+	ImVec2 g_p = App->gui->game->position;
+	ImVec2 g_w = App->gui->game->size_Game;
+	vec2 t;
+
+	t.x = -((g_p.x - pos.x) / SCREEN_WIDTH) * (SCREEN_WIDTH / g_w.x);
+	t.y = ((g_p.y - pos.y + 37 + g_w.y) / SCREEN_HEIGHT) * (SCREEN_HEIGHT / g_w.y);//offset
+
+	t.x *= SCREEN_WIDTH;
+	t.y *= SCREEN_HEIGHT;
+
+	picking = frustum.UnProjectLineSegment(t.x, t.y);
+
+
+	LOGC("%f - %f", t.x, t.y);
+	LOGC("%f - %f", pos.x, pos.y);
+	LOGC("-----");
+
+
 }

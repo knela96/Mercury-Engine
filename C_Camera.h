@@ -47,12 +47,17 @@ public:
 
 	void Look(const float3 & Spot);
 
-	void CullFace(GameObject * gameobject);
+	bool CullFace(GameObject * gameobject);
+
+	void OnClick();
 
 public:
 	Plane planes[6];
 	Frustum frustum;
 	int fov = 60;
+	bool open_camera_info = true;
+	bool culling = false;
+	LineSegment picking;
 };
 
 #endif

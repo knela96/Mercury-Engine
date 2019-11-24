@@ -1,143 +1,76 @@
-#ifndef FILESYSTEM_H_
-#define FILESYSTEM_H_
+#ifndef __MODULEFILESYSTEM_H__
+#define __MODULEFILESYSTEM_H__
 
-//weFile, a personal file system for this 3d engine
-//#include <filesystem>
-#include "Application.h"
 #include "Module.h"
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <cstring>
-#include <filesystem>
-#include <sys/stat.h>
-#include <iomanip>
+#include <vector>
+#include "FolderContainer.h"
 
+struct SDL_RWops;
+int close_sdl_rwops(SDL_RWops *rw);
 
-enum weFileType {
-	FILE_NONE = 0,
-	FILE_FBX,
-	FILE_TEXTURE,
-	FOLDER,
-	FILE_OBJ,
-	FILE_CPP,
-	FILE_TEXTURE_PNG,
-	FILE_MAX
-};
-
-
-class weFolder;
-class weFile;
-
-
+struct aiFileIO;
+#include "Bass/include/bass.h"
+//struct BASS_FILEPROCS;
 
 class ModuleFileSystem : public Module
 {
 public:
+
 	ModuleFileSystem(Application* app, bool start_enabled = true);
+
+	// Destructor
 	~ModuleFileSystem();
 
-	bool isEnabled() {
-		return true;
-	}
+	// Called before render is available
+	bool Init() override;
 
-	//_____________________________________ 
+	// Called before quitting
+	bool CleanUp() override;
 
-	update_status Update(float dt);
+	// Utility functions
+	bool AddPath(const char* path_or_zip);
+	bool Exists(const char* file) const;
+	bool IsDirectory(const char* file) const;
+	void CreateDirectory(const char* directory);
+	void DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& dir_list) const;
+	bool CopyFromOutsideFS(const char* full_path, const char* destination);
+	bool Copy(const char* source, const char* destination);
+	void SplitFilePath(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr, bool onlyName = false) const;
+	void NormalizePath(char* full_path) const;
+	void NormalizePath(std::string& full_path) const;
 
-	//______________________________________________________________________________
+	bool CreateDir(const char * dir);
 
-	void LoadFilesToProject();
+	// Open for Read/Write
+	unsigned int Load(const char* path, const char* file, char** buffer) const;
+	unsigned int Load(const char* file, char** buffer) const;
+	SDL_RWops* Load(const char* file) const;
+	void* BassLoad(const char* file) const;
 
+	// IO interfaces for other libs to handle files via PHYSfs
+	aiFileIO* GetAssimpIO();
+	uint64 GetLastModTime(const char * filename);
+	FolderContainer RecursiveGetFoldersFiles(const char * directory, std::vector<std::string>* filter_ext = nullptr, std::vector<std::string>* ignore_ext = nullptr);
 
-	weFolder* GetRootFolder() { return RootFolder; }
-	string GetRootFolderPath(); 
+	unsigned int Save(const char* file, const void* buffer, unsigned int size, bool append = false) const;
+	bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);
+	bool Remove(const char* file);
 
-	weFolder *LoadCurrentFolder(std::experimental::filesystem::path path);
+	const char* GetBasePath() const;
+	const char* GetWritePath() const;
+	const char* GetReadPaths() const;
 
-	
+private:
 
-public:
+	void CreateAssimpIO();
+	void CreateBassIO();
 
-	
+	BASS_FILEPROCS * GetBassIO();
 
-	std::vector<weFile*> weFilesArray;
-	std::vector<weFolder*> weFoldersArray;
+private:
 
-	weFolder* RootFolder = nullptr;
-	std::experimental::filesystem::path RootFolderPath;
-
+	aiFileIO* AssimpIO = nullptr;
+	BASS_FILEPROCS* BassIO = nullptr;
 };
 
-//------------------------------------------------------------------------------
-
-class weFolder
-{
-public:
-	weFolder(std::experimental::filesystem::path path);
-	~weFolder();
-
-public:
-
-	weFolder* GetParentFolder() { return weParentFolder; }
-	void SetParentFolder(weFolder* folder) { weParentFolder = folder; }
-
-	std::experimental::filesystem::path GetFolderPath() { return weFolderPath; }
-	void SetFolderPath(std::experimental::filesystem::path path) { weFolderPath = path; }
-
-	std::experimental::filesystem::path weFolderPath;
-
-	void setName();
-
-	int depthID;
-	int ID;
-	weFolder* weParentFolder = nullptr;
-	std::string FolderName;
-public:
-
-	std::vector<weFolder*> childFolders;
-	std::vector<weFile*> childFiles;
-};
-//------------------------------------------------------------------------------
-
-class weFile
-{
-public:
-	weFile(ModuleFileSystem* filesystem, std::experimental::filesystem::path wepath, weFolder* parentfolder, weFileType wetype = weFileType::FILE_NONE);
-	~weFile();
-
-	weFileType weType = weFileType::FILE_NONE;
-	std::string weName;
-	std::string weFullName;
-	std::string weNameNoExtension;
-	char labelID[150];
-	std::experimental::filesystem::path wePath;
-	std::string weAbsolutePath;
-	uint64 weFileRID;
-	std::string ExtensionString;
-
-public:
-
-	weFileType GetType() { return weType; }
-
-	uint64 GetRID() { return weFileRID; }
-
-	std::string GetName() { return weName; }
-	void SetName(std::string name) { weName = name; }
-
-	std::experimental::filesystem::path GetPath() { return wePath; }
-	void SetPath(std::string path) { wePath = path; }
-
-	weFolder* GetFolder() { return fileFolder; }
-	void SetFolder(weFolder* folder) { fileFolder = folder; }
-
-	weFolder* fileFolder = nullptr;
-
-
-};
-
-
-//------------------------------------------------------------------------------
-
-
-#endif
+#endif // __MODULEFILESYSTEM_H__

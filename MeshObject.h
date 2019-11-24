@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "GameObject.h"
+#include "Mesh_R.h"
+
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;

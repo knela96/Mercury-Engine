@@ -35,7 +35,7 @@ bool MeshObject::SetupBuffers() {
 	// load data into indices buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-	
+
 	// set the vertex attribute pointers
 	// vertex Positions
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -125,6 +125,11 @@ void MeshObject::Draw()
 	App->importer->shader->setMat4("model", model);
 	App->importer->shader->setMat4("view", App->camera->camera->ViewMatrix4x4());
 	App->importer->shader->setMat4("projection", App->camera->camera->ProjectionMatrix4x4());
+	
+	if (!App->renderer3D->texture_active) {
+		App->importer->shader->setFloat("near", 1);
+		App->importer->shader->setFloat("far", 1000);
+	}
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	App->importer->shader->stop();
 
@@ -134,8 +139,7 @@ void MeshObject::Draw()
 	glBindVertexArray(0);
 	glPopMatrix();
 
-
-	if (mesh->boundary_box) {
+	if (boundary_box) {
 		Gizmo::DrawBox(aabb, Color(0.f, 1.f, 0.f, 1.f));
 		Gizmo::DrawBox(obb, Color(0.f, 0.f, 1.f, 1.f));
 	}
