@@ -116,10 +116,10 @@ void ModuleResources::SaveMetaInfo(Resources* resource)
 	uint64 modDate = App->filesystem->GetLastModTime(resource->original_path.c_str());
 
 	//config["GameObjects"]["ID"][resource->ID];
-	config["GameObjects"]["ID"]["ID"] = resource->ID;
-	config["GameObjects"]["ID"]["Name"] = resource->name.c_str();
-	config["GameObjects"]["ID"]["Type"] = resource->getType();
-	config["GameObjects"]["ID"]["Date"] = modDate;
+	config["Game Objects"]["ID"]["ID"] = resource->ID;
+	config["Game Objects"]["ID"]["Name"] = resource->name.c_str();
+	config["Game Objects"]["ID"]["Type"] = resource->getType();
+	config["Game Objects"]["ID"]["Date"] = modDate;
 
 	std::string path, filename;
 	App->filesystem->SplitFilePath(resource->original_path.c_str(), &path, &filename,nullptr,true);

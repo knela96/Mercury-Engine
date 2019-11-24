@@ -7,6 +7,7 @@ C_Normals::C_Normals(GameObject* gameobject, Component_Type type) : Component(ty
 	vertex_lenght = 1.0f;
 	face_color = { 0.0f,1.0f,1.0f,1.0f };
 	vertex_color = { 1.0f,0.0f,0.0f,1.0f };
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 
 }
 
@@ -65,4 +66,42 @@ bool C_Normals::Disable()
 {
 	active = false;
 	return true;
+}
+
+void C_Normals::Save(const char * _name, json & file)
+{
+	file["Game Objects"][_name]["Components"]["Normals"]["Active"] = active;
+	file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Active"] = gameobject->face_normals;
+	file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Lenght"] = face_lenght;
+	file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][0] = face_color.r;
+	file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][1] = face_color.g;
+	file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][2] = face_color.b;
+	file["Game Objects"][_name]["Components"]["Normals"]["Vertex Normals"]["Active"] = gameobject->vertex_normals;
+	file["Game Objects"][_name]["Components"]["Normals"]["Vertex Normals"]["Lenght"] = vertex_lenght;
+	file["Game Objects"][_name]["Components"]["Normals"]["Vertex Normals"]["Color"][0] = vertex_color.r;
+	file["Game Objects"][_name]["Components"]["Normals"]["Vertex Normals"]["Color"][1] = vertex_color.g;
+	file["Game Objects"][_name]["Components"]["Normals"]["Vertex Normals"]["Color"][2] = vertex_color.b;
+
+}
+
+void C_Normals::Load(const char * _name, const json & file)
+{
+	active = file["Game Objects"][_name]["Components"]["Normals"]["Active"].get<bool>();
+	gameobject->face_normals = file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Active"].get<bool>();
+	face_lenght = file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Lenght"].get<float>();
+	face_color = Color(
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][0],
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][1],
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][2],
+		1.0f
+	);
+
+	gameobject->vertex_normals = file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Active"].get<bool>();
+	vertex_lenght = file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Lenght"].get<float>();
+	vertex_color = Color(
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][0],
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][1],
+		file["Game Objects"][_name]["Components"]["Normals"]["Face Normals"]["Color"][2],
+		1.0f
+	);
 }

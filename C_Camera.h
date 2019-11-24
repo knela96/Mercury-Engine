@@ -2,6 +2,7 @@
 #define __C_CAMERA_H__
 
 #include "Component.h"
+#include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #ifdef _DEBUG
 #pragma comment (lib, "lib/MathGeoLib/libx86/Debug/MathGeoLib.lib")
@@ -20,7 +21,8 @@ public:
 	void UpdateTransformPosition(float4x4 global);
 	bool Disable();
 	void GetPlanes();
-
+	void Save(const char * _name, json & file);
+	void Load(const char * _name, const json & file);
 	void SetNearPlane(float distance);
 
 	void SetFarPlane(float distance);

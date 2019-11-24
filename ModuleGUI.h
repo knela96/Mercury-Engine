@@ -186,6 +186,8 @@ public:
 
 	void ShowConsole();
 
+	void LoadScenesPopUp();
+
 	void ShowWindowSettings();
 
 	ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 0.00f);
@@ -223,6 +225,7 @@ public:
 	bool ShowFPS = true;
 	bool openAbout = false; 
 	bool openFileSystem = true;
+	bool savePopUp = false;
 
 	int screen_width = SCREEN_WIDTH;
 	int screen_height = SCREEN_HEIGHT;

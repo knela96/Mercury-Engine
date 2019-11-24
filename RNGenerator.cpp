@@ -1,10 +1,5 @@
 #include "RNGenerator.h"
 
-
-
-
-
-
 RNGenerator::RNGenerator()
 {
 }
@@ -13,15 +8,15 @@ RNGenerator::~RNGenerator()
 {
 }
 
-int RNGenerator::GetIntRN()
+UID RNGenerator::GetIntRN()
 {
 	return UIntDistribution(DRNEngine);
 }
 
-int RNGenerator::GetIntRNInRange(int MIN, int MAX)
+UID RNGenerator::GetIntRNInRange(UID MIN, UID MAX)
 {
 
-	std::uniform_int_distribution<int> tmp_IntDistribution(MIN, MAX);
+	std::uniform_int_distribution<UID> tmp_IntDistribution(MIN, MAX);
 	return tmp_IntDistribution(DRNEngine);
 
 }

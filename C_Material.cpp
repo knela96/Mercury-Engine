@@ -3,6 +3,7 @@
 C_Material::C_Material(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
 	name = "Material";
+	ID = App->RandomNumberGenerator.GetIntRNInRange();
 }
 
 C_Material::~C_Material()
@@ -60,4 +61,16 @@ bool C_Material::Disable()
 {
 	active = false;
 	return true;
+}
+
+void C_Material::Save(const char * _name, json & file)
+{
+	file["Game Objects"][_name]["Components"]["Material"]["Active"] = active;
+	file["Game Objects"][_name]["Components"]["Material"]["Debug"] = gameobject->debug_tex;
+}
+
+void C_Material::Load(const char * _name, const json & file)
+{
+	active = file["Game Objects"][_name]["Components"]["Material"]["Active"].get<bool>();
+	gameobject->debug_tex = file["Game Objects"][_name]["Components"]["Material"]["Debug"].get<bool>();
 }

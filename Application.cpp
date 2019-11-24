@@ -37,7 +37,6 @@ Application::Application()
 	AddModule(resources);
 	AddModule(filesystem);
 	AddModule(gui);
-	
 
 	// Renderer last!
 	AddModule(renderer3D);

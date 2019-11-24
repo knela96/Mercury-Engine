@@ -38,6 +38,7 @@ public:
 	void SplitFilePath(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr, bool onlyName = false) const;
 	void NormalizePath(char* full_path) const;
 	void NormalizePath(std::string& full_path) const;
+	void GetAllFilesWithExtension(const char * directory, const char * extension, std::vector<std::string>& file_list) const;
 
 	bool CreateDir(const char * dir);
 
