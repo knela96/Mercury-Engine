@@ -234,7 +234,5 @@ void GameObject::Load(const char * _name, const json & file)
 		t->Load(_name, file);
 		App->scene_intro->main_camera = this;
 	}
-	/*std::string
-	App->importer->LoadFile("/Library/Meshes/")*/
 
 }

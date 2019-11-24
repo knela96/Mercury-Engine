@@ -82,12 +82,6 @@ bool ModuleSceneIntro::Draw()
 }
 
 void ModuleSceneIntro::DrawBB() {
-	/*for (int i = 0; i < aabbs.size(); ++i) {
-		Gizmo::DrawBox(*aabbs[i].box, aabbs[i].color);
-	}
-	for (int i = 0; i < obbs.size(); ++i) {
-		Gizmo::DrawBox(*obbs[i].box, obbs[i].color);
-	}*/
 	for (int i = 0; i < frustums.size(); ++i) {
 		Gizmo::DrawBox(*frustums[i].box, frustums[i].color);
 	}

@@ -95,10 +95,7 @@ bool WindowHierarchy::Draw()
 			//Visually Select Node in Hirearchy
 			if (node_clicked != -1)
 			{
-				if (ImGui::GetIO().KeyCtrl)
-					selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
-				else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
-					selection_mask = (1 << node_clicked);           // Click to single-select
+				selection_mask = (1 << node_clicked);           // Click to single-select
 			}
 		}
 		ImGui::End();
