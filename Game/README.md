@@ -50,6 +50,24 @@ This Engine is currently being developed and updated constantly, so keep in mind
   - Mouse Wheel to zoom in and zoom out
   - Alt+Left Click to rotate
   - Alt+Wheel Click to desplace camera
+## Transforms
+  -Each game objects have local and global transforms
+  -Inspector showing each component properties of selected game object
+
+## Camera
+  -Object camera
+  -Modificable field of view
+  -Camera culling 
+## Scene window
+  -Resizable game window modifying the aspect ratio
+  
+##Game objects
+  -Have AABB
+
+## Scene
+  -Scene can load and save 
+
+
 
 
 # LICENSE
