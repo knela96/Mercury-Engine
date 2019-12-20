@@ -216,9 +216,6 @@ Mesh_R * MeshImporter::LoadMeshResource(UID ID)
 		}
 
 		mesh->ID = ID;
-		/*mesh->CreateAABB();
-		*mesh->Transform2Vertex();
-		mesh->SetupBuffers();*/
 		mesh->resource_path = path;
 
 
