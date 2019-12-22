@@ -123,7 +123,6 @@ bool ModuleImporter::Load(const char* path, std::string original_file) {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-
 		Timer time;
 		time.Start();
 		string str(&path[0]);
