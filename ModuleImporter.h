@@ -61,6 +61,8 @@ public:
 
 	void ImportMesh(aiNode * node, aiScene * scene, string * FileName, string * str);
 
+	void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
+
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 
 	bool LoadTexture(const char * path, uint & texture, vec2 &size);

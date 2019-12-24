@@ -5,11 +5,20 @@
 #include "GameObject.h"
 #include "Mesh_R.h"
 
+struct Bone {
+	UID ID;
+	float BoneWeight;
+};
+
 struct Vertex {
 	vec3 Position;
 	vec3 Normal;
 	vec4 Colors;
 	vec2 TexCoords;
+
+	//bones that the vertex is atached to, if the vertex can be attached to more bones bc of the
+	//model we are using, just add more bones.
+	Bone Bones[4];	
 };
 
 class aiMesh;

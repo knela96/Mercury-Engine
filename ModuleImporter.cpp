@@ -132,6 +132,10 @@ bool ModuleImporter::Load(const char* path, std::string original_file) {
 		time.Reset();
 
 		ImportMesh(scene->mRootNode, (aiScene*)scene, &FileName, &original_file);
+		if (scene->HasAnimations){
+			ImportAnim(*scene->mAnimations, (aiScene*)scene, &FileName, &original_file);
+		}
+		
 
 		aiReleaseImport(scene);
 	}
@@ -188,6 +192,13 @@ void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, 
 	{
 		ImportMesh(node->mChildren[i], scene, FileName, str);
 	}
+}
+
+void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
+{
+	
+
+
 }
 
 
