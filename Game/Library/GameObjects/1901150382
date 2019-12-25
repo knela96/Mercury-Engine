@@ -1,0 +1,103 @@
+{
+    "Game Objects": {
+        "Count": 3,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Parent UID": 949333985,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "UID": 922919429
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Game Object 2": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 350294565
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UID": 418932835,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ],
+                    "UID": 715962298
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 418932835
+        },
+        "Game Object 3": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 117454609
+                },
+                "Transform": {
+                    "Active": true,
+                    "Parent UID": 676943009,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ],
+                    "UID": 809094426
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 676943009
+        }
+    }
+}

@@ -6,6 +6,7 @@ enum ResourceType {
 	noneR = -1,
 	ScenenR,
 	MeshR,
+	ObjectR,
 	AudioR,
 	TextureR,
 	MaterialR
@@ -22,12 +23,14 @@ public:
 	}
 
 	virtual void LoadOnMemory() {};
+	virtual void FreeMemory() {};
 
 public:
-
+	uint instances = 0;
+	bool need_save = false;
 	ResourceType type = noneR;
 	std::string name = "";
-	u64 ID;
+	UID ID;
 	std::string resource_path = "";
 	std::string original_path = "";
 };

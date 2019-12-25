@@ -45,6 +45,8 @@ public:
 	Resources* Get(UID uid);
 	Resources* CreateNewResource(ResourceType type, UID force_uid = 0);
 	Meta * FindMetaResource(const char * original_file, const char * name, ResourceType type);
+	uint DeleteResource(UID ID);
+	void UnLoadResource(UID ID);
 private:
 	std::map<UID, Resources*> resources;
 

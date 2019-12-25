@@ -16,7 +16,9 @@ ModuleResources::~ModuleResources()
 {
 }
 
-UID ModuleResources::Find(const char * file_in_assets) const
+
+
+UID ::Find(const char * file_in_assets) const
 {
 	return u64();
 }
@@ -63,7 +65,8 @@ void ModuleResources::ImporSceneResource(const char* file,std::string origin_pat
 	Mesh_R* resource = nullptr;
 
 	//Load Mesh
-	App->importer->Load(file, origin_path);
+	//App->importer->Load(file, origin_path);
+	App->importer->Load(file);
 	if (resource)
 	{
 		AddResource(resource);
@@ -179,6 +182,7 @@ Resources * ModuleResources::CreateNewResource(ResourceType type, UID force_uid)
 	switch (type) {
 		case ResourceType::TextureR: ret = (Resources*) new Texture_R(); break;
 		case ResourceType::MeshR: ret = (Resources*) new Mesh_R(); break;
+		case ResourceType::ObjectR: ret = (Resources*) new Mesh_R(); break;
 	}
 	if (ret != nullptr) {
 		if (force_uid == 0)
@@ -201,4 +205,83 @@ Meta* ModuleResources::FindMetaResource(const char* original_file, const char* n
 		}
 	}
 	return nullptr;
+}
+
+uint ModuleResources::DeleteResource(UID ID)
+{
+	ResourceType type = created_resources[ID].type;
+	uint instances = 0;
+
+	if (resources[ID] != nullptr)
+	{
+		//Could break here
+		instances = resources[ID]->instances;
+		UnLoadResource(ID);
+		RELEASE(resources[ID]);
+		resources.erase(ID);
+	}
+
+	std::string resourcePath = "";
+	switch (type)
+	{
+	case(ResourceType::MeshR):
+	{
+		resourcePath.append("/Library/Meshes/");
+		break;
+	}
+	case(ResourceType::MaterialR):
+	{
+		resourcePath.append("/Library/Materials/");
+		break;
+	}
+	case(ResourceType::TextureR):
+	{
+		resourcePath.append("/Library/Textures/");
+		break;
+	}
+	case(ResourceType::ObjectR):
+	{
+		resourcePath.append("/Library/GameObjects/");
+		break;
+	}
+	}
+	resourcePath.append(std::to_string(ID));
+	App->filesystem->Remove(resourcePath.c_str());
+
+	created_resources.erase(ID);
+	return instances;
+}
+
+void ModuleResources::UnLoadResource(UID ID)
+{
+	std::map<uint64, Resources*>::iterator it = resources.find(ID);
+	if (it != resources.end())
+	{
+		switch (it->second->type)
+		{
+		case(ResourceType::MeshR):
+		{
+			meshes.erase(ID);
+			break;
+		}
+		case(ResourceType::MaterialR):
+		{
+			materials.erase(ID);
+			break;
+		}
+		case(ResourceType::TextureR):
+		{
+			textures.erase(ID);
+			break;
+		}
+		case(ResourceType::ObjectR):
+		{
+			scenes.erase(ID);
+			break;
+		}
+		}
+		Resources* resource = it->second;
+		resources.erase(it);
+		RELEASE(resource);
+	}
 }
