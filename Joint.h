@@ -28,7 +28,7 @@ public:
 
 	void AddChild(Joint Child) { this->children.push_back(&Child); }
 
-	mat4x4 GetTransform() { return AnimationTransform; }
+	mat4x4 GetAnimationTransform() { return AnimationTransform; }
 
 	mat4x4 GetInverseBindTransform() { return InverseBindTransform; }
 
