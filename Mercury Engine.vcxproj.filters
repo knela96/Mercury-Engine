@@ -247,6 +247,15 @@
     <ClInclude Include="AnimatedObject.h">
       <Filter>Sources\Modules\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyframe.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="JointTransform.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
