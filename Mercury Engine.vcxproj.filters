@@ -46,6 +46,9 @@
     <Filter Include="Sources\Modules\Importers">
       <UniqueIdentifier>{36ba9cc1-c6a4-48d9-8146-2151a0acc7de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Animator">
+      <UniqueIdentifier>{cb98853c-ad71-470f-b8f7-c09a9c568c13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -238,6 +241,9 @@
     <ClInclude Include="lib\ImGuizmo\ImGuizmo.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="Joint.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -398,6 +404,9 @@
     </ClCompile>
     <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp">
       <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Joint.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

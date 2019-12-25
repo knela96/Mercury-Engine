@@ -14,11 +14,7 @@ struct Vertex {
 	vec3 Position;
 	vec3 Normal;
 	vec4 Colors;
-	vec2 TexCoords;
-
-	//bones that the vertex is atached to, if the vertex can be attached to more bones bc of the
-	//model we are using, just add more bones.
-	Bone Bones[4];	
+	vec2 TexCoords;	
 };
 
 class aiMesh;
