@@ -244,6 +244,9 @@
     <ClInclude Include="Joint.h">
       <Filter>Sources\Modules\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="AnimatedObject.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -406,6 +409,9 @@
       <Filter>Sources\Containers\imgui</Filter>
     </ClCompile>
     <ClCompile Include="Joint.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedObject.cpp">
       <Filter>Sources\Modules\Animator</Filter>
     </ClCompile>
   </ItemGroup>

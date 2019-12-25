@@ -194,12 +194,12 @@ void ModuleImporter::ImportMesh(aiNode* node, aiScene* scene, string* FileName, 
 	}
 }
 
-void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
-{
-	
-
-
-}
+//void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
+//{
+//	
+//
+//
+//}
 
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene, string* FileName,string* str, GameObject* parent) {
