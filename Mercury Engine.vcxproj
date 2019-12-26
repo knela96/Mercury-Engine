@@ -162,6 +162,7 @@
     <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Joint.cpp" />
+    <ClCompile Include="JointTransform.cpp" />
     <ClCompile Include="lib\glew\src\glew.c" />
     <ClCompile Include="lib\gpudetect\DeviceId.cpp" />
     <ClCompile Include="lib\ImGuizmo\ImCurveEdit.cpp" />

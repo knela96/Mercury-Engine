@@ -423,6 +423,9 @@
     <ClCompile Include="AnimatedObject.cpp">
       <Filter>Sources\Modules\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="JointTransform.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />

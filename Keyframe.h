@@ -5,27 +5,30 @@
 #include "Application.h"
 #include "JointTransform.h"
 
-struct KeyInfo {
-	string name;
-	JointTransform jointTransform;
-};
+//struct KeyInfo {
+//	string name;
+//	JointTransform jointTransform;
+//};
 
 class Keyframe
 {
 public:
-	Keyframe(float When_, list<KeyInfo*> KeyJoints_) :When(When_), KeyJoints(KeyJoints_) {}; //WTF puc gualar una llista a un altre?
+	Keyframe(float TimePosition_, std::map<string, JointTransform> pose_) :TimePosition(TimePosition_), pose(pose_) {}; //WTF puc gualar una llista a un altre?
 	~Keyframe();
 
 private:
-	float      When;
-	list<KeyInfo*>   KeyJoints;
+	float            TimePosition;
+	std::map<string, JointTransform> pose;
+
+
+	/*list<KeyInfo*>   KeyJoints;*/
 	
 
 public:
 
-	float GetWhen() { return When; }
+	float GetTimePosition() { return TimePosition; }
 	
-
+	std::map<string, JointTransform> GetJointKeyFrames() { return pose; }
 
 };
 

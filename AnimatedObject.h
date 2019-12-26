@@ -41,7 +41,7 @@ public:
 
 	mat4x4* GetJointsTransforms();
 
-	void AddJointsToArray(Joint RootJoint_, mat4x4* JointsMatrices_);
+	void AddJointsToArray(Joint* RootJoint_, mat4x4* JointsMatrices);
 
 };
 

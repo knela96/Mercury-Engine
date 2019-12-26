@@ -14,7 +14,12 @@ public:
 private:
 	vec3 Position;
 	Quat Rotation;
+public:
 
+	mat4x4 GetLocalTransform();
+
+	JointTransform Interpolate(JointTransform PointA, JointTransform PointB, float Progression);
+	vec3 Interpolate(vec3 start, vec3 end, float progression);
 };
 
 
