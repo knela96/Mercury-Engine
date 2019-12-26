@@ -48,11 +48,13 @@ bool C_MeshInfo::Disable()
 void C_MeshInfo::Save(const char * _name, json & file)
 {
 	file["Game Objects"][_name]["Components"]["Mesh"]["ID"] = id;
+	file["Game Objects"][_name]["Components"]["Mesh"]["Name"] = resource_name;
 	file["Game Objects"][_name]["Components"]["Mesh"]["Active"] = gameobject->boundary_box;
 }
 
 void C_MeshInfo::Load(const char * _name, const json & file)
 {
 	id = file["Game Objects"][_name]["Components"]["Mesh"]["ID"].get<UID>();
+	resource_name = file["Game Objects"][_name]["Components"]["Mesh"]["Name"].get<string>();
 	gameobject->boundary_box = file["Game Objects"][_name]["Components"]["Mesh"]["Active"].get<bool>();
 }

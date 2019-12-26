@@ -79,6 +79,32 @@ bool WindowGame::Draw()
 		}
 
 		ImGui::Image((void*)fbo->GetTexture(), ImVec2(size_Game.x, size_Game.y), ImVec2(0, 1), ImVec2(1, 0));
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Resource"))
+			{
+				if (payload->DataSize == sizeof(uint64))
+				{
+					uint64 ID = *(const uint64*)payload->Data;
+					Resources* resource = App->resources->Get(ID);
+
+					if (resource->type == ResourceType::ObjectR)
+					{
+						ifstream stream;
+						stream.open(resource->resource_path);
+						json file = json::parse(stream);
+
+						uint elements = file["Game Objects"]["Count"].get<uint>();
+						uint count = 0;
+						App->scene_intro->LoadAllScene(App->scene_intro->root, file, &elements, count);
+					}
+
+				}
+			}
+			ImGui::EndDragDropTarget();
+		}
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}

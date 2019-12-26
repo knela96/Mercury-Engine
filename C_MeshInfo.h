@@ -17,4 +17,5 @@ public:
 public:
 	bool open_mesh_info = true;
 	UID id = 0;
+	string resource_name;
 };

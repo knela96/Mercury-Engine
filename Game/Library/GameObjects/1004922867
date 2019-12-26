@@ -5,7 +5,6 @@
             "Components": {
                 "Transform": {
                     "Active": true,
-                    "Parent UID": 949333985,
                     "Position": [
                         0.0,
                         0.0,
@@ -21,8 +20,7 @@
                         1.0,
                         1.0,
                         1.0
-                    ],
-                    "UID": 922919429
+                    ]
                 }
             },
             "Enable": true,
@@ -35,11 +33,11 @@
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 350294565
+                    "ID": 986311591,
+                    "Name": "Untitled.001"
                 },
                 "Transform": {
                     "Active": true,
-                    "Parent UID": 418932835,
                     "Position": [
                         0.0,
                         0.0,
@@ -55,8 +53,7 @@
                         100.0,
                         100.0,
                         100.0
-                    ],
-                    "UID": 715962298
+                    ]
                 }
             },
             "Enable": true,
@@ -69,11 +66,11 @@
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 117454609
+                    "ID": 669839044,
+                    "Name": "Untitled"
                 },
                 "Transform": {
                     "Active": true,
-                    "Parent UID": 676943009,
                     "Position": [
                         0.0,
                         0.0,
@@ -89,15 +86,16 @@
                         100.0,
                         100.0,
                         100.0
-                    ],
-                    "UID": 809094426
+                    ]
                 }
             },
             "Enable": true,
             "Name": "Baker_house",
             "Parent UID": 949333985,
             "Static": false,
-            "UID": 676943009
-        }
+            "UID": 348838239
+        },
+        "Name": "BakerHouse.fbx",
+        "Source": "Assets/Models/BakerHouse.fbx"
     }
 }

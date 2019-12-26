@@ -18,6 +18,7 @@ struct FolderContainer
 	std::vector<FolderContainer> filechilds;
 
 	bool isFile = false;
+	bool hasFiles = false;
 	bool hasTexture = false;
 
 	uint ID = 0;

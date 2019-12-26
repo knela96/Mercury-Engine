@@ -107,7 +107,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 
 	if (extension == "FBX")
 		Load(path);
-	else if (extension == "PNG" || extension =="DDS") {
+	else if (extension == "PNG" || extension =="DDS" || extension == "TGA") {
 		if (App->gui->inspector->active_gameObject != nullptr) {
 			if(App->gui->inspector->active_gameObject->textures.size() != 0)
 				App->gui->inspector->active_gameObject->textures.pop_back();
@@ -141,11 +141,37 @@ bool ModuleImporter::Load(const char* path) {
 }
 
 
+
+Resources* ModuleImporter::LoadObjectResource(UID id) {
+	std::string full_path = ("Library/GameObjects/");
+	full_path.append(std::to_string(id));
+
+	Resources* object = nullptr;
+
+	json file;
+	ifstream stream;
+	stream.open(full_path);
+	file = json::parse(stream);
+
+	object = new Resources(ResourceType::ObjectR);
+	object->ID = id;
+	object->resource_path = full_path.c_str();
+	object->original_path = file["Game Objects"]["Source"].get<std::string>();
+	object->name = file["Game Objects"]["Name"].get<std::string>();
+
+	stream.close();
+
+	return object;
+}
+
+
 Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 
-	Resources* resource = nullptr;
-	
-	const aiScene* scene = aiImportFileEx(path, aiProcessPreset_TargetRealtime_MaxQuality, App->filesystem->GetAssimpIO());
+	Resources* resource = nullptr; const aiScene* scene = nullptr;
+	string s("/");
+	s.append(path);
+	if(App->filesystem->Exists(s.c_str()))
+		scene = aiImportFileEx(path, aiProcessPreset_TargetRealtime_MaxQuality, App->filesystem->GetAssimpIO());
 	if (scene)
 	{
 		LOG("Starting scene load %s", path);
@@ -157,8 +183,10 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
+		config["Game Objects"]["Name"] = name;
+		config["Game Objects"]["Source"] = path;
 
-		std::string full_path = LIBRARY_MODEL_FOLDER;
+		std::string full_path = "Library/GameObjects/";
 		full_path.append(std::to_string(*id));
 
 		ofstream stream;
@@ -179,7 +207,8 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 
 void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 {
-	uint count = App->scene_intro->SaveAllScene(gameObjects, config);
+	uint count = 0;
+	App->scene_intro->SaveAllScene(gameObjects, config, count);
 	config["Game Objects"]["Count"] = count;
 }
 
@@ -236,6 +265,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 		if (MeshID != 0) {
 			C_MeshInfo* mesh = (C_MeshInfo*)gameObject->AddComponent(Component_Type::Mesh_Info);
 			mesh->id = MeshID;
+			mesh->resource_name.append(newMesh->mName.C_Str());
 		}
 
 		//Import mesh material
@@ -286,8 +316,8 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID);
 	if (resource)
 	{
-		/*App->resources->AddResource(resource);
-		resource->instances = instances;*/
+		App->resources->AddResource(resource);
+		resource->instances = instances;
 		id = resource->ID;
 	}
 

@@ -1,0 +1,101 @@
+{
+    "Game Objects": {
+        "Count": 3,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 809248324
+        },
+        "Game Object 2": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 213286615,
+                    "Name": "Untitled.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 809248324,
+            "Static": false,
+            "UID": 75629128
+        },
+        "Game Object 3": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 983448591,
+                    "Name": "Untitled"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 809248324,
+            "Static": false,
+            "UID": 919490483
+        },
+        "Name": "zBakerHouse.fbx",
+        "Source": "Assets/Models/zBakerHouse.fbx"
+    }
+}

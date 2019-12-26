@@ -62,6 +62,8 @@ public:
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
+	Resources * LoadObjectResource(UID id);
+
 	Resources* ImportObject(const char* FileName, UID* id);
 
 	void SaveGameObjectConfig(json & config, GameObject * gameObjects);

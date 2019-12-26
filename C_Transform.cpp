@@ -98,8 +98,6 @@ bool C_Transform::Disable()
 
 void C_Transform::Save(const char * gameObject, json & file)
 {
-	file["Game Objects"][gameObject]["Components"]["Transform"]["UID"] = ID;
-	file["Game Objects"][gameObject]["Components"]["Transform"]["Parent UID"] = gameobject->ID;
 	file["Game Objects"][gameObject]["Components"]["Transform"]["Active"] = active;
 
 	file["Game Objects"][gameObject]["Components"]["Transform"]["Position"] = { vposition.x, vposition.y, vposition.z };
@@ -110,7 +108,6 @@ void C_Transform::Save(const char * gameObject, json & file)
 
 void C_Transform::Load(const char * gameObject, const json & file)
 {
-	ID = file["Game Objects"][gameObject]["Components"]["Transform"]["UID"].get<uint>();
 	active = file["Game Objects"][gameObject]["Components"]["Transform"]["Active"].get<bool>();
 
 	vposition = float3(file["Game Objects"][gameObject]["Components"]["Transform"]["Position"][0],

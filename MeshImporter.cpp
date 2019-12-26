@@ -28,7 +28,9 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 		newmesh->_indices = new uint[mesh->mNumFaces * 3];
 		for (uint i = 0; i < mesh->mNumFaces; i++)
 		{
-			memcpy(&newmesh->_indices[i*3], mesh->mFaces[i].mIndices, sizeof(uint) * 3);
+			memcpy(&newmesh->_indices[i * 3], &mesh->mFaces[i].mIndices[0], sizeof(uint));
+			memcpy(&newmesh->_indices[i * 3 + 1], &mesh->mFaces[i].mIndices[1], sizeof(uint));
+			memcpy(&newmesh->_indices[i * 3 + 2], &mesh->mFaces[i].mIndices[2], sizeof(uint));
 		}
 	}
 	else
@@ -59,9 +61,7 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 		newmesh->buffersSize[tex_coords_size] = 0;
 
 	std::string _path("/Library/Meshes/");
-	//_path.append(to_string(ID));
-	_path.append(fileName);
-	_path.append(".mesh");
+	_path.append(to_string(ID));
 
 	newmesh->name = fileName;
 
@@ -105,25 +105,25 @@ bool MeshImporter::SaveMeshResource(const Mesh_R *mesh, UID ID)
 
 	//Save Indices
 	bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
-	memcpy(cursor, &mesh->_indices, bytes);
+	memcpy(cursor, mesh->_indices, bytes);
 	cursor += bytes;
 
 	//Save Vertices
 	bytes = sizeof(float) * mesh->buffersSize[vertices_size] * 3;
-	memcpy(cursor, &mesh->_vertices, bytes);
+	memcpy(cursor, mesh->_vertices, bytes);
 	cursor += bytes;
 
 	//Save Normals
 	if (mesh->buffersSize[normals_size] > 0) {
 		bytes = sizeof(float) *mesh->buffersSize[normals_size] * 3;
-		memcpy(cursor, &mesh->_normals, bytes);
+		memcpy(cursor, mesh->_normals, bytes);
 		cursor += bytes;
 	}
 
 	//Save Normals
 	if (mesh->buffersSize[tex_coords_size] > 0) {
 		bytes = sizeof(float) * mesh->buffersSize[tex_coords_size] * 2;
-		memcpy(cursor, &mesh->_tex_coords, bytes);
+		memcpy(cursor, mesh->_tex_coords, bytes);
 		cursor += bytes;
 	}
 

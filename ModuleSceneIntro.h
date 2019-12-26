@@ -47,11 +47,11 @@ public:
 
 	void SaveScene(std::string fileName);
 
-	uint SaveAllScene(GameObject * root, json & file);
+	uint SaveAllScene(GameObject * root, json & file, uint & count);
 
 	void LoadScene(std::string * fileName);
 
-	uint LoadAllScene(GameObject * root, json & file, uint elements);
+	uint LoadAllScene(GameObject * root, json & file, uint * elements, uint & count);
 
 	//Engine::SystemInfo s_info;
 
@@ -68,5 +68,6 @@ public:
 	Quadtree* quat = nullptr;
 	AABB* box = nullptr;
 	bool savePopUp = false;
+	uint LoadElementResources(json & file, uint elements);
 };
 #endif

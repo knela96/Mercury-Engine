@@ -415,13 +415,13 @@ bool ModuleFileSystem::Remove(const char * file)
 
 	if (file != nullptr)
 	{
-		if (PHYSFS_delete(file) == 0)
+		if (PHYSFS_delete(file) != 0)
 		{
 			LOG("File deleted: [%s]", file);
 			ret = true;
 		}
 		else
-			LOG("File System error while trying to delete [%s]: ", file, PHYSFS_getLastError());
+			LOG("File System error while trying to delete [%s]: %s", file, PHYSFS_getLastError());
 	}
 
 	return ret;
@@ -562,7 +562,7 @@ uint64 ModuleFileSystem::GetLastModTime(const char* filename)
 	return PHYSFS_getLastModTime(filename);
 }
 
-FolderContainer ModuleFileSystem::RecursiveGetFoldersFiles(const char* directory, std::vector<std::string>* filter_ext, std::vector<std::string>* ignore_ext)
+FolderContainer ModuleFileSystem::RecursiveGetFoldersFiles(const char* directory, std::vector<std::string>* filter_ext, std::vector<std::string>* ignore_ext, std::vector<std::string>* list)
 {
 	FolderContainer node(directory);
 	App->filesystem->SplitFilePath(directory, nullptr, &node.localPath);
@@ -580,19 +580,64 @@ FolderContainer ModuleFileSystem::RecursiveGetFoldersFiles(const char* directory
 		node.isFile = false;
 		std::string str = directory;
 		str.append("/").append(dir_list[i]);
-		node.folderchilds.push_back(RecursiveGetFoldersFiles(str.c_str()));
+		node.folderchilds.push_back(RecursiveGetFoldersFiles(str.c_str(), filter_ext, ignore_ext,list));
 	}
 	//Adding all child files
 	for (uint i = 0; i < file_list.size(); i++)
 	{
-		node.isFile = true;
-		//node.hasTexture = isTexture(directory);
-		std::string str = directory;
-		str.append("/").append(file_list[i]);
-		node.filechilds.push_back(RecursiveGetFoldersFiles(str.c_str()));
+		//Filtering extensions
+		bool filter = true, discard = false;
+		if (filter_ext != nullptr)
+		{
+			filter = HasExtension(file_list[i].c_str(), *filter_ext);
+		}
+		if (ignore_ext != nullptr)
+		{
+			discard = HasExtension(file_list[i].c_str(), *ignore_ext);
+		}
+		if (filter == true && discard == false)
+		{
+			std::string str = directory;
+			str.append("/").append(file_list[i]);
+			node.filechilds.push_back(RecursiveGetFoldersFiles(str.c_str(), filter_ext, ignore_ext, list));
+			node.filechilds.back().isFile = true;
+			if (list != nullptr) {
+				list->push_back(node.filechilds.back().path);
+				list->back().erase(0, 1);
+			}
+		}
+		node.hasFiles = node.filechilds.empty() != true;
 	}
 
 	return node;
+}
+
+bool ModuleFileSystem::HasExtension(const char* path) const
+{
+	std::string ext = "";
+	SplitFilePath(path, nullptr, nullptr, &ext);
+	return ext != "";
+}
+
+bool ModuleFileSystem::HasExtension(const char* path, std::string extension) const
+{
+	std::string ext = "";
+	SplitFilePath(path, nullptr, nullptr, &ext);
+	return ext == extension;
+}
+
+bool ModuleFileSystem::HasExtension(const char* path, std::vector<std::string> extensions) const
+{
+	std::string ext = "";
+	SplitFilePath(path, nullptr, nullptr, &ext);
+	if (ext == "")
+		return true;
+	for (uint i = 0; i < extensions.size(); i++)
+	{
+		if (extensions[i] == ext)
+			return true;
+	}
+	return false;
 }
 
 

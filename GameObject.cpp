@@ -187,7 +187,10 @@ void GameObject::Load(const char * _name, const json & file)
 	ID = file["Game Objects"][_name]["UID"].get<uint>();
 	if (file["Game Objects"][_name].find("Parent UID") != file["Game Objects"][_name].end()) {
 		int id = file["Game Objects"][_name]["Parent UID"].get<uint>();
-		App->scene_intro->setParentByID(id, App->scene_intro->root, this);
+		if (id == 0)
+			App->scene_intro->root = this;
+		else
+			App->scene_intro->setParentByID(id, App->scene_intro->root, this);
 	}
 	active = file["Game Objects"][_name]["Enable"].get<bool>();
 	_static = file["Game Objects"][_name]["Static"].get<bool>();
