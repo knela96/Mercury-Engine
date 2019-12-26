@@ -31,3 +31,25 @@ vec3 JointTransform::Interpolate(vec3 start, vec3 end, float progression)
 	
 	return ret;
 }
+
+Quat JointTransform::Interpolate(Quat qa, Quat qb, float blend) {
+	
+	Quat ret = { 0, 0, 0, 1 };
+	float dotP = qa.w*qb.w + qa.x*qb.x*+qa.y*qb.y + qa.z*qb.z;
+	float blendI = 1.0f  - blend;
+
+	if (dotP > 0) {
+		ret.w = blendI * qa.w + blend * -qb.w;
+		ret.x = blendI * qa.x + blend * -qb.x;
+		ret.y = blendI * qa.y + blend * -qb.y;
+		ret.z = blendI * qa.z + blend * -qb.z;
+	}
+	else if (blendI > 0) {
+		ret.w = blendI * qa.w + blend * qb.w;
+		ret.x = blendI * qa.x + blend * qb.x;
+		ret.y = blendI * qa.y + blend * qb.y;
+		ret.z = blendI * qa.z + blend * qb.z;
+	}
+	ret.Normalize();
+	return ret;
+}

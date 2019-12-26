@@ -20,6 +20,7 @@ public:
 
 	JointTransform Interpolate(JointTransform PointA, JointTransform PointB, float Progression);
 	vec3 Interpolate(vec3 start, vec3 end, float progression);
+	Quat Interpolate(Quat qa, Quat qb, float blend);
 };
 
 
