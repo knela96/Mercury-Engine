@@ -238,6 +238,9 @@
     <ClInclude Include="lib\ImGuizmo\ImGuizmo.h">
       <Filter>Sources\Containers\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -398,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp">
       <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
