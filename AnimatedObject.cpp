@@ -1,9 +1,6 @@
 #include "AnimatedObject.h"
 
 
-
-
-
 void AnimatedObject::DeleteAnimatedObject()
 {
 	

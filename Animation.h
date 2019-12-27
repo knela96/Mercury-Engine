@@ -14,7 +14,7 @@ public:
 	~Animation();
 
 private:
-	float              lenght; //seconds
+	float                lenght; //seconds
 	vector<Keyframe*>    keyframes;
 
 public:

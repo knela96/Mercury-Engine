@@ -8,7 +8,8 @@ enum ResourceType {
 	MeshR,
 	AudioR,
 	TextureR,
-	MaterialR
+	MaterialR,
+	AnimationR
 };
 
 

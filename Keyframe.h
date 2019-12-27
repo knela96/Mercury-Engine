@@ -13,14 +13,16 @@
 class Keyframe
 {
 public:
-	Keyframe() {}
+	Keyframe() {};
 	Keyframe(float TimePosition_, std::map<string, JointTransform> pose_) :TimePosition(TimePosition_), pose(pose_) {}; //WTF puc gualar una llista a un altre?
-	~Keyframe();
+	~Keyframe() {};
 
 private:
 	float            TimePosition;
 	std::map<string, JointTransform> pose;
 
+	map pos
+		map rot
 
 	/*list<KeyInfo*>   KeyJoints;*/
 	

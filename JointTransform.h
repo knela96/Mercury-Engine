@@ -9,9 +9,9 @@
 class JointTransform
 {
 public:
-	JointTransform() {}
+	JointTransform() {};
 	JointTransform(vec3 Position_, Quat Rotation_) :Position(Position_), Rotation(Rotation_) {};
-	~JointTransform();
+	~JointTransform() {};
 
 	vec3 Position;
 	Quat Rotation;

@@ -259,6 +259,9 @@
     <ClInclude Include="Animator.h">
       <Filter>Sources\Modules\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Helpers\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -431,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

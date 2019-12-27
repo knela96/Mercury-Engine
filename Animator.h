@@ -7,21 +7,18 @@
 #include "AnimatedObject.h"
 #include "Animation.h"
 #include "Joint.h"
+#include "Component.h"
 
-class Animator
+class Animator /*: public Component*/
 {
 public:
-	Animator(AnimatedObject myAnimatedBody_) : myAnimatedBody(myAnimatedBody_), AnimationTime(0) {};
+	Animator(AnimatedObject myAnimatedBody_) : myAnimatedBody(myAnimatedBody_), AnimationTime(0)/*, Component(ResourceType::AnimationR,myAnimatedBody.AnimatedObj)*/{};
 	~Animator();
 
 private:
 
-	AnimatedObject myAnimatedBody;
-
-	
+	AnimatedObject myAnimatedBody;	
 	float AnimationTime; //curr anim time
-
-
 
 public:
 
