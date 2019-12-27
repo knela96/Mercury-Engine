@@ -21,8 +21,8 @@ private:
 	float            TimePosition;
 	std::map<string, JointTransform> pose;
 
-	map pos
-		map rot
+	//map pos
+	//	map rot
 
 	/*list<KeyInfo*>   KeyJoints;*/
 	

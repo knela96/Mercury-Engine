@@ -9,16 +9,22 @@
 #include "Joint.h"
 #include "Component.h"
 
-class Animator /*: public Component*/
+
+class Animator : public Component
 {
 public:
-	Animator(AnimatedObject myAnimatedBody_) : myAnimatedBody(myAnimatedBody_), AnimationTime(0)/*, Component(ResourceType::AnimationR,myAnimatedBody.AnimatedObj)*/{};
+	Animator(GameObject* gameobject, Component_Type type) ;
+	
+	//Animator(AnimatedObject myAnimatedBody_) : myAnimatedBody(myAnimatedBody_), AnimationTime(0), Component(ResourceType::AnimationR,myAnimatedBody.AnimatedObj){};
 	~Animator();
 
 private:
-
-	AnimatedObject myAnimatedBody;	
+	
 	float AnimationTime; //curr anim time
+
+public:
+
+	AnimatedObject* myAnimatedBody;
 
 public:
 
@@ -33,6 +39,8 @@ public:
 
 public:
 	Animation* currAnimation;
+	UID id = 0;
+	string resource_name;
 
 };
 

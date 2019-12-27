@@ -15,7 +15,7 @@ MeshImporter::~MeshImporter()
 {
 }
 
-Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID, vector<aiMesh*> meshes)
+Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID)
 {
 	Mesh_R* newmesh = new Mesh_R();
 
@@ -61,10 +61,6 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 	else
 		newmesh->buffersSize[tex_coords_size] = 0;
 
-	if (mesh->HasBones())
-	{
-		meshes.push_back(mesh);
-	}
 
 	std::string _path("/Library/Meshes/");
 	_path.append(to_string(ID));

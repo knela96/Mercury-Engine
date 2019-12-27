@@ -7,6 +7,7 @@
 #include "C_Material.h"
 #include "C_Camera.h"
 #include "Mesh_R.h"
+#include "Animator.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
@@ -162,6 +163,10 @@ Component * GameObject::AddComponent(Component_Type type)
 	case Component_Type::Camera:
 		component = new C_Camera(this, type);
 		camera = (C_Camera*)component;
+		break;
+	case Component_Type::C_Animator:
+		component = new Animator(this, type);
+		animator = (Animator*)component;
 		break;
 	}
 	components.push_back(component);

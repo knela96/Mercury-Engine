@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include <vector>
-
+#include "Joint.h"
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
 
@@ -58,7 +58,7 @@ public:
 
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent);
 
-	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName, vector<aiMesh*> meshes);
+	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
@@ -70,7 +70,10 @@ public:
 
 	void SaveGameObjectConfig(json & config, std::vector<GameObject*>& gameObjects);
 
-	void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
+	//void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
+	
+	void ImportMeshBones(aiMesh* newMesh, const char* str, const char* fileName, vector<Joint>* joints);
+	UID	ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 

@@ -8,10 +8,12 @@ void Animator::UpdateAnim()
 	else {
 		IncreaseAnimationTime();
 		std::map<string, mat4x4> currPose = CalculateCurrAnimationPose();
-		ApplyPoseToJoints(currPose, &myAnimatedBody.GetRootJoint(), mat4x4());
+		ApplyPoseToJoints(currPose, &myAnimatedBody->GetRootJoint(), mat4x4());
 	}
 		
 }
+
+Animator::Animator(GameObject * gameobject, Component_Type type) : Component(type, gameobject){}
 
 void Animator::doAnimation(Animation *animation) {
 	AnimationTime = 0;

@@ -8,6 +8,7 @@
 #include "Texture_R.h"
 #include "C_MeshInfo.h"
 #include "Mesh_R.h"
+#include "Animator.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -213,12 +214,12 @@ void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 	config["Game Objects"]["Count"] = count;
 }
 
-void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
-{
-
-
-
-}
+//void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
+//{
+//
+//
+//
+//}
 
 
 GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent) {
@@ -240,7 +241,11 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 
 	GameObject* gameObject = nullptr;
 	//if (node->mNumMeshes == 0)
-		gameObject = new GameObject(node->mName.C_Str());
+	gameObject = new GameObject(node->mName.C_Str());
+
+
+
+	vector<Joint*> joints;
 
 	for (int i = 0; i < node->mNumMeshes; i++)
 	{
@@ -268,17 +273,22 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			newMesh->mName = node->mName;
 
 		//IMPORT STUFF HERE (ERIC)
-		vector<aiMesh*> meshes;
 		//Import Mesh
-		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str(),meshes);
+		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str());
 		if (MeshID != 0) {
 			C_MeshInfo* mesh = (C_MeshInfo*)gameObject->AddComponent(Component_Type::Mesh_Info);
 			mesh->id = MeshID;
 			mesh->resource_name.append(newMesh->mName.C_Str());
 		}
 		//Import Bones
-
-
+		
+		ImportMeshBones(newMesh, str, newMesh->mName.C_Str(),joints);
+		/*UID BonesID = importBones(newMesh, str, newMesh->mName.C_Str(), meshes);
+		if (BonesID != 0) {
+			Animator* anim = (Animator*)gameObject->AddComponent(Component_Type::C_Animator);
+			anim->id = BonesID;
+			anim->resource_name.append(newMesh->mName.C_Str());
+		}*/
 		//Import mesh material
 		/*aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
 		aiString matName;
@@ -307,7 +317,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	return gameObject;
 }
 
-UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName, vector<aiMesh*> meshes) {
+UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName) {
 	UID id = 0;
 	uint64 newID = 0;
 	Mesh_R* resource = nullptr;
@@ -324,7 +334,7 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 		newID = App->RandomNumberGenerator.GetIntRNInRange();
 	}
 
-	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID, meshes);
+	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID);
 	if (resource)
 	{
 		App->resources->AddResource(resource);
@@ -334,6 +344,35 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 
 	return id;
 }
+
+UID ModuleImporter::ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName) {
+	UID id = 0;
+	uint64 newID = 0;
+	Mesh_R* resource = nullptr;
+	uint instances = 0;
+	Meta* meta = App->resources->FindMetaResource(str, fileName, ResourceType::MeshR);
+
+	if (meta != nullptr)
+	{
+		newID = meta->id;
+		instances = App->resources->DeleteResource(newID);
+	}
+	else
+	{
+		newID = App->RandomNumberGenerator.GetIntRNInRange();
+	}
+
+	/*resource = ImportMeshBones(newMesh, str, fileName);*/
+	if (resource)
+	{
+		App->resources->AddResource(resource);
+		resource->instances = instances;
+		id = resource->ID;
+	}
+
+	return id;
+}
+
 
 GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char* fileName, const aiScene* scene) {
 
@@ -437,6 +476,15 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 
 	std::free(points);
 	return gameobject;
+}
+
+void ModuleImporter::ImportMeshBones(aiMesh * newMesh, const char * str, const char * fileName, vector<Joint>* joints)
+{
+	if (newMesh->HasBones) {
+
+
+
+	}
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
