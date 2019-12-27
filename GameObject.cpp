@@ -6,6 +6,7 @@
 #include "C_MeshInfo.h"
 #include "C_Material.h"
 #include "C_Camera.h"
+#include "Mesh_R.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
@@ -32,7 +33,7 @@ bool GameObject::Start()
 		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
 		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
 
-		mesh->UpdateBox();
+		UpdateBox();
 	}
 	return false;
 }
@@ -200,7 +201,10 @@ void GameObject::Load(const char * _name, const json & file)
 	ID = file["Game Objects"][_name]["UID"].get<uint>();
 	if (file["Game Objects"][_name].find("Parent UID") != file["Game Objects"][_name].end()) {
 		int id = file["Game Objects"][_name]["Parent UID"].get<uint>();
-		App->scene_intro->setParentByID(id, App->scene_intro->root, this);
+		if (id == 0)
+			App->scene_intro->root = this;
+		else
+			App->scene_intro->setParentByID(id, App->scene_intro->root, this);
 	}
 	active = file["Game Objects"][_name]["Enable"].get<bool>();
 	_static = file["Game Objects"][_name]["Static"].get<bool>();
@@ -214,8 +218,12 @@ void GameObject::Load(const char * _name, const json & file)
 	{
 		C_MeshInfo* t = (C_MeshInfo*)AddComponent(Component_Type::Mesh_Info);
 		t->Load(_name, file);
+		Mesh_R* resource = (Mesh_R*)App->resources->Get(t->id);
+		vector<Vertex> vec = resource->toVertex();
+		vector<uint>indx(resource->_indices, resource->_indices + sizeof(resource->_indices) / sizeof(resource->_indices[0]));
+		mesh = new MeshObject(resource->toVertex(), indx,this);
 	}
-	
+
 	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())
 	{
 		C_Normals* t = (C_Normals*)AddComponent(Component_Type::Normals);

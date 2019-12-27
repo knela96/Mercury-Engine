@@ -203,8 +203,10 @@ void ModuleSceneIntro::SaveScene(std::string fileName) {
 	json file;
 	string path = "Assets/" + fileName + ".scene";
 
-	uint count = SaveAllScene(root,file);
+	uint count = 0;
+	SaveAllScene(root, file, count);
 	file["Game Objects"]["Count"] = count;
+	file["Game Objects"]["Name"] = fileName;
 
 	ofstream stream;
 	stream.open(path);
@@ -213,14 +215,13 @@ void ModuleSceneIntro::SaveScene(std::string fileName) {
 
 }
 
-uint ModuleSceneIntro::SaveAllScene(GameObject* root, json& file) {
-	static uint count = 0;
+uint ModuleSceneIntro::SaveAllScene(GameObject* root, json& file, uint& count) {
 	char name[25];
 	sprintf_s(name, 25, "Game Object %i", ++count);
 	root->Save(name,file);
 
 	for (int i = 0; i < root->childs.size(); ++i)
-		SaveAllScene(root->childs[i], file);
+		SaveAllScene(root->childs[i], file,count);
 
 	return count;
 }
@@ -237,23 +238,25 @@ void ModuleSceneIntro::LoadScene(std::string* fileName) {
 	stream.open(path);
 	file = json::parse(stream);
 
-	int elements = file["Game Objects"]["Count"].get<int>();
-	LoadAllScene(root, file,elements);
+	uint elements = file["Game Objects"]["Count"].get<uint>();
+	uint count = 0;
+	LoadAllScene(root, file,&elements, count);
 	App->gui->inspector->active_gameObject = nullptr;
 
 	stream.close();
 }
 
-uint ModuleSceneIntro::LoadAllScene(GameObject* root, json& file, uint elements) {
+uint ModuleSceneIntro::LoadAllScene(GameObject* root, json& file, uint* elements,uint& count) {
 	GameObject* go = nullptr;
-	static uint count = 0;
-	char name[25];
-	sprintf_s(name, 25, "Game Object %i", ++count);
-	root->Load(name, file);
+	if (count > 0) {
+		char name[25];
+		sprintf_s(name, 25, "Game Object %i", count);
+		root->Load(name, file);
+	}
 
-	if (count < elements) {
+	if (count < *elements) {
 		go = new GameObject("");
-		LoadAllScene(go, file, elements);
+		LoadAllScene(go, file, elements, ++count);
 	}
 	return count;
 }

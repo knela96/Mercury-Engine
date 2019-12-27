@@ -1,10 +1,10 @@
 #ifndef IMPORTER_H
 #define IMPORTER_H
+#include "Globals.h"
 #include "Application.h"
 #include "Module.h"
 #include "Shader.h"
 #include "MathGeoLib/include/MathGeoLib.h"
-#include "Globals.h"
 #include <vector>
 
 #define CHECKERS_HEIGHT 64
@@ -24,6 +24,7 @@ class aiMesh;
 class aiScene;
 class aiMaterial;
 class Mesh_R;
+class Resources;
 
 enum FileFormats {
 	NONE = -1,
@@ -53,13 +54,21 @@ public:
 
 	bool LoadFile(const char * path);
 
-	bool Load(const char * path, std::string original_file);
+	bool Load(const char * path);
 
-	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, string * FileName, string * str, GameObject * parent);
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent);
+
+	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName, vector<aiMesh*> meshes);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
-	void ImportMesh(aiNode * node, aiScene * scene, string * FileName, string * str);
+	Resources * LoadObjectResource(UID id);
+
+	Resources* ImportObject(const char* FileName, UID* id);
+
+	void SaveGameObjectConfig(json & config, GameObject * gameObjects);
+
+	void SaveGameObjectConfig(json & config, std::vector<GameObject*>& gameObjects);
 
 	void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
 

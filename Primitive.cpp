@@ -221,7 +221,8 @@ void Primitive::DrawObj(PrimitiveTypes type) {
 	LOGC("Loaded Indices: %u", indices.size());
 	LOGC("Loaded Textures: %u", textures.size());
 
-	GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
+	//GameObject* gameobject = new MeshObject(vertices, indices, textures, name);
+	GameObject* gameobject = nullptr;
 	gameobject->parent = App->scene_intro->root;
 	gameobject->box.SetFrom(points, new_mesh->npoints);
 

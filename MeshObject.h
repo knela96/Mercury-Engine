@@ -19,10 +19,10 @@ struct Vertex {
 
 class aiMesh;
 
-class MeshObject : public GameObject
+class MeshObject
 {
 public:
-	MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name);
+	MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject);
 	~MeshObject();
 
 	bool SetupBuffers();
@@ -39,7 +39,7 @@ public:
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	uint VAO;
-
+	GameObject* gameobject;
 private:
 	uint VBO, EBO;
 };

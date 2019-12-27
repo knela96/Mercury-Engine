@@ -186,6 +186,7 @@
     <ClCompile Include="MaterialImporter.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshObject.cpp" />
+    <ClCompile Include="Mesh_R.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />

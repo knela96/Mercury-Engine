@@ -438,6 +438,7 @@
     <ClCompile Include="C_Camera.cpp">
       <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh_R.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mercury Engine.rc" />

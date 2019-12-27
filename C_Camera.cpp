@@ -54,7 +54,6 @@ void C_Camera::Update()
 		glVertex3f(picking.a.x, picking.a.y, picking.a.z);
 		glVertex3f(picking.b.x, picking.b.y, picking.b.z);
 		glEnd();
-
 	}
 
 }
@@ -207,20 +206,14 @@ void C_Camera::OnClick() {
 	ImVec2 g_w = App->gui->game->size_Game;
 	vec2 t;
 
-	t.x = -((g_p.x - pos.x) / SCREEN_WIDTH) * (SCREEN_WIDTH / g_w.x);
-	t.y = ((g_p.y - pos.y + 37 + g_w.y) / SCREEN_HEIGHT) * (SCREEN_HEIGHT / g_w.y);//offset
+	float mouseX = -(1.0f - ((float(App->input->GetMouseX()) * 2.0f) / SCREEN_WIDTH));
+	float mouseY = 1.0f - ((float(App->input->GetMouseY()) * 2.0f) / SCREEN_HEIGHT);
 
-	t.x *= SCREEN_WIDTH;
-	t.y *= SCREEN_HEIGHT;
+	t.x = -1.0f - ((g_p.x - pos.x) * 2 / g_w.x);
+	t.y = 1.0f + ((g_p.y + 40 - pos.y) * 2 / (g_w.y)); //40 is the offset of image
+
 
 	picking = frustum.UnProjectLineSegment(t.x, t.y);
-
-
-	LOGC("%f - %f", t.x, t.y);
-	LOGC("%f - %f", pos.x, pos.y);
-	LOGC("-----");
-
-
 }
 
 void C_Camera::Save(const char * _name, json & file)

@@ -26,6 +26,8 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(resources);
+	AddModule(filesystem);
 	AddModule(importer);
 	AddModule(mesh_importer);
 	AddModule(material_importer);
@@ -34,8 +36,6 @@ Application::Application()
 	AddModule(scene_intro);
 
 	//RECHECK
-	AddModule(resources);
-	AddModule(filesystem);
 	AddModule(gui);
 
 	// Renderer last!
@@ -71,7 +71,6 @@ bool Application::Init()
 	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = list_modules.getFirst();
-
 	while(item != NULL && ret == true)
 	{
 		ret = item->data->Start();

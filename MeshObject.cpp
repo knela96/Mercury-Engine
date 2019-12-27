@@ -6,7 +6,7 @@
 #include "C_Camera.h"
 #include "Gizmo.h"
 
-MeshObject::MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name) : GameObject(this,textures,name)
+MeshObject::MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -73,20 +73,20 @@ void MeshObject::Draw()
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
-	if (!active)
+	if (!gameobject->active)
 		return;
 
 	mat4x4 model = mat4x4();
-	model = this->transform->globalMatrix * model;
+	model = gameobject->transform->globalMatrix * model;
 
 	App->importer->shader->setBool("render", true);
-	if (App->renderer3D->texture_active && getComponent(Material)->isActive()) {
-		if(!debug_tex){
-			for (unsigned int i = 0; i < textures.size(); i++)
+	if (App->renderer3D->texture_active && gameobject->getComponent(Material)->isActive()) {
+		if(!gameobject->debug_tex){
+			for (unsigned int i = 0; i < gameobject->textures.size(); i++)
 			{
 				glActiveTexture(GL_TEXTURE0 + i); // active texture unit
 				string number;
-				aiTextureType type = textures[i]->type;
+				aiTextureType type = gameobject->textures[i]->type;
 				if (type == aiTextureType_DIFFUSE)
 					number = std::to_string(diffuseNr++);
 				else if (type == aiTextureType_SPECULAR)
@@ -97,12 +97,12 @@ void MeshObject::Draw()
 					number = std::to_string(heightNr++);
 
 				//set the sampler to the correct texture unit
-				App->importer->shader->setInt((getType(type) + number).c_str(), i);
+				App->importer->shader->setInt((gameobject->getType(type) + number).c_str(), i);
 
-				glBindTexture(GL_TEXTURE_2D, textures[i]->id);
+				glBindTexture(GL_TEXTURE_2D, gameobject->textures[i]->id);
 			}
 			//If mesh has no textures, don't draw any texture
-			if (textures.size() > 0) {
+			if (gameobject->textures.size() > 0) {
 				App->importer->shader->use(0);
 				App->importer->shader->setBool("render", true);
 			}
@@ -125,7 +125,7 @@ void MeshObject::Draw()
 	}
 
 	glPushMatrix();
-	glMultMatrixf(this->transform->globalMatrix.M);//Aplies transform to all rendering objects Lines,Box etc.
+	glMultMatrixf(gameobject->transform->globalMatrix.M);//Aplies transform to all rendering objects Lines,Box etc.
 
 	glBindVertexArray(VAO);
 	App->importer->shader->setMat4("model", model);
@@ -140,14 +140,14 @@ void MeshObject::Draw()
 	App->importer->shader->stop();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	if(getComponent(Normals)->isActive())
+	if(gameobject->getComponent(Normals)->isActive())
 		DebugNormals();
 	glBindVertexArray(0);
 	glPopMatrix();
 
-	if (boundary_box) {
-		Gizmo::DrawBox(aabb, Color(0.f, 1.f, 0.f, 1.f));
-		Gizmo::DrawBox(obb, Color(0.f, 0.f, 1.f, 1.f));
+	if (gameobject->boundary_box) {
+		Gizmo::DrawBox(gameobject->aabb, Color(0.f, 1.f, 0.f, 1.f));
+		Gizmo::DrawBox(gameobject->obb, Color(0.f, 0.f, 1.f, 1.f));
 	}
 }
 
@@ -181,7 +181,7 @@ void MeshObject::CleanUp() {
 
 void MeshObject::DebugNormals() const
 {
-	if (vertex_normals) {
+	if (gameobject->vertex_normals) {
 		//NORMAL VERTEX
 		for (int i = 0; i < vertices.size(); i++)
 		{
@@ -190,15 +190,15 @@ void MeshObject::DebugNormals() const
 
 			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
-			glColor3f(normals->vertex_color.r, normals->vertex_color.g, normals->vertex_color.b);
+			glColor3f(gameobject->normals->vertex_color.r, gameobject->normals->vertex_color.g, gameobject->normals->vertex_color.b);
 			glVertex3f(vertex.x, vertex.y, vertex.z);
-			glVertex3f((vertex.x + normal.x * normals->vertex_lenght), (vertex.y + normal.y * normals->vertex_lenght), (vertex.z + normal.z * normals->vertex_lenght));
+			glVertex3f((vertex.x + normal.x * gameobject->normals->vertex_lenght), (vertex.y + normal.y * gameobject->normals->vertex_lenght), (vertex.z + normal.z * gameobject->normals->vertex_lenght));
 			glEnd();
 			glEnable(GL_LIGHTING);
 		}
 	}
 
-	if (face_normals) {
+	if (gameobject->face_normals) {
 		//NORMAL FACES
 		for (int i = 0; i < indices.size(); i += 3)
 		{
@@ -216,9 +216,9 @@ void MeshObject::DebugNormals() const
 
 			glDisable(GL_LIGHTING);
 			glBegin(GL_LINES);
-			glColor3f(normals->face_color.r, normals->face_color.g, normals->face_color.b);
+			glColor3f(gameobject->normals->face_color.r, gameobject->normals->face_color.g, gameobject->normals->face_color.b);
 			glVertex3f(face_center.x, face_center.y, face_center.z);
-			glVertex3f((face_center.x + normal.x * normals->face_lenght), (face_center.y + normal.y * normals->face_lenght), (face_center.z + normal.z * normals->face_lenght));
+			glVertex3f((face_center.x + normal.x * gameobject->normals->face_lenght), (face_center.y + normal.y * gameobject->normals->face_lenght), (face_center.z + normal.z * gameobject->normals->face_lenght));
 			glEnd();
 			glEnable(GL_LIGHTING);
 		}

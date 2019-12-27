@@ -1,0 +1,1807 @@
+{
+    "Game Objects": {
+        "Count": 57,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Scene",
+            "Parent UID": 0,
+            "Static": false,
+            "UID": 581869302
+        },
+        "Game Object 10": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 986311591,
+                    "Name": "Untitled.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 418932835
+        },
+        "Game Object 11": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 669839044,
+                    "Name": "Untitled"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 348838239
+        },
+        "Game Object 12": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Game Object 13": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 986311591,
+                    "Name": "Untitled.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 418932835
+        },
+        "Game Object 14": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 669839044,
+                    "Name": "Untitled"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 348838239
+        },
+        "Game Object 15": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Game Object 16": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Camera.001",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 323567403
+        },
+        "Game Object 17": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 809094426,
+                    "Name": "Mesh"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Japanese_Shrine",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 196140740
+        },
+        "Game Object 18": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 926416934
+        },
+        "Game Object 19": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Sky001",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 712568902
+        },
+        "Game Object 2": {
+            "Components": {
+                "Camera": {
+                    "Active": true,
+                    "Culling": false,
+                    "FOV": 1.0471975803375244
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Main Camera",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 586334585
+        },
+        "Game Object 20": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Dummy001",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 181055693
+        },
+        "Game Object 21": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 812852786,
+                    "Name": "City_building_004"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -41.47589111328125,
+                        21.01409912109375,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_004",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 684602222
+        },
+        "Game Object 22": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 32444839,
+                    "Name": "City_building_001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        17.707164764404297,
+                        20.05327606201172,
+                        2.121072952832037e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_001",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 296707006
+        },
+        "Game Object 23": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 747053250,
+                    "Name": "City_building_007"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        16.0104923248291,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_007",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 189375152
+        },
+        "Game Object 24": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 530047642,
+                    "Name": "City_building_008"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        40.97999572753906,
+                        18.270824432373047,
+                        -2.0522466002148576e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_008",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 536724425
+        },
+        "Game Object 25": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 107063880,
+                    "Name": "Line002"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -2.1597719192504883,
+                        1.8538382053375244,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Line002",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 280281326
+        },
+        "Game Object 26": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 638781099,
+                    "Name": "Plane001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -0.02860260009765625,
+                        0.026032090187072754,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        0.9966352581977844,
+                        0.9706164598464966,
+                        0.9706164598464966
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Plane001",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 540721923
+        },
+        "Game Object 27": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 156513983,
+                    "Name": "City_building_010"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        25.154010772705078,
+                        -39.15372085571289,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_010",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 755486969
+        },
+        "Game Object 28": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 747053250,
+                    "Name": "City_building_007"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        30.134540557861328,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_011",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 94092595
+        },
+        "Game Object 29": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 241354600,
+                    "Name": "City_building_013"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -42.288055419921875,
+                        33.201576232910156,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_013",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 955127111
+        },
+        "Game Object 3": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Game Object 30": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 12105075,
+                    "Name": "City_building_014"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -19.439706802368164,
+                        32.061729431152344,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        -4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_014",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 919300778
+        },
+        "Game Object 31": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 156513983,
+                    "Name": "City_building_010"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        34.270423889160156,
+                        -41.972747802734375,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        -4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_016",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 958646067
+        },
+        "Game Object 32": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 156513983,
+                    "Name": "City_building_010"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        44.26008224487305,
+                        -39.15372085571289,
+                        8.553864176974457e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_017",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 513705832
+        },
+        "Game Object 33": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 527224675,
+                    "Name": "City_building_022"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -20.831323623657227,
+                        -27.426488876342773,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.9470718370939721e-07
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_022",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 226667454
+        },
+        "Game Object 34": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 747053250,
+                    "Name": "City_building_007"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        42.13064193725586,
+                        37.4932861328125,
+                        -1.5106878663573298e-06
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_023",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 2511655
+        },
+        "Game Object 35": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 530047642,
+                    "Name": "City_building_008"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -20.572771072387695,
+                        43.060829162597656,
+                        -0.06919445842504501
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_024",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 495189930
+        },
+        "Game Object 36": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 641212874,
+                    "Name": "City_building_026"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        31.51188850402832,
+                        -16.446016311645508,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        4.371138828673793e-08
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_026",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 271610651
+        },
+        "Game Object 37": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        13.38798999786377,
+                        -33.75503921508789,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_028",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 610853094
+        },
+        "Game Object 38": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 58150106,
+                    "Name": "Object010"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -2.5033531188964844,
+                        15.800846099853516,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Object010",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 45931779
+        },
+        "Game Object 39": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -42.8072395324707,
+                        -41.83556365966797,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_030",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 897101788
+        },
+        "Game Object 4": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 986311591,
+                    "Name": "Untitled.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 418932835
+        },
+        "Game Object 40": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -34.679481506347656,
+                        -41.83556365966797,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_031",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 645891717
+        },
+        "Game Object 41": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 812852786,
+                    "Name": "City_building_004"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -29.478403091430664,
+                        21.01409912109375,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_032",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 290319951
+        },
+        "Game Object 42": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 361044915,
+                    "Name": "City_building_033"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -32.36149597167969,
+                        42.37042236328125,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_033",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 553373352
+        },
+        "Game Object 43": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 919803768,
+                    "Name": "City_building_034"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        16.049516677856445,
+                        -16.696884155273438,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071068286895752,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_034",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 227669233
+        },
+        "Game Object 44": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        13.38798999786377,
+                        -40.80251693725586,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_035",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 411870849
+        },
+        "Game Object 45": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 241354600,
+                    "Name": "City_building_013"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -31.216331481933594,
+                        33.201576232910156,
+                        5.014607040720875e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_036",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 265043167
+        },
+        "Game Object 46": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 279758133,
+                    "Name": "City_building_037"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -20.31769371032715,
+                        -16.16360855102539,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.9470718370939721e-07
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_037",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 515103006
+        },
+        "Game Object 47": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 663307952,
+                    "Name": "City_building_038"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -41.64900207519531,
+                        -16.495393753051758,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071068286895752,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_038",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 557942923
+        },
+        "Game Object 48": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -42.8072395324707,
+                        -30.643888473510742,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_039",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 663423246
+        },
+        "Game Object 49": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 92133642,
+                    "Name": "City_building_028"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        -34.679481506347656,
+                        -30.643888473510742,
+                        -9.383451811117993e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        -0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_040",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 668894615
+        },
+        "Game Object 5": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 669839044,
+                    "Name": "Untitled"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 348838239
+        },
+        "Game Object 50": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 32444839,
+                    "Name": "City_building_001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        30.69527816772461,
+                        21.612646102905273,
+                        2.121072952832037e-07
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.7071067690849304,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "City_building_041",
+            "Parent UID": 181055693,
+            "Static": false,
+            "UID": 873110678
+        },
+        "Game Object 51": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Camera001",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 270032533
+        },
+        "Game Object 52": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Camera001.Target",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 711455903
+        },
+        "Game Object 53": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spot001",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 585492744
+        },
+        "Game Object 54": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spot001.Target",
+            "Parent UID": 926416934,
+            "Static": false,
+            "UID": 129453058
+        },
+        "Game Object 55": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 809248324
+        },
+        "Game Object 56": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 213286615,
+                    "Name": "Untitled.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Chimney",
+            "Parent UID": 809248324,
+            "Static": false,
+            "UID": 75629128
+        },
+        "Game Object 57": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 983448591,
+                    "Name": "Untitled"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        100.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Baker_house",
+            "Parent UID": 809248324,
+            "Static": false,
+            "UID": 919490483
+        },
+        "Game Object 6": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Game Object 7": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Camera.001",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 323567403
+        },
+        "Game Object 8": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 809094426,
+                    "Name": "Mesh"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Japanese_Shrine",
+            "Parent UID": 949333985,
+            "Static": false,
+            "UID": 196140740
+        },
+        "Game Object 9": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 949333985
+        },
+        "Name": "hola"
+    }
+}

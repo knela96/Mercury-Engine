@@ -2,6 +2,7 @@
 #include "MeshImporter.h"
 #include "ModuleImporter.h"
 #include "MeshObject.h"
+#include "Mesh_R.h"
 
 
 
@@ -14,7 +15,7 @@ MeshImporter::~MeshImporter()
 {
 }
 
-Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const char* fileName, UID ID)
+Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID, vector<aiMesh*> meshes)
 {
 	Mesh_R* newmesh = new Mesh_R();
 
@@ -28,7 +29,9 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const 
 		newmesh->_indices = new uint[mesh->mNumFaces * 3];
 		for (uint i = 0; i < mesh->mNumFaces; i++)
 		{
-			memcpy(&newmesh->_indices[i*3], mesh->mFaces[i].mIndices, sizeof(uint) * 3);
+			memcpy(&newmesh->_indices[i * 3], &mesh->mFaces[i].mIndices[0], sizeof(uint));
+			memcpy(&newmesh->_indices[i * 3 + 1], &mesh->mFaces[i].mIndices[1], sizeof(uint));
+			memcpy(&newmesh->_indices[i * 3 + 2], &mesh->mFaces[i].mIndices[2], sizeof(uint));
 		}
 	}
 	else
@@ -58,16 +61,19 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, std::string* path, const 
 	else
 		newmesh->buffersSize[tex_coords_size] = 0;
 
+	if (mesh->HasBones())
+	{
+		meshes.push_back(mesh);
+	}
+
 	std::string _path("/Library/Meshes/");
-	//_path.append(to_string(ID));
-	_path.append(fileName);
-	_path.append(".mesh");
+	_path.append(to_string(ID));
 
 	newmesh->name = fileName;
 
 	newmesh->ID = ID;
 	newmesh->resource_path = _path;
-	newmesh->original_path = *path;
+	newmesh->original_path.append(path);
 
 	/*SaveMeshResource(newmesh, ID);*/
 
@@ -105,32 +111,30 @@ bool MeshImporter::SaveMeshResource(const Mesh_R *mesh, UID ID)
 
 	//Save Indices
 	bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
-	memcpy(cursor, &mesh->_indices, bytes);
+	memcpy(cursor, mesh->_indices, bytes);
 	cursor += bytes;
 
 	//Save Vertices
 	bytes = sizeof(float) * mesh->buffersSize[vertices_size] * 3;
-	memcpy(cursor, &mesh->_vertices, bytes);
+	memcpy(cursor, mesh->_vertices, bytes);
 	cursor += bytes;
 
 	//Save Normals
 	if (mesh->buffersSize[normals_size] > 0) {
 		bytes = sizeof(float) *mesh->buffersSize[normals_size] * 3;
-		memcpy(cursor, &mesh->_normals, bytes);
+		memcpy(cursor, mesh->_normals, bytes);
 		cursor += bytes;
 	}
 
 	//Save Normals
 	if (mesh->buffersSize[tex_coords_size] > 0) {
 		bytes = sizeof(float) * mesh->buffersSize[tex_coords_size] * 2;
-		memcpy(cursor, &mesh->_tex_coords, bytes);
+		memcpy(cursor, mesh->_tex_coords, bytes);
 		cursor += bytes;
 	}
 
 	uint ret = App->filesystem->Save(mesh->resource_path.c_str(), data, size);
 	RELEASE_ARRAY(data);
-
-	//LoadMeshResource(ID);
 
 	return true;
 }
@@ -188,8 +192,8 @@ Mesh_R * MeshImporter::LoadMeshResource(UID ID)
 		cursor += bytes;
 
 		//Load Indices
-		bytes = sizeof(uint) * mesh->buffersSize[indices_size];
-		mesh->_indices = new uint[mesh->buffersSize[indices_size]];
+		bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
+		mesh->_indices = new uint[mesh->buffersSize[indices_size] * 3];
 		memcpy(&mesh->_indices, cursor, bytes);
 		cursor += bytes;
 
