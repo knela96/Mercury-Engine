@@ -302,7 +302,7 @@ Resources * ModuleResources::Get(UID ID)
 				}
 				case (ResourceType::MeshR):
 				{
-					//ret = App->mesh_importer->LoadMeshResource(ID);
+					ret = App->mesh_importer->LoadMeshResource(ID);
 					break;
 				}
 				case (ResourceType::MaterialR):

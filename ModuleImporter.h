@@ -58,7 +58,7 @@ public:
 
 	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent);
 
-	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
+	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName, vector<aiMesh*> meshes);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 

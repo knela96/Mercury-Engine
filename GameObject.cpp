@@ -6,6 +6,7 @@
 #include "C_MeshInfo.h"
 #include "C_Material.h"
 #include "C_Camera.h"
+#include "Mesh_R.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	AddComponent(Transform);
@@ -31,7 +32,7 @@ bool GameObject::Start()
 		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
 		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
 
-		mesh->UpdateBox();
+		UpdateBox();
 	}
 	return false;
 }
@@ -204,6 +205,10 @@ void GameObject::Load(const char * _name, const json & file)
 	{
 		C_MeshInfo* t = (C_MeshInfo*)AddComponent(Component_Type::Mesh_Info);
 		t->Load(_name, file);
+		Mesh_R* resource = (Mesh_R*)App->resources->Get(t->id);
+		vector<Vertex> vec = resource->toVertex();
+		vector<uint>indx(resource->_indices, resource->_indices + sizeof(resource->_indices) / sizeof(resource->_indices[0]));
+		mesh = new MeshObject(resource->toVertex(), indx,this);
 	}
 	
 	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())

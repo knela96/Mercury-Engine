@@ -2,6 +2,7 @@
 #include "MeshImporter.h"
 #include "ModuleImporter.h"
 #include "MeshObject.h"
+#include "Mesh_R.h"
 
 
 
@@ -14,7 +15,7 @@ MeshImporter::~MeshImporter()
 {
 }
 
-Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID)
+Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID, vector<aiMesh*> meshes)
 {
 	Mesh_R* newmesh = new Mesh_R();
 
@@ -59,6 +60,11 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 	}
 	else
 		newmesh->buffersSize[tex_coords_size] = 0;
+
+	if (mesh->HasBones())
+	{
+		meshes.push_back(mesh);
+	}
 
 	std::string _path("/Library/Meshes/");
 	_path.append(to_string(ID));
@@ -186,8 +192,8 @@ Mesh_R * MeshImporter::LoadMeshResource(UID ID)
 		cursor += bytes;
 
 		//Load Indices
-		bytes = sizeof(uint) * mesh->buffersSize[indices_size];
-		mesh->_indices = new uint[mesh->buffersSize[indices_size]];
+		bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
+		mesh->_indices = new uint[mesh->buffersSize[indices_size] * 3];
 		memcpy(&mesh->_indices, cursor, bytes);
 		cursor += bytes;
 

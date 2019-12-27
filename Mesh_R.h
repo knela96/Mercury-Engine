@@ -1,7 +1,10 @@
 #ifndef MESH_R_H_
 #define MESH_R_H_
 
+#include "Globals.h"
+#include "Application.h"
 #include "Resources.h"
+
 
 enum Buffers
 {
@@ -12,11 +15,15 @@ enum Buffers
 	buffer_size
 };
 
+struct Vertex;
+
 class Mesh_R : public Resources
 {
 public:
 	Mesh_R() : Resources(MeshR) {}
 	~Mesh_R() {}
+
+	std::vector<Vertex> toVertex();
 
 public:
 	uint buffersSize[buffer_size];

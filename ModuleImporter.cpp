@@ -7,6 +7,7 @@
 #include "Material_R.h"
 #include "Texture_R.h"
 #include "C_MeshInfo.h"
+#include "Mesh_R.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -260,13 +261,16 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			newMesh->mName = node->mName;
 
 		//IMPORT STUFF HERE (ERIC)
+		vector<aiMesh*> meshes;
 		//Import Mesh
-		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str());
+		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str(),meshes);
 		if (MeshID != 0) {
 			C_MeshInfo* mesh = (C_MeshInfo*)gameObject->AddComponent(Component_Type::Mesh_Info);
 			mesh->id = MeshID;
 			mesh->resource_name.append(newMesh->mName.C_Str());
 		}
+		//Import Bones
+
 
 		//Import mesh material
 		/*aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
@@ -296,7 +300,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	return gameObject;
 }
 
-UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName) {
+UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName, vector<aiMesh*> meshes) {
 	UID id = 0;
 	uint64 newID = 0;
 	Mesh_R* resource = nullptr;
@@ -313,7 +317,7 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 		newID = App->RandomNumberGenerator.GetIntRNInRange();
 	}
 
-	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID);
+	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID, meshes);
 	if (resource)
 	{
 		App->resources->AddResource(resource);
@@ -419,8 +423,8 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 
 	if (mesh->mName.length == 0)
 		mesh->mName = fileName;
-
-	GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
+	GameObject* gameobject = nullptr;
+	//GameObject* gameobject = new MeshObject(vertices, indices, textures, mesh->mName.C_Str());
 	gameobject->box.SetNegativeInfinity();
 	gameobject->box.Enclose(points, mesh->mNumVertices);
 
