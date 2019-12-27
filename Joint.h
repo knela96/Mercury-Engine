@@ -9,6 +9,7 @@
 class Joint
 {
 public:
+	Joint() {}
 	Joint(int index_, string name_, mat4x4 LocalBindTransform_) :index(index_), name(name_), LocalBindTransform(LocalBindTransform_) {};
 	~Joint();
 

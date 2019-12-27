@@ -15,7 +15,11 @@ public:
 
 private:
 	float              lenght; //seconds
-	list<Keyframe*>    keyframes;
+	vector<Keyframe*>    keyframes;
+
+public:
+	float GetLength() { return lenght; }
+	vector<Keyframe*>* GetKeyframes() { return &keyframes; };
 };
 
 Animation::Animation()

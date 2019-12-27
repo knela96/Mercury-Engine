@@ -256,6 +256,9 @@
     <ClInclude Include="JointTransform.h">
       <Filter>Sources\Modules\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -424,6 +427,9 @@
       <Filter>Sources\Modules\Animator</Filter>
     </ClCompile>
     <ClCompile Include="JointTransform.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
       <Filter>Sources\Modules\Animator</Filter>
     </ClCompile>
   </ItemGroup>
