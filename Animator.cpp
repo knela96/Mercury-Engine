@@ -8,7 +8,7 @@ void Animator::UpdateAnim()
 	else {
 		IncreaseAnimationTime();
 		std::map<string, mat4x4> currPose = CalculateCurrAnimationPose();
-		ApplyPoseToJoints(currPose, myAnimatedBody.GetRootJoint(), mat4x4());
+		ApplyPoseToJoints(currPose, &myAnimatedBody.GetRootJoint(), mat4x4());
 	}
 		
 }
@@ -30,19 +30,19 @@ map<string, mat4x4> Animator::CalculateCurrAnimationPose()
 	float progression = CalculateProgression(frames[0], frames[1]);
 	return InterpolatePoses(frames[0],frames[1],progression);
 }
-void Animator::ApplyPoseToJoints(map<string, mat4x4> currPose, Joint ParentJoint, mat4x4 Parentmat) {
-	/*mat4x4 currLocalTransform = currPose[ParentJoint.name];
+void Animator::ApplyPoseToJoints(map<string, mat4x4> currPose, Joint *ParentJoint, mat4x4 Parentmat) {
+	mat4x4 currLocalTransform = currPose[ParentJoint->name];
 	mat4x4 currTransform = Parentmat * currLocalTransform;
 
 
-	list<Joint*>::iterator it = ParentJoint.children.begin();
+	list<Joint*>::iterator it = ParentJoint->children.begin();
 	
-	for (it; it != ParentJoint.children.end(); it++) {
-		ApplyPoseToJoints(currPose, it, currTransform);
+	for (it; it != ParentJoint->children.end(); it++) {
+		ApplyPoseToJoints(currPose, *it, currTransform);
 	}
-	mat4x4 container = currTransform * ParentJoint.GetInverseBindTransform();
-	ParentJoint.SetAnimationTransform(container);
-*/
+	mat4x4 container = currTransform * ParentJoint->GetInverseBindTransform();
+	ParentJoint->SetAnimationTransform(container);
+
 		//WTF
 }
 

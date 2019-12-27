@@ -1,6 +1,7 @@
 #ifndef JOINTTRANSFORM_H_
 #define JOINTTRANSFORM_H_
 
+
 #include "Globals.h"
 #include "Application.h"
 
@@ -8,6 +9,7 @@
 class JointTransform
 {
 public:
+	JointTransform() {}
 	JointTransform(vec3 Position_, Quat Rotation_) :Position(Position_), Rotation(Rotation_) {};
 	~JointTransform();
 
@@ -22,6 +24,6 @@ public:
 	Quat Interpolate(Quat qa, Quat qb, float blend);
 };
 
-
-
 #endif
+
+

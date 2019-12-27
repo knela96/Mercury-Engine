@@ -28,7 +28,7 @@ public:
 	void doAnimation(Animation *animation);
 	void IncreaseAnimationTime();
 	map<string, mat4x4>  CalculateCurrAnimationPose();
-	void ApplyPoseToJoints(map<string, mat4x4> currPose, Joint RootJoint, mat4x4 mat);
+	void ApplyPoseToJoints(map<string, mat4x4> currPose, Joint *RootJoint, mat4x4 mat);
 	void UpdateAnim();
 	void GetPreviousAndNextFrame(Keyframe* frames);
 	float CalculateProgression(Keyframe a, Keyframe b);
