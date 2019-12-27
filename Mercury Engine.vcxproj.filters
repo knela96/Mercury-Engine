@@ -258,8 +258,6 @@
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Sources\Modules\Animator</Filter>
-    <ClInclude Include="C_Camera.h">
-      <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -433,8 +431,6 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Sources\Modules\Animator</Filter>
-    <ClCompile Include="C_Camera.cpp">
-      <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
