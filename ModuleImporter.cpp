@@ -475,33 +475,54 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 void ModuleImporter::ImportMeshBones(vector<aiMesh*> * newMesh, const char * str, const char * fileName, GameObject* root)
 {
 	for (int i = 0; i < newMesh->size(); ++i) {
+		vector<Joint*> joints;
 		std::map<std::string, aiBone*> bones;
 		uint count = 0;
 		CollectGameObjectNames(newMesh->at(i), bones, count);
-		Joint* root_joint = new Joint();
-		LoadHierarchyJoints(root,&bones,root_joint);
+
+		Joint* root_joint = nullptr;
+		LoadHierarchyJoints(root,&bones,root_joint, joints);
 	}
 }
 
-void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::string, aiBone*>* bones, Joint* joint) {
+void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::string, aiBone*>* bones, Joint*& joint, vector<Joint*>& joints) {
 	for (int i = 0; i < gameobject->childs.size(); ++i) {
-		std::map<std::string, aiBone*>::iterator bone_it = bones->find(gameobject[i].name);
+		std::map<std::string, aiBone*>::iterator bone_it = bones->find(gameobject->childs[i]->name);
 		if (bone_it != bones->end())
 		{
+			aiBone* bone = bone_it->second;
 			Joint* child = new Joint();
-			joint->children.push_back(child);
-			LoadHierarchyJoints(gameobject->childs[i], bones, child);
+			child->name = bone_it->first;
+			child->index = joints.size();
+			child->InverseBindTransform = mat4x4(
+				bone->mOffsetMatrix.a1, bone->mOffsetMatrix.a2, bone->mOffsetMatrix.a3, bone->mOffsetMatrix.a4,
+				bone->mOffsetMatrix.b1, bone->mOffsetMatrix.b2, bone->mOffsetMatrix.b3, bone->mOffsetMatrix.b4,
+				bone->mOffsetMatrix.c1, bone->mOffsetMatrix.c2, bone->mOffsetMatrix.c3, bone->mOffsetMatrix.c4,
+				bone->mOffsetMatrix.d1, bone->mOffsetMatrix.d2, bone->mOffsetMatrix.d3, bone->mOffsetMatrix.d4
+			).inverse();
+			
+			if (joints.size() > 0) {
+				joint->children.push_back(child);
+				joints.push_back(child);
+				LoadHierarchyJoints(gameobject->childs[i], bones, child, joints);
+			}
+			else {
+				joint = child;
+				joints.push_back(joint);
+				LoadHierarchyJoints(gameobject->childs[i], bones, joint, joints);
+			}
 		}
 		else
-			LoadHierarchyJoints(gameobject->childs[i], bones, joint);
+			LoadHierarchyJoints(gameobject->childs[i], bones, joint, joints);
 	}
 }
 
 void ModuleImporter::CollectGameObjectNames(aiMesh* mesh, std::map<std::string, aiBone*>& map, uint count)
 {
-	map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
-	for (uint i = 0; i < mesh->mNumBones; i++)
-		CollectGameObjectNames(&mesh[count], map,++count);
+	if (count < mesh->mNumBones) {
+		map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
+		CollectGameObjectNames(mesh, map, ++count);
+	}
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
