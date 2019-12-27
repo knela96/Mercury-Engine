@@ -22,13 +22,6 @@ public:
 	vector<Keyframe*>* GetKeyframes() { return &keyframes; };
 };
 
-Animation::Animation()
-{
-}
-
-Animation::~Animation()
-{
-}
 
 
 #endif

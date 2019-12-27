@@ -27,7 +27,7 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 163214728
+            "UID": 427838553
         },
         "Game Object 2": {
             "Components": {
@@ -53,15 +53,15 @@
             },
             "Enable": true,
             "Name": "Camera.001",
-            "Parent UID": 163214728,
+            "Parent UID": 427838553,
             "Static": false,
-            "UID": 427077306
+            "UID": 275731771
         },
         "Game Object 3": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 910208076,
+                    "ID": 483031418,
                     "Name": "Mesh"
                 },
                 "Transform": {
@@ -86,9 +86,9 @@
             },
             "Enable": true,
             "Name": "Japanese_Shrine",
-            "Parent UID": 163214728,
+            "Parent UID": 427838553,
             "Static": false,
-            "UID": 646982597
+            "UID": 811450929
         },
         "Name": "JapaneseTemple.fbx",
         "Source": "Assets/Models/JapaneseTemple.fbx"

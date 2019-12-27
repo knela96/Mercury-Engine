@@ -21,10 +21,12 @@ class aiNode;
 class aiScene;
 struct Texture;
 class aiMesh;
+struct aiBone;
 class aiScene;
 class aiMaterial;
 class Mesh_R;
 class Resources;
+class Joint;
 
 enum FileFormats {
 	NONE = -1,
@@ -32,7 +34,6 @@ enum FileFormats {
 	PNG,
 	DDS
 };
-
 class ModuleImporter : public Module
 {
 public:
@@ -56,7 +57,7 @@ public:
 
 	bool Load(const char * path);
 
-	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent);
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes);
 
 	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
 
@@ -72,7 +73,9 @@ public:
 
 	//void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
 	
-	void ImportMeshBones(aiMesh* newMesh, const char* str, const char* fileName, vector<Joint>* joints);
+	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
+	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint * joint);
+	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, uint count);
 	UID	ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);

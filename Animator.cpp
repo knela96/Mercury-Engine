@@ -1,4 +1,14 @@
+#include "Application.h"
 #include "Animator.h"
+
+
+Animation::Animation()
+{
+}
+
+Animation::~Animation()
+{
+}
 
 void Animator::UpdateAnim()
 {

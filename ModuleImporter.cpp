@@ -178,10 +178,12 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 	{
 		LOG("Starting scene load %s", path);
 		std::string name = "";
-
 		App->filesystem->SplitFilePath(path, nullptr, &name);
-		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root);
+		vector<aiMesh*> boned_meshes;
+		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root,&boned_meshes);
 		//Import Scene Bones HERE
+		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
+
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
@@ -222,7 +224,7 @@ void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 //}
 
 
-GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent) {
+GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent, vector<aiMesh*>* boned_meshes) {
 
 	std::string name = node->mName.C_Str();
 	static const char* transformNodes[5] = {
@@ -242,10 +244,6 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	GameObject* gameObject = nullptr;
 	//if (node->mNumMeshes == 0)
 	gameObject = new GameObject(node->mName.C_Str());
-
-
-
-	vector<Joint*> joints;
 
 	for (int i = 0; i < node->mNumMeshes; i++)
 	{
@@ -280,15 +278,11 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			mesh->id = MeshID;
 			mesh->resource_name.append(newMesh->mName.C_Str());
 		}
-		//Import Bones
-		
-		ImportMeshBones(newMesh, str, newMesh->mName.C_Str(),joints);
-		/*UID BonesID = importBones(newMesh, str, newMesh->mName.C_Str(), meshes);
-		if (BonesID != 0) {
-			Animator* anim = (Animator*)gameObject->AddComponent(Component_Type::C_Animator);
-			anim->id = BonesID;
-			anim->resource_name.append(newMesh->mName.C_Str());
-		}*/
+
+		if (newMesh->HasBones()) {
+			boned_meshes->push_back(newMesh);
+		}
+
 		//Import mesh material
 		/*aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
 		aiString matName;
@@ -309,7 +303,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
 		GameObject* go = nullptr;
-		go = LoadHierarchy(child, scene, str, gameObject);
+		go = LoadHierarchy(child, scene, str, gameObject,boned_meshes);
 		if (go != nullptr)
 			gameObject->childs.push_back(go);
 	}
@@ -478,13 +472,36 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	return gameobject;
 }
 
-void ModuleImporter::ImportMeshBones(aiMesh * newMesh, const char * str, const char * fileName, vector<Joint>* joints)
+void ModuleImporter::ImportMeshBones(vector<aiMesh*> * newMesh, const char * str, const char * fileName, GameObject* root)
 {
-	if (newMesh->HasBones) {
-
-
-
+	for (int i = 0; i < newMesh->size(); ++i) {
+		std::map<std::string, aiBone*> bones;
+		uint count = 0;
+		CollectGameObjectNames(newMesh->at(i), bones, count);
+		Joint* root_joint = new Joint();
+		LoadHierarchyJoints(root,&bones,root_joint);
 	}
+}
+
+void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::string, aiBone*>* bones, Joint* joint) {
+	for (int i = 0; i < gameobject->childs.size(); ++i) {
+		std::map<std::string, aiBone*>::iterator bone_it = bones->find(gameobject[i].name);
+		if (bone_it != bones->end())
+		{
+			Joint* child = new Joint();
+			joint->children.push_back(child);
+			LoadHierarchyJoints(gameobject->childs[i], bones, child);
+		}
+		else
+			LoadHierarchyJoints(gameobject->childs[i], bones, joint);
+	}
+}
+
+void ModuleImporter::CollectGameObjectNames(aiMesh* mesh, std::map<std::string, aiBone*>& map, uint count)
+{
+	map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
+	for (uint i = 0; i < mesh->mNumBones; i++)
+		CollectGameObjectNames(&mesh[count], map,++count);
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
