@@ -123,4 +123,5 @@ void C_Transform::Load(const char * gameObject, const json & file)
 		file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"][1],
 		file["Game Objects"][gameObject]["Components"]["Transform"]["Scale"][2]
 	);
+	UpdateMatrices();
 }

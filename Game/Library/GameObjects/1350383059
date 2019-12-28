@@ -27,7 +27,7 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 46698742
+            "UID": 397746050
         },
         "Game Object 2": {
             "Components": {
@@ -58,9 +58,9 @@
             },
             "Enable": true,
             "Name": "Chimney",
-            "Parent UID": 46698742,
+            "Parent UID": 397746050,
             "Static": false,
-            "UID": 468319344
+            "UID": 546856898
         },
         "Game Object 3": {
             "Components": {
@@ -91,11 +91,11 @@
             },
             "Enable": true,
             "Name": "Baker_house",
-            "Parent UID": 46698742,
+            "Parent UID": 397746050,
             "Static": false,
-            "UID": 12105075
+            "UID": 335761339
         },
-        "Name": "BakerHouse.fbx",
-        "Source": "Assets/Models/BakerHouse.fbx"
+        "Name": "zBakerHouse.fbx",
+        "Source": "Assets/Models/zBakerHouse.fbx"
     }
 }

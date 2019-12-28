@@ -116,11 +116,11 @@ void ModuleResources::LoadMetaResources(const char* resource_path, const char* o
 	file = json::parse(stream);
 
 	int elements = file["Game Objects"]["Count"].get<int>();
-	LoadElementResources(file, elements,resource_path, original_path);
+	uint count = 0;
+	LoadElementResources(file, elements,resource_path, original_path, count);
 }
 
-uint ModuleResources::LoadElementResources(json& file, uint elements, const char* resource_path, const char* original_path) {
-	static uint count = 0;
+uint ModuleResources::LoadElementResources(json& file, uint elements, const char* resource_path, const char* original_path,uint& count) {
 	char name[25];
 	sprintf_s(name, 25, "Game Object %i", ++count);
 
@@ -136,7 +136,7 @@ uint ModuleResources::LoadElementResources(json& file, uint elements, const char
 	}
 
 	if (count < elements) {
-		LoadElementResources(file, elements, resource_path, original_path);
+		LoadElementResources(file, elements, resource_path, original_path, count);
 	}
 	return count;
 }

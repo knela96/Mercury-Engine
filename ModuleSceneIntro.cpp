@@ -48,7 +48,6 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	App->importer->CleanUp();
 	for (GameObject* obj : root->childs) {
 		if (obj != nullptr) {
 			obj->CleanUp();
