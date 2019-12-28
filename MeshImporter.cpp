@@ -72,7 +72,7 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 	newmesh->resource_path = _path;
 	newmesh->original_path.append(path);
 
-	/*SaveMeshResource(newmesh, ID);*/
+	SaveMeshResource(newmesh, ID);
 
 	return newmesh;
 }
