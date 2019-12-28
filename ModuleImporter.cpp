@@ -189,8 +189,8 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 
 		Timer timer;
 		timer.Start();
-		Animator anim(nullptr,C_Animator);//JAUME
-		anim.Animations = ImportAnimations(scene);
+		Animator* anim = (Animator*)App->scene_intro->root->AddComponent(C_Animator);
+		anim->Animations = ImportAnimations(scene);
 
 		LOGC("Loading Anims:%f", timer.ReadTicks());
 

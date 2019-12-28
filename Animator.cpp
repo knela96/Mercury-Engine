@@ -9,6 +9,13 @@ Animator::~Animator()
 {
 }
 
+void Animator::Draw()
+{
+	glBegin(GL_POINTS);
+	DrawJoints(currAnimation->keyframes[AnimationTime] , &myAnimatedBody->GetRootJoint());
+	glEnd();
+}
+
 
 void Animator::UpdateAnim()
 {
@@ -19,8 +26,26 @@ void Animator::UpdateAnim()
 		IncreaseAnimationTime();
 		std::map<string, mat4x4> currPose = CalculateCurrAnimationPose();
 		ApplyPoseToJoints(currPose, &myAnimatedBody->GetRootJoint(), mat4x4());
+	
 	}
+	if (App->input->GetKey((SDL_SCANCODE_1) == SDL_KEYDOWN)) {
+		doAnimation(0);
+	}
+}
 
+void Animator::DrawJoints(Keyframe* frame, Joint* root) {
+	list<Joint*>::iterator it = root->children.begin();
+
+	for (it; it != root->children.end(); it++) {
+		Joint* child = *it;
+		JointTransform* bone_transform = frame->pose[child->name];
+
+		
+		glVertex3f(bone_transform->Position.x, bone_transform->Position.y, bone_transform->Position.z);
+		
+
+		DrawJoints(frame, child);
+	}
 }
 
 void Animator::doAnimation(uint index) {
@@ -33,13 +58,16 @@ void Animator::IncreaseAnimationTime() {
 		AnimationTime = 0;
 	}
 }
+
 map<string, mat4x4> Animator::CalculateCurrAnimationPose()
 {
 	Keyframe frames[2];
 	GetPreviousAndNextFrame(frames);
+	
 	float progression = CalculateProgression(frames[0], frames[1]);
 	return InterpolatePoses(frames[0],frames[1],progression);
 }
+
 void Animator::ApplyPoseToJoints(map<string, mat4x4> currPose, Joint *ParentJoint, mat4x4 Parentmat) {
 	mat4x4 currLocalTransform = currPose[ParentJoint->name];
 	mat4x4 currTransform = Parentmat * currLocalTransform;
@@ -52,7 +80,7 @@ void Animator::ApplyPoseToJoints(map<string, mat4x4> currPose, Joint *ParentJoin
 	}
 	mat4x4 container = currTransform * ParentJoint->GetInverseBindTransform();
 	ParentJoint->SetAnimationTransform(container);
-
+	
 		//WTF
 }
 
@@ -71,7 +99,7 @@ void Animator::GetPreviousAndNextFrame(Keyframe* frames) {
 	}
 	frames[0] = *prevFrame;
 	frames[1] = *nextFrame;
-	
+	//DrawJoints(Keyframe *prevFrame);
 }
 float Animator::CalculateProgression(Keyframe prev, Keyframe next) {
 	float Totaltime = next.GetTimePosition() - prev.GetTimePosition();

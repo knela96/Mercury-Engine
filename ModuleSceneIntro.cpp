@@ -45,7 +45,7 @@ bool ModuleSceneIntro::Start()
 	}
 
 	//Animator anim(nullptr, C_Animator);//JAUME
-	animator = new Animator(nullptr, C_Animator);
+	animator = new Animator(root, C_Animator);
 	App->importer->Load("Assets/Models/Spider.fbx");
 	return ret;
 }

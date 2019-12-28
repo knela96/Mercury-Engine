@@ -20,7 +20,7 @@ public:
 	
 	vector<Keyframe*>    keyframes; //here we store a list of all bones and keyframes
 	std::map<uint, Keyframe*> keyframes_list;
-
+	
 public:
 	void SetName(string name_) { name = name_; }
 	string GetName() { return name; }

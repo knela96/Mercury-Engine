@@ -141,6 +141,8 @@ void MeshObject::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	/*if(gameobject->getComponent(Normals)->isActive())
 		DebugNormals();*/
+	
+
 	glBindVertexArray(0);
 	glPopMatrix();
 
