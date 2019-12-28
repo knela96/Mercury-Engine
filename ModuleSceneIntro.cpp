@@ -7,6 +7,9 @@
 #include "Gizmo.h"
 #include "C_Camera.h"
 
+#include "Animator.h"
+
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -41,8 +44,9 @@ bool ModuleSceneIntro::Start()
 		root->childs[i]->StartChilds();
 	}
 
-
-
+	//Animator anim(nullptr, C_Animator);//JAUME
+	animator = new Animator(nullptr, C_Animator);
+	App->importer->Load("Assets/Models/Spider.fbx");
 	return ret;
 }
 

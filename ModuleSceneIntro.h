@@ -11,7 +11,7 @@
 
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "MathGeoLib/include/MathBuildConfig.h"
-
+class Animator;
 template <typename Box>
 struct BBox {
 	BBox(const Box* box, Color& color) : box(box), color(color) {}
@@ -74,5 +74,8 @@ public:
 
 	bool savePopUp = false;
 	uint LoadElementResources(json & file, uint elements);
+
+
+	Animator* animator=nullptr;
 };
 #endif
