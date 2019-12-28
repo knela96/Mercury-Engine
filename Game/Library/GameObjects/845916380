@@ -27,13 +27,13 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 46698742
+            "UID": 445042528
         },
         "Game Object 2": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 986311591,
+                    "ID": 694595213,
                     "Name": "Untitled.001"
                 },
                 "Transform": {
@@ -58,15 +58,15 @@
             },
             "Enable": true,
             "Name": "Chimney",
-            "Parent UID": 46698742,
+            "Parent UID": 445042528,
             "Static": false,
-            "UID": 468319344
+            "UID": 489812253
         },
         "Game Object 3": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 669839044,
+                    "ID": 663740744,
                     "Name": "Untitled"
                 },
                 "Transform": {
@@ -91,11 +91,11 @@
             },
             "Enable": true,
             "Name": "Baker_house",
-            "Parent UID": 46698742,
+            "Parent UID": 445042528,
             "Static": false,
-            "UID": 12105075
+            "UID": 921810672
         },
         "Name": "BakerHouse.fbx",
-        "Source": "Assets/Models/BakerHouse.fbx"
+        "Source": "Assets/BakerHouse.fbx"
     }
 }

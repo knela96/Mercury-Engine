@@ -27,15 +27,10 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 28655248
+            "UID": 884059696
         },
         "Game Object 2": {
             "Components": {
-                "Mesh": {
-                    "Active": false,
-                    "ID": 31584214,
-                    "Name": "Untitled.001"
-                },
                 "Transform": {
                     "Active": true,
                     "Position": [
@@ -44,30 +39,30 @@
                         0.0
                     ],
                     "Rotation": [
-                        -0.7071068286895752,
                         0.0,
                         0.0,
-                        0.7071067094802856
+                        0.0,
+                        0.0
                     ],
                     "Scale": [
-                        100.0,
-                        100.0,
-                        100.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 }
             },
             "Enable": true,
-            "Name": "Chimney",
-            "Parent UID": 28655248,
+            "Name": "Camera.001",
+            "Parent UID": 884059696,
             "Static": false,
-            "UID": 871311609
+            "UID": 857065948
         },
         "Game Object 3": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 847726660,
-                    "Name": "Untitled"
+                    "ID": 642107460,
+                    "Name": "Mesh"
                 },
                 "Transform": {
                     "Active": true,
@@ -83,19 +78,19 @@
                         0.7071067094802856
                     ],
                     "Scale": [
-                        100.0,
-                        100.0,
-                        100.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 }
             },
             "Enable": true,
-            "Name": "Baker_house",
-            "Parent UID": 28655248,
+            "Name": "Japanese_Shrine",
+            "Parent UID": 884059696,
             "Static": false,
-            "UID": 768323462
+            "UID": 725752375
         },
-        "Name": "BakerHouse.fbx",
-        "Source": "Assets/BakerHouse.fbx"
+        "Name": "JapaneseTemple.fbx",
+        "Source": "Assets/JapaneseTemple.fbx"
     }
 }

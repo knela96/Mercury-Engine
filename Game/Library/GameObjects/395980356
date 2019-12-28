@@ -27,13 +27,13 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 402504553
+            "UID": 30432041
         },
         "Game Object 2": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 427077306,
+                    "ID": 789877945,
                     "Name": "Stan_Lee.001"
                 },
                 "Transform": {
@@ -58,15 +58,15 @@
             },
             "Enable": true,
             "Name": "Stan_Lee.001",
-            "Parent UID": 402504553,
+            "Parent UID": 30432041,
             "Static": false,
-            "UID": 816384844
+            "UID": 86437636
         },
         "Game Object 3": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 926416934,
+                    "ID": 213264131,
                     "Name": "Stand.003"
                 },
                 "Transform": {
@@ -91,15 +91,15 @@
             },
             "Enable": true,
             "Name": "Stand.001",
-            "Parent UID": 402504553,
+            "Parent UID": 30432041,
             "Static": false,
-            "UID": 910208076
+            "UID": 792148406
         },
         "Game Object 4": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 191729660,
+                    "ID": 108245233,
                     "Name": "Stand.002"
                 },
                 "Transform": {
@@ -124,9 +124,9 @@
             },
             "Enable": true,
             "Name": "Stand.000",
-            "Parent UID": 402504553,
+            "Parent UID": 30432041,
             "Static": false,
-            "UID": 181055693
+            "UID": 205919137
         },
         "Game Object 5": {
             "Components": {
@@ -152,9 +152,9 @@
             },
             "Enable": true,
             "Name": "Lamp",
-            "Parent UID": 402504553,
+            "Parent UID": 30432041,
             "Static": false,
-            "UID": 812852786
+            "UID": 336703164
         },
         "Game Object 6": {
             "Components": {
@@ -180,11 +180,11 @@
             },
             "Enable": true,
             "Name": "Camera",
-            "Parent UID": 402504553,
+            "Parent UID": 30432041,
             "Static": false,
-            "UID": 746745227
+            "UID": 812754708
         },
         "Name": "StanLee.fbx",
-        "Source": "Assets/Models/StanLee.fbx"
+        "Source": "Assets/StanLee.fbx"
     }
 }
