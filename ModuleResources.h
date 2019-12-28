@@ -33,6 +33,7 @@ public:
 	~ModuleResources();
 
 	bool Start();
+	update_status Update(float dt);
 	void ReimportFiles();
 	void UpdateAssets(std::vector<std::string>* list);
 	bool ModifiedFile(const char * meta_path, const char * file_path);
@@ -71,6 +72,8 @@ private:
 	std::map<uint64, Resources*> animations;
 
 	LCG random;
+
+	Timer timer;
 
 };
 

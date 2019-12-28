@@ -20,7 +20,19 @@ bool ModuleResources::Start()
 {
 	ImportMetaFiles();
 	ReimportFiles();
+	timer.Start();
 	return true;
+}
+
+
+update_status ModuleResources::Update(float dt) {
+	if (timer.ReadSec()  > 5) {
+		timer.Stop();
+		timer.Start();
+		ReimportFiles();
+	}
+
+	return update_status::UPDATE_CONTINUE;
 }
 
 void ModuleResources::ReimportFiles() {
@@ -32,6 +44,8 @@ void ModuleResources::ReimportFiles() {
 	App->filesystem->RecursiveGetFoldersFiles(ASSETS_FOLDER, nullptr, &filter_ext, &list);
 
 	UpdateAssets(&list);
+	if(App->gui->filesystem != nullptr)
+		App->gui->filesystem->UpdateAssets();
 }
 
 void ModuleResources::UpdateAssets(std::vector<std::string>* list) {

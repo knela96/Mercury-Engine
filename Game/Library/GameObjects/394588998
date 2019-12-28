@@ -33,7 +33,7 @@
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 20544909,
+                    "ID": 350294565,
                     "Name": "Untitled.001"
                 },
                 "Transform": {
@@ -66,7 +66,7 @@
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 402504553,
+                    "ID": 117454609,
                     "Name": "Untitled"
                 },
                 "Transform": {
@@ -93,9 +93,9 @@
             "Name": "Baker_house",
             "Parent UID": 949333985,
             "Static": false,
-            "UID": 348838239
+            "UID": 676943009
         },
         "Name": "BakerHouse.fbx",
-        "Source": "Assets/Models/BakerHouse.fbx"
+        "Source": "Assets/BakerHouse.fbx"
     }
 }

@@ -21,11 +21,7 @@ WindowFileSystem::~WindowFileSystem()
 
 bool WindowFileSystem::Start()
 {
-	root = FolderContainer(ASSETS_FOLDER);
-	std::vector<std::string> exclude;
-	exclude.push_back("meta");
-	exclude.push_back("scene");
-	root = App->filesystem->RecursiveGetFoldersFiles(root.path.c_str(),nullptr, &exclude);
+	UpdateAssets();
 
 	currentFolder = &root;
 
@@ -40,6 +36,14 @@ bool WindowFileSystem::Start()
 
 
 	return true;
+}
+
+void WindowFileSystem::UpdateAssets() {
+	root = FolderContainer(ASSETS_FOLDER);
+	std::vector<std::string> exclude;
+	exclude.push_back("meta");
+	exclude.push_back("scene");
+	root = App->filesystem->RecursiveGetFoldersFiles(root.path.c_str(), nullptr, &exclude);
 }
 
 

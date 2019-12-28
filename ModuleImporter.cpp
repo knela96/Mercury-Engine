@@ -115,6 +115,7 @@ bool ModuleImporter::LoadFile(const char* path) {
 			App->gui->inspector->active_gameObject->textures.push_back(SaveTexture(path, aiTextureType_DIFFUSE));
 		}
 	}
+
 	return true;
 }
 

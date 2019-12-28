@@ -31,11 +31,6 @@
         },
         "Game Object 2": {
             "Components": {
-                "Mesh": {
-                    "Active": false,
-                    "ID": 20544909,
-                    "Name": "Untitled.001"
-                },
                 "Transform": {
                     "Active": true,
                     "Position": [
@@ -44,30 +39,30 @@
                         0.0
                     ],
                     "Rotation": [
-                        -0.7071068286895752,
                         0.0,
                         0.0,
-                        0.7071067094802856
+                        0.0,
+                        0.0
                     ],
                     "Scale": [
-                        100.0,
-                        100.0,
-                        100.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 }
             },
             "Enable": true,
-            "Name": "Chimney",
+            "Name": "Camera.001",
             "Parent UID": 949333985,
             "Static": false,
-            "UID": 418932835
+            "UID": 323567403
         },
         "Game Object 3": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 402504553,
-                    "Name": "Untitled"
+                    "ID": 809094426,
+                    "Name": "Mesh"
                 },
                 "Transform": {
                     "Active": true,
@@ -83,19 +78,19 @@
                         0.7071067094802856
                     ],
                     "Scale": [
-                        100.0,
-                        100.0,
-                        100.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 }
             },
             "Enable": true,
-            "Name": "Baker_house",
+            "Name": "Japanese_Shrine",
             "Parent UID": 949333985,
             "Static": false,
-            "UID": 348838239
+            "UID": 196140740
         },
-        "Name": "BakerHouse.fbx",
-        "Source": "Assets/Models/BakerHouse.fbx"
+        "Name": "JapaneseTemple.fbx",
+        "Source": "Assets/JapaneseTemple.fbx"
     }
 }
