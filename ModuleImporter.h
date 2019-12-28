@@ -72,7 +72,8 @@ public:
 	void SaveGameObjectConfig(json & config, std::vector<GameObject*>& gameObjects);
 
 	//void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
-	
+	void ImportAnimations(const aiScene *scene);
+
 	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
 	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint *& joint, vector<Joint*>& joints);
 	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, uint count);

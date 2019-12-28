@@ -5,10 +5,7 @@
 #include "Application.h"
 #include "JointTransform.h"
 
-//struct KeyInfo {
-//	string name;
-//	JointTransform jointTransform;
-//};
+
 
 class Keyframe
 {
@@ -17,14 +14,14 @@ public:
 	Keyframe(float TimePosition_, std::map<string, JointTransform> pose_) :TimePosition(TimePosition_), pose(pose_) {}; //WTF puc gualar una llista a un altre?
 	~Keyframe() {};
 
-private:
-	float            TimePosition;
+public:
 	std::map<string, JointTransform> pose;
+	float            TimePosition;
 
-	//map pos
-	//	map rot
 
-	/*list<KeyInfo*>   KeyJoints;*/
+private:
+
+
 	
 
 public:

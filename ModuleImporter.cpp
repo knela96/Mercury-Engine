@@ -9,6 +9,8 @@
 #include "C_MeshInfo.h"
 #include "Mesh_R.h"
 #include "Animator.h"
+#include "Keyframe.h"
+#include "Animation.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -184,6 +186,7 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		//Import Scene Bones HERE
 		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
 
+		ImportAnimations(scene);
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
@@ -207,6 +210,59 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		resource->name = fileName;
 	}
 	return resource;
+}
+
+void ModuleImporter::ImportAnimations(const aiScene *scene) {
+	vector<Animation*> AnimList;
+	
+	scene->mNumAnimations;
+	//if(scene.HasAnimations){} clog aqui loko
+
+	//HERE WE SELECT 1 ANIM AND SET ITS GENERAL PARAMETERS
+	for (int i = 0; i < scene->mNumAnimations; i++) {
+		Animation *anim = new Animation();
+		anim->setLenght(scene->mAnimations[i]->mDuration);
+		anim->keyFrameCount = scene->mAnimations[i]->mNumChannels;
+		anim->name = scene->mAnimations[i]->mName.C_Str();
+		Keyframe *Kframe = new Keyframe();
+		//NOW WE ASSIGN TO ALL BONES ALL THEIR KEYFRAMES
+		for (int k = 0; k < scene->mAnimations[i]->mChannels[0]->mNumPositionKeys; k++) {
+			for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
+			//HERE WE ASSIGN ALL <POS> KEYFRAMES TO THE BONE THAT CORRESPONDS TO "j"
+				JointTransform transform;
+				transform.Position = vec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.y, 
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.z);
+				transform.Rotation = Quat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.z,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.w);
+				transform.Scale = vec3(scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.z);
+
+
+				Kframe->pose[scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str()] = transform;
+				Kframe->TimePosition = k;
+
+				/*Kframe->TimePosition;
+				Kframe*/
+				//anim->keyframes.at(k) = Kframe;
+			}
+		}
+		
+		
+
+		
+		
+
+		AnimList.push_back(anim);
+	}
+
+		/*if (count < mesh->mNumBones) {
+		map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
+		CollectGameObjectNames(mesh, map, ++count);
+	}*/
 }
 
 void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)

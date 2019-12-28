@@ -15,6 +15,8 @@ public:
 
 	vec3 Position;
 	Quat Rotation;
+	vec3 Scale;
+
 public:
 
 	mat4x4 GetLocalTransform();
