@@ -18,6 +18,7 @@ public:
 	~WindowFileSystem();
 
 	bool Start();
+	void UpdateAssets();
 	bool Draw();
 	void CreateHierarchy(FolderContainer* folder, int & node_clicked, int index);
 	bool Cleanup();

@@ -58,8 +58,10 @@ void GameObject::UpdateChilds() {
 void GameObject::drawChilds() {
 	for(int i = 0; i < childs.size(); ++i){
 		if (active) {
-			if (App->scene_intro->main_camera->camera->CullFace(childs[i]))
-				childs[i]->Draw();
+			if (App->scene_intro->main_camera->camera->CullFace(childs[i])) {
+				if(childs[i]->mesh != nullptr)
+					childs[i]->mesh->Draw();
+			}
 		}
 			childs[i]->drawChilds();
 	}
@@ -223,10 +225,14 @@ void GameObject::Load(const char * _name, const json & file)
 	{
 		C_MeshInfo* t = (C_MeshInfo*)AddComponent(Component_Type::Mesh_Info);
 		t->Load(_name, file);
+
 		Mesh_R* resource = (Mesh_R*)App->resources->Get(t->id);
 		vector<Vertex> vec = resource->toVertex();
-		vector<uint>indx(resource->_indices, resource->_indices + sizeof(resource->_indices) / sizeof(resource->_indices[0]));
-		mesh = new MeshObject(resource->toVertex(), indx,this);
+		vector<uint>indx(resource->_indices, resource->_indices + (sizeof(resource->_indices) * resource->buffersSize[indices_size] * 3) / sizeof(resource->_indices[0]));
+		mesh = new MeshObject(vec, indx, this);
+
+		box.SetNegativeInfinity();
+		box.Enclose((math::float3*)resource->_vertices, resource->buffersSize[vertices_size]);
 	}
 
 	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())
@@ -247,5 +253,8 @@ void GameObject::Load(const char * _name, const json & file)
 		t->Load(_name, file);
 		App->scene_intro->main_camera = this;
 	}
+	Start();
+	/*std::string
+	App->importer->LoadFile("/Library/Meshes/")*/
 
 }

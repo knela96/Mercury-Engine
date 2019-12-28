@@ -20,7 +20,19 @@ bool ModuleResources::Start()
 {
 	ImportMetaFiles();
 	ReimportFiles();
+	timer.Start();
 	return true;
+}
+
+
+update_status ModuleResources::Update(float dt) {
+	if (timer.ReadSec()  > 5) {
+		timer.Stop();
+		timer.Start();
+		ReimportFiles();
+	}
+
+	return update_status::UPDATE_CONTINUE;
 }
 
 void ModuleResources::ReimportFiles() {
@@ -32,6 +44,8 @@ void ModuleResources::ReimportFiles() {
 	App->filesystem->RecursiveGetFoldersFiles(ASSETS_FOLDER, nullptr, &filter_ext, &list);
 
 	UpdateAssets(&list);
+	if(App->gui->filesystem != nullptr)
+		App->gui->filesystem->UpdateAssets();
 }
 
 void ModuleResources::UpdateAssets(std::vector<std::string>* list) {
@@ -116,11 +130,11 @@ void ModuleResources::LoadMetaResources(const char* resource_path, const char* o
 	file = json::parse(stream);
 
 	int elements = file["Game Objects"]["Count"].get<int>();
-	LoadElementResources(file, elements,resource_path, original_path);
+	uint count = 0;
+	LoadElementResources(file, elements,resource_path, original_path, count);
 }
 
-uint ModuleResources::LoadElementResources(json& file, uint elements, const char* resource_path, const char* original_path) {
-	static uint count = 0;
+uint ModuleResources::LoadElementResources(json& file, uint elements, const char* resource_path, const char* original_path,uint& count) {
 	char name[25];
 	sprintf_s(name, 25, "Game Object %i", ++count);
 
@@ -136,7 +150,7 @@ uint ModuleResources::LoadElementResources(json& file, uint elements, const char
 	}
 
 	if (count < elements) {
-		LoadElementResources(file, elements, resource_path, original_path);
+		LoadElementResources(file, elements, resource_path, original_path, count);
 	}
 	return count;
 }

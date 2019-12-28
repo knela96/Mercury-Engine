@@ -39,6 +39,7 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 
 	if (mesh->HasNormals())
 	{
+		
 		newmesh->buffersSize[normals_size] = mesh->mNumVertices;
 		newmesh->_normals = new float[mesh->mNumVertices * 3];
 		memcpy(newmesh->_normals, mesh->mNormals, sizeof(float) * mesh->mNumVertices * 3);
@@ -190,20 +191,20 @@ Mesh_R * MeshImporter::LoadMeshResource(UID ID)
 		//Load Indices
 		bytes = sizeof(uint) * mesh->buffersSize[indices_size] * 3;
 		mesh->_indices = new uint[mesh->buffersSize[indices_size] * 3];
-		memcpy(&mesh->_indices, cursor, bytes);
+		memcpy(mesh->_indices, cursor, bytes);
 		cursor += bytes;
 
 		//Load VErtices
 		bytes = sizeof(float) * mesh->buffersSize[vertices_size] * 3;
 		mesh->_vertices = new float[mesh->buffersSize[vertices_size] * 3];
-		memcpy(&mesh->_vertices, cursor, bytes);
+		memcpy(mesh->_vertices, cursor, bytes);
 		cursor += bytes;
 
 		if (mesh->buffersSize[normals_size] > 0)
 		{
 			bytes = sizeof(float) * mesh->buffersSize[normals_size] * 3;
 			mesh->_normals = new float[mesh->buffersSize[normals_size] * 3];
-			memcpy(&mesh->_normals, cursor, bytes);
+			memcpy(mesh->_normals, cursor, bytes);
 			cursor += bytes;
 		}
 
@@ -211,7 +212,7 @@ Mesh_R * MeshImporter::LoadMeshResource(UID ID)
 		{
 			bytes = sizeof(float) * mesh->buffersSize[tex_coords_size] * 2;
 			mesh->_tex_coords = new float[mesh->buffersSize[tex_coords_size] * 2];
-			memcpy(&mesh->_tex_coords, cursor, bytes);
+			memcpy(mesh->_tex_coords, cursor, bytes);
 			cursor += bytes;
 		}
 

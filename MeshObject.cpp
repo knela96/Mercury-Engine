@@ -6,7 +6,7 @@
 #include "C_Camera.h"
 #include "Gizmo.h"
 
-MeshObject::MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject)
+MeshObject::MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject): gameobject(gameObject)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -66,21 +66,20 @@ bool MeshObject::SetupBuffers() {
 
 void MeshObject::Draw()
 {
-
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
 	unsigned int specularNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 
-	if (!gameobject->active)
+	if (!gameobject->active || !App->importer->shader)
 		return;
 
 	mat4x4 model = mat4x4();
 	model = gameobject->transform->globalMatrix * model;
 
 	App->importer->shader->setBool("render", true);
-	if (App->renderer3D->texture_active && gameobject->getComponent(Material)->isActive()) {
+	/*if (App->renderer3D->texture_active && gameobject->getComponent(Material)->isActive()) {
 		if(!gameobject->debug_tex){
 			for (unsigned int i = 0; i < gameobject->textures.size(); i++)
 			{
@@ -122,7 +121,7 @@ void MeshObject::Draw()
 	else {
 		App->importer->shader->use(1);
 		App->importer->shader->setBool("render", false);
-	}
+	}*/
 
 	glPushMatrix();
 	glMultMatrixf(gameobject->transform->globalMatrix.M);//Aplies transform to all rendering objects Lines,Box etc.
@@ -140,8 +139,8 @@ void MeshObject::Draw()
 	App->importer->shader->stop();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	if(gameobject->getComponent(Normals)->isActive())
-		DebugNormals();
+	/*if(gameobject->getComponent(Normals)->isActive())
+		DebugNormals();*/
 	glBindVertexArray(0);
 	glPopMatrix();
 

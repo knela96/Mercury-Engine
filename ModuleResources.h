@@ -33,6 +33,7 @@ public:
 	~ModuleResources();
 
 	bool Start();
+	update_status Update(float dt);
 	void ReimportFiles();
 	void UpdateAssets(std::vector<std::string>* list);
 	bool ModifiedFile(const char * meta_path, const char * file_path);
@@ -40,7 +41,7 @@ public:
 	void LoadMetaFromFile(std::vector<std::string>* files);
 	void LoadMeta(const char * path);
 	void LoadMetaResources(const char * resource_path, const char * original_path);
-	uint LoadElementResources(json & file, uint elements, const char * resource_path, const char * original_path);
+	uint LoadElementResources(json & file, uint elements, const char * resource_path, const char * original_path, uint& count);
 	UID ImportFile(const char* new_file_in_assets, bool force = false);
 	void ImporSceneResource(const char * file, std::string origin_path);
 	ResourceType GetType(const char * path);
@@ -71,6 +72,8 @@ private:
 	std::map<uint64, Resources*> animations;
 
 	LCG random;
+
+	Timer timer;
 
 };
 
