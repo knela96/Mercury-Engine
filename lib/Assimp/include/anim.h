@@ -227,24 +227,24 @@ enum aiAnimBehaviour
  *  Duplicate keys don't pass the validation step. Most likely there
  *  will be no negative time values, but they are not forbidden also ( so
  *  implementations need to cope with them! ) */
-struct aiNodeAnim
+struct aiNodeAnim //lista de keyframes
 {
     /** The name of the node affected by this animation. The node
      *  must exist and it must be unique.*/
-    C_STRUCT aiString mNodeName;
+    C_STRUCT aiString mNodeName; //bone name
 
     /** The number of position keys */
-    unsigned int mNumPositionKeys;
+    unsigned int mNumPositionKeys; //how many position keyframes has the bone
 
     /** The position keys of this animation channel. Positions are
      * specified as 3D vector. The array is mNumPositionKeys in size.
      *
      * If there are position keys, there will also be at least one
      * scaling and one rotation key.*/
-    C_STRUCT aiVectorKey* mPositionKeys;
+    C_STRUCT aiVectorKey* mPositionKeys; //list of the position keyframes of the bone
 
     /** The number of rotation keys */
-    unsigned int mNumRotationKeys;
+    unsigned int mNumRotationKeys;//how many rotation keyframes has the bone
 
     /** The rotation keys of this animation channel. Rotations are
      *  given as quaternions,  which are 4D vectors. The array is
@@ -252,18 +252,18 @@ struct aiNodeAnim
      *
      * If there are rotation keys, there will also be at least one
      * scaling and one position key. */
-    C_STRUCT aiQuatKey* mRotationKeys;
+    C_STRUCT aiQuatKey* mRotationKeys;//list of the rotation keyframes of the bone
 
 
     /** The number of scaling keys */
-    unsigned int mNumScalingKeys;
+    unsigned int mNumScalingKeys;//how many scaling keyframes has the bone
 
     /** The scaling keys of this animation channel. Scalings are
      *  specified as 3D vector. The array is mNumScalingKeys in size.
      *
      * If there are scaling keys, there will also be at least one
      * position and one rotation key.*/
-    C_STRUCT aiVectorKey* mScalingKeys;
+    C_STRUCT aiVectorKey* mScalingKeys;//list of the scale keyframes of the bone
 
 
     /** Defines how the animation behaves before the first
@@ -342,21 +342,21 @@ struct aiAnimation
     /** The name of the animation. If the modeling package this data was
      *  exported from does support only a single animation channel, this
      *  name is usually empty (length is zero). */
-    C_STRUCT aiString mName;
+    C_STRUCT aiString mName; //name of the animation, example: run/attack/idl
 
     /** Duration of the animation in ticks.  */
-    double mDuration;
+    double mDuration;//animation duration 
 
     /** Ticks per second. 0 if not specified in the imported file */
-    double mTicksPerSecond;
+    double mTicksPerSecond;//the name says it all
 
     /** The number of bone animation channels. Each channel affects
      *  a single node. */
-    unsigned int mNumChannels;
+    unsigned int mNumChannels; //10 chanels = 10 huesos
 
     /** The node animation channels. Each channel affects a single node.
      *  The array is mNumChannels in size. */
-    C_STRUCT aiNodeAnim** mChannels;
+    C_STRUCT aiNodeAnim** mChannels; //here we have the bone transforms
 
 
     /** The number of mesh animation channels. Each channel affects

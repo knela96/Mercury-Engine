@@ -31,10 +31,6 @@ private:
 	bool open_material = true;
 	bool s = false;
 public:
-	/*float face_lenght;
-	float vertex_lenght;
-	Color face_color;
-	Color vertex_color;*/
 	bool to_static = false;
 	GameObject* active_gameObject = nullptr;
 };

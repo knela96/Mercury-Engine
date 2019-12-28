@@ -52,8 +52,8 @@ private:
 	float last_sec_frame_count = 0;//frames in last sec
 
 
-	
-	
+
+
 
 	p2List<Module*> list_modules;			//All Application modules inside
 

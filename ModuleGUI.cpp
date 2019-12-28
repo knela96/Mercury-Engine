@@ -116,13 +116,6 @@ bool ModuleGUI::Draw()
 		openConsole = !openConsole;
 	}
 
-
-	//Show Windows FIRST BUFFERS
-	//ImGui::ShowStyleEditor();
-
-	
-
-	ImGui::ShowDemoWindow(&show_demo_window);
 	if (openConsole)
 		ShowConsole();
 	if (openWindowSettings)
@@ -324,15 +317,9 @@ void ModuleGUI::ShowWindowSettings() {
 	ImGui::Text("Frame rate: "); ImGui::SameLine();
 	ImGui::SliderInt("fps",&App->framerate_cap, 10, 60);
 
-	/*ImGui::Checkbox("depth activated", &App->renderer3D->depth_active);
-	ImGui::Checkbox("cullface active", &App->renderer3D->cullface_active);
-	ImGui::Checkbox("lighting active", &App->renderer3D->lighting_active);
-	ImGui::Checkbox("texture active", &App->renderer3D->texture_active);
-	ImGui::Checkbox("wireframe active", &App->renderer3D->wireframe_active);*/
 	SDL_GetMouseState(&MouseX,&MouseY);
 
 	ImGui::Text("Mouse Position: x=%i , y=%i ",MouseX,MouseY);
 
 	ImGui::End();
-	//TODO add here options that change all modules variables (ver power point del principio)
 }

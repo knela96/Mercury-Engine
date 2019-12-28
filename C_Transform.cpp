@@ -2,6 +2,7 @@
 #include "C_Camera.h"
 #include "GameObject.h"
 
+
 C_Transform::C_Transform(GameObject* gameobject, Component_Type type) : Component(type, gameobject)
 {
 	name = "Transform";
@@ -33,23 +34,23 @@ void C_Transform::Update()
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("X", &vposition.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Y", &vposition.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("pos"); ImGui::DragFloat("Z", &vposition.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
-	
+
 		Quat last_rotation = vrotation;
 		ImGui::Text("Rotation:");
 		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot"); ImGui::DragFloat("X", &vrotation.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Y", &vrotation.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60); ImGui::PushID("rot");  ImGui::DragFloat("Z", &vrotation.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
-		
+
 		float3 last_scale = vscale;
 		ImGui::Text("Scale:   ");
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("X", &vscale.x, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Y", &vscale.y, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 		ImGui::SameLine(); ImGui::PushItemWidth(60);  ImGui::PushID("scale"); ImGui::DragFloat("Z", &vscale.z, 0.1f); ImGui::PopID(); ImGui::PopItemWidth();
 
-		
+
 		if (last_position.x != vposition.x || last_position.y != vposition.y || last_position.z != vposition.z ||
 			last_rotation.x != vrotation.x || last_rotation.y != vrotation.y || last_rotation.z != vrotation.z ||
-			last_scale.x != vscale.x || last_scale.y != vscale.y || last_scale.z != vscale.z) 
+			last_scale.x != vscale.x || last_scale.y != vscale.y || last_scale.z != vscale.z)
 		{
 			UpdateMatrices();
 		}
@@ -61,14 +62,42 @@ void C_Transform::Update()
 		unFold = true;
 	}
 
+	//HERE UPDATE OF IMGUIZMO
+
+
+
+	//guizmo.Update();
+
 }
+
+float4x4 C_Transform::GetGlobalMatrix() const
+{
+	GameObject* gameObject;
+	float4x4 a = gameObject->mat2float4(globalMatrix);
+	return a;
+}
+
+//void C_Transform::SetGlobalMatrix(float4x4 transform)
+//{
+//	GameObject a;
+//	float4x4 localTransform = a.
+//	this->transform = localTransform;
+//
+//	GameObject* gameObject;
+//	globalMatrix = gameObject->Float2Mat4(transform);
+//	//globalMatrix = transform; NOW THIS IS LINE AVOBE
+//	globalMatrixTransposed = globalMatrix.transpose();
+//	transform_updated = true; //no se realment pq serveix, TODO
+//}
+
+
 
 void C_Transform::UpdateMatrices() {
 
 	mat4x4 translation = translate(vposition.x, vposition.y, vposition.z);
 	mat4x4 rotation, aux;
 	rotation = rotation * aux.rotate(vrotation.x, { 1,0,0 });
-	rotation = rotation * aux.rotate(vrotation.y, { 0,1,0 }); 
+	rotation = rotation * aux.rotate(vrotation.y, { 0,1,0 });
 	rotation = rotation * aux.rotate(vrotation.z, { 0,0,1 });
 
 	mat4x4 scaling = scale(vscale.x, vscale.y, vscale.z);

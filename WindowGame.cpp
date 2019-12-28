@@ -2,7 +2,9 @@
 #include "WindowGame.h"
 #include "ModuleRenderer3D.h"
 #include "Primitive.h"
-
+#include "C_Camera.h"
+#include "GameObject.h"
+#include "C_Transform.h"
 
 WindowGame::WindowGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -22,6 +24,7 @@ bool WindowGame::Start()
 	//Init FrameBuffer
 	fbo = new FrameBuffer();
 	fbo->Start(size_Game.x, size_Game.y);
+	ImGuizmo::Enable(true);
 	return true;
 }
 
@@ -77,7 +80,62 @@ bool WindowGame::Draw()
 			size_Game = newsize_Game;
 			App->renderer3D->OnResize(newsize_Game.x, newsize_Game.y);
 		}
+		//-----------------------------------------------//
+		ImGui::SetCursorPos(ImVec2(img_offset.x, img_offset.y));
+		img_corner = vec2(ImGui::GetCursorScreenPos().x, ImGui::GetCursorScreenPos().y) + vec2(0, img_size.y);
+		img_corner.y = SCREEN_HEIGHT - img_corner.y;
 
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+			gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+			gizmoOperation = ImGuizmo::OPERATION::ROTATE;
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+			gizmoOperation = ImGuizmo::OPERATION::SCALE;
+
+
+		if (App->gui->inspector->active_gameObject != nullptr) {
+			GameObject* gameObject = App->gui->inspector->active_gameObject;
+
+			float4x4 viewM = App->camera->camera->frustum.ViewMatrix();
+			viewM.Transpose();
+
+			float4x4 projectionM = App->camera->camera->frustum.ProjectionMatrix().Transposed();
+			float4x4 modelProjection = gameObject->mat2float4(gameObject->transform->localMatrix);
+
+			ImGuizmo::SetDrawlist();
+			cornerPos = vec2(img_corner.x, SCREEN_HEIGHT - img_corner.y - img_size.y);
+			ImGuizmo::SetRect(img_corner.x, cornerPos.y, img_size.x, img_size.y);
+
+			float modelPtr[16];
+			memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
+			ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
+			ImGuizmo::Manipulate(viewM.ptr(), projectionM.ptr(), gizmoOperation, finalMode, modelPtr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				float4x4 newMatrix;
+				newMatrix.Set(modelPtr);
+				modelProjection = newMatrix.Transposed();
+				/*primer pillar quina variacio de x o y o z ha fer
+			despres podrem fer un updatre matrices per actualitzar posicions
+				*/
+				//gameObject->GetComponent<C_Transform>()->SetGlobalMatrix(modelProjection);
+				float3 Position;
+				Quat Rotation;
+				float3 Scale;
+
+				modelProjection.Decompose(Position, Rotation, Scale);
+
+				gameObject->transform->vposition = Position;
+				gameObject->transform->vrotation = Rotation;
+				gameObject->transform->vscale = Scale;
+
+				gameObject->transform->UpdateMatrices();
+			}
+
+		}
+
+		//-----------------------------------------------//
 		ImGui::Image((void*)fbo->GetTexture(), ImVec2(size_Game.x, size_Game.y), ImVec2(0, 1), ImVec2(1, 0));
 
 		if (ImGui::BeginDragDropTarget())
@@ -108,6 +166,12 @@ bool WindowGame::Draw()
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
+
+
+
+
+
+
 	return true;
 }
 

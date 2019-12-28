@@ -33,6 +33,7 @@ class Component;
 class C_Normals;
 class C_Transform;
 class C_Camera;
+class Animator;
 
 enum aiTextureType;
 enum Component_Type;
@@ -53,6 +54,8 @@ public:
 	void drawChilds();
 
 	float4x4 mat2float4(mat4x4 mat);
+	mat4x4 Float2Mat4(float4x4 f);
+
 
 	void CleanUp();
 
@@ -98,8 +101,33 @@ public:
 	C_Transform* transform = nullptr;
 	C_Normals* normals = nullptr;
 	C_Camera* camera = nullptr;
+	Animator* animator = nullptr;
+
+public:
+	//GET COMPONENTS ----------------------------
 
 
+	template<typename RetComponent>
+	RetComponent* GetComponent()
+	{
+		Component::Type type = RetComponent::GetType();
+		if (type == Component::Type::Transform)
+			return (RetComponent*)transform;
+		for (uint i = 0; i < components.size(); i++)
+		{
+			if (components[i]->GetType() == type)
+			{
+				return ((RetComponent*)(components[i]));
+			}
+		}
+		return nullptr;
+	}
+
+	//GET COMPONENTS ----------------------------
 };
+
+
+
+
 
 #endif GAMEOBJECT_H_

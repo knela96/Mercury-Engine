@@ -1,5 +1,24 @@
 #include "Application.h"
 #include "Gizmo.h"
+#include "C_Transform.h"
+#include "C_Camera.h"
+#include "GameObject.h"
+#include "Globals.h"
+
+Gizmo::Gizmo() {
+}
+Gizmo::~Gizmo() {
+
+}
+void Gizmo::Update() {
+}
+
+void Gizmo::Draw() {
+
+}
+
+void Gizmo::HandleGuizmo() {
+}
 
 void Gizmo::DrawCubeBox(float3* points, Color color)
 {
@@ -40,3 +59,5 @@ void Gizmo::DrawCubeBox(float3* points, Color color)
 	glEnable(GL_LIGHTING);
 
 }
+
+

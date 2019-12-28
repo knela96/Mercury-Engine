@@ -46,6 +46,9 @@
     <Filter Include="Sources\Modules\Importers">
       <UniqueIdentifier>{36ba9cc1-c6a4-48d9-8146-2151a0acc7de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Animator">
+      <UniqueIdentifier>{cb98853c-ad71-470f-b8f7-c09a9c568c13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -196,9 +199,6 @@
     <ClInclude Include="WindowFileSystem.h">
       <Filter>Sources\Modules\UI</Filter>
     </ClInclude>
-    <ClInclude Include="C_Camera.h">
-      <Filter>Sources\Helpers\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Gizmo.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -228,6 +228,39 @@
     </ClInclude>
     <ClInclude Include="FolderContainer.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImSequencer.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImCurveEdit.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGradient.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ImGuizmo\ImGuizmo.h">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Joint.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedObject.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyframe.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="JointTransform.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +393,6 @@
     <ClCompile Include="WindowFileSystem.cpp">
       <Filter>Sources\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="C_Camera.cpp">
-      <Filter>Sources\Helpers\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Gizmo.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -380,6 +410,33 @@
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGradient.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ImGuizmo\ImSequencer.cpp">
+      <Filter>Sources\Containers\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Joint.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedObject.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="JointTransform.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Sources\Modules\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Sources\Helpers\Components</Filter>
     </ClCompile>
     <ClCompile Include="Mesh_R.cpp" />
   </ItemGroup>

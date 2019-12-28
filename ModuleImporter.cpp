@@ -8,6 +8,9 @@
 #include "Texture_R.h"
 #include "C_MeshInfo.h"
 #include "Mesh_R.h"
+#include "Animator.h"
+#include "Keyframe.h"
+#include "Animation.h"
 
 #include "DevIL/include/IL/ilut.h"
 
@@ -178,10 +181,18 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 	{
 		LOG("Starting scene load %s", path);
 		std::string name = "";
-
 		App->filesystem->SplitFilePath(path, nullptr, &name);
-		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root);
+		vector<aiMesh*> boned_meshes;
+		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root,&boned_meshes);
 		//Import Scene Bones HERE
+		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
+
+		Timer timer;
+		timer.Start();
+		Animator anim(nullptr,C_Animator);//JAUME
+		anim.Animations = ImportAnimations(scene);
+
+		LOGC("Loading Anims:%f", timer.ReadTicks());
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
@@ -207,6 +218,122 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 	return resource;
 }
 
+vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
+	vector<Animation*> AnimList;
+	
+	scene->mNumAnimations;
+	//if(scene.HasAnimations){} clog aqui loko
+
+	//HERE WE SELECT 1 ANIM AND SET ITS GENERAL PARAMETERS
+	for (int i = 0; i < scene->mNumAnimations; i++) {
+		Animation *anim = new Animation();
+		anim->setLenght(scene->mAnimations[i]->mDuration);
+		anim->keyFrameCount = scene->mAnimations[i]->mNumChannels;
+		anim->name = scene->mAnimations[i]->mName.C_Str();
+		//NOW WE ASSIGN TO ALL BONES ALL THEIR KEYFRAMES
+		for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
+			for (int k = 0; k < scene->mAnimations[i]->mChannels[j]->mNumPositionKeys; k++) {
+				//HERE WE ASSIGN ALL <POS> KEYFRAMES TO THE BONE THAT CORRESPONDS TO "j"
+				Keyframe* key = nullptr;
+				std::map<uint, Keyframe*>::iterator it = anim->keyframes_list.find((uint)k);
+				if (it != anim->keyframes_list.end()){
+					key = it->second;
+				}
+				else {
+					key = new Keyframe();
+				}
+
+				JointTransform* transform = new JointTransform();
+				transform->Position = vec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y, 
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.z);
+				transform->Rotation = Quat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.z,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.w);
+				transform->Scale = vec3(scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.z);
+
+
+				key->pose[scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str()] = transform;
+				key->TimePosition = k;
+
+				anim->keyframes_list[k] = key;
+			}
+		}
+
+		Keyframe* prev = nullptr;
+		Keyframe* next = nullptr;
+		int c = 0;
+		bool reset = false;
+		bool found_empty = false;
+
+		for (std::map<std::string, JointTransform*>::iterator _it = anim->keyframes_list[0]->pose.begin(); _it != anim->keyframes_list[0]->pose.end(); ++_it) {
+			std::string name = _it->first;
+			for (int i = 0; i < anim->keyFrameCount; ++i) {
+				std::map<uint, Keyframe*>::iterator it = anim->keyframes_list.find(i);
+				if (it != anim->keyframes_list.end()) {
+					std::map<std::string, JointTransform*>::iterator __it = anim->keyframes_list[i]->pose.find(name);
+					if (__it != anim->keyframes_list[i]->pose.end()) {
+						prev = anim->keyframes_list[i];
+					}
+					else {
+						next = FindNextFrame(i, name, anim->keyframes_list);
+
+						if (next != nullptr) {
+							c = 0;
+
+							InterpolateKeyFrames(prev, next, true, name, anim->keyframes_list);
+							next = nullptr;
+						}
+						else {
+							InterpolateKeyFrames(prev, anim->keyframes_list.at(anim->keyframes_list.size() - 1), false, name, anim->keyframes_list);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		AnimList.push_back(anim);
+	}
+	return AnimList;
+}
+
+Keyframe* ModuleImporter::FindNextFrame(uint index, string& name, std::map<uint, Keyframe*>& map) {
+	for (int i = index; i < map.size(); ++i) {
+		JointTransform* trans = map[i]->pose[name];
+		if (trans != nullptr) {
+			return map[i];
+		}
+	}
+	return nullptr;
+}
+
+void ModuleImporter::InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool found, string& name, std::map<uint, Keyframe*>& map)
+{
+	JointTransform* prev = prevFrame->pose[name];
+	JointTransform* next = nextFrame->pose[name];
+	
+	uint steps = nextFrame->TimePosition - prevFrame->TimePosition;
+
+	int index = 1;
+
+	for (int i = prevFrame->TimePosition + 1; i <= nextFrame->TimePosition; ++i) {
+		JointTransform* currentTransform = nullptr;
+		if (map[i]->pose[name] != next && found) {
+			currentTransform = &currentTransform->Interpolate(prev, next, index++ / steps);
+		}
+		else {
+			currentTransform = prev;
+		}
+		map[i]->pose[name] = currentTransform;
+
+	}
+
+}
+
 void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 {
 	uint count = 0;
@@ -214,8 +341,15 @@ void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 	config["Game Objects"]["Count"] = count;
 }
 
+//void ModuleImporter::ImportAnim(aiAnimation * animations, aiScene * scene, string * FileName, string * str)
+//{
+//
+//
+//
+//}
 
-GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent) {
+
+GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent, vector<aiMesh*>* boned_meshes) {
 
 	std::string name = node->mName.C_Str();
 	static const char* transformNodes[5] = {
@@ -231,10 +365,10 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			i = -1;
 		}
 	}
-	
+
 	GameObject* gameObject = nullptr;
 	//if (node->mNumMeshes == 0)
-		gameObject = new GameObject(node->mName.C_Str());
+	gameObject = new GameObject(node->mName.C_Str());
 
 	for (int i = 0; i < node->mNumMeshes; i++)
 	{
@@ -262,16 +396,17 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			newMesh->mName = node->mName;
 
 		//IMPORT STUFF HERE (ERIC)
-		vector<aiMesh*> meshes;
 		//Import Mesh
-		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str(),meshes);
+		UID MeshID = ImportResourceMesh(newMesh, str, newMesh->mName.C_Str());
 		if (MeshID != 0) {
 			C_MeshInfo* mesh = (C_MeshInfo*)gameObject->AddComponent(Component_Type::Mesh_Info);
 			mesh->id = MeshID;
 			mesh->resource_name.append(newMesh->mName.C_Str());
 		}
-		//Import Bones
 
+		if (newMesh->HasBones()) {
+			boned_meshes->push_back(newMesh);
+		}
 
 		//Import mesh material
 		/*aiMaterial* material = scene->mMaterials[newMesh->mMaterialIndex];
@@ -285,7 +420,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 			child->AddComponent(cMaterial);
 		}*/
 
-		
+
 	}
 
 	gameObject->parent = parent;
@@ -293,7 +428,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
 		GameObject* go = nullptr;
-		go = LoadHierarchy(child, scene, str, gameObject);
+		go = LoadHierarchy(child, scene, str, gameObject,boned_meshes);
 		if (go != nullptr)
 			gameObject->childs.push_back(go);
 	}
@@ -301,7 +436,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	return gameObject;
 }
 
-UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName, vector<aiMesh*> meshes) {
+UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const char* fileName) {
 	UID id = 0;
 	uint64 newID = 0;
 	Mesh_R* resource = nullptr;
@@ -318,7 +453,7 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 		newID = App->RandomNumberGenerator.GetIntRNInRange();
 	}
 
-	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID, meshes);
+	resource = App->mesh_importer->ImportMeshResource(newMesh, str, fileName, newID);
 	if (resource)
 	{
 		App->resources->AddResource(resource);
@@ -328,6 +463,35 @@ UID ModuleImporter::ImportResourceMesh(aiMesh* newMesh, const char* str, const c
 
 	return id;
 }
+
+UID ModuleImporter::ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName) {
+	UID id = 0;
+	uint64 newID = 0;
+	Mesh_R* resource = nullptr;
+	uint instances = 0;
+	Meta* meta = App->resources->FindMetaResource(str, fileName, ResourceType::MeshR);
+
+	if (meta != nullptr)
+	{
+		newID = meta->id;
+		instances = App->resources->DeleteResource(newID);
+	}
+	else
+	{
+		newID = App->RandomNumberGenerator.GetIntRNInRange();
+	}
+
+	/*resource = ImportMeshBones(newMesh, str, fileName);*/
+	if (resource)
+	{
+		App->resources->AddResource(resource);
+		resource->instances = instances;
+		id = resource->ID;
+	}
+
+	return id;
+}
+
 
 GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char* fileName, const aiScene* scene) {
 
@@ -373,7 +537,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 			};
 		}
 		else {
-			vertex.Colors = { 
+			vertex.Colors = {
 				color.r,
 				color.g,
 				color.b,
@@ -402,7 +566,7 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 			indices.push_back(face->mIndices[j]);
 	}
 
-	
+
 
 	// 1. diffuse maps
 	vector<Texture*> diffuseMaps = loadMaterialTextures(path, material, aiTextureType_DIFFUSE);
@@ -431,6 +595,59 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 
 	std::free(points);
 	return gameobject;
+}
+
+void ModuleImporter::ImportMeshBones(vector<aiMesh*> * newMesh, const char * str, const char * fileName, GameObject* root)
+{
+	for (int i = 0; i < newMesh->size(); ++i) {
+		vector<Joint*> joints;
+		std::map<std::string, aiBone*> bones;
+		uint count = 0;
+		CollectGameObjectNames(newMesh->at(i), bones, count);
+
+		Joint* root_joint = nullptr;
+		LoadHierarchyJoints(root,&bones,root_joint, joints);
+	}
+}
+
+void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::string, aiBone*>* bones, Joint*& joint, vector<Joint*>& joints) {
+	for (int i = 0; i < gameobject->childs.size(); ++i) {
+		std::map<std::string, aiBone*>::iterator bone_it = bones->find(gameobject->childs[i]->name);
+		if (bone_it != bones->end())
+		{
+			aiBone* bone = bone_it->second;
+			Joint* child = new Joint();
+			child->name = bone_it->first;
+			child->index = joints.size();
+			child->InverseBindTransform = mat4x4(
+				bone->mOffsetMatrix.a1, bone->mOffsetMatrix.a2, bone->mOffsetMatrix.a3, bone->mOffsetMatrix.a4,
+				bone->mOffsetMatrix.b1, bone->mOffsetMatrix.b2, bone->mOffsetMatrix.b3, bone->mOffsetMatrix.b4,
+				bone->mOffsetMatrix.c1, bone->mOffsetMatrix.c2, bone->mOffsetMatrix.c3, bone->mOffsetMatrix.c4,
+				bone->mOffsetMatrix.d1, bone->mOffsetMatrix.d2, bone->mOffsetMatrix.d3, bone->mOffsetMatrix.d4
+			).inverse();
+			
+			if (joints.size() > 0) {
+				joint->children.push_back(child);
+				joints.push_back(child);
+				LoadHierarchyJoints(gameobject->childs[i], bones, child, joints);
+			}
+			else {
+				joint = child;
+				joints.push_back(joint);
+				LoadHierarchyJoints(gameobject->childs[i], bones, joint, joints);
+			}
+		}
+		else
+			LoadHierarchyJoints(gameobject->childs[i], bones, joint, joints);
+	}
+}
+
+void ModuleImporter::CollectGameObjectNames(aiMesh* mesh, std::map<std::string, aiBone*>& map, uint count)
+{
+	if (count < mesh->mNumBones) {
+		map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
+		CollectGameObjectNames(mesh, map, ++count);
+	}
 }
 
 vector<Texture*> ModuleImporter::loadMaterialTextures(string* path, aiMaterial *mat, aiTextureType type)
@@ -562,4 +779,3 @@ const string ModuleImporter::getFileName(const string& s) {
 
 	return(file);
 }
-

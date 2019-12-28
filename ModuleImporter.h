@@ -6,7 +6,7 @@
 #include "Shader.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include <vector>
-
+#include "Joint.h"
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
 
@@ -21,10 +21,12 @@ class aiNode;
 class aiScene;
 struct Texture;
 class aiMesh;
+struct aiBone;
 class aiScene;
 class aiMaterial;
 class Mesh_R;
 class Resources;
+class Joint;
 
 enum FileFormats {
 	NONE = -1,
@@ -32,6 +34,8 @@ enum FileFormats {
 	PNG,
 	DDS
 };
+class Keyframe;
+class Animation;
 
 class ModuleImporter : public Module
 {
@@ -56,9 +60,9 @@ public:
 
 	bool Load(const char * path);
 
-	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent);
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes);
 
-	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName, vector<aiMesh*> meshes);
+	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
 
 	GameObject * ProcessMesh(aiMesh * mesh, string * path = nullptr, const char* fileName = nullptr, const aiScene * scene = NULL);
 
@@ -69,6 +73,17 @@ public:
 	void SaveGameObjectConfig(json & config, GameObject * gameObjects);
 
 	void SaveGameObjectConfig(json & config, std::vector<GameObject*>& gameObjects);
+
+	vector<Animation*> ImportAnimations(const aiScene *scene);
+
+	Keyframe* FindNextFrame(uint index, string & name, std::map<uint, Keyframe*>& map);
+
+	void InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool empty, string& name, std::map<uint, Keyframe*>& map);
+
+	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
+	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint *& joint, vector<Joint*>& joints);
+	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, uint count);
+	UID	ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);
 

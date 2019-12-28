@@ -7,6 +7,8 @@
 #include "C_Material.h"
 #include "C_Camera.h"
 #include "Mesh_R.h"
+#include "Animator.h"
+#include "MathGeoLib/include/Geometry/Frustum.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
 	AddComponent(Transform);
@@ -70,6 +72,18 @@ float4x4 GameObject::mat2float4(mat4x4 mat)
 	float4x4 f_mat;
 	f_mat.Set(mat.M);
 	return f_mat.Transposed();
+}
+
+mat4x4 GameObject::Float2Mat4(float4x4 f) {
+	GameObject* a;
+	a->camera->frustum.ProjectionMatrix();
+	float4x4 m = App->camera->camera->frustum.ProjectionMatrix();
+	m.Transpose();
+	mat4x4 m4 = { m.At(0,0), m.At(0,1), m.At(0,2), m.At(0,3),
+				 m.At(1,0), m.At(1,1), m.At(1,2), m.At(1,3),
+				 m.At(2,0), m.At(2,1), m.At(2,2), m.At(2,3),
+				 m.At(3,0), m.At(3,1), m.At(3,2), m.At(3,3) };
+	return m4;
 }
 
 void GameObject::CleanUp() {
@@ -152,6 +166,10 @@ Component * GameObject::AddComponent(Component_Type type)
 		component = new C_Camera(this, type);
 		camera = (C_Camera*)component;
 		break;
+	case Component_Type::C_Animator:
+		component = new Animator(this, type);
+		animator = (Animator*)component;
+		break;
 	}
 	components.push_back(component);
 	component->Enable();
@@ -216,7 +234,7 @@ void GameObject::Load(const char * _name, const json & file)
 		box.SetNegativeInfinity();
 		box.Enclose((math::float3*)resource->_vertices, resource->buffersSize[vertices_size]);
 	}
-	
+
 	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())
 	{
 		C_Normals* t = (C_Normals*)AddComponent(Component_Type::Normals);
@@ -235,7 +253,6 @@ void GameObject::Load(const char * _name, const json & file)
 		t->Load(_name, file);
 		App->scene_intro->main_camera = this;
 	}
-
 	Start();
 	/*std::string
 	App->importer->LoadFile("/Library/Meshes/")*/

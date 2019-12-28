@@ -1,0 +1,16 @@
+## Transforms
+  -Each game objects have local and global transforms
+  -Inspector showing each component properties of selected game object
+
+## Camera
+  -Object camera
+  -Modificable field of view
+  -Camera culling 
+## Scene window
+  -Resizable game window modifying the aspect ratio
+
+##Game objects
+  -Have AABB
+
+## Scene
+  -Scene can load and save

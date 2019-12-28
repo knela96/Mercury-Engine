@@ -148,10 +148,6 @@ void WindowFileSystem::CreateHierarchy(FolderContainer* folder, int &node_clicke
 
 	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth;
 
-	/*if (parent == gameObject)  FIX TODO
-		node_flags |= ImGuiTreeNodeFlags_Selected;*/
-
-
 	if (folder->folderchilds.size() == 0)
 		node_flags |= ImGuiTreeNodeFlags_Leaf;
 

@@ -40,6 +40,9 @@ bool ModuleSceneIntro::Start()
 			root->childs[i]->Start();
 		root->childs[i]->StartChilds();
 	}
+
+
+
 	return ret;
 }
 
@@ -76,12 +79,6 @@ bool ModuleSceneIntro::Draw()
 }
 
 void ModuleSceneIntro::DrawBB() {
-	/*for (int i = 0; i < aabbs.size(); ++i) {
-		Gizmo::DrawBox(*aabbs[i].box, aabbs[i].color);
-	}
-	for (int i = 0; i < obbs.size(); ++i) {
-		Gizmo::DrawBox(*obbs[i].box, obbs[i].color);
-	}*/
 	for (int i = 0; i < frustums.size(); ++i) {
 		Gizmo::DrawBox(*frustums[i].box, frustums[i].color);
 	}
@@ -105,6 +102,7 @@ void ModuleSceneIntro::Insert2Quat(GameObject* gameobject) {
 
 void ModuleSceneIntro::Remove2Quat(GameObject* gameobject) {
 	quat->Remove(gameobject);
+	lookQuads = true;
 }
 bool ModuleSceneIntro::setParent(GameObject * parent, GameObject * child)
 {
@@ -270,7 +268,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane_ p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+
 	
+
 	Draw();
 
 

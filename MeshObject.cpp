@@ -49,6 +49,12 @@ bool MeshObject::SetupBuffers() {
 	// vertex colours
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Colors));
 	glEnableVertexAttribArray(3);
+	//vertex joints WTF
+	glVertexAttribPointer(4, 4,GL_INT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Joints)); //if want more bones ad a bigger number in the second parameter (now 4)
+	glEnableVertexAttribArray(4);
+	//vertex weights WTF
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Weights)); //if want more bones ad a bgger number in the second parameter (now 4)
+	glEnableVertexAttribArray(5);
 
 	glBindVertexArray(0);
 	App->importer->shader->stop();

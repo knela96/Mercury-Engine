@@ -19,7 +19,6 @@ bool C_MeshInfo::Enable()
 
 void C_MeshInfo::Update()
 {
-	//ImGui::PushID("active_MeshInfo"); ImGui::Checkbox("", &active); ImGui::PopID(); ImGui::SameLine();
 	if (ImGui::CollapsingHeader(name.c_str(), open_mesh_info))
 	{
 		int vs = 0;

@@ -22,7 +22,7 @@ public:
 
 	void Clear();
 
-private:
+public:
 	QuadTreeNode* tree_node = nullptr;
 
 };
@@ -43,7 +43,10 @@ public:
 
 	bool Remove(GameObject * gameObject);
 
-	void RemoveChilds(GameObject * gameObject, uint & i);
+
+	//void RemoveChilds(GameObject * gameObject, uint & i);
+
+	void RemoveChilds();
 
 	void GetChilds(std::vector<GameObject*>& vector, QuadTreeNode * cur_node);
 

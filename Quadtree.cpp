@@ -154,7 +154,7 @@ bool QuadTreeNode::Remove(GameObject* gameObject)
 	return ret;
 }
 
-void QuadTreeNode::RemoveChilds(GameObject* gameObject,uint& i)
+void QuadTreeNode::RemoveChilds()
 {
 	std::vector<GameObject*> childsbucket;
 	GetChilds(childsbucket,this);

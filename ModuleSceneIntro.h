@@ -6,6 +6,7 @@
 #include "SystemInfo.h"
 #include "Color.h"
 #include <vector>
+#include "Gizmo.h"
 #include "Quadtree.h"
 
 #include "MathGeoLib/include/MathGeoLib.h"
@@ -53,20 +54,24 @@ public:
 
 	uint LoadAllScene(GameObject * root, json & file, uint * elements, uint & count);
 
-	//Engine::SystemInfo s_info;
-
 	std::vector<BBox<AABB>> aabbs;
 	std::vector<BBox<OBB>> obbs;
 	std::vector<BBox<Frustum>> frustums;
 
 public:
 	GameObject* root = nullptr;
+
+	Gizmo gizmo;
+
 	GameObject* main_camera = nullptr;
 
 	std::vector<GameObject*> use_elements;
 	bool camera_culling = false;
 	Quadtree* quat = nullptr;
 	AABB* box = nullptr;
+
+	bool lookQuads = true;
+
 	bool savePopUp = false;
 	uint LoadElementResources(json & file, uint elements);
 };

@@ -254,7 +254,7 @@ void ModuleResources::SaveMetaInfo(Resources* resource)
 	// Create the stream and open the file
 	std::string fullpath = path + filename + ".meta";
 	std::ofstream stream{ fullpath,std::ofstream::out };
-	//stream.open(fullpath);
+
 	stream << std::setw(4) << config << std::endl;
 	stream.close();
 }

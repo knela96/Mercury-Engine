@@ -13,7 +13,7 @@ public:
 	MeshImporter(Application* app, bool start_enabled = true);
 	~MeshImporter();
 
-	Mesh_R* ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID, vector<aiMesh*> meshes);
+	Mesh_R* ImportMeshResource(aiMesh* mesh, const char* path, const char* fileName, UID ID);
 
 	bool SaveMeshResource(const Mesh_R * mesh, UID ID);
 
