@@ -186,14 +186,14 @@ UID ModuleResources::ImportFile(const char * new_file_in_assets, bool force)
 		}
 		case ResourceType::MeshR:
 		{
-			ImporSceneResource(new_file_in_assets, destiny);
+			ImporSceneResource(destiny.c_str());
 			break;
 		}
 	}
 	return ret;
 }
 
-void ModuleResources::ImporSceneResource(const char* file,std::string origin_path) {
+void ModuleResources::ImporSceneResource(const char* file) {
 	App->importer->Load(file);
 }
 

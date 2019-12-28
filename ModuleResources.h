@@ -43,7 +43,7 @@ public:
 	void LoadMetaResources(const char * resource_path, const char * original_path);
 	uint LoadElementResources(json & file, uint elements, const char * resource_path, const char * original_path, uint& count);
 	UID ImportFile(const char* new_file_in_assets, bool force = false);
-	void ImporSceneResource(const char * file, std::string origin_path);
+	void ImporSceneResource(const char * file);
 	ResourceType GetType(const char * path);
 	UID GenerateNewUID();
 	void AddResource(Resources * resource);
