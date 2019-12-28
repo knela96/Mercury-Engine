@@ -1,0 +1,190 @@
+{
+    "Game Objects": {
+        "Count": 6,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 697195677
+        },
+        "Game Object 2": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 930828628,
+                    "Name": "Stan_Lee.001"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        0.009999999776482582,
+                        0.009999999776482582,
+                        0.009999999776482582
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Stan_Lee.001",
+            "Parent UID": 697195677,
+            "Static": false,
+            "UID": 555059183
+        },
+        "Game Object 3": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 54648512,
+                    "Name": "Stand.003"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        0.009999999776482582,
+                        0.009999999776482582,
+                        0.009999999776482582
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Stand.001",
+            "Parent UID": 697195677,
+            "Static": false,
+            "UID": 424652760
+        },
+        "Game Object 4": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 395707758,
+                    "Name": "Stand.002"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "Scale": [
+                        0.009999999776482582,
+                        0.009999999776482582,
+                        0.009999999776482582
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Stand.000",
+            "Parent UID": 697195677,
+            "Static": false,
+            "UID": 504304985
+        },
+        "Game Object 5": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Lamp",
+            "Parent UID": 697195677,
+            "Static": false,
+            "UID": 369142370
+        },
+        "Game Object 6": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Camera",
+            "Parent UID": 697195677,
+            "Static": false,
+            "UID": 821782344
+        },
+        "Name": "StanLee.fbx",
+        "Source": "Assets/StanLee.fbx"
+    }
+}
