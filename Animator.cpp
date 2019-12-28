@@ -2,13 +2,13 @@
 #include "Animator.h"
 
 
-Animation::Animation()
+
+Animator::Animator(GameObject * gameobject, Component_Type type) : Component(type, gameobject){}
+
+Animator::~Animator()
 {
 }
 
-Animation::~Animation()
-{
-}
 
 void Animator::UpdateAnim()
 {
@@ -20,12 +20,8 @@ void Animator::UpdateAnim()
 		std::map<string, mat4x4> currPose = CalculateCurrAnimationPose();
 		ApplyPoseToJoints(currPose, &myAnimatedBody->GetRootJoint(), mat4x4());
 	}
-		
+
 }
-
-Animator::Animator(GameObject * gameobject, Component_Type type) : Component(type, gameobject){}
-
-
 
 void Animator::doAnimation(uint index) {
 	AnimationTime = 0;

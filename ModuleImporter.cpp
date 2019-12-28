@@ -186,8 +186,12 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		//Import Scene Bones HERE
 		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
 
+		Timer timer;
+		timer.Start();
 		Animator anim(nullptr,C_Animator);//JAUME
 		anim.Animations = ImportAnimations(scene);
+
+		LOGC("Loading Anims:%f", timer.ReadTicks());
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
@@ -293,6 +297,7 @@ vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 
 		AnimList.push_back(anim);
 	}
+	return AnimList;
 }
 
 Keyframe* ModuleImporter::FindNextFrame(uint index, string& name, std::map<uint, Keyframe*>& map) {

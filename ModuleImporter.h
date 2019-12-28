@@ -35,6 +35,7 @@ enum FileFormats {
 	DDS
 };
 class Keyframe;
+class Animation;
 
 class ModuleImporter : public Module
 {

@@ -10,8 +10,8 @@
 class Animation
 {
 public:
-	Animation();
-	~Animation();
+	Animation() {}
+	~Animation() {}
 
 	string               name;
 	float                lenght = 0; //seconds
