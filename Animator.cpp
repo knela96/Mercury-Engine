@@ -25,9 +25,11 @@ void Animator::UpdateAnim()
 
 Animator::Animator(GameObject * gameobject, Component_Type type) : Component(type, gameobject){}
 
-void Animator::doAnimation(Animation *animation) {
+
+
+void Animator::doAnimation(uint index) {
 	AnimationTime = 0;
-	currAnimation = animation;
+	currAnimation = Animations.at(index);
 }
 void Animator::IncreaseAnimationTime() {
 	AnimationTime += 1; //need to create a separated stable 30fps system for animation, not good idea to make them depend of the engine framerate;
@@ -84,15 +86,15 @@ float Animator::CalculateProgression(Keyframe prev, Keyframe next) {
 map<string, mat4x4> Animator::InterpolatePoses(Keyframe prevFrame, Keyframe nextFrame, float progression)
 {
 	map<string, mat4x4> currPose;
-	map<string, JointTransform>::iterator it;
+	map<string, JointTransform*>::iterator it;
 
 	for (it = prevFrame.GetJointKeyFrames().begin(); it != prevFrame.GetJointKeyFrames().end(); it++)
 	{
-		JointTransform* prevTransform = &prevFrame.GetJointKeyFrames()[it->first];
-		JointTransform* nextTransform = &nextFrame.GetJointKeyFrames()[it->first];
-		JointTransform* currentTransform = &currentTransform->Interpolate(*prevTransform, *prevTransform, progression);
+		JointTransform* prevTransform = prevFrame.GetJointKeyFrames()[it->first];
+		JointTransform* nextTransform = nextFrame.GetJointKeyFrames()[it->first];
+		JointTransform* currentTransform = &currentTransform->Interpolate(prevTransform, prevTransform, progression);
 		
-		prevFrame.GetJointKeyFrames()[it->first] = *currentTransform;	
+		prevFrame.GetJointKeyFrames()[it->first] = currentTransform;	
 	}
 
 	return currPose;

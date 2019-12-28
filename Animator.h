@@ -28,7 +28,7 @@ public:
 
 public:
 
-	void doAnimation(Animation *animation);
+	void doAnimation(uint index);
 	void IncreaseAnimationTime();
 	map<string, mat4x4>  CalculateCurrAnimationPose();
 	void ApplyPoseToJoints(map<string, mat4x4> currPose, Joint *RootJoint, mat4x4 mat);
@@ -38,6 +38,7 @@ public:
 	map<string, mat4x4> InterpolatePoses(Keyframe a, Keyframe b, float progression);
 
 public:
+	vector<Animation*> Animations;
 	Animation* currAnimation;
 	UID id = 0;
 	string resource_name;

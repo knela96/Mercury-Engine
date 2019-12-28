@@ -186,7 +186,8 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		//Import Scene Bones HERE
 		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
 
-		ImportAnimations(scene);
+		Animator anim(nullptr,C_Animator);//JAUME
+		anim.Animations = ImportAnimations(scene);
 
 		json config;
 		SaveGameObjectConfig(config, rootNode);
@@ -212,7 +213,7 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 	return resource;
 }
 
-void ModuleImporter::ImportAnimations(const aiScene *scene) {
+vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 	vector<Animation*> AnimList;
 	
 	scene->mNumAnimations;
@@ -224,45 +225,107 @@ void ModuleImporter::ImportAnimations(const aiScene *scene) {
 		anim->setLenght(scene->mAnimations[i]->mDuration);
 		anim->keyFrameCount = scene->mAnimations[i]->mNumChannels;
 		anim->name = scene->mAnimations[i]->mName.C_Str();
-		Keyframe *Kframe = new Keyframe();
 		//NOW WE ASSIGN TO ALL BONES ALL THEIR KEYFRAMES
-		for (int k = 0; k < scene->mAnimations[i]->mChannels[0]->mNumPositionKeys; k++) {
-			for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
-			//HERE WE ASSIGN ALL <POS> KEYFRAMES TO THE BONE THAT CORRESPONDS TO "j"
-				JointTransform transform;
-				transform.Position = vec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.x,
-											scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.y, 
-											scene->mAnimations[i]->mChannels[j]->mPositionKeys[0].mValue.z);
-				transform.Rotation = Quat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.x,
-											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.y,
-											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.z,
-											scene->mAnimations[i]->mChannels[j]->mRotationKeys[0].mValue.w);
-				transform.Scale = vec3(scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.x,
-											scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.y,
-											scene->mAnimations[i]->mChannels[j]->mScalingKeys[0].mValue.z);
+		for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
+			for (int k = 0; k < scene->mAnimations[i]->mChannels[j]->mNumPositionKeys; k++) {
+				//HERE WE ASSIGN ALL <POS> KEYFRAMES TO THE BONE THAT CORRESPONDS TO "j"
+				Keyframe* key = nullptr;
+				std::map<uint, Keyframe*>::iterator it = anim->keyframes_list.find((uint)k);
+				if (it != anim->keyframes_list.end()){
+					key = it->second;
+				}
+				else {
+					key = new Keyframe();
+				}
+
+				JointTransform* transform = new JointTransform();
+				transform->Position = vec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y, 
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.z);
+				transform->Rotation = Quat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.z,
+											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.w);
+				transform->Scale = vec3(scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.x,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.z);
 
 
-				Kframe->pose[scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str()] = transform;
-				Kframe->TimePosition = k;
+				key->pose[scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str()] = transform;
+				key->TimePosition = k;
 
-				/*Kframe->TimePosition;
-				Kframe*/
-				//anim->keyframes.at(k) = Kframe;
+				anim->keyframes_list[k] = key;
 			}
 		}
-		
-		
 
-		
-		
+		Keyframe* prev = nullptr;
+		Keyframe* next = nullptr;
+		int c = 0;
+		bool reset = false;
+		bool found_empty = false;
+
+		for (std::map<std::string, JointTransform*>::iterator _it = anim->keyframes_list[0]->pose.begin(); _it != anim->keyframes_list[0]->pose.end(); ++_it) {
+			std::string name = _it->first;
+			for (int i = 0; i < anim->keyFrameCount; ++i) {
+				std::map<uint, Keyframe*>::iterator it = anim->keyframes_list.find(i);
+				if (it != anim->keyframes_list.end()) {
+					std::map<std::string, JointTransform*>::iterator __it = anim->keyframes_list[i]->pose.find(name);
+					if (__it != anim->keyframes_list[i]->pose.end()) {
+						prev = anim->keyframes_list[i];
+					}
+					else {
+						next = FindNextFrame(i, name, anim->keyframes_list);
+
+						if (next != nullptr) {
+							c = 0;
+
+							InterpolateKeyFrames(prev, next, true, name, anim->keyframes_list);
+							next = nullptr;
+						}
+						else {
+							InterpolateKeyFrames(prev, anim->keyframes_list.at(anim->keyframes_list.size() - 1), false, name, anim->keyframes_list);
+							break;
+						}
+					}
+				}
+			}
+		}
 
 		AnimList.push_back(anim);
 	}
+}
 
-		/*if (count < mesh->mNumBones) {
-		map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];
-		CollectGameObjectNames(mesh, map, ++count);
-	}*/
+Keyframe* ModuleImporter::FindNextFrame(uint index, string& name, std::map<uint, Keyframe*>& map) {
+	for (int i = index; i < map.size(); ++i) {
+		JointTransform* trans = map[i]->pose[name];
+		if (trans != nullptr) {
+			return map[i];
+		}
+	}
+	return nullptr;
+}
+
+void ModuleImporter::InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool found, string& name, std::map<uint, Keyframe*>& map)
+{
+	JointTransform* prev = prevFrame->pose[name];
+	JointTransform* next = nextFrame->pose[name];
+	
+	uint steps = nextFrame->TimePosition - prevFrame->TimePosition;
+
+	int index = 1;
+
+	for (int i = prevFrame->TimePosition + 1; i <= nextFrame->TimePosition; ++i) {
+		JointTransform* currentTransform = nullptr;
+		if (map[i]->pose[name] != next && found) {
+			currentTransform = &currentTransform->Interpolate(prev, next, index++ / steps);
+		}
+		else {
+			currentTransform = prev;
+		}
+		map[i]->pose[name] = currentTransform;
+
+	}
+
 }
 
 void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)

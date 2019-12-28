@@ -34,6 +34,8 @@ enum FileFormats {
 	PNG,
 	DDS
 };
+class Keyframe;
+
 class ModuleImporter : public Module
 {
 public:
@@ -71,8 +73,11 @@ public:
 
 	void SaveGameObjectConfig(json & config, std::vector<GameObject*>& gameObjects);
 
-	//void ImportAnim(aiAnimation * animation, aiScene * scene, string * FileName, string * str);
-	void ImportAnimations(const aiScene *scene);
+	vector<Animation*> ImportAnimations(const aiScene *scene);
+
+	Keyframe* FindNextFrame(uint index, string & name, std::map<uint, Keyframe*>& map);
+
+	void InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool empty, string& name, std::map<uint, Keyframe*>& map);
 
 	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
 	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint *& joint, vector<Joint*>& joints);

@@ -14,10 +14,10 @@ mat4x4 JointTransform::GetLocalTransform()
 	return LocalTransform;
 }
 
-JointTransform JointTransform::Interpolate(JointTransform PointA, JointTransform PointB, float Progression) {
+JointTransform JointTransform::Interpolate(JointTransform* PointA, JointTransform* PointB, float Progression) {
 	
-	vec3 pos = Interpolate(PointA.Position, PointB.Position, Progression);
-	Quat rot = Interpolate(PointA.Rotation, PointB.Rotation, Progression);
+	vec3 pos = Interpolate(PointA->Position, PointB->Position, Progression);
+	Quat rot = Interpolate(PointA->Rotation, PointB->Rotation, Progression);
 
 	return JointTransform(pos, rot);
 }
