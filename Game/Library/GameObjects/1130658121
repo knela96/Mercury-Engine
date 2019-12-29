@@ -27,7 +27,7 @@
             "Name": "RootNode",
             "Parent UID": 581869302,
             "Static": false,
-            "UID": 346497776
+            "UID": 949333985
         },
         "Game Object 10": {
             "Components": {
@@ -53,9 +53,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Forearm",
-            "Parent UID": 664425968,
+            "Parent UID": 933054126,
             "Static": false,
-            "UID": 513451233
+            "UID": 402504553
         },
         "Game Object 11": {
             "Components": {
@@ -81,9 +81,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Hand",
-            "Parent UID": 513451233,
+            "Parent UID": 402504553,
             "Static": false,
-            "UID": 27039028
+            "UID": 163214728
         },
         "Game Object 12": {
             "Components": {
@@ -109,9 +109,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger0",
-            "Parent UID": 27039028,
+            "Parent UID": 163214728,
             "Static": false,
-            "UID": 461232481
+            "UID": 427077306
         },
         "Game Object 13": {
             "Components": {
@@ -137,9 +137,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger01",
-            "Parent UID": 461232481,
+            "Parent UID": 427077306,
             "Static": false,
-            "UID": 275654012
+            "UID": 551745920
         },
         "Game Object 14": {
             "Components": {
@@ -165,9 +165,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger02",
-            "Parent UID": 275654012,
+            "Parent UID": 551745920,
             "Static": false,
-            "UID": 75629128
+            "UID": 910208076
         },
         "Game Object 15": {
             "Components": {
@@ -193,9 +193,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger1",
-            "Parent UID": 27039028,
+            "Parent UID": 163214728,
             "Static": false,
-            "UID": 935061435
+            "UID": 915145307
         },
         "Game Object 16": {
             "Components": {
@@ -221,9 +221,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger11",
-            "Parent UID": 935061435,
+            "Parent UID": 915145307,
             "Static": false,
-            "UID": 360010077
+            "UID": 254469058
         },
         "Game Object 17": {
             "Components": {
@@ -249,9 +249,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Finger12",
-            "Parent UID": 360010077,
+            "Parent UID": 254469058,
             "Static": false,
-            "UID": 983448591
+            "UID": 191729660
         },
         "Game Object 18": {
             "Components": {
@@ -277,9 +277,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Clavicle",
-            "Parent UID": 873110678,
+            "Parent UID": 609397212,
             "Static": false,
-            "UID": 922754098
+            "UID": 684602222
         },
         "Game Object 19": {
             "Components": {
@@ -305,15 +305,15 @@
             },
             "Enable": true,
             "Name": "Bip001 R UpperArm",
-            "Parent UID": 922754098,
+            "Parent UID": 684602222,
             "Static": false,
-            "UID": 654458600
+            "UID": 815256116
         },
         "Game Object 2": {
             "Components": {
                 "Mesh": {
                     "Active": false,
-                    "ID": 443079012,
+                    "ID": 350294565,
                     "Name": "Object02"
                 },
                 "Transform": {
@@ -338,9 +338,9 @@
             },
             "Enable": true,
             "Name": "Object02",
-            "Parent UID": 346497776,
+            "Parent UID": 949333985,
             "Static": false,
-            "UID": 663307952
+            "UID": 418932835
         },
         "Game Object 20": {
             "Components": {
@@ -366,9 +366,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Forearm",
-            "Parent UID": 654458600,
+            "Parent UID": 815256116,
             "Static": false,
-            "UID": 546856898
+            "UID": 735241234
         },
         "Game Object 21": {
             "Components": {
@@ -394,9 +394,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Hand",
-            "Parent UID": 546856898,
+            "Parent UID": 735241234,
             "Static": false,
-            "UID": 312163142
+            "UID": 32444839
         },
         "Game Object 22": {
             "Components": {
@@ -422,9 +422,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger0",
-            "Parent UID": 312163142,
+            "Parent UID": 32444839,
             "Static": false,
-            "UID": 922360368
+            "UID": 136721026
         },
         "Game Object 23": {
             "Components": {
@@ -450,9 +450,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger01",
-            "Parent UID": 922360368,
+            "Parent UID": 136721026,
             "Static": false,
-            "UID": 669839044
+            "UID": 189375152
         },
         "Game Object 24": {
             "Components": {
@@ -478,9 +478,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger02",
-            "Parent UID": 669839044,
+            "Parent UID": 189375152,
             "Static": false,
-            "UID": 595154464
+            "UID": 198304612
         },
         "Game Object 25": {
             "Components": {
@@ -506,9 +506,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger1",
-            "Parent UID": 312163142,
+            "Parent UID": 32444839,
             "Static": false,
-            "UID": 141230976
+            "UID": 417177801
         },
         "Game Object 26": {
             "Components": {
@@ -534,9 +534,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger11",
-            "Parent UID": 141230976,
+            "Parent UID": 417177801,
             "Static": false,
-            "UID": 147391738
+            "UID": 530047642
         },
         "Game Object 27": {
             "Components": {
@@ -562,9 +562,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Finger12",
-            "Parent UID": 147391738,
+            "Parent UID": 530047642,
             "Static": false,
-            "UID": 510290616
+            "UID": 537655879
         },
         "Game Object 28": {
             "Components": {
@@ -590,9 +590,9 @@
             },
             "Enable": true,
             "Name": "Bip001 Head",
-            "Parent UID": 873110678,
+            "Parent UID": 609397212,
             "Static": false,
-            "UID": 731015357
+            "UID": 280281326
         },
         "Game Object 29": {
             "Components": {
@@ -618,9 +618,9 @@
             },
             "Enable": true,
             "Name": "Bone001",
-            "Parent UID": 731015357,
+            "Parent UID": 280281326,
             "Static": false,
-            "UID": 362649214
+            "UID": 147944788
         },
         "Game Object 3": {
             "Components": {
@@ -646,9 +646,9 @@
             },
             "Enable": true,
             "Name": "transform1",
-            "Parent UID": 346497776,
+            "Parent UID": 949333985,
             "Static": false,
-            "UID": 663423246
+            "UID": 348838239
         },
         "Game Object 30": {
             "Components": {
@@ -674,9 +674,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Thigh",
-            "Parent UID": 668894615,
+            "Parent UID": 84672536,
             "Static": false,
-            "UID": 717053387
+            "UID": 884392678
         },
         "Game Object 31": {
             "Components": {
@@ -702,9 +702,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Calf",
-            "Parent UID": 717053387,
+            "Parent UID": 884392678,
             "Static": false,
-            "UID": 116134897
+            "UID": 638781099
         },
         "Game Object 32": {
             "Components": {
@@ -730,9 +730,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Foot",
-            "Parent UID": 116134897,
+            "Parent UID": 638781099,
             "Static": false,
-            "UID": 436267940
+            "UID": 287869586
         },
         "Game Object 33": {
             "Components": {
@@ -758,9 +758,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Toe0",
-            "Parent UID": 436267940,
+            "Parent UID": 287869586,
             "Static": false,
-            "UID": 852908272
+            "UID": 415357582
         },
         "Game Object 34": {
             "Components": {
@@ -786,9 +786,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Thigh",
-            "Parent UID": 668894615,
+            "Parent UID": 84672536,
             "Static": false,
-            "UID": 911201640
+            "UID": 802611720
         },
         "Game Object 35": {
             "Components": {
@@ -814,9 +814,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Calf",
-            "Parent UID": 911201640,
+            "Parent UID": 802611720,
             "Static": false,
-            "UID": 781027019
+            "UID": 103522059
         },
         "Game Object 36": {
             "Components": {
@@ -842,9 +842,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Foot",
-            "Parent UID": 781027019,
+            "Parent UID": 103522059,
             "Static": false,
-            "UID": 409547355
+            "UID": 913778154
         },
         "Game Object 37": {
             "Components": {
@@ -870,9 +870,9 @@
             },
             "Enable": true,
             "Name": "Bip001 R Toe0",
-            "Parent UID": 409547355,
+            "Parent UID": 913778154,
             "Static": false,
-            "UID": 214072539
+            "UID": 775893247
         },
         "Game Object 4": {
             "Components": {
@@ -898,9 +898,9 @@
             },
             "Enable": true,
             "Name": "Bip001 Pelvis",
-            "Parent UID": 663423246,
+            "Parent UID": 348838239,
             "Static": false,
-            "UID": 122246755
+            "UID": 117454609
         },
         "Game Object 5": {
             "Components": {
@@ -926,9 +926,9 @@
             },
             "Enable": true,
             "Name": "Bip001 Spine",
-            "Parent UID": 122246755,
+            "Parent UID": 117454609,
             "Static": false,
-            "UID": 668894615
+            "UID": 84672536
         },
         "Game Object 6": {
             "Components": {
@@ -954,9 +954,9 @@
             },
             "Enable": true,
             "Name": "Bip001 Spine1",
-            "Parent UID": 668894615,
+            "Parent UID": 84672536,
             "Static": false,
-            "UID": 983551422
+            "UID": 437178460
         },
         "Game Object 7": {
             "Components": {
@@ -982,9 +982,9 @@
             },
             "Enable": true,
             "Name": "Bip001 Neck",
-            "Parent UID": 983551422,
+            "Parent UID": 437178460,
             "Static": false,
-            "UID": 873110678
+            "UID": 609397212
         },
         "Game Object 8": {
             "Components": {
@@ -1010,9 +1010,9 @@
             },
             "Enable": true,
             "Name": "Bip001 L Clavicle",
-            "Parent UID": 873110678,
+            "Parent UID": 609397212,
             "Static": false,
-            "UID": 705174600
+            "UID": 811450929
         },
         "Game Object 9": {
             "Components": {
@@ -1038,11 +1038,11 @@
             },
             "Enable": true,
             "Name": "Bip001 L UpperArm",
-            "Parent UID": 705174600,
+            "Parent UID": 811450929,
             "Static": false,
-            "UID": 664425968
+            "UID": 933054126
         },
-        "Name": "zaniTest.fbx",
-        "Source": "Assets/Models/zaniTest.fbx"
+        "Name": "aniTest.fbx",
+        "Source": "Assets/aniTest.fbx"
     }
 }

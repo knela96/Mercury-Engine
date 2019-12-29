@@ -80,9 +80,9 @@ public:
 
 	void InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool empty, string& name, std::map<uint, Keyframe*>& map);
 
-	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
+	Joint* ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root, int& size);
 	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint *& joint, vector<Joint*>& joints);
-	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, uint count);
+	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, int& count);
 	UID	ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);

@@ -14,7 +14,7 @@ public:
 	~Animation() {}
 
 	string               name;
-	float                lenght = 0; //seconds
+	double                lenght = 0; //seconds
 	int                  keyFrameCount = 0;
 
 	
@@ -24,9 +24,11 @@ public:
 public:
 	void SetName(string name_) { name = name_; }
 	string GetName() { return name; }
-	void setLenght(float lenght_) { lenght = lenght_; }
-	float GetLength() { return lenght; }
-	vector<Keyframe*>* GetKeyframes() { return &keyframes; };
+	void setLenght(double lenght_) { lenght = lenght_; }
+	double GetLength() { return lenght; }
+	std::map<uint, Keyframe*>* GetKeyframes() {
+		return &keyframes_list; 
+	};
 };
 
 //mirar en qorden de tiempo me pasan los keyframes de los bones

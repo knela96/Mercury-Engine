@@ -10,17 +10,19 @@
 class AnimatedObject
 {
 public:
-	AnimatedObject(GameObject AnimatedObject_, Joint RootJoint_, int JointCount_) :AnimatedObj(&AnimatedObject_), RootJoint(RootJoint_), JointCount(JointCount_)
-	{ RootJoint.CalculateInverseBindTransform(IdentityMatrix); };
+	AnimatedObject(GameObject* AnimatedObject_, Joint* RootJoint_, int JointCount_) :AnimatedObj(AnimatedObject_), RootJoint(RootJoint_), JointCount(JointCount_)
+	{ 
+		//RootJoint->CalculateInverseBindTransform(IdentityMatrix); 
+	};
 
 	~AnimatedObject() {};
 
 public:
 
 	//obj
-	GameObject   *AnimatedObj;
+	GameObject   *AnimatedObj = nullptr;
 
-	Joint        RootJoint;
+	Joint*        RootJoint = nullptr;
 	int          JointCount; 
 
 	//Animator animator;
@@ -28,11 +30,11 @@ public:
 public:
 
 	GameObject GetAnimatedObj() { return *AnimatedObj; }
-	Joint GetRootJoint() { return RootJoint; }
+	Joint* GetRootJoint() { return RootJoint; }
 	int GetJointCount() { return JointCount; }
 
 	void SetAnimatedObject(GameObject AnimatedObj_) { *AnimatedObj = AnimatedObj_; }
-	void SetRootJoint(Joint RootJoint_) { RootJoint = RootJoint_; }
+	void SetRootJoint(Joint* RootJoint_) { RootJoint = RootJoint_; }
 	void SetJointCount(int JointCount_) { JointCount = JointCount_; }
 
 	void DeleteAnimatedObject();

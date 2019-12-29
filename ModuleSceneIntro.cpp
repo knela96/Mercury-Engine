@@ -44,8 +44,6 @@ bool ModuleSceneIntro::Start()
 		root->childs[i]->StartChilds();
 	}
 
-	//Animator anim(nullptr, C_Animator);//JAUME
-	animator = new Animator(root, C_Animator);
 	App->importer->Load("Assets/Models/Spider.fbx");
 	return ret;
 }
@@ -75,7 +73,7 @@ bool ModuleSceneIntro::Draw()
 				root->childs[i]->Draw();
 			root->childs[i]->drawChilds();
 	}
-
+	root->animator->Draw();
 	DrawBB();
 
 	quat->Draw();
@@ -274,6 +272,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 
 
+	root->UpdateChilds();
 	
 
 	Draw();

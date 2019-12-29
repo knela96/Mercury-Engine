@@ -75,7 +75,5 @@ public:
 	bool savePopUp = false;
 	uint LoadElementResources(json & file, uint elements);
 
-
-	Animator* animator=nullptr;
 };
 #endif

@@ -5,6 +5,7 @@
 #include "C_Transform.h"
 #include "C_Camera.h"
 #include "Gizmo.h"
+#include "Animator.h"
 
 MeshObject::MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject): gameobject(gameObject)
 {
@@ -140,8 +141,7 @@ void MeshObject::Draw()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	/*if(gameobject->getComponent(Normals)->isActive())
-		DebugNormals();*/
-	
+		DebugNormals();*/	
 
 	glBindVertexArray(0);
 	glPopMatrix();

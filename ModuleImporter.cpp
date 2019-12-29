@@ -185,12 +185,13 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		vector<aiMesh*> boned_meshes;
 		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root,&boned_meshes);
 		//Import Scene Bones HERE
-		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
-
+		int size = 0;
+		Joint* joints = ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode, size);
 		Timer timer;
 		timer.Start();
 		Animator* anim = (Animator*)App->scene_intro->root->AddComponent(C_Animator);
 		anim->Animations = ImportAnimations(scene);
+		anim->myAnimatedBody = new AnimatedObject(App->scene_intro->root, joints, size);
 
 		LOGC("Loading Anims:%f", timer.ReadTicks());
 
@@ -230,6 +231,7 @@ vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 		anim->setLenght(scene->mAnimations[i]->mDuration);
 		anim->keyFrameCount = scene->mAnimations[i]->mNumChannels;
 		anim->name = scene->mAnimations[i]->mName.C_Str();
+	
 		//NOW WE ASSIGN TO ALL BONES ALL THEIR KEYFRAMES
 		for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
 			for (int k = 0; k < scene->mAnimations[i]->mChannels[j]->mNumPositionKeys; k++) {
@@ -262,6 +264,7 @@ vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 				anim->keyframes_list[k] = key;
 			}
 		}
+		anim->keyframes.push_back(anim->keyframes_list.at(anim->keyframes_list.size() - 1));
 
 		Keyframe* prev = nullptr;
 		Keyframe* next = nullptr;
@@ -597,17 +600,21 @@ GameObject* ModuleImporter::ProcessMesh( aiMesh* mesh, string* path, const char*
 	return gameobject;
 }
 
-void ModuleImporter::ImportMeshBones(vector<aiMesh*> * newMesh, const char * str, const char * fileName, GameObject* root)
+Joint* ModuleImporter::ImportMeshBones(vector<aiMesh*> * newMesh, const char * str, const char * fileName, GameObject* root, int& size)
 {
+	Joint* root_joint = nullptr;
+	int count = 0;
+	std::map<std::string, aiBone*> bones;
+	vector<Joint*> joints;
 	for (int i = 0; i < newMesh->size(); ++i) {
-		vector<Joint*> joints;
-		std::map<std::string, aiBone*> bones;
-		uint count = 0;
+		count = 0;
 		CollectGameObjectNames(newMesh->at(i), bones, count);
 
-		Joint* root_joint = nullptr;
-		LoadHierarchyJoints(root,&bones,root_joint, joints);
+		size += count;
 	}
+
+	LoadHierarchyJoints(root, &bones, root_joint, joints);
+	return root_joint;
 }
 
 void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::string, aiBone*>* bones, Joint*& joint, vector<Joint*>& joints) {
@@ -619,12 +626,18 @@ void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::s
 			Joint* child = new Joint();
 			child->name = bone_it->first;
 			child->index = joints.size();
+
+			/*child->InverseBindTransform = mat4x4(
+			bone->mOffsetMatrix.a1, bone->mOffsetMatrix.b1, bone->mOffsetMatrix.c1, bone->mOffsetMatrix.d1,
+			bone->mOffsetMatrix.a2, bone->mOffsetMatrix.b2, bone->mOffsetMatrix.c2, bone->mOffsetMatrix.d2,
+			bone->mOffsetMatrix.a3, bone->mOffsetMatrix.b3, bone->mOffsetMatrix.c3, bone->mOffsetMatrix.d3,
+			bone->mOffsetMatrix.a4, bone->mOffsetMatrix.b4, bone->mOffsetMatrix.c4, bone->mOffsetMatrix.d4
+		).inverse();*/
 			child->InverseBindTransform = mat4x4(
 				bone->mOffsetMatrix.a1, bone->mOffsetMatrix.a2, bone->mOffsetMatrix.a3, bone->mOffsetMatrix.a4,
 				bone->mOffsetMatrix.b1, bone->mOffsetMatrix.b2, bone->mOffsetMatrix.b3, bone->mOffsetMatrix.b4,
 				bone->mOffsetMatrix.c1, bone->mOffsetMatrix.c2, bone->mOffsetMatrix.c3, bone->mOffsetMatrix.c4,
-				bone->mOffsetMatrix.d1, bone->mOffsetMatrix.d2, bone->mOffsetMatrix.d3, bone->mOffsetMatrix.d4
-			).inverse();
+				bone->mOffsetMatrix.d1, bone->mOffsetMatrix.d2, bone->mOffsetMatrix.d3, bone->mOffsetMatrix.d4).inverse();
 			
 			if (joints.size() > 0) {
 				joint->children.push_back(child);
@@ -642,7 +655,7 @@ void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::s
 	}
 }
 
-void ModuleImporter::CollectGameObjectNames(aiMesh* mesh, std::map<std::string, aiBone*>& map, uint count)
+void ModuleImporter::CollectGameObjectNames(aiMesh* mesh, std::map<std::string, aiBone*>& map, int& count)
 {
 	if (count < mesh->mNumBones) {
 		map[mesh->mBones[count]->mName.C_Str()] = mesh->mBones[count];

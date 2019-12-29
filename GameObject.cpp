@@ -48,11 +48,13 @@ void GameObject::StartChilds() {
 }
 
 void GameObject::UpdateChilds() {
+
+	if (animator != nullptr)
+		animator->UpdateAnim();
+
 	for (int i = 0; i < childs.size(); ++i) {
 		childs[i]->active = active;
-		childs[i]->transform->UpdateMatrices();
-		if (childs[i]->animator != nullptr)
-			childs[i]->animator->UpdateAnim();
+		//childs[i]->transform->UpdateMatrices();
 		childs[i]->UpdateChilds();
 	}
 }
@@ -63,8 +65,6 @@ void GameObject::drawChilds() {
 			if (App->scene_intro->main_camera->camera->CullFace(childs[i])) {
 				if (childs[i]->mesh != nullptr) {
 					childs[i]->mesh->Draw();
-					if(childs[i]->animator!= nullptr)
-						childs[i]->animator->Draw();
 				}
 			}
 		}
