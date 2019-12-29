@@ -183,7 +183,8 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		std::string name = "";
 		App->filesystem->SplitFilePath(path, nullptr, &name);
 		vector<aiMesh*> boned_meshes;
-		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root,&boned_meshes);
+		vector<GameObject*> boned_objects;
+		GameObject* rootNode = LoadHierarchy(scene->mRootNode, (aiScene*)scene, path, App->scene_intro->root,&boned_meshes,boned_objects);
 		//Import Scene Bones HERE
 		ImportMeshBones(&boned_meshes, path, name.c_str(),rootNode);
 
@@ -216,6 +217,22 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 		resource->name = fileName;
 	}
 	return resource;
+}
+
+void ModuleImporter::ImportObjectBones(const std::vector<aiMesh*>& meshes, const std::vector<GameObject*>& objects, GameObject* root, const char* source_file) {
+
+	for (int i = 0; i < meshes.size(); ++i) {
+		vector<Joint*> joints;
+		std::map<std::string, aiBone*> bones;
+		uint count = 0;
+		CollectGameObjectNames(meshes.at(i), bones, count);
+
+		/*for (int j = 0; j < meshes[i]->mNumBones; ++j) {
+			meshes[i]->mBones[j]->mWeights->mVertexId
+		}*/
+
+	}
+
 }
 
 vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
@@ -349,7 +366,7 @@ void ModuleImporter::SaveGameObjectConfig(json& config, GameObject* gameObjects)
 //}
 
 
-GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent, vector<aiMesh*>* boned_meshes) {
+GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const char* str, GameObject* parent, vector<aiMesh*>* boned_meshes, vector<GameObject*>& boned_objects) {
 
 	std::string name = node->mName.C_Str();
 	static const char* transformNodes[5] = {
@@ -406,6 +423,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 
 		if (newMesh->HasBones()) {
 			boned_meshes->push_back(newMesh);
+			boned_objects.push_back(gameObject);
 		}
 
 		//Import mesh material
@@ -428,7 +446,7 @@ GameObject* ModuleImporter::LoadHierarchy(aiNode* node, aiScene* scene,const cha
 	for (int i = 0; i < node->mNumChildren; ++i) {
 		aiNode* child = node->mChildren[i];
 		GameObject* go = nullptr;
-		go = LoadHierarchy(child, scene, str, gameObject,boned_meshes);
+		go = LoadHierarchy(child, scene, str, gameObject,boned_meshes,boned_objects);
 		if (go != nullptr)
 			gameObject->childs.push_back(go);
 	}

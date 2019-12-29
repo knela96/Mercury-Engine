@@ -60,7 +60,7 @@ public:
 
 	bool Load(const char * path);
 
-	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes);
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes, vector<GameObject*>& objects);
 
 	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
 
@@ -69,6 +69,8 @@ public:
 	Resources * LoadObjectResource(UID id);
 
 	Resources* ImportObject(const char* FileName, UID* id);
+
+	void ImportObjectBones(const std::vector<aiMesh*>& meshes, const std::vector<GameObject*>& objects, GameObject * root, const char * source_file);
 
 	void SaveGameObjectConfig(json & config, GameObject * gameObjects);
 

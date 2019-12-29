@@ -262,6 +262,9 @@
     <ClInclude Include="C_Camera.h">
       <Filter>Sources\Helpers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Bones_R.h">
+      <Filter>Sources\Modules\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">

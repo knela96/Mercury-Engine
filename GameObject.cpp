@@ -48,9 +48,13 @@ void GameObject::StartChilds() {
 }
 
 void GameObject::UpdateChilds() {
+
+	if (animator != nullptr)
+		animator->UpdateAnim();
+
 	for (int i = 0; i < childs.size(); ++i) {
 		childs[i]->active = active;
-		childs[i]->transform->UpdateMatrices();
+		//childs[i]->transform->UpdateMatrices();
 		childs[i]->UpdateChilds();
 	}
 }
