@@ -6,6 +6,8 @@
 #include "C_MeshInfo.h"
 #include "C_Material.h"
 #include "C_Camera.h"
+#include "Mesh_R.h"
+#include "Animator.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
 
 GameObject::GameObject(string name, GameObject * parent) : name(name), parent(parent){
@@ -32,7 +34,7 @@ bool GameObject::Start()
 		/*App->scene_intro->AddAABB(&aabb, mesh->b_aabb->color);
 		App->scene_intro->AddOBB(&obb, mesh->b_obb->color);*/
 
-		mesh->UpdateBox();
+		UpdateBox();
 	}
 	return false;
 }
@@ -46,9 +48,13 @@ void GameObject::StartChilds() {
 }
 
 void GameObject::UpdateChilds() {
+
+	if (animator != nullptr)
+		animator->UpdateAnim();
+
 	for (int i = 0; i < childs.size(); ++i) {
 		childs[i]->active = active;
-		childs[i]->transform->UpdateMatrices();
+		//childs[i]->transform->UpdateMatrices();
 		childs[i]->UpdateChilds();
 	}
 }
@@ -56,8 +62,10 @@ void GameObject::UpdateChilds() {
 void GameObject::drawChilds() {
 	for(int i = 0; i < childs.size(); ++i){
 		if (active) {
-			if (App->scene_intro->main_camera->camera->CullFace(childs[i]))
-				childs[i]->Draw();
+			if (App->scene_intro->main_camera->camera->CullFace(childs[i])) {
+				if(childs[i]->mesh != nullptr)
+					childs[i]->mesh->Draw();
+			}
 		}
 			childs[i]->drawChilds();
 	}
@@ -162,6 +170,10 @@ Component * GameObject::AddComponent(Component_Type type)
 		component = new C_Camera(this, type);
 		camera = (C_Camera*)component;
 		break;
+	case Component_Type::C_Animator:
+		component = new Animator(this, type);
+		animator = (Animator*)component;
+		break;
 	}
 	components.push_back(component);
 	component->Enable();
@@ -200,7 +212,10 @@ void GameObject::Load(const char * _name, const json & file)
 	ID = file["Game Objects"][_name]["UID"].get<uint>();
 	if (file["Game Objects"][_name].find("Parent UID") != file["Game Objects"][_name].end()) {
 		int id = file["Game Objects"][_name]["Parent UID"].get<uint>();
-		App->scene_intro->setParentByID(id, App->scene_intro->root, this);
+		if (id == 0)
+			App->scene_intro->root = this;
+		else
+			App->scene_intro->setParentByID(id, App->scene_intro->root, this);
 	}
 	active = file["Game Objects"][_name]["Enable"].get<bool>();
 	_static = file["Game Objects"][_name]["Static"].get<bool>();
@@ -214,8 +229,16 @@ void GameObject::Load(const char * _name, const json & file)
 	{
 		C_MeshInfo* t = (C_MeshInfo*)AddComponent(Component_Type::Mesh_Info);
 		t->Load(_name, file);
+
+		Mesh_R* resource = (Mesh_R*)App->resources->Get(t->id);
+		vector<Vertex> vec = resource->toVertex();
+		vector<uint>indx(resource->_indices, resource->_indices + (sizeof(resource->_indices) * resource->buffersSize[indices_size] * 3) / sizeof(resource->_indices[0]));
+		mesh = new MeshObject(vec, indx, this);
+
+		box.SetNegativeInfinity();
+		box.Enclose((math::float3*)resource->_vertices, resource->buffersSize[vertices_size]);
 	}
-	
+
 	if (file["Game Objects"][_name]["Components"].find("Normals") != file["Game Objects"][_name]["Components"].end())
 	{
 		C_Normals* t = (C_Normals*)AddComponent(Component_Type::Normals);
@@ -234,5 +257,8 @@ void GameObject::Load(const char * _name, const json & file)
 		t->Load(_name, file);
 		App->scene_intro->main_camera = this;
 	}
+	Start();
+	/*std::string
+	App->importer->LoadFile("/Library/Meshes/")*/
 
 }

@@ -33,6 +33,7 @@ class Component;
 class C_Normals;
 class C_Transform;
 class C_Camera;
+class Animator;
 
 enum aiTextureType;
 enum Component_Type;
@@ -100,6 +101,7 @@ public:
 	C_Transform* transform = nullptr;
 	C_Normals* normals = nullptr;
 	C_Camera* camera = nullptr;
+	Animator* animator = nullptr;
 
 public:
 	//GET COMPONENTS ----------------------------

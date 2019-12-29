@@ -48,11 +48,11 @@ public:
 
 	void SaveScene(std::string fileName);
 
-	uint SaveAllScene(GameObject * root, json & file);
+	uint SaveAllScene(GameObject * root, json & file, uint & count);
 
 	void LoadScene(std::string * fileName);
 
-	uint LoadAllScene(GameObject * root, json & file, uint elements);
+	uint LoadAllScene(GameObject * root, json & file, uint * elements, uint & count);
 
 	std::vector<BBox<AABB>> aabbs;
 	std::vector<BBox<OBB>> obbs;
@@ -73,5 +73,6 @@ public:
 	bool lookQuads = true;
 
 	bool savePopUp = false;
+	uint LoadElementResources(json & file, uint elements);
 };
 #endif

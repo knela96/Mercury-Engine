@@ -32,9 +32,18 @@ public:
 	ModuleResources(Application* app, bool start_enabled = true);
 	~ModuleResources();
 
-	UID Find(const char* file_in_assets) const;
+	bool Start();
+	update_status Update(float dt);
+	void ReimportFiles();
+	void UpdateAssets(std::vector<std::string>* list);
+	bool ModifiedFile(const char * meta_path, const char * file_path);
+	void ImportMetaFiles();
+	void LoadMetaFromFile(std::vector<std::string>* files);
+	void LoadMeta(const char * path);
+	void LoadMetaResources(const char * resource_path, const char * original_path);
+	uint LoadElementResources(json & file, uint elements, const char * resource_path, const char * original_path, uint& count);
 	UID ImportFile(const char* new_file_in_assets, bool force = false);
-	void ImporSceneResource(const char * file, std::string origin_path);
+	void ImporSceneResource(const char * file);
 	ResourceType GetType(const char * path);
 	UID GenerateNewUID();
 	void AddResource(Resources * resource);
@@ -45,6 +54,11 @@ public:
 	Resources* Get(UID uid);
 	Resources* CreateNewResource(ResourceType type, UID force_uid = 0);
 	Meta * FindMetaResource(const char * original_file, const char * name, ResourceType type);
+	uint DeleteResource(UID ID);
+	void UnLoadResource(UID ID);
+
+public:
+	FolderContainer asset_folder;
 private:
 	std::map<UID, Resources*> resources;
 
@@ -58,6 +72,8 @@ private:
 	std::map<uint64, Resources*> animations;
 
 	LCG random;
+
+	Timer timer;
 
 };
 

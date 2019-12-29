@@ -51,7 +51,13 @@ public:
 	// IO interfaces for other libs to handle files via PHYSfs
 	aiFileIO* GetAssimpIO();
 	uint64 GetLastModTime(const char * filename);
-	FolderContainer RecursiveGetFoldersFiles(const char * directory, std::vector<std::string>* filter_ext = nullptr, std::vector<std::string>* ignore_ext = nullptr);
+	FolderContainer RecursiveGetFoldersFiles(const char * directory, std::vector<std::string>* filter_ext = nullptr, std::vector<std::string>* ignore_ext = nullptr, std::vector<std::string>* list = nullptr);
+	
+	bool HasExtension(const char * path) const;
+
+	bool HasExtension(const char * path, std::string extension) const;
+
+	bool HasExtension(const char * path, std::vector<std::string> extensions) const;
 
 	unsigned int Save(const char* file, const void* buffer, unsigned int size, bool append = false) const;
 	bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);

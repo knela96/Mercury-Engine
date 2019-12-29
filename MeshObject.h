@@ -4,20 +4,32 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "Mesh_R.h"
+#include "Joint.h"
+
 
 struct Vertex {
-	vec3 Position;
-	vec3 Normal;
-	vec4 Colors;
-	vec2 TexCoords;
+	vec3     Position;
+	vec3     Normal;
+	vec4     Colors;
+	vec2     TexCoords;
+
+	vec4     Joints;
+	vec4     Weights;
+};
+
+struct VertexBoneData
+{
+	uint BoneID;
+	uint indices;
+	float weights;
 };
 
 class aiMesh;
 
-class MeshObject : public GameObject
+class MeshObject
 {
 public:
-	MeshObject(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture*> textures, string name);
+	MeshObject(vector<Vertex> vertices, vector<uint> indices, GameObject* gameObject);
 	~MeshObject();
 
 	bool SetupBuffers();
@@ -34,7 +46,7 @@ public:
 	vector<Vertex> vertices;
 	vector<uint> indices;
 	uint VAO;
-
+	GameObject* gameobject;
 private:
 	uint VBO, EBO;
 };

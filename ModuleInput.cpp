@@ -103,6 +103,7 @@ update_status ModuleInput::PreUpdate(float dt)
 						// Shows directory of dropped file
 
 						App->resources->ImportFile(dropped_filedir,true);
+						App->gui->filesystem->UpdateAssets();
 
 						SDL_free(dropped_filedir);    // Free dropped_filedir memory
 					}

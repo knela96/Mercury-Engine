@@ -21,9 +21,7 @@ WindowFileSystem::~WindowFileSystem()
 
 bool WindowFileSystem::Start()
 {
-	root = FolderContainer(ASSETS_FOLDER);
-
-	root = App->filesystem->RecursiveGetFoldersFiles(root.path.c_str());
+	UpdateAssets();
 
 	currentFolder = &root;
 
@@ -38,6 +36,14 @@ bool WindowFileSystem::Start()
 
 
 	return true;
+}
+
+void WindowFileSystem::UpdateAssets() {
+	root = FolderContainer(ASSETS_FOLDER);
+	std::vector<std::string> exclude;
+	exclude.push_back("meta");
+	exclude.push_back("scene");
+	root = App->filesystem->RecursiveGetFoldersFiles(root.path.c_str(), nullptr, &exclude);
 }
 
 
@@ -102,7 +108,7 @@ void WindowFileSystem::DrawNode(FolderContainer* node) {
 
 	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
 	{
-		ImGui::SetDragDropPayload(node->localPath.c_str(), &resourceID, sizeof(uint64));
+		ImGui::SetDragDropPayload("Resource", &resourceID, sizeof(UID));
 		ImGui::Image((ImTextureID)ID, ImVec2(40, 40), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::Text(node->localPath.c_str());
 
@@ -113,14 +119,25 @@ void WindowFileSystem::DrawNode(FolderContainer* node) {
 }
 
 uint* WindowFileSystem::GetNodeTexID(FolderContainer* node, uint64& resourceID, std::string texIcon) {
+	if (node->isFile) {
+		std::string path, fileName;
+		App->filesystem->SplitFilePath(node->path.c_str(), &path, &fileName, nullptr, true);
+		string meta_path(path + fileName + ".meta");
 
-	//resourceID = App->resources->GetResource(node->path.c_str());
-	//resourceID = App->resources->Get(-1)->ID;
-
+		if (App->filesystem->Exists(meta_path.c_str())) {
+			meta_path.erase(0, 1);
+			json file;
+			ifstream stream;
+			stream.open(meta_path);
+			file = json::parse(stream);
+			resourceID = file["ID"].get<UID>();
+			stream.close();
+		}
+	}
 	if (node->isFile == true)
-		return &icons.at(0)->id;
-	else
 		return &icons.at(1)->id;
+	else
+		return &icons.at(0)->id;
 }
 
 void WindowFileSystem::CreateHierarchy(FolderContainer* folder, int &node_clicked, int index) {

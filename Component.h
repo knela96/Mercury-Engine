@@ -10,7 +10,8 @@ enum Component_Type {
 	Normals,
 	Material,
 	Script,
-	Camera
+	Camera,
+	C_Animator
 };
 
 class Component
