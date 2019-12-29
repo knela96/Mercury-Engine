@@ -1,5 +1,6 @@
 Welcome to Mercury engine's Github page!
 
+Each engine must have single page website (made inside github.com) that contains:
 
 
 1. Short introduction to the engine and it’s context (university subject).
@@ -47,7 +48,7 @@ Eric Canela:
 
 4. Detailed explanation of last assignment sub-system, containing two animated gif that shows editor
 and in-game functionality.
-[Animations System](docs/AnimationsDiagram.png)
+[Animations System](https://github.com/knela96/Mercury-Engine/blob/master/docs/AnimationsDiagram.png)
 
 5. One minute video speed-up that shows the process of authoring scenes in your editor, especially
 with your core technology from the last assignment (captured from the computer, not mobile).
