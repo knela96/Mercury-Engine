@@ -1,4 +1,4 @@
-# Welcome to Mercury engine's Github page!
+# Mercury Engine
 
 Each engine must have single page website (made inside github.com) that contains:
 
