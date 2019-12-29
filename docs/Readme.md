@@ -2,22 +2,25 @@ Welcome to Mercury engine's Github page!
 
 Each engine must have single page website (made inside github.com) that contains:
 
-
-1. Short introduction to the engine and it’s context (university subject).
+1. The Engine
 [Mercury engine](https://github.com/knela96/Mercury-Engine) is a videogames engine university project for UPC-CITM. This project pretends to create an
 engine witch is able to load, import and play animations from fbx models that have been animated in an external animation software such as maya, blender 
 or 3DsMax. 
 This s a group project by [Eric Canela Sol](https://github.com/knela96) and [Jaume Avinyó Sedano](https://github.com/Jaumeavinyo). We are third year students
 in the programming and videogame developement Bachalor Degree in UPC-CITM.
 
-2. Team photo and quick explanation of the individual work of each member.
-[Eric Canela](Eric.jpg)
+2. Team photos
+
+<img src="https://raw.githubusercontent.com/knela96/Mercury-Engine/master/docs/Eric.jpg" width="140">
+
+**Eric Canela**
 
 
-[Jaume Avinyo](Jaume.jpg)
+<img src="https://raw.githubusercontent.com/knela96/Mercury-Engine/master/docs/Jaume.jpg" width="140">
+**Jaume Avinyó**
 
 
-[Jaume Avinyó:](https://github.com/Jaumeavinyo) 
+[Jaume Avinyó:](!https://github.com/Jaumeavinyo) 
 - fbx importer and Game object structure
 - console + its functionalities
 - Engine state info such as fps, modules configuration's variables, hardware detection and software versions for all libraries used
@@ -26,7 +29,7 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 - Basic shapes loading
 - Animations (Mostly done in group)
 
-[Eric Canela:](https://github.com/knela96)
+[Eric Canela:](!https://github.com/knela96)
 - fbx importer and DDS teture format importer
 - Drag and drop files to the engine
 - GameObjects transforms
@@ -39,7 +42,7 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 - Animations (Mostly done in group)
 
 
-3. Short explanation of the main core sub-systems.
+3. Sub-systems.
 - Camera:
 - File System:
 - Importer
@@ -49,8 +52,7 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 - Resources
 - Animator
 
-4. Detailed explanation of last assignment sub-system, containing two animated gif that shows editor
-and in-game functionality.
+4. Animation System
 <img src="AnimationsDiagram.png" >
 
 So, as it can be seen in the image avobe, the animator is the core of this animations system. It contains all the animations
@@ -74,14 +76,23 @@ have a index wich is very usefull because as I said before, vertexes need to kno
 
 The importer fills the animation list and their frames ussing assimp "aiAnimation", bones are loaded with aiBone and the last thing you need to load is every vertex influences.
 
-
-
-
-5. One minute video speed-up that shows the process of authoring scenes in your editor, especially
-with your core technology from the last assignment (captured from the computer, not mobile).
+<iframe width="1688" height="580" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 6. Link to the code repository and last release to download.
-
+[Github Repository](https://github.com/knela96/Mercury-Engine)
+[Release Link](https://github.com/knela96/Mercury-Engine/releases)
 
 7. License.
+Copyright <2019> <Mercury Engine Studios by Eric Canela Sol and Jaume Avinyo Sedano>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+associated documentation files (the Software), to deal in the Software without restriction, including 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to 
+the following conditions:The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.THE SOFTWARE IS PROVIDED -AS IS-, WITHOUT WARRANTY OF 
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
