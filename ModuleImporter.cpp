@@ -219,14 +219,9 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 	return resource;
 }
 
-void ModuleImporter::ImportObjectBones(const std::vector<aiMesh*>& meshes, const std::vector<GameObject*>& objects, GameObject* root, const char* source_file) {
-
-
-}
-
 vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 	vector<Animation*> AnimList;
-
+	
 	scene->mNumAnimations;
 	//if(scene.HasAnimations){} clog aqui loko
 
@@ -236,7 +231,7 @@ vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 		anim->setLenght(scene->mAnimations[i]->mDuration);
 		anim->keyFrameCount = scene->mAnimations[i]->mNumChannels;
 		anim->name = scene->mAnimations[i]->mName.C_Str();
-
+	
 		//NOW WE ASSIGN TO ALL BONES ALL THEIR KEYFRAMES
 		for (int j = 0; j < scene->mAnimations[i]->mNumChannels; j++) {     //numchanels = bone number and j is which bone is
 			for (int k = 0; k < scene->mAnimations[i]->mChannels[j]->mNumPositionKeys; k++) {
@@ -252,7 +247,7 @@ vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {
 
 				JointTransform* transform = new JointTransform();
 				transform->Position = vec3(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.x,
-											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y,
+											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y, 
 											scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.z);
 				transform->Rotation = Quat(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.x,
 											scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.y,
@@ -323,7 +318,7 @@ void ModuleImporter::InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFra
 {
 	JointTransform* prev = prevFrame->pose[name];
 	JointTransform* next = nextFrame->pose[name];
-
+	
 	uint steps = nextFrame->TimePosition - prevFrame->TimePosition;
 
 	int index = 1;
@@ -643,7 +638,7 @@ void ModuleImporter::LoadHierarchyJoints(GameObject* gameobject, std::map<std::s
 				bone->mOffsetMatrix.b1, bone->mOffsetMatrix.b2, bone->mOffsetMatrix.b3, bone->mOffsetMatrix.b4,
 				bone->mOffsetMatrix.c1, bone->mOffsetMatrix.c2, bone->mOffsetMatrix.c3, bone->mOffsetMatrix.c4,
 				bone->mOffsetMatrix.d1, bone->mOffsetMatrix.d2, bone->mOffsetMatrix.d3, bone->mOffsetMatrix.d4).inverse();
-
+			
 			if (joints.size() > 0) {
 				joint->children.push_back(child);
 				joints.push_back(child);

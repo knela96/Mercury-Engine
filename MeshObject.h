@@ -17,13 +17,6 @@ struct Vertex {
 	vec4     Weights;
 };
 
-struct VertexBoneData
-{
-	uint BoneID;
-	uint indices;
-	float weights;
-};
-
 class aiMesh;
 
 class MeshObject
