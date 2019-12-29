@@ -40,29 +40,31 @@ std::vector<Vertex> Mesh_R::toVertex()
 
 		vec.push_back(vertex);
 	}
-	uint temp[4] = { 0,0,0,0 };
-	float temp2[4] = { 0,0,0,0 };
-	uint current = _weights_indices[0];
-	uint first = 0;
-	uint index = 0;
-	uint steps = 0;
-	for (int i = 0; i < vec.size(); ++i) {
-		steps = 0;
-		while (current == _weights_indices[index] && index < buffersSize[weights_size]) {
-			index++;
-			steps++;
+	if (_weights_indices != nullptr) {
+		uint temp[4] = { 0,0,0,0 };
+		float temp2[4] = { 0,0,0,0 };
+		uint current = _weights_indices[0];
+		uint first = 0;
+		uint index = 0;
+		uint steps = 0;
+		for (int i = 0; i < vec.size(); ++i) {
+			steps = 0;
+			while (current == _weights_indices[index] && index < buffersSize[weights_size]) {
+				index++;
+				steps++;
+			}
+			for (int i = 0; i < steps; ++i) {
+				temp[i] = _bones[first];
+				temp2[i] = _weights[first];
+				first++;
+			}
+			vec.at(i).Joints = vec4(temp[0], temp[1], temp[2], temp[3]);
+			vec.at(i).Weights = vec4(temp2[0], temp2[1], temp2[2], temp2[3]);
+			current = _weights_indices[index];
+			temp[0] = temp[1] = temp[2] = temp[3] = 0;
+			temp2[0] = temp2[1] = temp2[2] = temp2[3] = 0;
+			first = index;
 		}
-		for (int i = 0; i < steps; ++i) {
-			temp[i] = _bones[first];
-			temp2[i] = _weights[first];
-			first++;
-		}
-		vec.at(i).Joints =  vec4(temp[0], temp[1], temp[2] ,temp[3]);
-		vec.at(i).Weights =  vec4(temp2[0], temp2[1], temp2[2] ,temp2[3]);
-		current = _weights_indices[index];
-		temp[0] = temp[1] = temp[2] = temp[3] = 0;
-		temp2[0] = temp2[1] = temp2[2] = temp2[3] = 0;
-		first = index;
 	}
 
 
