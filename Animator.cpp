@@ -13,13 +13,10 @@ void Animator::Draw()
 {
 	glDisable(GL_LIGHTING);
 	glColor3f(255.0f, 255.0f, 0.0f);
-	glLineWidth(600.0f);
-	LOGC("/////////////////////////////////////////////");
 	if (myAnimatedBody != nullptr && currAnimation != nullptr) {
 		Joint* root = myAnimatedBody->GetRootJoint();
 		DrawJoints(currAnimation->keyframes_list[AnimationTime], root);
 	}
-	LOGC("----------------------------------------------");
 	glEnable(GL_LIGHTING);
 }
 

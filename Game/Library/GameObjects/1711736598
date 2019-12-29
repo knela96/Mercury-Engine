@@ -1,0 +1,1048 @@
+{
+    "Game Objects": {
+        "Count": 37,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 775893247
+        },
+        "Game Object 10": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Forearm",
+            "Parent UID": 461945556,
+            "Static": false,
+            "UID": 513705832
+        },
+        "Game Object 11": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Hand",
+            "Parent UID": 513705832,
+            "Static": false,
+            "UID": 961264978
+        },
+        "Game Object 12": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger0",
+            "Parent UID": 961264978,
+            "Static": false,
+            "UID": 226667454
+        },
+        "Game Object 13": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger01",
+            "Parent UID": 226667454,
+            "Static": false,
+            "UID": 95625157
+        },
+        "Game Object 14": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger02",
+            "Parent UID": 95625157,
+            "Static": false,
+            "UID": 173068963
+        },
+        "Game Object 15": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger1",
+            "Parent UID": 961264978,
+            "Static": false,
+            "UID": 772389185
+        },
+        "Game Object 16": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger11",
+            "Parent UID": 772389185,
+            "Static": false,
+            "UID": 817480335
+        },
+        "Game Object 17": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Finger12",
+            "Parent UID": 817480335,
+            "Static": false,
+            "UID": 350272820
+        },
+        "Game Object 18": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Clavicle",
+            "Parent UID": 958646067,
+            "Static": false,
+            "UID": 595387438
+        },
+        "Game Object 19": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R UpperArm",
+            "Parent UID": 595387438,
+            "Static": false,
+            "UID": 641212874
+        },
+        "Game Object 2": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 241354600,
+                    "Name": "Object02"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071067690849304,
+                        0.0,
+                        0.0,
+                        0.7071067690849304
+                    ],
+                    "Scale": [
+                        2.5399999618530273,
+                        2.5399999618530273,
+                        2.5399999618530273
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Object02",
+            "Parent UID": 775893247,
+            "Static": false,
+            "UID": 955127111
+        },
+        "Game Object 20": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Forearm",
+            "Parent UID": 641212874,
+            "Static": false,
+            "UID": 105989508
+        },
+        "Game Object 21": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Hand",
+            "Parent UID": 105989508,
+            "Static": false,
+            "UID": 610853094
+        },
+        "Game Object 22": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger0",
+            "Parent UID": 610853094,
+            "Static": false,
+            "UID": 427854500
+        },
+        "Game Object 23": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger01",
+            "Parent UID": 427854500,
+            "Static": false,
+            "UID": 287767370
+        },
+        "Game Object 24": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger02",
+            "Parent UID": 287767370,
+            "Static": false,
+            "UID": 58150106
+        },
+        "Game Object 25": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger1",
+            "Parent UID": 610853094,
+            "Static": false,
+            "UID": 933029415
+        },
+        "Game Object 26": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger11",
+            "Parent UID": 933029415,
+            "Static": false,
+            "UID": 897101788
+        },
+        "Game Object 27": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Finger12",
+            "Parent UID": 897101788,
+            "Static": false,
+            "UID": 644141418
+        },
+        "Game Object 28": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 Head",
+            "Parent UID": 958646067,
+            "Static": false,
+            "UID": 645891717
+        },
+        "Game Object 29": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bone001",
+            "Parent UID": 645891717,
+            "Static": false,
+            "UID": 32760103
+        },
+        "Game Object 3": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "transform1",
+            "Parent UID": 775893247,
+            "Static": false,
+            "UID": 31277329
+        },
+        "Game Object 30": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Thigh",
+            "Parent UID": 52449900,
+            "Static": false,
+            "UID": 290319951
+        },
+        "Game Object 31": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Calf",
+            "Parent UID": 290319951,
+            "Static": false,
+            "UID": 408475658
+        },
+        "Game Object 32": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Foot",
+            "Parent UID": 408475658,
+            "Static": false,
+            "UID": 553373352
+        },
+        "Game Object 33": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Toe0",
+            "Parent UID": 553373352,
+            "Static": false,
+            "UID": 147346559
+        },
+        "Game Object 34": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Thigh",
+            "Parent UID": 52449900,
+            "Static": false,
+            "UID": 986002498
+        },
+        "Game Object 35": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Calf",
+            "Parent UID": 986002498,
+            "Static": false,
+            "UID": 919803768
+        },
+        "Game Object 36": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Foot",
+            "Parent UID": 919803768,
+            "Static": false,
+            "UID": 685003584
+        },
+        "Game Object 37": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 R Toe0",
+            "Parent UID": 685003584,
+            "Static": false,
+            "UID": 411870849
+        },
+        "Game Object 4": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 Pelvis",
+            "Parent UID": 31277329,
+            "Static": false,
+            "UID": 12105075
+        },
+        "Game Object 5": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 Spine",
+            "Parent UID": 12105075,
+            "Static": false,
+            "UID": 52449900
+        },
+        "Game Object 6": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 Spine1",
+            "Parent UID": 52449900,
+            "Static": false,
+            "UID": 765791248
+        },
+        "Game Object 7": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 Neck",
+            "Parent UID": 765791248,
+            "Static": false,
+            "UID": 958646067
+        },
+        "Game Object 8": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L Clavicle",
+            "Parent UID": 958646067,
+            "Static": false,
+            "UID": 323948758
+        },
+        "Game Object 9": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Bip001 L UpperArm",
+            "Parent UID": 323948758,
+            "Static": false,
+            "UID": 461945556
+        },
+        "Name": "aniTest.fbx",
+        "Source": "/Assets/Textures/aniTest.fbx"
+    }
+}

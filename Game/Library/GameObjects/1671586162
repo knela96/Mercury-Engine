@@ -1,0 +1,2076 @@
+{
+    "Game Objects": {
+        "Count": 73,
+        "Game Object 1": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "RootNode",
+            "Parent UID": 581869302,
+            "Static": false,
+            "UID": 977810701
+        },
+        "Game Object 10": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B1_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 755438379
+        },
+        "Game Object 11": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B2_L",
+            "Parent UID": 755438379,
+            "Static": false,
+            "UID": 555059183
+        },
+        "Game Object 12": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_L",
+            "Parent UID": 555059183,
+            "Static": false,
+            "UID": 126190880
+        },
+        "Game Object 13": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_L_end",
+            "Parent UID": 126190880,
+            "Static": false,
+            "UID": 589191337
+        },
+        "Game Object 14": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B1_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 54648512
+        },
+        "Game Object 15": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B2_L",
+            "Parent UID": 54648512,
+            "Static": false,
+            "UID": 952394946
+        },
+        "Game Object 16": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_L",
+            "Parent UID": 952394946,
+            "Static": false,
+            "UID": 504304985
+        },
+        "Game Object 17": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_L_end",
+            "Parent UID": 504304985,
+            "Static": false,
+            "UID": 274213163
+        },
+        "Game Object 18": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B1_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 369142370
+        },
+        "Game Object 19": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B2_L",
+            "Parent UID": 369142370,
+            "Static": false,
+            "UID": 821782344
+        },
+        "Game Object 2": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Hemi",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 871311609
+        },
+        "Game Object 20": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_L",
+            "Parent UID": 821782344,
+            "Static": false,
+            "UID": 181234724
+        },
+        "Game Object 21": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_L_end",
+            "Parent UID": 181234724,
+            "Static": false,
+            "UID": 367287522
+        },
+        "Game Object 22": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B1_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 779850007
+        },
+        "Game Object 23": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B2_L",
+            "Parent UID": 779850007,
+            "Static": false,
+            "UID": 276765484
+        },
+        "Game Object 24": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_L",
+            "Parent UID": 276765484,
+            "Static": false,
+            "UID": 142120513
+        },
+        "Game Object 25": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_L_end",
+            "Parent UID": 142120513,
+            "Static": false,
+            "UID": 48565860
+        },
+        "Game Object 26": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_1_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 432668526
+        },
+        "Game Object 27": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_2_L",
+            "Parent UID": 432668526,
+            "Static": false,
+            "UID": 478877150
+        },
+        "Game Object 28": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_3_L",
+            "Parent UID": 478877150,
+            "Static": false,
+            "UID": 209580219
+        },
+        "Game Object 29": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_3_L_end",
+            "Parent UID": 209580219,
+            "Static": false,
+            "UID": 970740713
+        },
+        "Game Object 3": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 965885375,
+                    "Name": "Cube"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Box",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 385787519
+        },
+        "Game Object 30": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Zahn_L",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 602441845
+        },
+        "Game Object 31": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Zahn_L_end",
+            "Parent UID": 602441845,
+            "Static": false,
+            "UID": 973030509
+        },
+        "Game Object 32": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B1_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 815637919
+        },
+        "Game Object 33": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B2_R",
+            "Parent UID": 815637919,
+            "Static": false,
+            "UID": 724736366
+        },
+        "Game Object 34": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_R",
+            "Parent UID": 724736366,
+            "Static": false,
+            "UID": 775069742
+        },
+        "Game Object 35": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_R_end",
+            "Parent UID": 775069742,
+            "Static": false,
+            "UID": 730798472
+        },
+        "Game Object 36": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B1_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 284417767
+        },
+        "Game Object 37": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B2_R",
+            "Parent UID": 284417767,
+            "Static": false,
+            "UID": 733611686
+        },
+        "Game Object 38": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_R",
+            "Parent UID": 733611686,
+            "Static": false,
+            "UID": 651006053
+        },
+        "Game Object 39": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_R_end",
+            "Parent UID": 651006053,
+            "Static": false,
+            "UID": 162087183
+        },
+        "Game Object 4": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spider_Armature",
+            "Parent UID": 385787519,
+            "Static": false,
+            "UID": 718987737
+        },
+        "Game Object 40": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B1_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 801767645
+        },
+        "Game Object 41": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B2_R",
+            "Parent UID": 801767645,
+            "Static": false,
+            "UID": 77594039
+        },
+        "Game Object 42": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_R",
+            "Parent UID": 77594039,
+            "Static": false,
+            "UID": 503306160
+        },
+        "Game Object 43": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_R_end",
+            "Parent UID": 503306160,
+            "Static": false,
+            "UID": 293613218
+        },
+        "Game Object 44": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B1_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 407880681
+        },
+        "Game Object 45": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B2_R",
+            "Parent UID": 407880681,
+            "Static": false,
+            "UID": 554334954
+        },
+        "Game Object 46": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_R",
+            "Parent UID": 554334954,
+            "Static": false,
+            "UID": 253962019
+        },
+        "Game Object 47": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_R_end",
+            "Parent UID": 253962019,
+            "Static": false,
+            "UID": 638308238
+        },
+        "Game Object 48": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_1_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 991125519
+        },
+        "Game Object 49": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_2_R",
+            "Parent UID": 991125519,
+            "Static": false,
+            "UID": 155963569
+        },
+        "Game Object 5": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Body.003",
+            "Parent UID": 718987737,
+            "Static": false,
+            "UID": 509902580
+        },
+        "Game Object 50": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_3_R",
+            "Parent UID": 155963569,
+            "Static": false,
+            "UID": 6862945
+        },
+        "Game Object 51": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "FU_3_R_end",
+            "Parent UID": 6862945,
+            "Static": false,
+            "UID": 53853750
+        },
+        "Game Object 52": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Zahn_R",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 230879976
+        },
+        "Game Object 53": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Zahn_R_end",
+            "Parent UID": 230879976,
+            "Static": false,
+            "UID": 423909157
+        },
+        "Game Object 54": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_L.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 652511030
+        },
+        "Game Object 55": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_L.001_end",
+            "Parent UID": 652511030,
+            "Static": false,
+            "UID": 526211009
+        },
+        "Game Object 56": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_L.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 92251623
+        },
+        "Game Object 57": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_L.001_end",
+            "Parent UID": 92251623,
+            "Static": false,
+            "UID": 281084412
+        },
+        "Game Object 58": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_L.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 207008400
+        },
+        "Game Object 59": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_L.001_end",
+            "Parent UID": 207008400,
+            "Static": false,
+            "UID": 820973075
+        },
+        "Game Object 6": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Body.002",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 120956802
+        },
+        "Game Object 60": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_L.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 962673849
+        },
+        "Game Object 61": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_L.001_end",
+            "Parent UID": 962673849,
+            "Static": false,
+            "UID": 90677336
+        },
+        "Game Object 62": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_R.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 724513375
+        },
+        "Game Object 63": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v_B3_R.001_end",
+            "Parent UID": 724513375,
+            "Static": false,
+            "UID": 135918139
+        },
+        "Game Object 64": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_R.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 652856935
+        },
+        "Game Object 65": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v2_B3_R.001_end",
+            "Parent UID": 652856935,
+            "Static": false,
+            "UID": 691276589
+        },
+        "Game Object 66": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_R.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 459550738
+        },
+        "Game Object 67": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v3_B3_R.001_end",
+            "Parent UID": 459550738,
+            "Static": false,
+            "UID": 477000057
+        },
+        "Game Object 68": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_R.001",
+            "Parent UID": 509902580,
+            "Static": false,
+            "UID": 785646024
+        },
+        "Game Object 69": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "v4_B3_R.001_end",
+            "Parent UID": 785646024,
+            "Static": false,
+            "UID": 30500157
+        },
+        "Game Object 7": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Body",
+            "Parent UID": 120956802,
+            "Static": false,
+            "UID": 884932179
+        },
+        "Game Object 70": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 123154542,
+                    "Name": "Spider.006"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        3.725290298461914e-08,
+                        0.0,
+                        -0.48445940017700195
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        20.0,
+                        20.0,
+                        20.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spider_Eyes",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 157629976
+        },
+        "Game Object 71": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 998151922,
+                    "Name": "Spider.005"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        3.725290298461914e-08,
+                        0.0,
+                        -0.48445940017700195
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        20.0,
+                        20.0,
+                        20.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spider",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 721241591
+        },
+        "Game Object 72": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 23309182,
+                    "Name": "Spider.004"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        3.725290298461914e-08,
+                        0.0,
+                        -0.48445940017700195
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        20.0,
+                        20.0,
+                        20.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spider_teeth",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 385268511
+        },
+        "Game Object 73": {
+            "Components": {
+                "Mesh": {
+                    "Active": false,
+                    "ID": 182240337,
+                    "Name": "Spider"
+                },
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        3.725290298461914e-08,
+                        0.0,
+                        -0.48445940017700195
+                    ],
+                    "Rotation": [
+                        -0.7071068286895752,
+                        0.0,
+                        0.0,
+                        0.7071067094802856
+                    ],
+                    "Scale": [
+                        20.0,
+                        20.0,
+                        20.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Spider_Fur",
+            "Parent UID": 977810701,
+            "Static": false,
+            "UID": 296609403
+        },
+        "Game Object 8": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Body2",
+            "Parent UID": 884932179,
+            "Static": false,
+            "UID": 477253416
+        },
+        "Game Object 9": {
+            "Components": {
+                "Transform": {
+                    "Active": true,
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Enable": true,
+            "Name": "Body2_end",
+            "Parent UID": 477253416,
+            "Static": false,
+            "UID": 108379444
+        },
+        "Name": "Spider.fbx",
+        "Source": "Assets/Spider.fbx"
+    }
+}
