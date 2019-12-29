@@ -10,6 +10,7 @@ enum ResourceType {
 	AudioR,
 	TextureR,
 	MaterialR,
+	BonesR,
 	AnimationR
 };
 

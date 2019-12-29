@@ -62,6 +62,26 @@ Mesh_R* MeshImporter::ImportMeshResource(aiMesh* mesh, const char* path, const c
 	else
 		newmesh->buffersSize[tex_coords_size] = 0;
 
+	if (mesh->HasBones()) {
+
+		newmesh->bones_size = &mesh->mNumBones;
+
+		for (uint i = 0; i < mesh->mNumBones; i++) {
+			newmesh->buffersSize[weights_size] = mesh->mBones[i]->mNumWeights;
+			newmesh->_weights = new float[mesh->mBones[i]->mNumWeights];
+
+			for (uint j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+				memcpy(newmesh->_weights + j, &mesh->mBones[j]->mWeights->mWeight, sizeof(float));
+
+			for (uint j = 0; j < mesh->mBones[i]->mNumWeights; j++)
+				memcpy(newmesh->_weights_indices + j, &mesh->mBones[j]->mWeights->mVertexId, sizeof(uint));
+		}
+	}
+	else {
+		newmesh->bones_size = 0;
+		newmesh->buffersSize[weights_size] = 0;
+	}
+
 
 	std::string _path("/Library/Meshes/");
 	_path.append(to_string(ID));

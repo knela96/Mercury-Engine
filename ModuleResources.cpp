@@ -54,7 +54,8 @@ void ModuleResources::UpdateAssets(std::vector<std::string>* list) {
 		App->filesystem->SplitFilePath(list->at(i).c_str(), &path, &fileName,nullptr,true);
 		LOG("Checking: [%s]", list->at(i).c_str());
 		string meta_path(path + fileName + ".meta");
-		if (!App->filesystem->Exists(meta_path.c_str()) || ModifiedFile(meta_path.c_str(), list->at(i).c_str()))
+		string meta_path2("/"+path + fileName + ".meta");
+		if (!App->filesystem->Exists(meta_path2.c_str()) || ModifiedFile(meta_path.c_str(), list->at(i).c_str()))
 		{
 			App->importer->LoadFile(list->at(i).c_str());
 		}
