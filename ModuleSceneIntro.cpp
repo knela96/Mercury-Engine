@@ -7,6 +7,9 @@
 #include "Gizmo.h"
 #include "C_Camera.h"
 
+#include "Animator.h"
+
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -41,8 +44,7 @@ bool ModuleSceneIntro::Start()
 		root->childs[i]->StartChilds();
 	}
 
-
-
+	App->importer->Load("Assets/Models/Spider.fbx");
 	return ret;
 }
 
@@ -67,11 +69,12 @@ bool ModuleSceneIntro::Draw()
 {
 	for (int i = 0; i < root->childs.size(); ++i) {
 		if (root->childs[i]->active && root->active)
-			if(App->scene_intro->main_camera->camera->CullFace(root))
+			if (App->scene_intro->main_camera->camera->CullFace(root))
 				root->childs[i]->Draw();
-			root->childs[i]->drawChilds();
+		root->childs[i]->drawChilds();
 	}
-
+	if(root->animator !=nullptr)
+	root->animator->Draw();
 	DrawBB();
 
 	quat->Draw();
@@ -261,7 +264,6 @@ uint ModuleSceneIntro::LoadAllScene(GameObject* root, json& file, uint* elements
 }
 
 
-
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
@@ -270,11 +272,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+
+	if (root->animator != nullptr)
+		root->animator->UpdateAnim();
+
 	for (int i = 0; i < root->childs.size(); ++i) {
 		if (root->childs[i]->active && root->active)
 			root->childs[i]->UpdateChilds();
 	}
-	
 
 	Draw();
 

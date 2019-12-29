@@ -60,7 +60,7 @@ public:
 
 	bool Load(const char * path);
 
-	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes, vector<GameObject*>& objects);
+	GameObject * LoadHierarchy(aiNode * node, aiScene * scene, const char * str, GameObject * parent, vector<aiMesh*>* boned_meshes);
 
 	UID ImportResourceMesh(aiMesh * newMesh, const char * str, const char * fileName);
 
@@ -69,8 +69,6 @@ public:
 	Resources * LoadObjectResource(UID id);
 
 	Resources* ImportObject(const char* FileName, UID* id);
-
-	void ImportObjectBones(const std::vector<aiMesh*>& meshes, const std::vector<GameObject*>& objects, GameObject * root, const char * source_file);
 
 	void SaveGameObjectConfig(json & config, GameObject * gameObjects);
 
@@ -82,9 +80,9 @@ public:
 
 	void InterpolateKeyFrames(Keyframe* prevFrame, Keyframe* nextFrame, bool empty, string& name, std::map<uint, Keyframe*>& map);
 
-	void ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root);
+	Joint* ImportMeshBones(vector<aiMesh*>* newMesh, const char* str, const char* fileName, GameObject* root, int& size);
 	void LoadHierarchyJoints(GameObject * gameobject, std::map<std::string, aiBone*>* bones, Joint *& joint, vector<Joint*>& joints);
-	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, uint count);
+	void CollectGameObjectNames(aiMesh * mesh, std::map<std::string, aiBone*>& map, int& count);
 	UID	ImportResourceBones(aiMesh* newMesh, const char* str, const char* fileName);
 
 	vector<Texture*> loadMaterialTextures(string * str, aiMaterial * mat, aiTextureType type);

@@ -18,7 +18,7 @@ public:
 	int             index; //ID and also the order in the joints list
 	string          name; //name that joint recieve from .dae file
 
-	list<Joint*>    children; //joint's childrens
+	vector<Joint*>    children; //joint's childrens
 
 	mat4x4          AnimationTransform;
 

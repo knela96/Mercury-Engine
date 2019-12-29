@@ -12,8 +12,6 @@ enum Buffers
 	vertices_size,
 	normals_size,
 	tex_coords_size,
-	weights_size,
-	bones_size,
 	buffer_size
 };
 
@@ -34,9 +32,6 @@ public:
 	float*	_vertices = nullptr;
 	float*	_normals = nullptr;
 	float*	_tex_coords = nullptr;
-	uint*	_bones = nullptr;
-	uint*	_weights_indices = nullptr;
-	float*	_weights = nullptr;
 };
 #endif
 

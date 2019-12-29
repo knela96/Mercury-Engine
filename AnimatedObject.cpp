@@ -9,7 +9,7 @@ void AnimatedObject::DeleteAnimatedObject()
 mat4x4* AnimatedObject::GetJointsTransforms()
 {
 	mat4x4* JointsMatrices = new mat4x4[JointCount];
-	AddJointsToArray(&RootJoint, JointsMatrices);
+	AddJointsToArray(RootJoint, JointsMatrices);
 
 
 	return JointsMatrices;
@@ -18,7 +18,7 @@ mat4x4* AnimatedObject::GetJointsTransforms()
 void AnimatedObject::AddJointsToArray(Joint* ParentJoint, mat4x4* JointsMatrices) {
 
 	JointsMatrices[ParentJoint->index] = ParentJoint->GetAnimationTransform();
-	for (list<Joint*>::iterator it = ParentJoint->children.begin(); it != ParentJoint->children.end();) {
-		AddJointsToArray(*it, JointsMatrices);
+	for (int i = 0; i < ParentJoint->children.size(); ++i) {
+		AddJointsToArray(ParentJoint->children[i], JointsMatrices);
 	}
 }

@@ -63,8 +63,9 @@ void GameObject::drawChilds() {
 	for(int i = 0; i < childs.size(); ++i){
 		if (active) {
 			if (App->scene_intro->main_camera->camera->CullFace(childs[i])) {
-				if(childs[i]->mesh != nullptr)
+				if (childs[i]->mesh != nullptr) {
 					childs[i]->mesh->Draw();
+				}
 			}
 		}
 			childs[i]->drawChilds();

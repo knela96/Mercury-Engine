@@ -11,6 +11,8 @@ mat4x4 JointTransform::GetLocalTransform()
 	LocalTransform = LocalTransform * aux.rotate(Position.y, { 0,1,0 });
 	LocalTransform = LocalTransform * aux.rotate(Position.z, { 0,0,1 });
 
+	LocalTransform.scale(100.0f, 200.0f, 300.0f);
+
 	return LocalTransform;
 }
 
@@ -18,8 +20,8 @@ JointTransform JointTransform::Interpolate(JointTransform* PointA, JointTransfor
 	
 	vec3 pos = Interpolate(PointA->Position, PointB->Position, Progression);
 	Quat rot = Interpolate(PointA->Rotation, PointB->Rotation, Progression);
-
-	return JointTransform(pos, rot);
+	vec3 scale = Interpolate(PointA->Scale, PointB->Scale, Progression);
+	return JointTransform(pos, rot,scale);
 }
 
 vec3 JointTransform::Interpolate(vec3 start, vec3 end, float progression)
