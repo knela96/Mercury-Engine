@@ -1,15 +1,15 @@
-Welcome to Mercury engine's Github page!
+# Welcome to Mercury engine's Github page!
 
 Each engine must have single page website (made inside github.com) that contains:
 
-1. The Engine
+## The Engine
 [Mercury engine](https://github.com/knela96/Mercury-Engine) is a videogames engine university project for UPC-CITM. This project pretends to create an
 engine witch is able to load, import and play animations from fbx models that have been animated in an external animation software such as maya, blender 
 or 3DsMax. 
 This s a group project by [Eric Canela Sol](https://github.com/knela96) and [Jaume Avinyó Sedano](https://github.com/Jaumeavinyo). We are third year students
 in the programming and videogame developement Bachalor Degree in UPC-CITM.
 
-2. Team photos
+## Team photos
 
 <img src="https://raw.githubusercontent.com/knela96/Mercury-Engine/master/docs/Eric.jpg" width="140">
 
@@ -42,17 +42,19 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 - Animations (Mostly done in group)
 
 
-3. Sub-systems.
-- Camera:
-- File System:
+## Sub-systems
+- Camera: Can create a camera which has a component camera, where you can activate the camera culling and change the fov.
+- File System: Every time a file is being dropped in the engine, it stores the file in a own file format to make it faster to read, loading all the info and also maintaining a relation with a .meta file for each file (Models and Textures)
 - Importer
-  - Material
-  - Mesh
-- Renderer
-- Resources
-- Animator
+  - Material: It load the texture of each model we are importing to store it as a resource and use it later the times we need
+  - Mesh: Loads a Mesh of a mesh and gets all the models data (vertices, indices, texture coords) to use it later for each object in the Engine.
+  - Bones: It loads all the bones of each mesh of the model, and stores them individually with its weights and the vertices they are affecting each bone.
+  - Animations: It loads the animations of the model with all the keyframes of each bone.
+- Renderer: It renders the models in current time, having the ability to choose in execution time some configurations of render(Depth, Culling, Colors, Textures) enabling and disabling them.
+- Resources: Each Mesh, Material, GameObject is stored in separated files with our file format and loaded once in memory.
+- Animator: The animator controls the animations of each object, it executes and bind in pose the model every frame, controlling the time of the animation and the positions of the bones that will change the position of the mesh.
 
-4. Animation System
+## Animation System
 <img src="AnimationsDiagram.png" >
 
 So, as it can be seen in the image avobe, the animator is the core of this animations system. It contains all the animations
@@ -76,14 +78,14 @@ have a index wich is very usefull because as I said before, vertexes need to kno
 
 The importer fills the animation list and their frames ussing assimp "aiAnimation", bones are loaded with aiBone and the last thing you need to load is every vertex influences.
 
-<iframe width="1688" height="580" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-6. Link to the code repository and last release to download.
+## Download Engine
 [Github Repository](https://github.com/knela96/Mercury-Engine)
 [Release Link](https://github.com/knela96/Mercury-Engine/releases)
 
-7. License.
+## License
 Copyright <2019> <Mercury Engine Studios by Eric Canela Sol and Jaume Avinyo Sedano>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
