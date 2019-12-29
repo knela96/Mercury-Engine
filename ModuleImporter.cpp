@@ -221,18 +221,7 @@ Resources* ModuleImporter::ImportObject(const char* path, UID* id) {
 
 void ModuleImporter::ImportObjectBones(const std::vector<aiMesh*>& meshes, const std::vector<GameObject*>& objects, GameObject* root, const char* source_file) {
 
-	for (int i = 0; i < meshes.size(); ++i) {
-		vector<Joint*> joints;
-		std::map<std::string, aiBone*> bones;
-		uint count = 0;
-		CollectGameObjectNames(meshes.at(i), bones, count);
-
-		/*for (int j = 0; j < meshes[i]->mNumBones; ++j) {
-			meshes[i]->mBones[j]->mWeights->mVertexId
-		}*/
-
-	}
-
+	
 }
 
 vector<Animation*> ModuleImporter::ImportAnimations(const aiScene *scene) {

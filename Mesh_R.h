@@ -34,9 +34,9 @@ public:
 	float*	_vertices = nullptr;
 	float*	_normals = nullptr;
 	float*	_tex_coords = nullptr;
-	uint*	bones_size;
+	uint*	_bones = nullptr;
+	uint*	_weights_indices = nullptr;
 	float*	_weights = nullptr;
-	float*	_weights_indices = nullptr;
 };
 #endif
 
