@@ -263,7 +263,6 @@ uint ModuleSceneIntro::LoadAllScene(GameObject* root, json& file, uint* elements
 }
 
 
-
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
@@ -272,11 +271,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	for (int i = 0; i < root->childs.size(); ++i) {
-		if (root->childs[i]->active && root->active)
-			root->childs[i]->UpdateChilds();
-	}
 
+	root->UpdateChilds();
+	
 
 	Draw();
 
