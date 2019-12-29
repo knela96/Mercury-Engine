@@ -13,14 +13,15 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 
 <img src="https://raw.githubusercontent.com/knela96/Mercury-Engine/master/docs/Eric.jpg" width="140">
 
-**Eric Canela**
+**Eric Canela** ([Github](https://github.com/knela96))
 
 
 <img src="https://raw.githubusercontent.com/knela96/Mercury-Engine/master/docs/Jaume.jpg" width="140">
-**Jaume Avinyó**
+
+**Jaume Avinyó** ([Github](https://github.com/Jaumeavinyo))
 
 
-[Jaume Avinyó:](!https://github.com/Jaumeavinyo) 
+### Jaume Avinyó
 - fbx importer and Game object structure
 - console + its functionalities
 - Engine state info such as fps, modules configuration's variables, hardware detection and software versions for all libraries used
@@ -29,7 +30,7 @@ in the programming and videogame developement Bachalor Degree in UPC-CITM.
 - Basic shapes loading
 - Animations (Mostly done in group)
 
-[Eric Canela:](!https://github.com/knela96)
+### Eric Canela
 - fbx importer and DDS teture format importer
 - Drag and drop files to the engine
 - GameObjects transforms
@@ -83,6 +84,7 @@ The importer fills the animation list and their frames ussing assimp "aiAnimatio
 
 ## Download Engine
 [Github Repository](https://github.com/knela96/Mercury-Engine)
+
 [Release Link](https://github.com/knela96/Mercury-Engine/releases)
 
 ## License
