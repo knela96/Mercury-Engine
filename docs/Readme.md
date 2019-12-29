@@ -11,7 +11,10 @@ This s a group project by [Eric Canela Sol](https://github.com/knela96) and [Jau
 in the programming and videogame developement Bachalor Degree in UPC-CITM.
 
 2. Team photo and quick explanation of the individual work of each member.
+[Eric Canela](Eric.jpg)
 
+
+[Jaume Avinyo](Jaume.jpg)
 
 
 [Jaume Avinyó:](https://github.com/Jaumeavinyo) 
