@@ -1,8 +1,7 @@
 # Mercury Engine
 
-Each engine must have single page website (made inside github.com) that contains:
+<iframe width="640" height="480" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## The Engine
 [Mercury engine](https://github.com/knela96/Mercury-Engine) is a videogames engine university project for UPC-CITM. This project pretends to create an
 engine witch is able to load, import and play animations from fbx models that have been animated in an external animation software such as maya, blender 
 or 3DsMax. 
@@ -78,8 +77,6 @@ transform and a list of its childrens so also the root joint has this list. This
 have a index wich is very usefull because as I said before, vertexes need to know wich bone is afecting them.
 
 The importer fills the animation list and their frames ussing assimp "aiAnimation", bones are loaded with aiBone and the last thing you need to load is every vertex influences.
-
-<iframe width="640" height="480" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Download Engine
