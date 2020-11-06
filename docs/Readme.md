@@ -2,8 +2,7 @@
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/qAw3V35vyvA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[Mercury engine](https://github.com/knela96/Mercury-Engine) is a videogames engine university project for UPC-CITM. This project pretends to create an
-engine witch is able to load, import and play animations from fbx models that have been animated in an external animation software such as maya, blender 
+[Mercury engine](https://github.com/knela96/Mercury-Engine) is an OpenGL 3D game engine developed in 4 months from scratch programmed in C++ and other libraries such as SDL, DeviL, Assimp, and ImGui . This project pretends to create a game engine which is able to load, import and play animations from fbx models that have been animated in an external animation software such as maya, blender 
 or 3DsMax. 
 This s a group project by [Eric Canela Sol](https://github.com/knela96) and [Jaume Avinyó Sedano](https://github.com/Jaumeavinyo). We are third year students
 in the programming and videogame developement Bachalor Degree in UPC-CITM.
